@@ -1,14 +1,26 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import Header from "../../components/shared/Header";
+import styled from "styled-components";
 
-const SettingsScreen = () => {
+export default SettingsScreen = ({ navigation }) => {
   return (
-    <View>
-      <Text>SettingsScreen</Text>
-    </View>
+    <>
+      <Header title="Settings" navigation={navigation} />
+      <Container>
+        <Text>SettingsScreen</Text>
+      </Container>
+    </>
   )
-};
+};  
 
-const styles = StyleSheet.create({});
+const Container = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
-export default SettingsScreen; 
+const Text = styled.Text`
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
+`;
