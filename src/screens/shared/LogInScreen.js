@@ -1,14 +1,26 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import DrawerButton from "../../components/shared/DrawerButton";
+import styled from "styled-components";
 
-const LogInScreen = () => {
+export default LogInScreen = ({ navigation }) => {
   return (
-    <View>
-      <Text>LogInScreen</Text>
-    </View>
+    <>
+      <DrawerButton navigation={navigation} />
+      <Container>
+        <Text>LogInScreen</Text>
+      </Container>
+    </>
   )
-};
+};  
 
-const styles = StyleSheet.create({});
+const Container = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
-export default LogInScreen; 
+const Text = styled.Text`
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
+`;

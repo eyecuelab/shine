@@ -1,14 +1,26 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import DrawerButton from "../../components/shared/DrawerButton";
+import styled from "styled-components";
 
-const NewOrderScreen = () => {
+export default NewOrderScreen = ({ navigation }) => {
   return (
-    <View>
-      <Text>NewOrderScreen</Text>
-    </View>
+    <>
+      <DrawerButton navigation={navigation} />
+      <Container>
+        <Text>NewOrderScreen</Text>
+      </Container>
+    </>
   )
-};
+};  
 
-const styles = StyleSheet.create({});
+const Container = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
-export default NewOrderScreen; 
+const Text = styled.Text`
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
+`;

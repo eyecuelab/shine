@@ -1,14 +1,28 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import DrawerButton from "../../components/shared/DrawerButton";
+import Header from "../../components/shared/Header";
+import styled from "styled-components";
 
-const HomeScreen = () => {
+export default HomeScreen = ({ navigation }) => {
   return (
-    <View>
-      <Text>HomeScreen</Text>
-    </View>
+    <>
+      {/* <DrawerButton navigation={navigation} /> */}
+      <Header title="Home" navigation={navigation} />
+      <Container>
+        <Text>HomeScreen</Text>
+      </Container>
+    </>
   )
-};
+};  
 
-const styles = StyleSheet.create({});
+const Container = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
-export default HomeScreen; 
+const Text = styled.Text`
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
+`;
