@@ -7,9 +7,9 @@ import { DrawerNavigatorItems } from "react-navigation-drawer";
 export default SideBar = props => (
   <ScrollView>
     <ImageBackground
-      source={require("../../../assets/background.png")}
+      source={require("../../../assets/images/profile-bg.png")}
     >
-      <Profile source={require("../../../assets/profile-pic.png")} />
+      <Profile source={require("../../../assets/images/profile-pic.png")} />
       <Name>Shoe Shiner</Name>
     </ImageBackground>
 

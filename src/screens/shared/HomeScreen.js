@@ -21,6 +21,7 @@ const Container = styled.View`
 
 const Text = styled.Text`
   color: black;
-  font-size: 20px;
+  font-size: 50px;
   font-weight: 500;
+  font-family: Ladytron; 
 `;
