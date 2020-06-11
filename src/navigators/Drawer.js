@@ -3,6 +3,7 @@ import { createAppContainer } from "react-navigation";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import { Dimensions } from "react-native";
 import SideBar from "../components/shared/SideBar";
+import { Feather } from "@expo/vector-icons";
 
 // screens
 import HomeScreen from "../screens/shared/HomeScreen";
@@ -22,61 +23,71 @@ const DrawerNavigator = createDrawerNavigator(
     Home: {
       screen: HomeScreen,
       navigationOptions: {
-        title: "Home"
+        title: "Home",
+        drawerIcon: ({ tintColor }) => <Feather name="home" size={16} color={tintColor} />
       }  
     },
     LogIn: {
       screen: LogInScreen,
       navigationOptions: {
-        title: "Log in"
+        title: "Log in",
+        drawerIcon: ({ tintColor }) => <Feather name="log-in" size={16} color={tintColor} />
       }  
     },
     Settings: {
       screen: SettingsScreen,
       navigationOptions: {
-        title: "Settings"
+        title: "Settings",
+        drawerIcon: ({ tintColor }) => <Feather name="settings" size={16} color={tintColor} />
       }  
     },
     Welcome: {
       screen: WelcomeScreen,
       navigationOptions: {
-        title: "Welcome"
+        title: "Welcome",
+        drawerIcon: ({ tintColor }) => <Feather name="smile" size={16} color={tintColor} />
       }  
     },
     CleanerApplication: {
       screen: CleanerApplicationScreen,
       navigationOptions: {
-        title: "Cleaner Application"
+        title: "Cleaner Application",
+        drawerIcon: ({ tintColor }) => <Feather name="file-text" size={16} color={tintColor} />
       }  
     },
     NewOrder: {
       screen: NewOrderScreen, 
       navigationOptions: {
-        title: "New Order"
+        title: "New Order",
+        drawerIcon: ({ tintColor }) => <Feather name="clipboard" size={16} color={tintColor} />
       }  
     },
     CleanerProfile: {
       screen: CleanerProfileScreen,
       navigationOptions: {
-        title: "Cleaner Profile"
+        title: "Cleaner Profile",
+        drawerIcon: ({ tintColor }) => <Feather name="user" size={16} color={tintColor} />
       }  
     },
     CompletedOrders: {
       screen: CompletedOrdersScreen,
       navigationOptions: {
-        title: "Completed Orders"
+        title: "Completed Orders",
+        drawerIcon: ({ tintColor }) => <Feather name="check-square" size={16} color={tintColor} />
       }  
     },
     LiveOrders: {
       screen: LiveOrdersScreen,
       navigationOptions: {
-        title: "Live Orders"
+        title: "Live Orders",
+        drawerIcon: ({ tintColor }) => <Feather name="check-circle" size={16} color={tintColor} />
       }  
     },
     OrdersInArea: {
       screen: OrdersInAreaScreen,
       navigationOptions: {
-        title: "Orders In Area"
+        title: "Orders In Area",
+        drawerIcon: ({ tintColor }) => <Feather name="map-pin" size={16} color={tintColor} />
       }  
     }
   },
