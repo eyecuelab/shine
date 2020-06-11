@@ -32,10 +32,7 @@ const CameraView = styled.View`
   justify-content: center;
   border: black;
   border-width: 1px;
-
 `
-
-
 const Container = styled.View`
 
   background: white;
