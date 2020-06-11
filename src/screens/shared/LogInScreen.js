@@ -1,11 +1,11 @@
 import React from 'react';
-import DrawerButton from "../../components/shared/DrawerButton";
+import Header from "../../components/shared/Header";
 import styled from "styled-components";
 
 export default LogInScreen = ({ navigation }) => {
   return (
     <>
-      <DrawerButton navigation={navigation} />
+      <Header title="Log in" navigation={navigation} />
       <Container>
         <Text>LogInScreen</Text>
       </Container>

@@ -10,12 +10,12 @@ export default function Header({ title, navigation }) {
 
   return (
     <SafeAreaView>
-    <Container>
-      <Icon>
-        <MaterialIcons name='menu' size={28} onPress={openMenu} />
-      </Icon>
-      <Text>{title}</Text>
-    </Container>
+      <Container>
+        <Icon>
+          <MaterialIcons name='menu' size={28} onPress={openMenu} />
+        </Icon>
+        <Text>{title}</Text>
+      </Container>
     </SafeAreaView>
   );
 }

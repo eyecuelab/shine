@@ -1,11 +1,11 @@
 import React from 'react';
-import DrawerButton from "../../components/shared/DrawerButton";
+import Header from "../../components/shared/Header";
 import styled from "styled-components";
 
 export default CompletedOrdersScreen = ({ navigation }) => {
   return (
     <>
-      <DrawerButton navigation={navigation} />
+      <Header title="Completed Orders" navigation={navigation} />
       <Container>
         <Text>CompletedOrdersScreen</Text>
       </Container>
