@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from "../../components/shared/Header";
 import styled from "styled-components";
+import { Button } from 'react-native-elements';
 
 export default WelcomeScreen = ({ navigation }) => {
   return (
@@ -12,15 +13,19 @@ export default WelcomeScreen = ({ navigation }) => {
         </CameraView>
         <Container style={{padding: 18}}>
           <Text>Add a pair of shoes from your closet. Please follow the outlines as close as possible.</Text>
+          <Button
+            title="CONTINUE"
+            containerStyle={{paddingTop: 20, width: 350 }}
+            buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+          />
         </Container>
-        
       </Container>
     </>
   )
 };  
 
 const CameraView = styled.View`
-  flex: 1.5;
+  flex: 2;
   background: #c6b18d;
   align-self: stretch;
   align-items: center;
