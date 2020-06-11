@@ -1,15 +1,26 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import DrawerButton from "../../screens/shared/HomeScreen";
+import DrawerButton from "../../components/shared/DrawerButton";
+import styled from "styled-components";
 
-const CleanerApplicationScreen = () => {
+export default CleanerApplicationScreen = ({ navigation }) => {
   return (
-    <View>
-      <Text>CleanerApplicationScreen</Text>
-    </View>
+    <>
+      <DrawerButton navigation={navigation} />
+      <Container>
+        <Text>CleanerApplicationScreen</Text>
+      </Container>
+    </>
   )
-};
+};  
 
-const styles = StyleSheet.create({});
+const Container = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
-export default CleanerApplicationScreen; 
+const Text = styled.Text`
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
+`;
