@@ -1,11 +1,11 @@
 import React from 'react';
-import DrawerButton from "../../components/shared/DrawerButton";
+import Header from "../../components/shared/Header";
 import styled from "styled-components";
 
 export default NewOrderScreen = ({ navigation }) => {
   return (
     <>
-      <DrawerButton navigation={navigation} />
+      <Header title="New Order" navigation={navigation} />
       <Container>
         <Text>NewOrderScreen</Text>
       </Container>

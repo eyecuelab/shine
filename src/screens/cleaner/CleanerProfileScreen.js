@@ -1,11 +1,11 @@
 import React from 'react';
-import DrawerButton from "../../components/shared/DrawerButton";
+import Header from "../../components/shared/Header";
 import styled from "styled-components";
 
 export default CleanerProfileScreen = ({ navigation }) => {
   return (
     <>
-      <DrawerButton navigation={navigation} />
+      <Header title="Profile" navigation={navigation} />
       <Container>
         <Text>CleanerProfileScreen</Text>
       </Container>

@@ -1,11 +1,11 @@
 import React from 'react';
-import DrawerButton from "../../components/shared/DrawerButton";
+import Header from "../../components/shared/Header";
 import styled from "styled-components";
 
 export default CleanerApplicationScreen = ({ navigation }) => {
   return (
     <>
-      <DrawerButton navigation={navigation} />
+      <Header title="Cleaner Application" navigation={navigation} />
       <Container>
         <Text>CleanerApplicationScreen</Text>
       </Container>
