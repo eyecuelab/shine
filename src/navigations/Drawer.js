@@ -4,10 +4,14 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 import { Dimensions } from "react-native";
 import SideBar from "../components/SideBar";
 import {
+  HomeScreen,
+  LogInScreen,
+  SettingsScreen,
+  WelcomeScreen,
   CleanerApplicationScreen,
   NewOrderScreen,
   CleanerProfileScreen,
-  CompletedOrderScreen,
+  CompletedOrdersScreen,
   LiveOrdersScreen,
   OrdersInAreaScreen
 } from "../screens";
@@ -19,23 +23,65 @@ import {
 // drawer navigation options
 const DrawerNavigator = createDrawerNavigator(
   {
-    CleanerApplicationScreen: {
-      screen: CleanerApplicationScreen
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: {
+        title: "Home"
+      }  
     },
-    NewOrderScreen: {
-      screen: NewOrderScreen
+    LogIn: {
+      screen: LogInScreen,
+      navigationOptions: {
+        title: "Log in"
+      }  
     },
-    CleanerProfileScreen: {
-      screen: CleanerProfileScreen
+    Settings: {
+      screen: SettingsScreen,
+      navigationOptions: {
+        title: "Settings"
+      }  
     },
-    CompletedOrderScreen: {
-      screen: CompletedOrderScreen
+    Welcome: {
+      screen: WelcomeScreen,
+      navigationOptions: {
+        title: "Welcome"
+      }  
     },
-    LiveOrdersScreen: {
-      screen: LiveOrdersScreen
+    CleanerApplication: {
+      screen: CleanerApplicationScreen,
+      navigationOptions: {
+        title: "Client Application"
+      }  
     },
-    OrdersInAreaScreen: {
-      screen: OrdersInAreaScreen
+    NewOrder: {
+      screen: NewOrderScreen, 
+      navigationOptions: {
+        title: "New Order"
+      }  
+    },
+    CleanerProfile: {
+      screen: CleanerProfileScreen,
+      navigationOptions: {
+        title: "Cleaner Profile"
+      }  
+    },
+    CompletedOrders: {
+      screen: CompletedOrdersScreen,
+      navigationOptions: {
+        title: "Completed Orders"
+      }  
+    },
+    LiveOrders: {
+      screen: LiveOrdersScreen,
+      navigationOptions: {
+        title: "Live Orders"
+      }  
+    },
+    OrdersInArea: {
+      screen: OrdersInAreaScreen,
+      navigationOptions: {
+        title: "Orders In Area"
+      }  
     }
   },
   {
