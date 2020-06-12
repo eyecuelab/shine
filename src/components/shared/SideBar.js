@@ -3,7 +3,6 @@ import { ScrollView } from "react-native";
 import styled from "styled-components/native";
 import { DrawerNavigatorItems } from "react-navigation-drawer";
 
-
 const SideBar = props => (
   <ScrollView>
     <ImageBackground
@@ -44,4 +43,4 @@ const Name = styled.Text`
   margin-vertical: 8px
 `;
 
-export default SideBar
+export default SideBar;

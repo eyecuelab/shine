@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components/native";
 import { MaterialIcons } from '@expo/vector-icons';
 
-export default function Header({ title, navigation }) {
+const Header = ({ title, navigation }) => {
 
   const openMenu = () => {
     navigation.openDrawer();
@@ -43,3 +43,5 @@ const Text = styled.Text`
   color: #333;
   letter-spacing: 1;
 `;
+
+export default Header;

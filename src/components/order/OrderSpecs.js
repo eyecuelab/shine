@@ -3,10 +3,12 @@ import { Image, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeType';
 import { Button, Slider } from 'react-native-elements';
+import Header from '../shared/Header';
 
-const OrderSpecs = () => {
+const OrderSpecs = ({navigation}) => {
   return (
     <>
+      <Header title="" navigation={navigation} />
       <Container>
         <ImageArea />
         <Container>

@@ -126,7 +126,7 @@ const DrawerNavigator = createDrawerNavigator(
     TakePhoto: {
       screen: TakePhoto,
       navigationOptions: {
-        title: "Camera",
+        title: "Take Photo",
         drawerIcon: ({ tintColor }) => <Feather name="" size={16} color={tintColor} />
       }  
     }
