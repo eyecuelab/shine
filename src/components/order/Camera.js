@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { View, Dimensions, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
+import styled from "styled-components/native";
+import { MaterialIcons } from '@expo/vector-icons'; 
 
-export default function CameraScreen() {
+const { width, height } = Dimensions.get("window");
+
+const CameraScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
 
@@ -19,21 +23,19 @@ export default function CameraScreen() {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
+  
   return (
-    <View style={{ flex: 1 }}>
-      <Camera style={{ flex: 1 }} type={type}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'transparent',
-            flexDirection: 'row',
-          }}>
+    <CenterView>
+      <Camera 
+        style={{ 
+          flex: 1,
+          width: width,
+          height: height / 2
+        }} 
+        type={type}
+      >
+        <IconBar>
           <TouchableOpacity
-            style={{
-              flex: 0.1,
-              alignSelf: 'flex-end',
-              alignItems: 'center',
-            }}
             onPress={() => {
               setType(
                 type === Camera.Constants.Type.back
@@ -41,10 +43,26 @@ export default function CameraScreen() {
                   : Camera.Constants.Type.back
               );
             }}>
-            <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
+            <MaterialIcons name="switch-camera" size={36} color="white" />  
           </TouchableOpacity>
-        </View>
-      </Camera>
-    </View>
+        </IconBar>
+      </Camera>  
+    </CenterView>
   );
 }
+
+const CenterView = styled.View`
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  background-color: transparent;
+`;
+
+const IconBar = styled.View`
+  flex: 0.1;
+  margin: 20px 20px 0px 0px;
+  align-self: flex-end;
+  align-items: center;
+`;
+
+export default CameraScreen;
