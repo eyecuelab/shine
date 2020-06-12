@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from "../../components/shared/Header";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
-export default LogInScreen = ({ navigation }) => {
+const LogInScreen = ({ navigation }) => {
   return (
     <>
       <Header title="Log in" navigation={navigation} />
@@ -25,3 +25,5 @@ const Text = styled.Text`
   font-weight: 500;
   font-family: Beri-Sintta;
 `;
+
+export default LogInScreen;

@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from "../../components/shared/Header";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
-export default HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation }) => {
   return (
     <>
       <Header title="Home" navigation={navigation} />
@@ -25,3 +25,5 @@ const Text = styled.Text`
   font-weight: 500;
   font-family: Ladytron; 
 `;
+
+export default HomeScreen
