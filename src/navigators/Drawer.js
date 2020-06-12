@@ -17,6 +17,10 @@ import CompletedOrdersScreen from "../screens/cleaner/CompletedOrdersScreen";
 import LiveOrdersScreen from "../screens/cleaner/LiveOrdersScreen";
 import OrdersInAreaScreen from "../screens/cleaner/OrdersInAreaScreen";
 import Camera from "../components/order/Camera";
+import OrderNotes from "../components/order/OrderNotes";
+import OrderSpecs from "../components/order/OrderSpecs";
+import SetupOrAdd from "../components/order/SetupOrAdd";
+import TakePhoto from "../components/order/TakePhoto";
 
 // drawer navigation options
 const DrawerNavigator = createDrawerNavigator(
@@ -96,6 +100,34 @@ const DrawerNavigator = createDrawerNavigator(
       navigationOptions: {
         title: "Camera",
         drawerIcon: ({ tintColor }) => <Feather name="camera" size={16} color={tintColor} />
+      }  
+    },
+    OrderNotes: {
+      screen: OrderNotes,
+      navigationOptions: {
+        title: "Order Notes",
+        drawerIcon: ({ tintColor }) => <Feather name="" size={16} color={tintColor} />
+      }  
+    },
+    OrderSpecs: {
+      screen: OrderSpecs,
+      navigationOptions: {
+        title: "Order Specs",
+        drawerIcon: ({ tintColor }) => <Feather name="" size={16} color={tintColor} />
+      }  
+    },
+    SetupOrAdd: {
+      screen: SetupOrAdd,
+      navigationOptions: {
+        title: "Setup or Add",
+        drawerIcon: ({ tintColor }) => <Feather name="" size={16} color={tintColor} />
+      }  
+    },
+    TakePhoto: {
+      screen: TakePhoto,
+      navigationOptions: {
+        title: "Camera",
+        drawerIcon: ({ tintColor }) => <Feather name="" size={16} color={tintColor} />
       }  
     }
   },
