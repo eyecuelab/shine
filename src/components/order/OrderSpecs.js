@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from 'react-native';
 import styled from 'styled-components/native';
-import { View } from 'react-native';
+import ShoeTypeButton from './ShoeType';
 
 const OrderSpecs = () => {
   return (
@@ -13,26 +13,14 @@ const OrderSpecs = () => {
           What is the typical use? 
         </BodyText>
         <Row>
-          <ShoeType>
-            <TypeText>INDOOR</TypeText>
-          </ShoeType>
-          <ShoeType>
-            <TypeText>OUTDOOR</TypeText>
-          </ShoeType>
-          <ShoeType>
-            <TypeText>EXERCISE</TypeText>
-          </ShoeType>
+          <ShoeTypeButton type="INDOOR"/>
+          <ShoeTypeButton type="OUTDOOR"/>
+          <ShoeTypeButton type="EXERCISE"/>
         </Row>
         <Row>
-          <ShoeType>
-            <TypeText>LEISURE</TypeText>
-          </ShoeType>
-          <ShoeType>
-            <TypeText>FORMAL</TypeText>
-          </ShoeType>
-          <ShoeType>
-            <TypeText>SOCIAL</TypeText>
-          </ShoeType>
+          <ShoeTypeButton type="LEISURE"/>
+          <ShoeTypeButton type="FORMAL"/>
+          <ShoeTypeButton type="SOCIAL"/>
         </Row>
       </Container>
     </Container>
@@ -44,22 +32,7 @@ const Row = styled.View`
   margin-top: 10px;
   flex-direction: row;
   justify-content: center;
-  
 `
-const TypeText = styled.Text`
-  text-align: center;
-  color: #a8a8a8;
-`
-
-const ShoeType = styled.View`
-  border-radius: 20px;
-  background: #e6e6e6;
-  color: grey;
-  padding: 15px;
-  width: 120px;
-  margin: 5px;
-`
-
 const ImageArea = styled.View`
   flex: .5;
   background: #c6b18d;
@@ -72,8 +45,6 @@ const ImageArea = styled.View`
 const Container = styled.View`
   background: white;
   flex: 1;
-  
-
 `;
 const BodyText = styled.Text`
   text-align: center;
