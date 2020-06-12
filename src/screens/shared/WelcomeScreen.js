@@ -1,14 +1,22 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import Header from "../../components/shared/Header";
+import TakePhoto from '../../components/order/TakePhoto';
+// import OrderSpecs from '../../components/order/OrderSpecs';
+// import SetupOrAdd from '../../components/order/SetupOrAdd';
 
-const WelcomeScreen = () => {
+const WelcomeScreen = ({ navigation }) => {
+  const [screenView, setScreenView ] = useState('TakePhoto');
+
   return (
-    <View>
-      <Text>WelcomeScreen</Text>
-    </View>
+    <>
+      <Header title="Welcome" navigation={navigation} />
+      {/* <TakePhoto onContinue={screenView}/> */}
+      {/* <OrderSpecs /> */}
+      {/* <SetupOrAdd /> */}
+      <TakePhoto />
+    </>
   )
-};
+};  
 
-const styles = StyleSheet.create({});
+export default WelcomeScreen;
 
-export default WelcomeScreen; 

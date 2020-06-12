@@ -1,14 +1,28 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import Header from "../../components/shared/Header";
+import styled from "styled-components/native";
 
-const NewOrderScreen = () => {
+const NewOrderScreen = ({ navigation }) => {
   return (
-    <View>
-      <Text>NewOrderScreen</Text>
-    </View>
+    <>
+      <Header title="New Order" navigation={navigation} />
+      <Container>
+        <Text>NewOrderScreen</Text>
+      </Container>
+    </>
   )
-};
+};  
 
-const styles = StyleSheet.create({});
+const Container = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
-export default NewOrderScreen; 
+const Text = styled.Text`
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
+`;
+
+export default NewOrderScreen;

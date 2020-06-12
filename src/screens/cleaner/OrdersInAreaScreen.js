@@ -1,14 +1,28 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import Header from "../../components/shared/Header";
+import styled from "styled-components/native";
 
-const OrdersInAreaScreen = () => {
+const OrdersInAreaScreen = ({ navigation }) => {
   return (
-    <View>
-      <Text>OrdersInAreaScreen</Text>
-    </View>
+    <>
+      <Header title="Orders In Area" navigation={navigation} />
+      <Container>
+        <Text>OrdersInAreaScreen</Text>
+      </Container>
+    </>
   )
-};
+};  
 
-const styles = StyleSheet.create({});
+const Container = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
-export default OrdersInAreaScreen; 
+const Text = styled.Text`
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
+`;
+
+export default OrdersInAreaScreen;

@@ -1,53 +1,19 @@
-import React from "react";
-import styled from "styled-components";
-import { FontAwesome5 } from "@expo/vector-icons";
+import React from 'react';
+import Header from "../../components/shared/Header";
+import styled from "styled-components/native";
 
-export default class HomeScreen extends React.Component {
-  render() {
-    return (
+const HomeScreen = ({ navigation }) => {
+  return (
+    <>
+      <Header title="Home" navigation={navigation} />
       <Container>
-        <SafeAreaView>
-          <Button 
-            onPress={this.props.navigation.openDrawer}
-          >
-            <FontAwesome5 name="bars" size={24} color="#161924" />
-          </Button>  
-          <ScreenContainer>
-            <Text>{this.props.name}</Text>
-            {/* {this.props.navigation.navigate(`{this.props.navigation.route}`)}  */}
-          </ScreenContainer>
-        </SafeAreaView>
+        <Text>HomeScreen</Text>
       </Container>
-    );
-  }  
-}
-
-// export default function HomeScreen({ navigation }) {
-//   return (
-//     <ScreenContainer>
-//       <Button
-//         onPress={() => navigation.navigate('CleanerProfile')}
-//         title="Go to cleaner profile"
-//       />
-//     </ScreenContainer>
-//   );
-// }    
+    </>
+  )
+};  
 
 const Container = styled.View`
-  flex: 1;
-  background-color: #fff;
-`;  
-
-const SafeAreaView = styled.SafeAreaView`
-  flex: 1;
-`;
-
-const Button = styled.TouchableOpacity`
-  align-items: flex-end;
-  margin: 16px;
-`;
-
-const ScreenContainer = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
@@ -55,6 +21,9 @@ const ScreenContainer = styled.View`
 
 const Text = styled.Text`
   color: black;
-  font-size: 20px;
+  font-size: 50px;
   font-weight: 500;
+  font-family: Ladytron; 
 `;
+
+export default HomeScreen

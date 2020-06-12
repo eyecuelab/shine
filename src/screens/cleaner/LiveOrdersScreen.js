@@ -1,14 +1,28 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import Header from "../../components/shared/Header";
+import styled from "styled-components/native";
 
-const LiveOrdersScreen = () => {
+const LiveOrdersScreen = ({ navigation }) => {
   return (
-    <View>
-      <Text>LiveOrdersScreen</Text>
-    </View>
+    <>
+      <Header title="Live Orders" navigation={navigation} />
+      <Container>
+        <Text>LiveOrdersScreen</Text>
+      </Container>
+    </>
   )
-};
+};  
 
-const styles = StyleSheet.create({});
+const Container = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
-export default LiveOrdersScreen; 
+const Text = styled.Text`
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
+`;
+
+export default LiveOrdersScreen;

@@ -1,15 +1,15 @@
 import React from "react";
 import { ScrollView } from "react-native";
-import styled from "styled-components";
+import styled from "styled-components/native";
 import { DrawerNavigatorItems } from "react-navigation-drawer";
 
 
-export default SideBar = props => (
+const SideBar = props => (
   <ScrollView>
     <ImageBackground
-      source={require("../../assets/background.png")}
+      source={require("../../../assets/images/profile-bg.png")}
     >
-      <Profile source={require("../../assets/profile-pic.png")} />
+      <Profile source={require("../../../assets/images/profile-pic.png")} />
       <Name>Shoe Shiner</Name>
     </ImageBackground>
 
@@ -43,3 +43,5 @@ const Name = styled.Text`
   fontWeight: 800;
   margin-vertical: 8px
 `;
+
+export default SideBar
