@@ -2,6 +2,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeType';
+import { Button } from 'react-native-elements'
 
 const OrderSpecs = () => {
   return (
@@ -22,6 +23,11 @@ const OrderSpecs = () => {
           <ShoeTypeButton type="FORMAL"/>
           <ShoeTypeButton type="SOCIAL"/>
         </Row>
+        <Button
+          title="CONTINUE"
+          containerStyle={{paddingTop: 20, width: 350 }}
+          buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+        />
       </Container>
     </Container>
     </>
@@ -45,6 +51,7 @@ const ImageArea = styled.View`
 const Container = styled.View`
   background: white;
   flex: 1;
+  align-items: center;
 `;
 const BodyText = styled.Text`
   text-align: center;
