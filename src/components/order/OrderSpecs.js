@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeType';
 import { Button, Slider } from 'react-native-elements';
@@ -30,7 +30,7 @@ const OrderSpecs = () => {
               minimumValue={1}
               maximumValue={10}
               thumbTintColor='#ffffff'
-              thumbStyle={{border: 'black', borderWidth: 2,}}
+              thumbStyle={customStyles.thumb}
             />
           </SliderContainer>
           <Button
@@ -44,19 +44,28 @@ const OrderSpecs = () => {
   );
 };
 
+const customStyles = StyleSheet.create({
+  thumb: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    shadowColor: 'black',
+    shadowOffset: {width: 0, height: 2},
+    shadowRadius: 2,
+    shadowOpacity: 0.75
+  }
+});
+
 const SliderContainer = styled.View`
- 
   align-self: stretch;
   align-items: stretch;
   justify-content: center;
- 
-`
-
+`;
 const Row = styled.View`
   margin-top: 10px;
   flex-direction: row;
   justify-content: center;
-`
+`;
 const ImageArea = styled.View`
   flex: .5;
   background: #c6b18d;
@@ -77,6 +86,6 @@ const BodyText = styled.Text`
   margin-top: 50px;
   color: black;
   font-size: 18px;
-  
 `;
+
 export default OrderSpecs;
