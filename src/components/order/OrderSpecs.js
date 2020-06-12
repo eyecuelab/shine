@@ -2,7 +2,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeType';
-import { Button } from 'react-native-elements'
+import { Button, Slider } from 'react-native-elements';
 
 const OrderSpecs = () => {
   return (
@@ -23,6 +23,16 @@ const OrderSpecs = () => {
           <ShoeTypeButton type="FORMAL"/>
           <ShoeTypeButton type="SOCIAL"/>
         </Row>
+        <SliderContainer>
+          <BodyText>How soon do you need them cleaned?</BodyText>
+          <Slider
+            animateTransitions={true}
+            minimumValue={1}
+            maximumValue={10}
+            thumbTintColor='#ffffff'
+            thumbStyle={{border: 'black', borderWidth: 2,}}
+          />
+        </SliderContainer>
         <Button
           title="CONTINUE"
           containerStyle={{paddingTop: 20, width: 350 }}
@@ -33,6 +43,13 @@ const OrderSpecs = () => {
     </>
   );
 };
+
+const SliderContainer = styled.View`
+ 
+  align-self: stretch;
+  align-items: stretch;
+  justify-content: center;
+`
 
 const Row = styled.View`
   margin-top: 10px;
