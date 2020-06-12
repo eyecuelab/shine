@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from "../../components/shared/Header";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
-export default CompletedOrdersScreen = ({ navigation }) => {
+const CompletedOrdersScreen = ({ navigation }) => {
   return (
     <>
       <Header title="Completed Orders" navigation={navigation} />
@@ -24,3 +24,5 @@ const Text = styled.Text`
   font-size: 20px;
   font-weight: 500;
 `;
+
+export default CompletedOrdersScreen;

@@ -5,7 +5,7 @@ import { Dimensions } from "react-native";
 import SideBar from "../components/shared/SideBar";
 import { Feather } from "@expo/vector-icons";
 
-// screens
+// routes
 import HomeScreen from "../screens/shared/HomeScreen";
 import LogInScreen from "../screens/shared/LogInScreen";
 import SettingsScreen from "../screens/shared/SettingsScreen";
@@ -16,6 +16,7 @@ import CleanerProfileScreen from "../screens/cleaner/CleanerProfileScreen";
 import CompletedOrdersScreen from "../screens/cleaner/CompletedOrdersScreen";
 import LiveOrdersScreen from "../screens/cleaner/LiveOrdersScreen";
 import OrdersInAreaScreen from "../screens/cleaner/OrdersInAreaScreen";
+import Camera from "../components/order/Camera";
 
 // drawer navigation options
 const DrawerNavigator = createDrawerNavigator(
@@ -88,6 +89,13 @@ const DrawerNavigator = createDrawerNavigator(
       navigationOptions: {
         title: "Orders In Area",
         drawerIcon: ({ tintColor }) => <Feather name="map-pin" size={16} color={tintColor} />
+      }  
+    },
+    Camera: {
+      screen: Camera,
+      navigationOptions: {
+        title: "Camera",
+        drawerIcon: ({ tintColor }) => <Feather name="camera" size={16} color={tintColor} />
       }  
     }
   },
