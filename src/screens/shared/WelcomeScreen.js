@@ -6,7 +6,6 @@ import OrderSpecs from '../../components/order/OrderSpecs';
 export default WelcomeScreen = ({ navigation }) => {
   const [screenView, setScreenView ] = useState('TakePhoto');
 
-
   return (
     <>
      <Header title="Welcome" navigation={navigation} />
