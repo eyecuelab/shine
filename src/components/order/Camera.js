@@ -44,44 +44,64 @@ const CameraScreen = ({ navigation }) => {
       // console.log(data.uri);
       let { uri } = await cameraRef.current.takePictureAsync(options);
       console.log(uri);
-     
+      if (uri) {
+        savePicture(uri);
+      }
     }
   };
 
+  const savePicture = async uri => {
+    try {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status === "granted") {
+        const asset = await MediaLibrary.createAssetAsync(uri);
+        let album = await MediaLibrary.getAlbumAsync(ALBUM_NAME);
+        if (album === null) {
+          album = await MediaLibrary.createAlbumAsync(ALBUM_NAME, asset);
+        } else {
+          await MediaLibrary.addAssetsToAlbumAsync([asset], album.id);
+        }
+      } else {
+        setHasPermission(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
-    <Header title="" navigation={navigation} />
-    <CenterView>
-      <Camera 
-        style={{ 
-          flex: 1,
-          width: width,
-          height: height / 2
-        }} 
-        type={type}
-        ref={cameraRef}
-      >
-        <SwitchCemeraIcon>
-          <TouchableOpacity
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
-            }}>
-            <MaterialIcons name="switch-camera" size={36} color="white" />  
-          </TouchableOpacity>
-        </SwitchCemeraIcon>
-        <CameraIcon>
-          <TouchableOpacity 
-            onPress={takePicture}>
-            <MaterialIcons name="camera-alt" size={38} color="white" />
-          </TouchableOpacity>
-        </CameraIcon>    
-      </Camera>  
-    </CenterView>
+      <Header title="" navigation={navigation} />
+      <CenterView>
+        <Camera 
+          style={{ 
+            flex: 1,
+            width: width,
+            height: height / 2
+          }} 
+          type={type}
+          ref={cameraRef}
+        >
+          <SwitchCemeraIcon>
+            <TouchableOpacity
+              onPress={() => {
+                setType(
+                  type === Camera.Constants.Type.back
+                    ? Camera.Constants.Type.front
+                    : Camera.Constants.Type.back
+                );
+              }}>
+              <MaterialIcons name="switch-camera" size={36} color="white" />  
+            </TouchableOpacity>
+          </SwitchCemeraIcon>
+          <CameraIcon>
+            <TouchableOpacity 
+              onPress={takePicture}>
+              <MaterialIcons name="camera-alt" size={38} color="white" />
+            </TouchableOpacity>
+          </CameraIcon>    
+        </Camera>  
+      </CenterView>
     </>
   );
 }
