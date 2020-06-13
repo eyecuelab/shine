@@ -21,6 +21,7 @@ const Header = ({ title, navigation }) => {
 }
 
 const SafeAreaView = styled.SafeAreaView`
+  background: #ebd5b0;
   flex: 0.1;
 `;
 
@@ -45,3 +46,5 @@ const Text = styled.Text`
 `;
 
 export default Header;
+
+

@@ -10,7 +10,7 @@ const ShoeTypeButton = ({ type }) => {
   );
 };
 
-const ShoeType = styled.View`
+const ShoeType = styled.TouchableOpacity`
   border-radius: 20px;
   background: #e6e6e6;
   color: grey;

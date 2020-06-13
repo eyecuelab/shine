@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, ActivityIndicator, Dimensions, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
+import * as Permissions from 'expo-permissions';
 import styled from "styled-components/native";
 import { MaterialIcons } from '@expo/vector-icons'; 
 import Header from '../shared/Header';
@@ -39,7 +40,7 @@ const CameraScreen = ({ navigation }) => {
   
   const takePicture = async () => {
     if (cameraRef.current) {
-      const options = { quality: 0.5, base64: true };
+      const options = { quality: 1, base64: true };
       // const data = await cameraRef.current.takePictureAsync(options);
       // console.log(data.uri);
       let { uri } = await cameraRef.current.takePictureAsync(options);
@@ -53,17 +54,7 @@ const CameraScreen = ({ navigation }) => {
   const savePicture = async uri => {
     try {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      if (status === "granted") {
-        const asset = await MediaLibrary.createAssetAsync(uri);
-        let album = await MediaLibrary.getAlbumAsync(ALBUM_NAME);
-        if (album === null) {
-          album = await MediaLibrary.createAlbumAsync(ALBUM_NAME, asset);
-        } else {
-          await MediaLibrary.addAssetsToAlbumAsync([asset], album.id);
-        }
-      } else {
-        setHasPermission(false);
-      }
+
     } catch (error) {
       console.log(error);
     }
