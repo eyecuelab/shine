@@ -14,15 +14,15 @@ const cacheImages = images =>
 const cacheFonts = fonts => 
   fonts.map(font => Font.loadAsync(font));
 
-export default function App() {
+const App = () => {
   const [dataLoaded, setDataLoaded] = useState(false);
 
   const cacheResourcesAsync = () => {
     const images = cacheImages([require('./assets/images/splash.png')]);
     // ==========add custom fonts later===========
     const fonts = cacheFonts([{
-      ...Ionicons.font, 
-      ...FontAwesome.font, 
+      // ...Ionicons.font, 
+      // ...FontAwesome.font, 
       'Ladytron': require('./assets/fonts/Ladytron.otf'),
       'Beri-Sintta': require('./assets/fonts/Beri-Sintta.otf')
     }]);
@@ -46,3 +46,4 @@ export default function App() {
   );
 }
 
+export default App;

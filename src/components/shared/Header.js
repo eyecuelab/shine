@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from "styled-components/native";
 import { MaterialIcons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 
 const Header = ({ title, navigation }) => {
 
@@ -21,6 +22,7 @@ const Header = ({ title, navigation }) => {
 }
 
 const SafeAreaView = styled.SafeAreaView`
+  background: #ebd5b0;
   flex: 0.1;
 `;
 
@@ -44,4 +46,11 @@ const Text = styled.Text`
   letter-spacing: 1;
 `;
 
+Header.propTypes = {
+  title: PropTypes.string,
+  navigation: PropTypes.object
+}
+
 export default Header;
+
+

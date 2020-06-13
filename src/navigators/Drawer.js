@@ -21,6 +21,7 @@ import OrderNotes from "../components/order/OrderNotes";
 import OrderSpecs from "../components/order/OrderSpecs";
 import SetupOrAdd from "../components/order/SetupOrAdd";
 import TakePhoto from "../components/order/TakePhoto";
+import SelectPhoto from "../components/order/SelectPhoto";
 
 // drawer navigation options
 const DrawerNavigator = createDrawerNavigator(
@@ -127,6 +128,13 @@ const DrawerNavigator = createDrawerNavigator(
       screen: TakePhoto,
       navigationOptions: {
         title: "Take Photo",
+        drawerIcon: ({ tintColor }) => <Feather name="" size={16} color={tintColor} />
+      }  
+    },
+    SelectPhoto: {
+      screen: SelectPhoto,
+      navigationOptions: {
+        title: "Select Photo",
         drawerIcon: ({ tintColor }) => <Feather name="" size={16} color={tintColor} />
       }  
     }
