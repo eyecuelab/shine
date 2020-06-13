@@ -39,22 +39,32 @@ const CameraScreen = ({ navigation }) => {
   }
   
   const takePicture = async () => {
-    if (cameraRef.current) {
-      const options = { quality: 1, base64: true };
-      // const data = await cameraRef.current.takePictureAsync(options);
-      // console.log(data.uri);
-      let { uri } = await cameraRef.current.takePictureAsync(options);
-      console.log(uri);
-      if (uri) {
-        savePicture(uri);
+    try {
+      if (cameraRef.current) {
+        const options = { quality: 1, base64: true };
+        // const data = await cameraRef.current.takePictureAsync(options);
+        // console.log(data.uri);
+        let { uri } = await cameraRef.current.takePictureAsync(options);
+        console.log(uri);
+        if (uri) {
+          savePicture(uri);
+        }
       }
-    }
+    } catch (error) {
+      alert(error)
+    }  
   };
 
   const savePicture = async uri => {
     try {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      const { status } = await MediaLibrary.requestPermissionsAsync();
+      if (status === "granted") {
+        const asset = await MediaLibrary.createAssetAsync(uri);
+        console.log(asset);
 
+      } else {
+        setHasPermission(false);
+      }
     } catch (error) {
       console.log(error);
     }

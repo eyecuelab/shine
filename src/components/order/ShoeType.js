@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 
 const ShoeTypeButton = ({ type }) => {
@@ -18,6 +18,7 @@ const ShoeType = styled.TouchableOpacity`
   width: 120px;
   margin: 5px;
 `;
+
 const TypeText = styled.Text`
   text-align: center;
   color: #a8a8a8;

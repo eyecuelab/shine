@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from "styled-components/native";
 import { MaterialIcons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 
 const Header = ({ title, navigation }) => {
 
@@ -44,6 +45,11 @@ const Text = styled.Text`
   color: #333;
   letter-spacing: 1;
 `;
+
+Header.propTypes = {
+  title: PropTypes.string,
+  navigation: PropTypes.object
+}
 
 export default Header;
 
