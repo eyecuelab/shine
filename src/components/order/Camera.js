@@ -60,7 +60,7 @@ const CameraScreen = ({ navigation }) => {
         const asset = await MediaLibrary.createAssetAsync(uri);
         // console.log(asset);
         let album = await MediaLibrary.getAlbumAsync(ALBUM_NAME);
-        // console.log(album);
+        //console.log(album);
         if (album === null) {
           album = await MediaLibrary.createAlbumAsync(ALBUM_NAME, asset);
         } else {
