@@ -13,7 +13,7 @@ const CameraScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const cameraRef = React.createRef();
-  const ALBUM_NAME = "Order";
+  const ALBUM_NAME = "Shine";
 
   useEffect(() => {
     (async () => {
@@ -42,10 +42,8 @@ const CameraScreen = ({ navigation }) => {
     try {
       if (cameraRef.current) {
         const options = { quality: 1, base64: true };
-        // const data = await cameraRef.current.takePictureAsync(options);
-        // console.log(data.uri);
         let { uri } = await cameraRef.current.takePictureAsync(options);
-        console.log(uri);
+        // console.log(uri);
         if (uri) {
           savePicture(uri);
         }
@@ -60,8 +58,14 @@ const CameraScreen = ({ navigation }) => {
       const { status } = await MediaLibrary.requestPermissionsAsync();
       if (status === "granted") {
         const asset = await MediaLibrary.createAssetAsync(uri);
-        console.log(asset);
-
+        // console.log(asset);
+        let album = await MediaLibrary.getAlbumAsync(ALBUM_NAME);
+        // console.log(album);
+        if (album === null) {
+          album = await MediaLibrary.createAlbumAsync(ALBUM_NAME, asset);
+        } else {
+          await MediaLibrary.addAssetsToAlbumAsync([asset], album.id);
+        }
       } else {
         setHasPermission(false);
       }
