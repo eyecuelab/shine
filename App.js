@@ -3,7 +3,8 @@ import { Asset } from 'expo-asset';
 import * as Font from "expo-font";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { AppLoading } from 'expo';
-import Navigator from "./src/navigators/Drawer";
+import { NavigationContainer } from "@react-navigation/native";
+import Drawer from "./src/navigators/Drawer";
 
 
 const cacheImages = images =>
@@ -14,18 +15,19 @@ const cacheImages = images =>
 const cacheFonts = fonts => 
   fonts.map(font => Font.loadAsync(font));
 
-export default function App() {
+const App = () => {
   const [dataLoaded, setDataLoaded] = useState(false);
 
   const cacheResourcesAsync = () => {
     const images = cacheImages([require('./assets/images/splash.png')]);
     // ==========add custom fonts later===========
-    const fonts = cacheFonts([{
-      ...Ionicons.font, 
-      ...FontAwesome.font, 
-      'Ladytron': require('./assets/fonts/Ladytron.otf'),
-      'Beri-Sintta': require('./assets/fonts/Beri-Sintta.otf')
-    }]);
+    // const fonts = cacheFonts([{
+    //   ...Ionicons.font, 
+    //   ...FontAwesome.font, 
+    //   'Ladytron': require('./assets/fonts/Ladytron.otf'),
+    //   'Beri-Sintta': require('./assets/fonts/Beri-Sintta.otf')
+    // }]);
+    const fonts = cacheFonts([Ionicons.font, FontAwesome.font]);
     return Promise.all([...images, ...fonts]);
   };
 
@@ -34,7 +36,9 @@ export default function App() {
   return ( 
     dataLoaded ? 
       ( <>
-          <Navigator />
+          <NavigationContainer>
+            <Drawer />
+          </NavigationContainer>  
         </>
       ) : (
         <AppLoading
@@ -46,3 +50,4 @@ export default function App() {
   );
 }
 
+export default App;
