@@ -1,13 +1,14 @@
 import React from 'react';
 import { Image, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import ShoeTypeButton from './ShoeType';
+import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
 import Header from '../shared/Header';
 
 const OrderSpecs = ({ route, navigation }) => {
   const { image } = route.params;
-
+  console.log(image);
+  
   return (
     <>
       <Header title="" navigation={navigation} />
@@ -41,6 +42,9 @@ const OrderSpecs = ({ route, navigation }) => {
             title="CONTINUE"
             containerStyle={{paddingTop: 20, width: 350 }}
             buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+            onPress={() => {
+              navigation.navigate('OrderNotes', {image})
+            }}
           />
         </Container>
       </Container>
@@ -65,25 +69,27 @@ const SliderContainer = styled.View`
   align-items: stretch;
   justify-content: center;
 `;
+
 const Row = styled.View`
   margin-top: 10px;
   flex-direction: row;
   justify-content: center;
 `;
+
 const ImageArea = styled.Image`
   flex: .5;
-  background: #c6b18d;
   align-self: stretch;
   align-items: center;
   justify-content: center;
-
 `;
+
 const Container = styled.View`
   background: white;
   flex: 1;
   align-items: center;
   justify-content: center;
 `;
+
 const BodyText = styled.Text`
   text-align: center;
   margin-top: 50px;
