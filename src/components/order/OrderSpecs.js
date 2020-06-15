@@ -5,12 +5,17 @@ import ShoeTypeButton from './ShoeType';
 import { Button, Slider } from 'react-native-elements';
 import Header from '../shared/Header';
 
-const OrderSpecs = ({navigation}) => {
+const OrderSpecs = ({ navigation }) => {
+  console.log(navigation);
+  // const { image } = navigation.getParam('image');
+
   return (
     <>
       <Header title="" navigation={navigation} />
       <Container>
-        <ImageArea />
+        <ImageArea 
+          // source={{ uri: image }}
+        />
         <Container>
           <BodyText>
             What is the typical use? 

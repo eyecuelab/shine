@@ -1,10 +1,14 @@
 import React from "react";
 import { ScrollView } from "react-native";
 import styled from "styled-components/native";
-import { DrawerNavigatorItems } from "react-navigation-drawer";
+import {
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from '@react-navigation/drawer';
 
 const SideBar = props => (
-  <ScrollView>
+  <DrawerContentScrollView {...props}>
     <ImageBackground
       source={require("../../../assets/images/profile-bg.png")}
     >
@@ -13,9 +17,9 @@ const SideBar = props => (
     </ImageBackground>
 
     <Container forceInset={{ top: "always", horizontal: "never" }}>
-      <DrawerNavigatorItems {...props} />
+      <DrawerItemList {...props} />
     </Container>
-  </ScrollView>
+  </DrawerContentScrollView>
 );
 
 const Container = styled.View`

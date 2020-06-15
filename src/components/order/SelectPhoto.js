@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 
 const options = {
-  mediaTypes: ImagePicker.MediaTypeOptions.All,
+  mediaTypes: ImagePicker.MediaTypeOptions.Images,
   allowsEditing: true,
   aspect: [4, 3],
   quality: 1,
@@ -32,15 +32,17 @@ const SelectPhoto = () => {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      // navigation.navigate("NewOrder", { image: result.uri });
     }
   };
 
   const TakePhoto = async () => {
     let result = await ImagePicker.launchCameraAsync(options);
-    console.log(result.uri);
+    // console.log(result.uri);
 
     if (!result.cancelled) {
       setImage(result.uri);
+      // navigation.navigate("NewOrder", { image: result.uri });
     }
   } 
 

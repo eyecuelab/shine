@@ -1,11 +1,8 @@
 import React from "react";
-import { createAppContainer } from "react-navigation";
-import { createDrawerNavigator } from "react-navigation-drawer";
-import { Dimensions } from "react-native";
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { useWindowDimensions } from 'react-native';
 import SideBar from "../components/shared/SideBar";
 import { Feather } from "@expo/vector-icons";
-
-// routes
 import HomeScreen from "../screens/shared/HomeScreen";
 import LogInScreen from "../screens/shared/LogInScreen";
 import SettingsScreen from "../screens/shared/SettingsScreen";
@@ -23,128 +20,17 @@ import SetupOrAdd from "../components/order/SetupOrAdd";
 import TakePhoto from "../components/order/TakePhoto";
 import SelectPhoto from "../components/order/SelectPhoto";
 
-// drawer navigation options
-const DrawerNavigator = createDrawerNavigator(
-  {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        title: "Home",
-        drawerIcon: ({ tintColor }) => <Feather name="home" size={16} color={tintColor} />
-      }  
-    },
-    LogIn: {
-      screen: LogInScreen,
-      navigationOptions: {
-        title: "Log in",
-        drawerIcon: ({ tintColor }) => <Feather name="log-in" size={16} color={tintColor} />
-      }  
-    },
-    Settings: {
-      screen: SettingsScreen,
-      navigationOptions: {
-        title: "Settings",
-        drawerIcon: ({ tintColor }) => <Feather name="settings" size={16} color={tintColor} />
-      }  
-    },
-    Welcome: {
-      screen: WelcomeScreen,
-      navigationOptions: {
-        title: "Welcome",
-        drawerIcon: ({ tintColor }) => <Feather name="smile" size={16} color={tintColor} />
-      }  
-    },
-    CleanerApplication: {
-      screen: CleanerApplicationScreen,
-      navigationOptions: {
-        title: "Cleaner Application",
-        drawerIcon: ({ tintColor }) => <Feather name="file-text" size={16} color={tintColor} />
-      }  
-    },
-    NewOrder: {
-      screen: NewOrderScreen, 
-      navigationOptions: {
-        title: "New Order",
-        drawerIcon: ({ tintColor }) => <Feather name="clipboard" size={16} color={tintColor} />
-      }  
-    },
-    CleanerProfile: {
-      screen: CleanerProfileScreen,
-      navigationOptions: {
-        title: "Cleaner Profile",
-        drawerIcon: ({ tintColor }) => <Feather name="user" size={16} color={tintColor} />
-      }  
-    },
-    CompletedOrders: {
-      screen: CompletedOrdersScreen,
-      navigationOptions: {
-        title: "Completed Orders",
-        drawerIcon: ({ tintColor }) => <Feather name="check-square" size={16} color={tintColor} />
-      }  
-    },
-    LiveOrders: {
-      screen: LiveOrdersScreen,
-      navigationOptions: {
-        title: "Live Orders",
-        drawerIcon: ({ tintColor }) => <Feather name="check-circle" size={16} color={tintColor} />
-      }  
-    },
-    OrdersInArea: {
-      screen: OrdersInAreaScreen,
-      navigationOptions: {
-        title: "Orders In Area",
-        drawerIcon: ({ tintColor }) => <Feather name="map-pin" size={16} color={tintColor} />
-      }  
-    },
-    Camera: {
-      screen: Camera,
-      navigationOptions: {
-        title: "Camera",
-        drawerIcon: ({ tintColor }) => <Feather name="camera" size={16} color={tintColor} />
-      }  
-    },
-    OrderNotes: {
-      screen: OrderNotes,
-      navigationOptions: {
-        title: "Order Notes",
-        drawerIcon: ({ tintColor }) => <Feather name="" size={16} color={tintColor} />
-      }  
-    },
-    OrderSpecs: {
-      screen: OrderSpecs,
-      navigationOptions: {
-        title: "Order Specs",
-        drawerIcon: ({ tintColor }) => <Feather name="" size={16} color={tintColor} />
-      }  
-    },
-    SetupOrAdd: {
-      screen: SetupOrAdd,
-      navigationOptions: {
-        title: "Setup or Add",
-        drawerIcon: ({ tintColor }) => <Feather name="" size={16} color={tintColor} />
-      }  
-    },
-    TakePhoto: {
-      screen: TakePhoto,
-      navigationOptions: {
-        title: "Take Photo",
-        drawerIcon: ({ tintColor }) => <Feather name="" size={16} color={tintColor} />
-      }  
-    },
-    SelectPhoto: {
-      screen: SelectPhoto,
-      navigationOptions: {
-        title: "Select Photo",
-        drawerIcon: ({ tintColor }) => <Feather name="" size={16} color={tintColor} />
-      }  
-    }
-  },
-  {
-    contentComponent: props => <SideBar {...props} />,
-    drawerWidth: Dimensions.get("window").width * 0.8,
-      hideStatusBar: true,
+const Drawer = createDrawerNavigator();
 
-      contentOptions: {
+function DrawerNavigator() {
+  const dimensions = useWindowDimensions();
+
+  return (
+    <Drawer.Navigator
+      drawerType={dimensions.width >= 768 ? 'permanent' : 'front'}
+      hideStatusBar={true}
+      drawerContent={props => <SideBar {...props} />}
+      drawerContentOptions={{
         activeBackgroundColor: "rgb(219, 213, 180)",
         activeTintColor: "rgb(99, 93, 58)",
         itemsContainerStyle: {
@@ -154,8 +40,49 @@ const DrawerNavigator = createDrawerNavigator(
         itemStyle: {
           borderRadius: 4
         }
-      }
-  }
-);  
+      }}
+      screenOptions={({ route }) => ({
+        drawerIcon: ({ tintColor }) => {
+          const icons = {
+            Home: 'home',
+            Login: 'log-in',
+            Settings: 'settings',
+            Welcome: 'smile',
+            CleanerApplication: 'file-text',
+            NewOrder: 'clipboard',
+            CleanerProfile: 'user',
+            CompletedOrders: 'check-square',
+            LiveOrders: 'check-circle',
+            OrdersInArea: 'map-pin'
+          };
+          return (
+            <Feather
+              name={icons[route.name]}
+              color={tintColor}
+              size={16}
+            />
+          );
+        },
+      })}
+    >
+      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Login" component={LogInScreen} />
+      <Drawer.Screen name="Settings" component={SettingsScreen} />
+      <Drawer.Screen name="Welcome" component={WelcomeScreen} />
+      <Drawer.Screen name="CleanerApplication" component={CleanerApplicationScreen} options={{ title: 'Cleaner Application' }} />
+      <Drawer.Screen name="NewOrder" component={NewOrderScreen} options={{ title: 'New Order' }} />
+      <Drawer.Screen name="CleanerProfile" component={CleanerProfileScreen} options={{ title: 'Cleaner Profile' }} />
+      <Drawer.Screen name="CompletedOrders" component={CompletedOrdersScreen} options={{ title: 'Completed Orders' }} />
+      <Drawer.Screen name="LiveOrders" component={LiveOrdersScreen} options={{ title: 'Live Orders' }} />
+      <Drawer.Screen name="OrdersInArea" component={OrdersInAreaScreen} options={{ title: 'Orders In Area' }} />
+      <Drawer.Screen name="Camera" component={Camera} />
+      <Drawer.Screen name="SelectPhoto" component={SelectPhoto} options={{ title: 'Select Photo'}} />
+      <Drawer.Screen name="OrderNotes" component={OrderNotes} />
+      <Drawer.Screen name="OrderSpecs" component={OrderSpecs} />
+      <Drawer.Screen name="SetupOrAdd" component={SetupOrAdd} />
+      <Drawer.Screen name="TakePhoto" component={TakePhoto} />
+    </Drawer.Navigator>
+  );
+}
 
-export default createAppContainer(DrawerNavigator);
+export default DrawerNavigator; 
