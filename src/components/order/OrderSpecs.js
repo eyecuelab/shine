@@ -10,7 +10,7 @@ const OrderSpecs = ({navigation}) => {
     <>
       <Header title="" navigation={navigation} />
       <Container>
-        <ImageArea />
+        <ImageArea source={{uri: 'https://images.unsplash.com/photo-1500063925588-751f924d7c80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80'}}/>
         <Container>
           <BodyText>
             What is the typical use? 
@@ -68,14 +68,12 @@ const Row = styled.View`
   flex-direction: row;
   justify-content: center;
 `;
-const ImageArea = styled.View`
+const ImageArea = styled.Image`
   flex: .5;
-  background: #c6b18d;
   align-self: stretch;
   align-items: center;
   justify-content: center;
-  border: 2px;
-  border-width: 1px;
+  
 `;
 const Container = styled.View`
   background: white;
