@@ -32,7 +32,7 @@ const Text = styled.Text`
   color: black;
   font-size: 50px;
   font-weight: 500;
-  
+  font-family: Marison-Script-Vintage;
 `;
 
 export default HomeScreen

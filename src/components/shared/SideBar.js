@@ -44,7 +44,8 @@ const Name = styled.Text`
   color: #FFF;
   fontSize: 20px;
   fontWeight: 800;
-  margin-vertical: 8px
+  margin-vertical: 8px;
+  font-family: Marison-Sans-Round;
 `;
 
 export default SideBar;
