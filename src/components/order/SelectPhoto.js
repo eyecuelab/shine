@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Dimensions } from 'react-native';
+import { Image, Dimensions } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
+import styled from 'styled-components/native';
+import { Button } from 'react-native-elements';
 
 const options = {
   mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -54,18 +56,33 @@ const SelectPhoto = ({ navigation }) => {
   } 
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image from camera roll" onPress={PickImage} />
-      <Button title="Take a photo" onPress={TakePhoto} />
-      {image && <Image source={{ uri: image }} style={{ width: width, height: height / 2 }} />}
-      <Button 
-        title="Continue"
-        onPress={() => {
-          navigation.navigate('OrderNotes', {image})
-        }}
-      />  
-    </View>
+    !image ? 
+      (
+        <Container>
+          <Button title="Pick an image from camera roll" onPress={PickImage} />
+          <Button title="Take a photo" onPress={TakePhoto} />
+        </Container>
+      ) : (  
+        <Container>  
+          <Image source={{ uri: image }} style={{ width: width, height: height / 2 }} />
+          <Button title="Select another photo" onPress={() => setImage(null)} />
+          <Button 
+            title="CONTINUE"
+            containerStyle={{paddingTop: 20, width: 350 }}
+            buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+            onPress={() => {
+              navigation.navigate('OrderSpecs', {image})
+            }}
+          />    
+        </Container>
+      )
   );
 }
+
+const Container = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
 export default SelectPhoto;

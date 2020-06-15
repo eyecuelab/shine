@@ -5,17 +5,14 @@ import ShoeTypeButton from './ShoeType';
 import { Button, Slider } from 'react-native-elements';
 import Header from '../shared/Header';
 
-const OrderSpecs = ({ navigation }) => {
-  // console.log(navigation);
-  // const { image } = navigation.getParam('image');
+const OrderSpecs = ({ route, navigation }) => {
+  const { image } = route.params;
 
   return (
     <>
       <Header title="" navigation={navigation} />
       <Container>
-        <ImageArea 
-          // source={{ uri: image }}
-        />
+        <ImageArea  source={{ uri: image }} />
         <Container>
           <BodyText>
             What is the typical use? 
@@ -73,14 +70,13 @@ const Row = styled.View`
   flex-direction: row;
   justify-content: center;
 `;
-const ImageArea = styled.View`
+const ImageArea = styled.Image`
   flex: .5;
   background: #c6b18d;
   align-self: stretch;
   align-items: center;
   justify-content: center;
-  border: 2px;
-  border-width: 1px;
+
 `;
 const Container = styled.View`
   background: white;
