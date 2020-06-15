@@ -6,7 +6,7 @@ import { Button, Slider } from 'react-native-elements';
 import Header from '../shared/Header';
 
 const OrderSpecs = ({ navigation }) => {
-  console.log(navigation);
+  // console.log(navigation);
   // const { image } = navigation.getParam('image');
 
   return (

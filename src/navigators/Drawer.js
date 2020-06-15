@@ -31,7 +31,7 @@ function DrawerNavigator() {
       hideStatusBar={true}
       drawerContent={props => <SideBar {...props} />}
       drawerContentOptions={{
-        activeBackgroundColor: "rgb(219, 213, 180)",
+        activeBackgroundColor: "#CBB387",
         activeTintColor: "rgb(99, 93, 58)",
         itemsContainerStyle: {
           marginTop: 16,

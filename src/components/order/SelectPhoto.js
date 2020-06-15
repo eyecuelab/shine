@@ -12,7 +12,7 @@ const options = {
 
 const { width, height } = Dimensions.get("window");
 
-const SelectPhoto = () => {
+const SelectPhoto = ({ navigation }) => {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -26,23 +26,30 @@ const SelectPhoto = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      if (Constants.platform.ios) {
+        const { status } = await ImagePicker.requestCameraPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera permissions to make this work!');
+        }
+      }
+    })();
+  }, []);
+
   const PickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync(options);
-    console.log(result);
-
+    // console.log(result);
     if (!result.cancelled) {
       setImage(result.uri);
-      // navigation.navigate("NewOrder", { image: result.uri });
     }
   };
 
   const TakePhoto = async () => {
     let result = await ImagePicker.launchCameraAsync(options);
     // console.log(result.uri);
-
     if (!result.cancelled) {
-      setImage(result.uri);
-      // navigation.navigate("NewOrder", { image: result.uri });
+      setImage(result.uri)
     }
   } 
 
@@ -51,6 +58,12 @@ const SelectPhoto = () => {
       <Button title="Pick an image from camera roll" onPress={PickImage} />
       <Button title="Take a photo" onPress={TakePhoto} />
       {image && <Image source={{ uri: image }} style={{ width: width, height: height / 2 }} />}
+      <Button 
+        title="Continue"
+        onPress={() => {
+          navigation.navigate('OrderNotes', {image})
+        }}
+      />  
     </View>
   );
 }

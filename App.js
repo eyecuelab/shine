@@ -21,12 +21,13 @@ const App = () => {
   const cacheResourcesAsync = () => {
     const images = cacheImages([require('./assets/images/splash.png')]);
     // ==========add custom fonts later===========
-    const fonts = cacheFonts([{
-      ...Ionicons.font, 
-      ...FontAwesome.font, 
-      'Ladytron': require('./assets/fonts/Ladytron.otf'),
-      'Beri-Sintta': require('./assets/fonts/Beri-Sintta.otf')
-    }]);
+    // const fonts = cacheFonts([{
+    //   ...Ionicons.font, 
+    //   ...FontAwesome.font, 
+    //   'Ladytron': require('./assets/fonts/Ladytron.otf'),
+    //   'Beri-Sintta': require('./assets/fonts/Beri-Sintta.otf')
+    // }]);
+    const fonts = cacheFonts([Ionicons.font, FontAwesome.font]);
     return Promise.all([...images, ...fonts]);
   };
 

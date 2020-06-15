@@ -22,7 +22,7 @@ const Header = ({ title, navigation }) => {
 }
 
 const SafeAreaView = styled.SafeAreaView`
-  background: #ebd5b0;
+  background: #CBB387;
   flex: 0.1;
 `;
 
