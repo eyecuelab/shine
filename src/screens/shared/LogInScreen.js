@@ -21,9 +21,8 @@ const Container = styled.View`
 
 const Text = styled.Text`
   color: black;
-  font-size: 50px;
+  font-size: 20px;
   font-weight: 500;
-  font-family: Beri-Sintta;
 `;
 
 export default LogInScreen;

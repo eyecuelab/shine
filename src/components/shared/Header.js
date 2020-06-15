@@ -22,7 +22,7 @@ const Header = ({ title, navigation }) => {
 }
 
 const SafeAreaView = styled.SafeAreaView`
-  background: #ebd5b0;
+  background: #CBB387;
   flex: 0.1;
 `;
 
@@ -43,7 +43,7 @@ const Text = styled.Text`
   font-weight: bold;
   font-size: 20px;
   color: #333;
-  letter-spacing: 1;
+  font-family: Marison-Sans-Round;
 `;
 
 Header.propTypes = {
