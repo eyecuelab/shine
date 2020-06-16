@@ -5,13 +5,13 @@ import { Button } from 'react-native-elements';
 import Header from '../shared/Header';
 import { TextInput } from 'react-native'; 
 
-const OrderNotes = ({ route, navigation }) => {
+const OrderNotes = ({ image }) => {
   const [value, onChangeText] = useState(null); 
-  const { image } = route.params;
+  // const { image } = route.params;
 
   return (
     <>
-      <Header title="" navigation={navigation} />
+      {/* <Header title="" navigation={navigation} /> */}
       <KeyboardAvoidingView style={{flex: 1 }} behavior="padding">
       <Container>
         <ImageArea source={{ uri: image }}/>
@@ -37,9 +37,9 @@ const OrderNotes = ({ route, navigation }) => {
             title="CONTINUE"
             containerStyle={{paddingTop: 20, width: 350 }}
             buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-            onPress={() => {
-              navigation.navigate('SetupOrAdd', {image})
-            }}
+            // onPress={() => {
+            //   navigation.navigate('SetupOrAdd', {image})}
+            // }
             />
         </Container>
       </Container>

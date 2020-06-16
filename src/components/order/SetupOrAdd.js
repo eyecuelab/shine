@@ -4,12 +4,12 @@ import styled from 'styled-components/native';
 import Header from '../shared/Header';
 import { Button } from 'react-native-elements';
 
-const SetupOrAdd = ({ route, navigation }) => {
-  const { image } = route.params;
+const SetupOrAdd = ({ image }) => {
+ 
 
   return (
     <>
-      <Header title="" navigation={navigation} />
+      {/* <Header title="" navigation={navigation} /> */}
       <ImageArea source={{ uri: image }}/>
     
       <Container>

@@ -5,13 +5,16 @@ import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
 import Header from '../shared/Header';
 
-const OrderSpecs = ({ route, navigation }) => {
-  const { image } = route.params;
-  console.log(image);
+const OrderSpecs = ({ image }) => {
+  // const { image } = route.params;
+  // console.log(image);
 
-  return (
-    <>
-      <Header title="" navigation={navigation} />
+  return !image ?
+  (
+    <Container>
+      <BodyText>Please Upload a Photo</BodyText>
+    </Container>
+  ) : (
       <Container>
         <ImageArea  source={{ uri: image }} />
         <Container>
@@ -42,14 +45,13 @@ const OrderSpecs = ({ route, navigation }) => {
             title="CONTINUE"
             containerStyle={{paddingTop: 20, width: 350 }}
             buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-            onPress={() => {
-              navigation.navigate('OrderNotes', {image})
-            }}
+            // onPress={() => {
+            //   navigation.navigate('OrderNotes', {image})
+            // }}
           />
         </Container>
       </Container>
-    </>
-  );
+  )
 };
 
 const customStyles = StyleSheet.create({
