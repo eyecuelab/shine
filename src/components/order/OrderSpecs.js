@@ -5,13 +5,11 @@ import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
 import Header from '../shared/Header';
 
-const OrderSpecs = ({ route, navigation }) => {
-  const { image } = route.params;
-  console.log(image);
+const OrderSpecs = ({ image, jumpTo }) => {
+  // const { image } = route.params;
+  // console.log(image);
 
   return (
-    <>
-      <Header title="" navigation={navigation} />
       <Container>
         <ImageArea  source={{ uri: image }} />
         <Container>
@@ -43,13 +41,12 @@ const OrderSpecs = ({ route, navigation }) => {
             containerStyle={{paddingTop: 20, width: 350 }}
             buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
             onPress={() => {
-              navigation.navigate('OrderNotes', {image})
+              jumpTo('third')
             }}
           />
         </Container>
       </Container>
-    </>
-  );
+  )
 };
 
 const customStyles = StyleSheet.create({
@@ -77,7 +74,7 @@ const Row = styled.View`
 `;
 
 const ImageArea = styled.Image`
-  flex: .5;
+  flex: .75;
   align-self: stretch;
   align-items: center;
   justify-content: center;
