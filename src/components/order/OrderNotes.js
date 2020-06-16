@@ -7,15 +7,15 @@ import { TextInput } from 'react-native';
 
 const OrderNotes = ({ route, navigation }) => {
   const [value, onChangeText] = useState(null); 
-  // const { image } = route.params;
+  const { image } = route.params;
 
   return (
     <>
       <Header title="" navigation={navigation} />
       <KeyboardAvoidingView style={{flex: 1 }} behavior="padding">
       <Container>
-        {/* <ImageArea source={{ uri: image }}/> */}
-        <ImageArea source={{uri: 'https://images.unsplash.com/photo-1500063925588-751f924d7c80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2200&q=80'}} />
+        <ImageArea source={{ uri: image }}/>
+        {/* <ImageArea source={{uri: 'https://images.unsplash.com/photo-1500063925588-751f924d7c80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2200&q=80'}} /> */}
         
         <Container>
           <BodyText>
@@ -30,6 +30,7 @@ const OrderNotes = ({ route, navigation }) => {
                 editable={true}
                 onSubmitEditing={Keyboard.dismiss}
                 returnKeyType='done'
+                allowFontScaling={true}
               />
             </View>
           <Button
