@@ -1,41 +1,56 @@
 import React from 'react';
-import { View, Image, Text, Button } from 'react-native';
 import styled from 'styled-components/native';
+import { Button } from 'react-native-elements';
 
-const SetupOrAdd = ({ route, navigation }) => {
-  const { image } = route.params;
+const SetupOrAdd = ({ image, jumpTo }) => {
 
   return (
     <>
       <ImageArea source={{ uri: image }}/>
-      <View>
-        <Text>Step 4: The Cleaners are ready to work!</Text>
+    
+      <Container>
+        <BodyText>The Cleaners are ready to work!</BodyText>
         <Button
-            title="SETUP A JOB"
-            containerStyle={{paddingTop: 20, width: 350 }}
-            buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-            onPress={() => {
-              navigation.navigate('OrdersList', {image})
-            }}
-          />
+          title="SET UP JOB"
+          containerStyle={{paddingTop: 20, width: 350 }}
+          buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+          onPress={() => {
+            navigation.navigate('OrdersList', {image})
+          }}
+        />
         <Button
           title="ADD ANOTHER PAIR"
           containerStyle={{paddingTop: 20, width: 350 }}
           buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
           onPress={() => {
-            navigation.navigate('SelectPhoto', {image})
+            jumpTo('first')
           }}
         />
-      </View>
+        </Container>
     </>
-  )
+  );
 }
 
 const ImageArea = styled.Image`
-  flex: .5;
+  flex: .75;
   align-self: stretch;
   align-items: center;
   justify-content: center;
+`;
+
+const Container = styled.View`
+  background: white;
+  flex: 1;
+  align-items: center;
+`;
+
+const BodyText = styled.Text`
+  font-weight: bold
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  color: black;
+  font-size: 18px;
 `;
 
 export default SetupOrAdd;
