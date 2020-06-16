@@ -30,32 +30,38 @@ const SelectPhoto = ({ navigation }) => {
     { key: 'fourth' }
   ]);
   
-  const renderScene = ({ route }) => {
-    
+  const renderScene = ({ route, jumpTo  }) => {
+
     switch (route.key) {
       case 'first':
         return (  
           <Container>  
-            <Image source={{ uri: image }} style={{ width: width, height: height / 2 }} />
-            <Button title="Select another photo" onPress={() => setImage(null)} />
+            <ImageArea source={{ uri: image }} />
+            <Container>
+            <Button 
+              title="SELECT ANOTHER PHOTO" 
+              containerStyle={{paddingTop: 20, width: 350 }}
+              buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+              onPress={() => setImage(null)} />
             <Button 
               title="CONTINUE"
               containerStyle={{paddingTop: 20, width: 350 }}
               buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
               onPress={() => {
-                navigation.navigate('OrderSpecs', {image})
+                jumpTo("second")
               }}
-            />    
+            />
+            </Container>    
           </Container>
         )
       case 'second':
-        return <OrderSpecs image={image}/>
+        return <OrderSpecs jumpTo={jumpTo} image={image}/>
 
       case 'third':
-        return <OrderNotes image={image}/>
-        
+        return <OrderNotes jumpTo={jumpTo} image={image}/>
+
       case 'fourth':
-        return <SetupOrAdd image={image}/>
+        return <SetupOrAdd jumpTo={jumpTo} image={image}/>
         
       default: 
         return null; 
@@ -103,8 +109,17 @@ const SelectPhoto = ({ navigation }) => {
   return !image ? 
   (
     <Container>
-      <Button title="Pick an image from camera roll" onPress={PickImage} />
-      <Button title="Take a photo" onPress={TakePhoto} />
+      <Button 
+        title="UPLOAD PHOTO" 
+        containerStyle={{paddingTop: 20, width: 350 }}
+        buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+        onPress={PickImage} 
+      />
+      <Button 
+        title="TAKE A PHOTO" 
+        containerStyle={{paddingTop: 20, width: 350 }}
+        buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+        onPress={TakePhoto} />
     </Container>
   ) : (
     <TabView
@@ -115,6 +130,14 @@ const SelectPhoto = ({ navigation }) => {
     />
   );
 }
+
+const ImageArea = styled.Image`
+ 
+  flex: .75;
+  align-self: stretch;
+  align-items: center;
+  justify-content: center;
+`;
 
 const Container = styled.View`
   flex: 1;
