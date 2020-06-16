@@ -13,7 +13,6 @@ import CleanerProfileScreen from "../screens/cleaner/CleanerProfileScreen";
 import CompletedOrdersScreen from "../screens/cleaner/CompletedOrdersScreen";
 import LiveOrdersScreen from "../screens/cleaner/LiveOrdersScreen";
 import OrdersInAreaScreen from "../screens/cleaner/OrdersInAreaScreen";
-import Camera from "../components/order/Camera";
 import OrderNotes from "../components/order/OrderNotes";
 import OrderSpecs from "../components/order/OrderSpecs";
 import SetupOrAdd from "../components/order/SetupOrAdd";
@@ -22,7 +21,7 @@ import SelectPhoto from "../components/order/SelectPhoto";
 
 const Drawer = createDrawerNavigator();
 
-function DrawerNavigator() {
+const DrawerNavigator = () => {
   const dimensions = useWindowDimensions();
 
   return (
@@ -65,7 +64,7 @@ function DrawerNavigator() {
         },
       })}
     >
-      <Drawer.Screen name="Home" component={HomeScreen} />
+      {/* <Drawer.Screen name="Home" component={HomeScreen} /> */}
       <Drawer.Screen name="Login" component={LogInScreen} />
       <Drawer.Screen name="Settings" component={SettingsScreen} />
       <Drawer.Screen name="Welcome" component={WelcomeScreen} />
@@ -75,7 +74,6 @@ function DrawerNavigator() {
       <Drawer.Screen name="CompletedOrders" component={CompletedOrdersScreen} options={{ title: 'Completed Orders' }} />
       <Drawer.Screen name="LiveOrders" component={LiveOrdersScreen} options={{ title: 'Live Orders' }} />
       <Drawer.Screen name="OrdersInArea" component={OrdersInAreaScreen} options={{ title: 'Orders In Area' }} />
-      <Drawer.Screen name="Camera" component={Camera} />
       <Drawer.Screen name="SelectPhoto" component={SelectPhoto} options={{ title: 'Select Photo'}} />
       <Drawer.Screen name="OrderNotes" component={OrderNotes} />
       <Drawer.Screen name="OrderSpecs" component={OrderSpecs} />

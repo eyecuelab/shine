@@ -5,8 +5,7 @@ import { Button } from 'react-native-elements';
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <>
-      <Header title="Home" navigation={navigation} />
+    <> 
       <Container>
         <Text>Shine</Text>
         <Button
