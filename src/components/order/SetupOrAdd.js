@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import Header from '../shared/Header';
 import { Button } from 'react-native-elements';
 
-const SetupOrAdd = ({ image }) => {
+const SetupOrAdd = ({ image, jumpTo }) => {
  
 
   return (
@@ -23,6 +23,9 @@ const SetupOrAdd = ({ image }) => {
             title="ADD ANOTHER PAIR"
             containerStyle={{paddingTop: 20, width: 350 }}
             buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+            onPress={() => {
+              jumpTo('first')
+            }}
         />
         </Container>
      
@@ -32,7 +35,7 @@ const SetupOrAdd = ({ image }) => {
 }
 
 const ImageArea = styled.Image`
-  flex: .5;
+  flex: .75;
   align-self: stretch;
   align-items: center;
   justify-content: center;
