@@ -7,11 +7,9 @@ import Header from '../shared/Header';
 
 const OrderSpecs = ({ route, navigation }) => {
   const { image } = route.params;
-  console.log(image);
 
   return (
     <>
-      <Header title="" navigation={navigation} />
       <Container>
         <ImageArea  source={{ uri: image }} />
         <Container>

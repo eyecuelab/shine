@@ -2,16 +2,15 @@ import React, { useState } from 'react';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
-import Header from '../shared/Header';
 import { TextInput } from 'react-native'; 
 
 const OrderNotes = ({ route, navigation }) => {
   const [value, onChangeText] = useState(null); 
   const { image } = route.params;
-
+  console.log(value);
+  
   return (
     <>
-      <Header title="" navigation={navigation} />
       <Container>
         <ImageArea source={{ uri: image }}/>
         <Container>
@@ -22,8 +21,8 @@ const OrderNotes = ({ route, navigation }) => {
               <TextInput 
                 placeholder="This step is optional. You will also have the opportunity to speak to the cleaner of choice directly after order is placed"
                 style={{ height: 150, width: 350, borderColor: 'gray', borderWidth: 1, borderRadius: 5, padding: 15 }} 
-                onChangeText={text => onChangeText(text)} value={value}
-           
+                onChangeText={text => onChangeText(text)} 
+                value={value}
                 returnKeyType='done'
               />
             </View>
@@ -32,9 +31,9 @@ const OrderNotes = ({ route, navigation }) => {
             containerStyle={{paddingTop: 20, width: 350 }}
             buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
             onPress={() => {
-              navigation.navigate('SetupOrAdd', {image})
+              navigation.navigate('SetupOrAdd', {image, value})
             }}
-            />
+          />
         </Container>
       </Container>
     </>

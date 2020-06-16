@@ -1,27 +1,50 @@
-import React from "react";
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import Home from "../screens/shared/HomeScreen";
-import OrderStatus from "../components/order/OrderStatus";
-import Drawer from "./Drawer";
-
+import OrdersStack from "./OrdersStack";
+import CleanersDrawer from "./CleanersDrawer";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
-// const SettingsStack = createStackNavigator();
-// const HomeStack = createStackNavigator();
-// const Drawer = createDrawerNavigator();
 
 const TabNavigator = () => {
+
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} />  
-      <Tab.Screen name="Client" component={OrderStatus} />
-      <Tab.Screen name="Cleaner">
+    <Tab.Navigator
+      initialRouteName="Home"
+      tabBarOptions={{
+        activeTintColor: '#8E1818',
+        inactiveTintColor: '#939393',
+        // style: {
+        //   backgroundColor: '#CBB387'
+        // }  
+      }}
+    >
+      <Tab.Screen 
+        name="Home"
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="home" color={color} size={size} />
+          ),
+        }}
+      >
         {() => (
-          <Drawer />
+          <OrdersStack />
         )}
-      </Tab.Screen>  
+      </Tab.Screen>
+      <Tab.Screen 
+        name="Cleaner"
+        options={{
+          tabBarLabel: 'Cleaner',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account" color={color} size={size} />
+          ),
+        }}
+      >
+        {() => (
+          <CleanersDrawer />
+        )}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 }
