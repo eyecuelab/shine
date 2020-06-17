@@ -3,24 +3,24 @@ import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import { color } from 'react-native-reanimated';
 
-const ShoeTypeButton = ({ type }) => {
+const ShoeTypeButton = ({ type, selected, setShoeTypes }) => {
 
-const [selected, setSelected] = useState(true);
+// const [selected, setSelected] = useState(true);
 
 // console.log(selected);
-const handleSelected = () => {
-  if (selected) {
-    setSelected(false);
-  } else if (selected===false) {
-    setSelected(true);
-  } 
-}
+// const handleSelected = () => {
+//   if (selected) {
+//     setSelected(false);
+//   } else if (selected===false) {
+//     setSelected(true);
+//   } 
+// }
 
   return (
     <ShoeType
       selected={selected}
       onPress={() => {
-        handleSelected()
+        setShoeTypes(selected = !selected)
       }}
     >
       <TypeText selected={selected}>{type}</TypeText>

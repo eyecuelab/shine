@@ -1,100 +1,65 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Input, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
-import { Button, Slider, CheckBox } from 'react-native-elements';
-import Header from '../shared/Header';
+import { Button, Slider } from 'react-native-elements';
 
 const OrderSpecs = ({ image, jumpTo }) => {
-  const [shoeTypeState, setShoeTypeState] = useState([]);
-
-  useEffect(() => {
-    let shoeTypeState = [
-      { select: false, id: 1, type: "INDOOR" },
-      { id: 2, type: "OUTDOOR" },
-      { id: 3, type: "EXERCISE" },
-      { id: 4, type: "LEISURE" },
-      { id: 5, type: "FORMAL" },
-      { id: 6, type: "SOCIAL" },
-    ];
-
-    console.log(shoeTypeState[0]);
-
-    setShoeTypeState(
-      shoeTypeState.map((d) => {
-        return  {
-          select: false,
-          id: d.id, 
-          type: d.type 
-        };
-      })
-    );
-  }, []);
+  
+const [shoeTypes, setShoeTypes ] = useState([
+  {type: "OUTDOOR", select: false},
+  {type: "INDOOR", select: false},
+  {type: "EXERCISE", select: false},
+  {type: "LEISURE", select: false},
+  {type: "FORMAL", select: false},
+  {type: "SOCIAL", select: false},
+]);
 
   return (
+    <Container>
+      <ImageArea  source={{ uri: image }} />
       <Container>
-        <ImageArea  source={{ uri: image }} />
-        <Container>
-          <BodyText>
-            What is the typical use? 
-          </BodyText>
-
-        {shoeTypeState.map((d, i) =>(
-          <Row key={d.id}>
-            <CheckBox onPress={() => {
-              setShoeTypeState(
-                shoeTypeState.map(data => {
-                  if (d.id === data.id) {
-                    data.select = !data.select;
-                  }
-                  console.log(data.select)
-                  return data;
-                })
-              )
-            }}
-            checked={d.select}
-            />
-          </Row>
-        ))}
+        <BodyText>
+          What is the typical use? 
+        </BodyText>
+        <FlatList
+          data={shoeTypes}
+          renderItem={({ item }) => <ShoeTypeButton type={item.type} select={item.select} />}
+          keyExtractor={item => item.type}
+        />
 
 
-          {/* <Row>
-            <ShoeTypeButton 
-              type="INDOOR"/>
-            <ShoeTypeButton 
-              type="OUTDOOR"/>
-            <ShoeTypeButton 
-             type="EXERCISE"/>
-          </Row>
-          <Row>
-            <ShoeTypeButton 
-              type="LEISURE"/>
-            <ShoeTypeButton
-              type="FORMAL"/>
-            <ShoeTypeButton 
-              type="SOCIAL"/>
-          </Row> */}
-          <SliderContainer>
-            <BodyText>How soon do you need them cleaned?</BodyText>
-            <Slider
-              animateTransitions={true}
-              minimumValue={1}
-              maximumValue={10}
-              thumbTintColor='#ffffff'
-              thumbStyle={customStyles.thumb}
-            />
-          </SliderContainer>
-          <Button
-            title="CONTINUE"
-            containerStyle={{paddingTop: 20, width: 350 }}
-            buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-            onPress={() => {
-              jumpTo('third')
-            }}
+        {/* <Row>
+          <ShoeTypeButton type="INDOOR"/>
+          <ShoeTypeButton type="OUTDOOR"/>
+          <ShoeTypeButton type="EXERCISE"/>
+        </Row>
+        <Row>
+          <ShoeTypeButton type="LEISURE"/>
+          <ShoeTypeButton type="FORMAL"/>
+          <ShoeTypeButton type="SOCIAL"/>
+        </Row> */}
+        <SliderContainer>
+          <BodyText>How soon do you need them cleaned?</BodyText>
+          <Slider
+            animateTransitions={true}
+            minimumValue={1}
+            maximumValue={10}
+            thumbTintColor='#ffffff'
+            thumbStyle={customStyles.thumb}
           />
-        </Container>
+        </SliderContainer>
+        <Button
+          title="CONTINUE"
+          containerStyle={{paddingTop: 20, width: 350 }}
+          buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+          onPress={() => {
+            jumpTo('third')
+          }}
+        />
       </Container>
-  )
+    </Container>
+  );
 };
 
 const customStyles = StyleSheet.create({
