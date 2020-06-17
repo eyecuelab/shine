@@ -3,50 +3,47 @@ import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
-import Header from '../shared/Header';
 
 const OrderSpecs = ({ image, jumpTo }) => {
-  // const { image } = route.params;
-  // console.log(image);
-
+  
   return (
+    <Container>
+      <ImageArea  source={{ uri: image }} />
       <Container>
-        <ImageArea  source={{ uri: image }} />
-        <Container>
-          <BodyText>
-            What is the typical use? 
-          </BodyText>
-          <Row>
-            <ShoeTypeButton type="INDOOR"/>
-            <ShoeTypeButton type="OUTDOOR"/>
-            <ShoeTypeButton type="EXERCISE"/>
-          </Row>
-          <Row>
-            <ShoeTypeButton type="LEISURE"/>
-            <ShoeTypeButton type="FORMAL"/>
-            <ShoeTypeButton type="SOCIAL"/>
-          </Row>
-          <SliderContainer>
-            <BodyText>How soon do you need them cleaned?</BodyText>
-            <Slider
-              animateTransitions={true}
-              minimumValue={1}
-              maximumValue={10}
-              thumbTintColor='#ffffff'
-              thumbStyle={customStyles.thumb}
-            />
-          </SliderContainer>
-          <Button
-            title="CONTINUE"
-            containerStyle={{paddingTop: 20, width: 350 }}
-            buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-            onPress={() => {
-              jumpTo('third')
-            }}
+        <BodyText>
+          What is the typical use? 
+        </BodyText>
+        <Row>
+          <ShoeTypeButton type="INDOOR"/>
+          <ShoeTypeButton type="OUTDOOR"/>
+          <ShoeTypeButton type="EXERCISE"/>
+        </Row>
+        <Row>
+          <ShoeTypeButton type="LEISURE"/>
+          <ShoeTypeButton type="FORMAL"/>
+          <ShoeTypeButton type="SOCIAL"/>
+        </Row>
+        <SliderContainer>
+          <BodyText>How soon do you need them cleaned?</BodyText>
+          <Slider
+            animateTransitions={true}
+            minimumValue={1}
+            maximumValue={10}
+            thumbTintColor='#ffffff'
+            thumbStyle={customStyles.thumb}
           />
-        </Container>
+        </SliderContainer>
+        <Button
+          title="CONTINUE"
+          containerStyle={{paddingTop: 20, width: 350 }}
+          buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+          onPress={() => {
+            jumpTo('third')
+          }}
+        />
       </Container>
-  )
+    </Container>
+  );
 };
 
 const customStyles = StyleSheet.create({
