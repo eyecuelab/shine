@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
@@ -6,9 +6,7 @@ import { Button, Slider } from 'react-native-elements';
 import Header from '../shared/Header';
 
 const OrderSpecs = ({ image, jumpTo }) => {
-  // const { image } = route.params;
-  // console.log(image);
-
+  
   return (
       <Container>
         <ImageArea  source={{ uri: image }} />
@@ -17,14 +15,20 @@ const OrderSpecs = ({ image, jumpTo }) => {
             What is the typical use? 
           </BodyText>
           <Row>
-            <ShoeTypeButton type="INDOOR"/>
-            <ShoeTypeButton type="OUTDOOR"/>
-            <ShoeTypeButton type="EXERCISE"/>
+            <ShoeTypeButton 
+              type="INDOOR"/>
+            <ShoeTypeButton 
+              type="OUTDOOR"/>
+            <ShoeTypeButton 
+             type="EXERCISE"/>
           </Row>
           <Row>
-            <ShoeTypeButton type="LEISURE"/>
-            <ShoeTypeButton type="FORMAL"/>
-            <ShoeTypeButton type="SOCIAL"/>
+            <ShoeTypeButton 
+              type="LEISURE"/>
+            <ShoeTypeButton
+              type="FORMAL"/>
+            <ShoeTypeButton 
+              type="SOCIAL"/>
           </Row>
           <SliderContainer>
             <BodyText>How soon do you need them cleaned?</BodyText>
