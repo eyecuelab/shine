@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 
-const SetupOrAdd = ({ image, jumpTo }) => {
+const SetupOrAdd = ({ image, jumpTo, navigation }) => {
 
   return (
     <>
@@ -23,7 +23,8 @@ const SetupOrAdd = ({ image, jumpTo }) => {
           containerStyle={{paddingTop: 20, width: 350 }}
           buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
           onPress={() => {
-            jumpTo('first')
+            navigation.navigate('Home', {image})
+            // jumpTo('first')
           }}
         />
         </Container>

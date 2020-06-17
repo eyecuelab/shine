@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import OrdersStack from "./OrdersStack";
+import OrderStack from "./OrderStack";
+import HomeStack from "./HomeStack";
 import CleanersDrawer from "./CleanersDrawer";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -29,7 +30,7 @@ const TabNavigator = () => {
         }}
       >
         {() => (
-          <OrdersStack />
+          <HomeStack />       
         )}
       </Tab.Screen>
       <Tab.Screen 

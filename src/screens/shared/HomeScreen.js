@@ -1,9 +1,9 @@
 import React from 'react';
-// import Header from "../../components/shared/Header";
 import styled from "styled-components/native";
 import { Button } from 'react-native-elements';
+import OrdersList from "../client/OrdersList";
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
   return (
     <> 
       <Container>
@@ -12,9 +12,10 @@ const HomeScreen = ({navigation}) => {
           title="START"
           containerStyle={{paddingTop: 20, width: 350 }}
           buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-          onPress={() => navigation.navigate('SelectPhoto')}
+          onPress={() => navigation.navigate('NewOrder')}
         />
       </Container>
+
     </>
   )
 };  

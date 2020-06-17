@@ -5,6 +5,7 @@ import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
 
 const OrderSpecs = ({ image, jumpTo }) => {
+  
   return (
     <Container>
       <ImageArea  source={{ uri: image }} />
