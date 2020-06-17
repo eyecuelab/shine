@@ -1,13 +1,13 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import OrderStack from "./OrderStack";
+// import OrderStack from "./OrderStack";
 import HomeStack from "./HomeStack";
-import CleanersDrawer from "./CleanersDrawer";
+import CleanersDrawer from "../DrawerNavigator/CleanersDrawer";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
 
-const TabNavigator = () => {
+const RootNavigator = () => {
 
   return (
     <Tab.Navigator
@@ -15,9 +15,6 @@ const TabNavigator = () => {
       tabBarOptions={{
         activeTintColor: '#8E1818',
         inactiveTintColor: '#939393',
-        // style: {
-        //   backgroundColor: '#CBB387'
-        // }  
       }}
     >
       <Tab.Screen 
@@ -50,4 +47,4 @@ const TabNavigator = () => {
   );
 }
 
-export default TabNavigator;
+export default RootNavigator;

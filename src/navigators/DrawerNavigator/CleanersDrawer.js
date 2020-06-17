@@ -1,16 +1,16 @@
 import React from "react";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useWindowDimensions } from 'react-native';
-import SideBar from "../components/shared/SideBar";
+import SideBar from "../../components/shared/SideBar";
 import { Feather } from "@expo/vector-icons";
-import LogInScreen from "../screens/shared/LogInScreen";
-import CleanerApplicationScreen from "../screens/client/CleanerApplicationScreen";
-import SettingsScreen from "../screens/shared/SettingsScreen";
-import WelcomeScreen from "../screens/shared/WelcomeScreen";
-import CleanerProfileScreen from "../screens/cleaner/CleanerProfileScreen";
-import CompletedOrdersScreen from "../screens/cleaner/CompletedOrdersScreen";
-import LiveOrdersScreen from "../screens/cleaner/LiveOrdersScreen";
-import OrdersInAreaScreen from "../screens/cleaner/OrdersInAreaScreen";
+import LogInScreen from "../../screens/shared/LogInScreen";
+import CleanerApplicationScreen from "../../screens/client/CleanerApplicationScreen";
+import SettingsScreen from "../../screens/shared/SettingsScreen";
+import WelcomeScreen from "../../screens/shared/WelcomeScreen";
+import CleanerProfileScreen from "../../screens/cleaner/CleanerProfileScreen";
+import CompletedOrdersScreen from "../../screens/cleaner/CompletedOrdersScreen";
+import LiveOrdersScreen from "../../screens/cleaner/LiveOrdersScreen";
+import OrdersInAreaScreen from "../../screens/cleaner/OrdersInAreaScreen";
 
 
 const Drawer = createDrawerNavigator();
