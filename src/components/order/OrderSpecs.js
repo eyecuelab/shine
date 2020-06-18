@@ -5,6 +5,10 @@ import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
 
 const OrderSpecs = ({ image, jumpTo }) => {
+
+const [sliderValue, setSliderValue] = useState('Within Two Days')
+
+console.log(sliderValue);
   
 const [shoeTypes, setShoeTypes ] = useState([
   {type: "OUTDOOR", select: false},
@@ -38,6 +42,20 @@ const handleTypeChange = (type) => {
   )
 }
 
+const handleValueChange = (value) => {
+  let valueName = ''
+  if (value === 2) {
+    valueName = 'Within 24 Hours'
+  }
+  if (value === 4) {
+    valueName = 'Within 2 Days'
+  }
+  if (value === 6 ) {
+    valueName = 'Within a Week'
+  }
+  return valueName;
+}
+
   return (
     <Container>
       <ImageArea  source={{ uri: image }} />
@@ -62,11 +80,15 @@ const handleTypeChange = (type) => {
         <SliderContainer>
           <BodyText>How soon do you need them cleaned?</BodyText>
           <Slider
-            animateTransitions={false}
-            minimumValue={1}
-            maximumValue={5}
+            step={2}
+            minimumValue={2}
+            maximumValue={6}
+            value={4}
             thumbTintColor='#ffffff'
             thumbStyle={customStyles.thumb}
+            onValueChange={(value) => handleValueChange({ value })}
+            onSlidingComplete={(value) => setSliderValue(handleValueChange(value))}
+            
           />
         </SliderContainer>
         <Button
@@ -95,6 +117,8 @@ const customStyles = StyleSheet.create({
 });
 
 const SliderContainer = styled.View`
+  margin-left: 40px;
+  margin-right: 40px;
   align-self: stretch;
   align-items: stretch;
   justify-content: center;
