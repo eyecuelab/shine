@@ -79,6 +79,7 @@ const handleValueChange = (value) => {
 
         <SliderContainer>
           <BodyText>How soon do you need them cleaned?</BodyText>
+          <BodyText>{sliderValue}</BodyText>
           <Slider
             step={2}
             minimumValue={2}
@@ -86,8 +87,8 @@ const handleValueChange = (value) => {
             value={4}
             thumbTintColor='#ffffff'
             thumbStyle={customStyles.thumb}
-            onValueChange={(value) => handleValueChange({ value })}
-            onSlidingComplete={(value) => setSliderValue(handleValueChange(value))}
+            // onValueChange={(value) => handleValueChange({ value })}
+            onValueChange={(value) => setSliderValue(handleValueChange(value))}
             
           />
         </SliderContainer>
@@ -146,7 +147,7 @@ const Container = styled.View`
 
 const BodyText = styled.Text`
   text-align: center;
-  margin-top: 50px;
+ 
   color: black;
   font-size: 18px;
 `;
