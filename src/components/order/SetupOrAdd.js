@@ -1,37 +1,35 @@
 import React from 'react';
-import { View, Image, Text } from 'react-native';
 import styled from 'styled-components/native';
-import Header from '../shared/Header';
 import { Button } from 'react-native-elements';
 
-const SetupOrAdd = ({ image, jumpTo }) => {
- 
+const SetupOrAdd = ({ image, jumpTo, navigation }) => {
 
   return (
     <>
-      {/* <Header title="" navigation={navigation} /> */}
       <ImageArea source={{ uri: image }}/>
     
       <Container>
         <BodyText>The Cleaners are ready to work!</BodyText>
         <Button
-            title="SET UP JOB"
-            containerStyle={{paddingTop: 20, width: 350 }}
-            buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-          />
+          title="SET UP JOB"
+          containerStyle={{paddingTop: 20, width: 350 }}
+          buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+          onPress={() => {
+            navigation.navigate('OrdersList', {image})
+          }}
+        />
         <Button
-            title="ADD ANOTHER PAIR"
-            containerStyle={{paddingTop: 20, width: 350 }}
-            buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-            onPress={() => {
-              jumpTo('first')
-            }}
+          title="ADD ANOTHER PAIR"
+          containerStyle={{paddingTop: 20, width: 350 }}
+          buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+          onPress={() => {
+            navigation.navigate('Home', {image})
+            // jumpTo('first')
+          }}
         />
         </Container>
-     
-
     </>
-  )
+  );
 }
 
 const ImageArea = styled.Image`
@@ -40,6 +38,7 @@ const ImageArea = styled.Image`
   align-items: center;
   justify-content: center;
 `;
+
 const Container = styled.View`
   background: white;
   flex: 1;

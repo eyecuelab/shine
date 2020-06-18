@@ -45,7 +45,7 @@ const handleTypeChange = (type) => {
         <BodyText>
           What is the typical use? 
         </BodyText>
-        
+
         <FlatList
           data={shoeTypes}
           renderItem={({ item }) => 

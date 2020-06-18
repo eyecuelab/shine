@@ -20,6 +20,7 @@ const initialLayout = { width: Dimensions.get('window').width };
 const { width, height } = Dimensions.get("window");
 
 const SelectPhoto = ({ navigation }) => {
+
   const [image, setImage] = useState(null);
   
   const [index, setIndex] = useState(0);
@@ -55,13 +56,13 @@ const SelectPhoto = ({ navigation }) => {
           </Container>
         )
       case 'second':
-        return <OrderSpecs jumpTo={jumpTo} image={image}/>
+        return <OrderSpecs jumpTo={jumpTo} image={image} />
 
       case 'third':
-        return <OrderNotes jumpTo={jumpTo} image={image}/>
+        return <OrderNotes jumpTo={jumpTo} image={image} />
 
       case 'fourth':
-        return <SetupOrAdd jumpTo={jumpTo} image={image}/>
+        return <SetupOrAdd jumpTo={jumpTo} image={image} navigation={navigation} />
         
       default: 
         return null; 
