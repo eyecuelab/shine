@@ -2,8 +2,9 @@ import React from 'react';
 import Header from "../../components/shared/Header";
 import styled from "styled-components/native";
 import { Button } from 'react-native-elements';
-import { TextInput } from 'react-native'; 
+import { Dimensions, TextInput, StyleSheet } from 'react-native'; 
 
+const { width, height } = Dimensions.get('window');
 
 const SignInScreen = () => {
   const [username, setUsername] = React.useState('');
@@ -16,12 +17,22 @@ const SignInScreen = () => {
       <Container>
         {/* Shine logo will be in here! */}
         <TextInput
-          placeholder="Username"
+          placeholder="Email"
+          returnKeyType="next"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+          style={styles.input}
           value={username}
           onChangeText={setUsername}
         />
         <TextInput
           placeholder="Password"
+          returnKeyType="go"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+          style={styles.input}
           value={password}
           onChangeText={setPassword}
           secureTextEntry
@@ -37,6 +48,19 @@ const SignInScreen = () => {
   )
 };  
 
+const styles = StyleSheet.create({
+  input: {
+    borderBottomColor: "#8A8F9E",
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    height: 40,
+    width: width * 0.85,
+    marginVertical: 5,
+    paddingHorizontal: 20,
+    fontSize: 15,
+    color: "#161F3D" 
+  }
+});
+
 const Container = styled.View`
   flex: 1;
   align-items: center;
@@ -47,6 +71,7 @@ const Text = styled.Text`
   color: black;
   font-size: 20px;
   font-weight: 500;
+  text-align: center;
 `;
 
 export default SignInScreen;
