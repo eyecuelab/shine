@@ -1,11 +1,43 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
 
 const OrderSpecs = ({ image, jumpTo }) => {
   
+const [shoeTypes, setShoeTypes ] = useState([
+  {type: "OUTDOOR", select: false},
+  {type: "INDOOR", select: false},
+  {type: "EXERCISE", select: false},
+  {type: "LEISURE", select: false},
+  {type: "FORMAL", select: false},
+  {type: "SOCIAL", select: false},
+]);
+
+useEffect(() => {
+  setShoeTypes(
+    shoeTypes.map((d) => {
+      return {
+        type: d.type,
+        select: d.select,
+      }
+    })
+  );
+}, []);
+
+const handleTypeChange = (type) => {
+  setShoeTypes(
+    shoeTypes.map(data => {
+      
+      if (type === data.type) {
+        data.select = !data.select;
+      }
+      return data;
+    })
+  )
+}
+
   return (
     <Container>
       <ImageArea  source={{ uri: image }} />
@@ -13,22 +45,25 @@ const OrderSpecs = ({ image, jumpTo }) => {
         <BodyText>
           What is the typical use? 
         </BodyText>
-        <Row>
-          <ShoeTypeButton type="INDOOR"/>
-          <ShoeTypeButton type="OUTDOOR"/>
-          <ShoeTypeButton type="EXERCISE"/>
-        </Row>
-        <Row>
-          <ShoeTypeButton type="LEISURE"/>
-          <ShoeTypeButton type="FORMAL"/>
-          <ShoeTypeButton type="SOCIAL"/>
-        </Row>
+
+        <FlatList
+          data={shoeTypes}
+          renderItem={({ item }) => 
+            
+            <ShoeTypeButton 
+              type={item.type} 
+              select={item.select} 
+              handleTypeChange={handleTypeChange}
+            />}
+          keyExtractor={item => item.type}
+        />
+
         <SliderContainer>
           <BodyText>How soon do you need them cleaned?</BodyText>
           <Slider
-            animateTransitions={true}
+            animateTransitions={false}
             minimumValue={1}
-            maximumValue={10}
+            maximumValue={5}
             thumbTintColor='#ffffff'
             thumbStyle={customStyles.thumb}
           />
