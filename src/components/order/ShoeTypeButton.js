@@ -3,32 +3,13 @@ import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import { color } from 'react-native-reanimated';
 
-const ShoeTypeButton = ({ type, select, setShoeTypes, shoeTypes }) => {
-
-// const [selected, setSelected] = useState(true);
-
-// console.log(selected);
-// const handleSelected = () => {
-//   if (selected) {
-//     setSelected(false);
-//   } else if (selected===false) {
-//     setSelected(true);
-//   } 
-// }
+const ShoeTypeButton = ({ type, select, handleTypeChange }) => {
 
   return (
     <ShoeType
       select={select}
       onPress={() => {
-        setShoeTypes(
-          shoeTypes.map(data => {
-            
-            if (type === data.type) {
-              data.select = !data.select;
-            }
-            return data;
-          })
-        )
+        handleTypeChange(type);
       }}
     >
       <TypeText select={select}>{type}</TypeText>
@@ -47,7 +28,7 @@ const ShoeType = styled.TouchableOpacity`
 
 const TypeText = styled.Text`
   text-align: center;
-  color: ${props=> props.select ? 'white' : '#a8a8a8'};
+  color: ${props => props.select ? 'white' : '#a8a8a8'};
 `;
 
 ShoeTypeButton.propTypes = {

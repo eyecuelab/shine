@@ -15,8 +15,6 @@ const [shoeTypes, setShoeTypes ] = useState([
   {type: "SOCIAL", select: false},
 ]);
 
-console.log("hello", shoeTypes)
-
 useEffect(() => {
   setShoeTypes(
     shoeTypes.map((d) => {
@@ -27,6 +25,18 @@ useEffect(() => {
     })
   );
 }, []);
+
+const handleTypeChange = (type) => {
+  setShoeTypes(
+    shoeTypes.map(data => {
+      
+      if (type === data.type) {
+        data.select = !data.select;
+      }
+      return data;
+    })
+  )
+}
 
   return (
     <Container>
@@ -43,13 +53,10 @@ useEffect(() => {
             <ShoeTypeButton 
               type={item.type} 
               select={item.select} 
-              setShoeTypes={setShoeTypes}
-              shoeTypes={shoeTypes}
+              handleTypeChange={handleTypeChange}
             />}
           keyExtractor={item => item.type}
         />
-
-    
 
         <SliderContainer>
           <BodyText>How soon do you need them cleaned?</BodyText>
