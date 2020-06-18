@@ -22,7 +22,7 @@ const { width, height } = Dimensions.get("window");
 const SelectPhoto = ({ navigation }) => {
 
   const [image, setImage] = useState(null);
-
+  
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     { key: 'first' },
