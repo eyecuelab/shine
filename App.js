@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { StatusBar } from "react-native";
 import { useFonts } from '@use-expo/font';
 // import { Asset } from 'expo-asset';
 // import * as Font from "expo-font";
 // import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { AppLoading } from 'expo';
 import { NavigationContainer } from "@react-navigation/native";
-import Drawer from "./src/navigators/Drawer";
+import Tabs from "./src/navigators/Tabs";
+// import Drawer from "./src/navigators/Drawer";
+// import Stack from "./src/navigators/Stack";
 
 const App = () => {
   let [fontsLoaded] = useFonts({
@@ -17,8 +20,11 @@ const App = () => {
     fontsLoaded ? 
       ( <>
           <NavigationContainer>
-            <Drawer />
+            {/* <Drawer /> */}
+            <Tabs />
+            {/* <Stack /> */}
           </NavigationContainer>  
+          <StatusBar barStyle="light-content" />
         </>
       ) : (
         <AppLoading />

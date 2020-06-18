@@ -48,6 +48,7 @@ const handleTypeChange = (type) => {
         
         <FlatList
           data={shoeTypes}
+          numColumns={3}
           renderItem={({ item }) => 
             
             <ShoeTypeButton 

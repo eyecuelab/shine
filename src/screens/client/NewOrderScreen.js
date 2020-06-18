@@ -1,28 +1,10 @@
 import React from 'react';
-import Header from "../../components/shared/Header";
-import styled from "styled-components/native";
+import SelectPhoto from "../../components/order/SelectPhoto";
 
 const NewOrderScreen = ({ navigation }) => {
-  return (
-    <>
-      <Header title="New Order" navigation={navigation} />
-      <Container>
-        <Text>NewOrderScreen</Text>
-      </Container>
-    </>
-  )
+  // console.log(navigation)
+  return <SelectPhoto navigation={navigation} /> 
+  
 };  
-
-const Container = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Text = styled.Text`
-  color: black;
-  font-size: 20px;
-  font-weight: 500;
-`;
 
 export default NewOrderScreen;
