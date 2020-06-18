@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import { color } from 'react-native-reanimated';
 
-const ShoeTypeButton = ({ type, selected, setShoeTypes }) => {
+const ShoeTypeButton = ({ type, select, setShoeTypes, shoeTypes }) => {
 
 // const [selected, setSelected] = useState(true);
 
@@ -18,19 +18,27 @@ const ShoeTypeButton = ({ type, selected, setShoeTypes }) => {
 
   return (
     <ShoeType
-      selected={selected}
+      select={select}
       onPress={() => {
-        setShoeTypes(selected = !selected)
+        setShoeTypes(
+          shoeTypes.map(data => {
+            
+            if (type === data.type) {
+              data.select = !data.select;
+            }
+            return data;
+          })
+        )
       }}
     >
-      <TypeText selected={selected}>{type}</TypeText>
+      <TypeText select={select}>{type}</TypeText>
     </ShoeType>
   );
 };
 
 const ShoeType = styled.TouchableOpacity`
   border-radius: 20px;
-  background-color: ${props => props.selected ? '#e6e6e6' : '#c8b48a'} 
+  background-color: ${props => props.select ? '#c8b48a': '#e6e6e6'} 
   
   padding: 15px;
   width: 120px;
@@ -39,7 +47,7 @@ const ShoeType = styled.TouchableOpacity`
 
 const TypeText = styled.Text`
   text-align: center;
-  color: ${props=> props.selected ? '#a8a8a8' : 'white'};
+  color: ${props=> props.select ? 'white' : '#a8a8a8'};
 `;
 
 ShoeTypeButton.propTypes = {

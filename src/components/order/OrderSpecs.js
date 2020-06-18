@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
@@ -15,6 +15,19 @@ const [shoeTypes, setShoeTypes ] = useState([
   {type: "SOCIAL", select: false},
 ]);
 
+console.log("hello", shoeTypes)
+
+useEffect(() => {
+  setShoeTypes(
+    shoeTypes.map((d) => {
+      return {
+        type: d.type,
+        select: d.select,
+      }
+    })
+  );
+}, []);
+
   return (
     <Container>
       <ImageArea  source={{ uri: image }} />
@@ -22,29 +35,28 @@ const [shoeTypes, setShoeTypes ] = useState([
         <BodyText>
           What is the typical use? 
         </BodyText>
+        
         <FlatList
           data={shoeTypes}
-          renderItem={({ item }) => <ShoeTypeButton type={item.type} select={item.select} />}
+          renderItem={({ item }) => 
+            
+            <ShoeTypeButton 
+              type={item.type} 
+              select={item.select} 
+              setShoeTypes={setShoeTypes}
+              shoeTypes={shoeTypes}
+            />}
           keyExtractor={item => item.type}
         />
 
+    
 
-        {/* <Row>
-          <ShoeTypeButton type="INDOOR"/>
-          <ShoeTypeButton type="OUTDOOR"/>
-          <ShoeTypeButton type="EXERCISE"/>
-        </Row>
-        <Row>
-          <ShoeTypeButton type="LEISURE"/>
-          <ShoeTypeButton type="FORMAL"/>
-          <ShoeTypeButton type="SOCIAL"/>
-        </Row> */}
         <SliderContainer>
           <BodyText>How soon do you need them cleaned?</BodyText>
           <Slider
-            animateTransitions={true}
+            animateTransitions={false}
             minimumValue={1}
-            maximumValue={10}
+            maximumValue={5}
             thumbTintColor='#ffffff'
             thumbStyle={customStyles.thumb}
           />
