@@ -28,7 +28,7 @@ const SignInScreen = () => {
         />
         <TextInput
           placeholder="Password"
-          returnKeyType="go"
+          returnKeyType="done"
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}

@@ -1,7 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import OrderStack from "./OrderStack";
-import HomeStack from "./HomeStack";
+import HomeStack from "../StackNavigator/HomeStack";
+import ProfileStack from "../StackNavigator/ProfileStack";
 import CleanersDrawer from "../DrawerNavigator/CleanersDrawer";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -35,13 +36,26 @@ const RootNavigator = () => {
         options={{
           tabBarLabel: 'Cleaner',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
+            <MaterialCommunityIcons name="shoe-formal" color={color} size={size} />
           ),
         }}
       >
         {() => (
           <CleanersDrawer />
         )}
+      </Tab.Screen>
+      <Tab.Screen
+        name="Profile"
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account-outline" color={color} size={size} />
+          ),
+        }}
+      >
+        {() => (
+          <ProfileStack />
+        )}    
       </Tab.Screen>
     </Tab.Navigator>
   );

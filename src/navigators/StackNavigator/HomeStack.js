@@ -13,7 +13,6 @@ const HomeStackNavigator = () => (
   <HomeStack.Navigator>
     <HomeStack.Screen name="Home" component={HomeScreen} />
     <HomeStack.Screen name="NewOrder" component={NewOrderScreen} />
-    <HomeStack.Screen name="Log in" component={SignInScreen} />
     <HomeStack.Screen name="OrdersList" component={OrdersListScreen} />
     <HomeStack.Screen name="OrderDetail" component={OrderDetailScreen} />
   </HomeStack.Navigator>
