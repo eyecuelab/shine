@@ -1,54 +1,83 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
-import Header from '../shared/Header';
 
-const OrderSpecs = ({ route, navigation }) => {
-  const { image } = route.params;
-  console.log(image);
+const OrderSpecs = ({ image, jumpTo }) => {
+  
+const [shoeTypes, setShoeTypes ] = useState([
+  {type: "OUTDOOR", select: false},
+  {type: "INDOOR", select: false},
+  {type: "EXERCISE", select: false},
+  {type: "LEISURE", select: false},
+  {type: "FORMAL", select: false},
+  {type: "SOCIAL", select: false},
+]);
+
+useEffect(() => {
+  setShoeTypes(
+    shoeTypes.map((d) => {
+      return {
+        type: d.type,
+        select: d.select,
+      }
+    })
+  );
+}, []);
+
+const handleTypeChange = (type) => {
+  setShoeTypes(
+    shoeTypes.map(data => {
+      
+      if (type === data.type) {
+        data.select = !data.select;
+      }
+      return data;
+    })
+  )
+}
 
   return (
-    <>
-      <Header title="" navigation={navigation} />
+    <Container>
+      <ImageArea  source={{ uri: image }} />
       <Container>
-        <ImageArea  source={{ uri: image }} />
-        <Container>
-          <BodyText>
-            What is the typical use? 
-          </BodyText>
-          <Row>
-            <ShoeTypeButton type="INDOOR"/>
-            <ShoeTypeButton type="OUTDOOR"/>
-            <ShoeTypeButton type="EXERCISE"/>
-          </Row>
-          <Row>
-            <ShoeTypeButton type="LEISURE"/>
-            <ShoeTypeButton type="FORMAL"/>
-            <ShoeTypeButton type="SOCIAL"/>
-          </Row>
-          <SliderContainer>
-            <BodyText>How soon do you need them cleaned?</BodyText>
-            <Slider
-              animateTransitions={true}
-              minimumValue={1}
-              maximumValue={10}
-              thumbTintColor='#ffffff'
-              thumbStyle={customStyles.thumb}
-            />
-          </SliderContainer>
-          <Button
-            title="CONTINUE"
-            containerStyle={{paddingTop: 20, width: 350 }}
-            buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-            onPress={() => {
-              navigation.navigate('OrderNotes', {image})
-            }}
+        <BodyText>
+          What is the typical use? 
+        </BodyText>
+
+        <FlatList
+          data={shoeTypes}
+          renderItem={({ item }) => 
+            
+            <ShoeTypeButton 
+              type={item.type} 
+              select={item.select} 
+              handleTypeChange={handleTypeChange}
+            />}
+          keyExtractor={item => item.type}
+        />
+
+        <SliderContainer>
+          <BodyText>How soon do you need them cleaned?</BodyText>
+          <Slider
+            animateTransitions={false}
+            minimumValue={1}
+            maximumValue={5}
+            thumbTintColor='#ffffff'
+            thumbStyle={customStyles.thumb}
           />
-        </Container>
+        </SliderContainer>
+        <Button
+          title="CONTINUE"
+          containerStyle={{paddingTop: 20, width: 350 }}
+          buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+          onPress={() => {
+            jumpTo('third')
+          }}
+        />
       </Container>
-    </>
+    </Container>
   );
 };
 
@@ -77,7 +106,7 @@ const Row = styled.View`
 `;
 
 const ImageArea = styled.Image`
-  flex: .5;
+  flex: .75;
   align-self: stretch;
   align-items: center;
   justify-content: center;
