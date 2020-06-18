@@ -6,7 +6,6 @@ import OrdersListScreen from "../../screens/client/OrdersListScreen";
 import OrderDetailScreen from "../../screens/client/OrderDetailScreen";
 import SignInScreen from "../../screens/shared/SignInScreen";
 
-
 const HomeStack = createStackNavigator();
 
 const HomeStackNavigator = () => (
