@@ -1,13 +1,10 @@
 import React from 'react';
 import styled from "styled-components/native";
 import { Button } from 'react-native-elements';
-import Camera from "./Camera";
-import Header from '../shared/Header';
 
 const TakePhoto = ({navigation}) => {
   return (
     <>
-    <Header title="" navigation={navigation} />
     <Container>
       <CameraView>
         <Text>Camera View</Text>
