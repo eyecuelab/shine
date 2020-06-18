@@ -22,7 +22,6 @@ const Header = ({ title, navigation }) => {
 }
 
 const SafeAreaView = styled.SafeAreaView`
-  background: #CBB387;
   flex: 0.1;
 `;
 
@@ -40,10 +39,9 @@ const Icon = styled.View`
 `;
 
 const Text = styled.Text`
-  font-weight: bold;
-  font-size: 20px;
+  font-weight: 600;
+  font-size: 17px;
   color: #333;
-  font-family: Marison-Sans-Round;
 `;
 
 Header.propTypes = {
