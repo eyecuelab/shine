@@ -19,7 +19,7 @@ const App = () => {
           <NavigationContainer>
             <RootNavigator />
           </NavigationContainer>  
-          <StatusBar barStyle="light-content" />
+          {/* <StatusBar barStyle="light-content" /> */}
         </>
       ) : (
         <AppLoading />
