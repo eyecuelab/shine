@@ -9,7 +9,6 @@ const WelcomeScreen = ({ navigation }) => {
     <>
       <Header title="Welcome" navigation={navigation} />
       {/* <TakePhoto onContinue={screenView}/> */}
-      <TakePhoto />
     </>
   )
 };  

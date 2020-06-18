@@ -4,10 +4,11 @@ import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { TabView, SceneMap, ScrollPager } from 'react-native-tab-view';
 import OrderSpecs from './OrderSpecs';
 import OrderNotes from './OrderNotes';
 import SetupOrAdd from './SetupOrAdd';
+import { removeAllListeners } from 'expo-media-library';
 
 const options = {
   mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -17,7 +18,7 @@ const options = {
 };
 
 const initialLayout = { width: Dimensions.get('window').width };
-const { width, height } = Dimensions.get("window");
+// const { width, height } = Dimensions.get("window");
 
 const SelectPhoto = ({ navigation }) => {
 
@@ -32,7 +33,7 @@ const SelectPhoto = ({ navigation }) => {
   ]);
   
   const renderScene = ({ route, jumpTo  }) => {
-
+    console.log({jumpTo})
     switch (route.key) {
       case 'first':
         return (  
@@ -56,7 +57,7 @@ const SelectPhoto = ({ navigation }) => {
           </Container>
         )
       case 'second':
-        return <OrderSpecs jumpTo={jumpTo} image={image} />
+        return <OrderSpecs  jumpTo={jumpTo} image={image} />
 
       case 'third':
         return <OrderNotes jumpTo={jumpTo} image={image} />
@@ -123,7 +124,9 @@ const SelectPhoto = ({ navigation }) => {
         onPress={TakePhoto} />
     </Container>
   ) : (
+    
     <TabView
+      swipeEnabled={index === 1 ? false : true}
       navigationState={{ index, routes }}
       renderScene={renderScene}
       onIndexChange={setIndex}
