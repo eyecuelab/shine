@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Switch } from "react-native";
+import { ScrollView, Switch, Text } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import styled from "styled-components/native";
 
@@ -48,36 +48,46 @@ const OrderDetailScreen = () => {
     <>
       <ImageArea source={{ uri: image }}/>
       <Container>
-        <BodyText>ADD POLISH </BodyText>
-          <SwitchContainer>
-            <Switch
-              style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }}
-              trackColor={{ false: "#767577", true: "#E6E6E6" }}
-              thumbColor={addPolish ? "#CBB387" : "#f4f3f4"}
-              ios_backgroundColor="#f4f3f4"
-              onChange={() => toggleState("POLISH")}
-              onValueChange={togglePolish}
-              value={addPolish}
-            />
-            <Switch
-              style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }}
-              trackColor={{ false: "#767577", true: "#E6E6E6" }}
-              thumbColor={addRainProtection ? "#CBB387" : "#f4f3f4"}
-              ios_backgroundColor="#f4f3f4"
-              onChange={() => toggleState("RAIN-PROTECTION")}
-              onValueChange={toggleRainProtection}
-              value={addRainProtection}
-            />
-            <Switch
-              style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }}
-              trackColor={{ false: "#767577", true: "#E6E6E6" }}
-              thumbColor={replaceShoelaces ? "#CBB387" : "#f4f3f4"}
-              ios_backgroundColor="#f4f3f4"
-              onChange={() => toggleState("REPLACE-SHOELACE")}
-              onValueChange={toggleShoelaces}
-              value={replaceShoelaces}
-            />
-          </SwitchContainer>
+        <BodyTextContainer>
+          <BodyText>ADD POLISH</BodyText>
+          <BodyText>ADD RAIN PROTECTION</BodyText>
+          <BodyText>REPLACE SHOELACES</BodyText>
+        </BodyTextContainer>
+        <SwitchContainer>
+          <Switch
+            style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }], marginBottom: 5 }}
+            trackColor={{ false: "#767577", true: "#E6E6E6" }}
+            thumbColor={addPolish ? "#CBB387" : "#f4f3f4"}
+            ios_backgroundColor="#f4f3f4"
+            onChange={() => toggleState("POLISH")}
+            onValueChange={togglePolish}
+            value={addPolish}
+          />
+          <Switch
+            style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }], marginBottom: 5 }}
+            trackColor={{ false: "#939393", true: "#E6E6E6" }}
+            thumbColor={addRainProtection ? "#CBB387" : "#f4f3f4"}
+            ios_backgroundColor="#f4f3f4"
+            onChange={() => toggleState("RAIN-PROTECTION")}
+            onValueChange={toggleRainProtection}
+            value={addRainProtection}
+          />
+          <Switch
+            style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }}
+            trackColor={{ false: "#767577", true: "#E6E6E6" }}
+            thumbColor={replaceShoelaces ? "#CBB387" : "#f4f3f4"}
+            ios_backgroundColor="#f4f3f4"
+            onChange={() => toggleState("REPLACE-SHOELACE")}
+            onValueChange={toggleShoelaces}
+            value={replaceShoelaces}
+          />
+        </SwitchContainer>
+        <PriceTextContainer>
+          <BodyText>ROUGH EST.</BodyText>
+        </PriceTextContainer>
+        <PriceContianer>
+          <DollarSign>$ <DallarsText>35</DallarsText><CentsText>99</CentsText></DollarSign>
+        </PriceContianer>
       </Container>
     </>
   );
@@ -93,19 +103,57 @@ const ImageArea = styled.Image`
 const Container = styled.View`
   background: white;
   flex: 1;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const BodyTextContainer = styled.View`
+  margin: 50px 90px 30px 0px;
 `;
 
 const BodyText = styled.Text`
-  text-align: center;
-  margin-top: 50px;
+  text-align: left;
+  margin: 15px 0px 0px 30px;
   color: black;
   font-size: 18px;
 `;
 
 const SwitchContainer = styled.View`
-  margin-left: auto;
+  margin: 50px 0px 30px 0px
+  padding-top: 10px;
+  border: 5px
+  border-color: black;
 `;
 
+const PriceTextContainer = styled.View`
+  margin-right: 110px;
+  border: 5px
+  border-color: black;
+`;
+
+const PriceContianer = styled.View`
+  border: 5px
+  border-color: black;
+`;
+
+const DollarSign = styled.Text`
+  align-items: flex-start;
+  color: black;
+  font-size: 25px;
+  font-family: Marison-Sans-Round;
+`;
+
+const DallarsText = styled.Text`
+  color: black;
+  font-size: 100px;
+  font-family: Marison-Script-Vintage;
+`;
+
+const CentsText = styled.Text`
+  color: black;
+  font-size: 80px;
+  font-family: Marison-Script-Vintage;
+  text-decoration-line: underline;
+`;
 
 export default OrderDetailScreen;
