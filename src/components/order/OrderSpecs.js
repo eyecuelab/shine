@@ -3,12 +3,12 @@ import { StyleSheet, FlatList, View } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
+import ScrollViewContainer from '../shared/ScrollViewContainer';
 
 const OrderSpecs = ({ image, jumpTo }) => {
 
 const [sliderValue, setSliderValue] = useState('Within Two Days')
-
-console.log(sliderValue);
+// console.log(sliderValue);
   
 const [shoeTypes, setShoeTypes ] = useState([
   {type: "OUTDOOR", select: false},
@@ -30,7 +30,7 @@ const handleTypeChange = (type) => {
     })
   )
 }
-console.log(shoeTypes);
+// console.log(shoeTypes);
 
 const handleValueChange = (value) => {
   let valueName = ''
@@ -47,52 +47,54 @@ const handleValueChange = (value) => {
 }
 
   return (
-    <Container>
-      <ImageArea  source={{ uri: image }} />
+    <ScrollViewContainer>
       <Container>
-        <BodyText>
-          What is the typical use? 
-        </BodyText>
+        <ImageArea  source={{ uri: image }} />
+        <Container>
+          <BodyText>
+            What is the typical use? 
+          </BodyText>
+        
+            <FlatList
+              
+              scrollEnabled={false}
+              numColumns={3}
+              data={shoeTypes}
+              renderItem={({ item }) => 
+                <ShoeTypeButton 
+                  type={item.type} 
+                  select={item.select} 
+                  handleTypeChange={handleTypeChange}
+                />}
+              keyExtractor={item => item.type}
+            />
       
-          <FlatList
-            
-            scrollEnabled={false}
-            numColumns={3}
-            data={shoeTypes}
-            renderItem={({ item }) => 
-              <ShoeTypeButton 
-                type={item.type} 
-                select={item.select} 
-                handleTypeChange={handleTypeChange}
-              />}
-            keyExtractor={item => item.type}
+          <SliderContainer>
+            <BodyText>How soon do you need them cleaned?</BodyText>
+            <BodyText>{sliderValue}</BodyText>
+            <Slider
+              step={2}
+              minimumValue={2}
+              maximumValue={6}
+              value={4}
+              thumbTintColor='#ffffff'
+              thumbStyle={customStyles.thumb}
+              // onValueChange={(value) => handleValueChange({ value })}
+              onValueChange={(value) => setSliderValue(handleValueChange(value))}
+              
+            />
+          </SliderContainer>
+          <Button
+            title="CONTINUE"
+            containerStyle={{paddingTop: 20, width: 350 }}
+            buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+            onPress={() => {
+              jumpTo('third')
+            }}
           />
-    
-        <SliderContainer>
-          <BodyText>How soon do you need them cleaned?</BodyText>
-          <BodyText>{sliderValue}</BodyText>
-          <Slider
-            step={2}
-            minimumValue={2}
-            maximumValue={6}
-            value={4}
-            thumbTintColor='#ffffff'
-            thumbStyle={customStyles.thumb}
-            // onValueChange={(value) => handleValueChange({ value })}
-            onValueChange={(value) => setSliderValue(handleValueChange(value))}
-            
-          />
-        </SliderContainer>
-        <Button
-          title="CONTINUE"
-          containerStyle={{paddingTop: 20, width: 350 }}
-          buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-          onPress={() => {
-            jumpTo('third')
-          }}
-        />
+        </Container>
       </Container>
-    </Container>
+    </ScrollViewContainer>
   );
 };
 

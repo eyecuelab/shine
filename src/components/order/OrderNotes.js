@@ -3,43 +3,46 @@ import {View, Keyboard, KeyboardAvoidingView } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import { TextInput } from 'react-native'; 
+import ScrollViewContainer from '../shared/ScrollViewContainer';
 
 const OrderNotes = ({ image, jumpTo }) => {
   const [value, onChangeText] = useState(null); 
-  console.log(value)
+  // console.log(value)
   return (
     <>
-      <KeyboardAvoidingView style={{flex: 1 }} behavior="padding">
-        <Container>
-          <ImageArea source={{ uri: image }}/>  
+      <ScrollViewContainer>
+        <KeyboardAvoidingView style={{flex: 1 }} behavior="padding">
           <Container>
-            <BodyText>
-              Notes for Cleaner 
-            </BodyText>
-              <View>
-                <TextInput 
-                  placeholder="This step is optional. You will also have the opportunity to speak to the cleaner of choice directly after order is placed"
-                  style={{ height: 200, width: 350, borderColor: 'gray', borderWidth: 1, borderRadius: 5, padding: 15, paddingTop: 10, fontSize: 20}} 
-                  onChangeText={text => onChangeText(text)} 
-                  value={value}
-                  multiline={true}
-                  editable={true}
-                  onSubmitEditing={Keyboard.dismiss}
-                  returnKeyType='done'
-                  allowFontScaling={true}
-                />
-              </View>
-            <Button
-              title="CONTINUE"
-              containerStyle={{paddingTop: 20, width: 350 }}
-              buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-              onPress={() => {
-                jumpTo('fourth')}
-              }
-            />
+            <ImageArea source={{ uri: image }}/>  
+            <Container>
+              <BodyText>
+                Notes for Cleaner 
+              </BodyText>
+                <View>
+                  <TextInput 
+                    placeholder="This step is optional. You will also have the opportunity to speak to the cleaner of choice directly after order is placed"
+                    style={{ height: 200, width: 350, borderColor: 'gray', borderWidth: 1, borderRadius: 5, padding: 15, paddingTop: 10, fontSize: 20}} 
+                    onChangeText={text => onChangeText(text)} 
+                    value={value}
+                    multiline={true}
+                    editable={true}
+                    onSubmitEditing={Keyboard.dismiss}
+                    returnKeyType='done'
+                    allowFontScaling={true}
+                  />
+                </View>
+              <Button
+                title="CONTINUE"
+                containerStyle={{paddingTop: 20, width: 350 }}
+                buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+                onPress={() => {
+                  jumpTo('fourth')}
+                }
+              />
+            </Container>
           </Container>
-        </Container>
-      </KeyboardAvoidingView >
+        </KeyboardAvoidingView >
+      </ScrollViewContainer>
     </>
   );
 };

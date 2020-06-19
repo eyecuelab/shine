@@ -34,7 +34,7 @@ const SelectPhoto = ({ navigation }) => {
   ]);
   
   const renderScene = ({ route, jumpTo  }) => {
-    console.log({jumpTo})
+    // console.log({jumpTo})
     switch (route.key) {
       case 'first':
         return (  
