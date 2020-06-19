@@ -30,7 +30,7 @@ const handleTypeChange = (type) => {
     })
   )
 }
-// console.log(shoeTypes);
+console.log(shoeTypes);
 
 const handleValueChange = (value) => {
   let valueName = ''

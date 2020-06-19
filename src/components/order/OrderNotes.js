@@ -6,7 +6,7 @@ import { TextInput } from 'react-native';
 
 const OrderNotes = ({ image, jumpTo }) => {
   const [value, onChangeText] = useState(null); 
-  
+  console.log(value)
   return (
     <>
       <KeyboardAvoidingView style={{flex: 1 }} behavior="padding">
