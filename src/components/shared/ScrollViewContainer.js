@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 const ScrollViewContainer = ({ contentContainerStyle, children }) => {
   return (
     <ScrollView
+      style={{backgroundColor: "white"}}
       contentContainerStyle={{
         flex: 1,
         justifyContent: "flex-start",

@@ -4,6 +4,8 @@ import styled from "styled-components/native";
 import ScrollViewContailner from "../../components/shared/ScrollViewContainer";
 import AdditionalServiceSwitch from "../../components/order/AdditionalServiceSwitch";
 import Price from "../../components/shared/Price";
+import DashedLine from "../../components/shared/Dash";
+
 
 const OrderDetailScreen = () => {
   const route = useRoute();
@@ -13,23 +15,23 @@ const OrderDetailScreen = () => {
 
   return (
     <ScrollViewContailner>
-      <>
-        <ImageArea source={{ uri: image }}/>
-        <Container>
-          <BodyTextContainer>
-            <BodyText>ADD POLISH</BodyText>
-            <BodyText>ADD RAIN PROTECTION</BodyText>
-            <BodyText>REPLACE SHOELACES</BodyText>
-          </BodyTextContainer>
-          <SwitchContainer>
-            <AdditionalServiceSwitch />
-          </SwitchContainer>
-          <PriceTextContainer>
-            <Text>ROUGH EST.</Text>
-          </PriceTextContainer>
-          {Price(35, 99)}
-        </Container>
-      </>
+      <ImageArea source={{ uri: image }}/>
+      <Container>
+        <BodyTextContainer>
+          <BodyText>ADD POLISH</BodyText>
+          <BodyText>ADD RAIN PROTECTION</BodyText>
+          <BodyText>REPLACE SHOELACES</BodyText>
+        </BodyTextContainer>
+        <SwitchContainer>
+          <AdditionalServiceSwitch />
+        </SwitchContainer>
+        <PriceTextContainer>
+          <Text>ROUGH EST.</Text>
+        </PriceTextContainer>
+        {Price(35, 99)}
+      </Container>
+      <DashedLine />
+      
     </ScrollViewContailner>
   );
 };  
@@ -62,14 +64,10 @@ const BodyText = styled.Text`
 const SwitchContainer = styled.View`
   margin: 50px 0px 30px 0px
   padding-top: 10px;
-  border: 5px
-  border-color: black;
 `;
 
 const PriceTextContainer = styled.View`
   margin-right: 110px;
-  border: 5px
-  border-color: black;
 `;
 
 const Text = styled.Text`
@@ -78,5 +76,6 @@ const Text = styled.Text`
   color: black;
   font-size: 18px;
 `;
+
 
 export default OrderDetailScreen;
