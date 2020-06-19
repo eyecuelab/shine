@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, FlatList, View } from 'react-native';
+import React, { useState} from 'react';
+import { StyleSheet, FlatList} from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
+import PropTypes from 'prop-types';
 
 const OrderSpecs = ({ image, jumpTo }) => {
 
@@ -115,12 +116,6 @@ const SliderContainer = styled.View`
   justify-content: center;
 `;
 
-const Row = styled.View`
-  margin-top: 10px;
-  flex-direction: row;
-  justify-content: center;
-`;
-
 const ImageArea = styled.Image`
   flex: .75;
   align-self: stretch;
@@ -141,5 +136,11 @@ const BodyText = styled.Text`
   color: black;
   font-size: 18px;
 `;
+
+OrderSpecs.propTypes = {
+  image: PropTypes.any, 
+  jumpTo: PropTypes.func,
+}
+
 
 export default OrderSpecs;

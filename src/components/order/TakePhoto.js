@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components/native";
 import { Button } from 'react-native-elements';
 
-const TakePhoto = ({navigation}) => {
+const TakePhoto = () => {
   return (
     <>
     <Container>

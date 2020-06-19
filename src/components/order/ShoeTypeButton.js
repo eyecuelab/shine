@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
-import { color } from 'react-native-reanimated';
 
 const ShoeTypeButton = ({ type, select, handleTypeChange }) => {
 
@@ -31,7 +30,9 @@ const TypeText = styled.Text`
 `;
 
 ShoeTypeButton.propTypes = {
-  type: PropTypes.string
+  type: PropTypes.string,
+  select: PropTypes.bool,
+  handleTypeChange: PropTypes.func
 }
 
 

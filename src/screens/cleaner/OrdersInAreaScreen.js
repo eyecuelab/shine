@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from "../../components/shared/Header";
 import styled from "styled-components/native";
-
+import PropTypes from 'prop-types';
 const OrdersInAreaScreen = ({ navigation }) => {
   return (
     <>
@@ -24,5 +24,9 @@ const Text = styled.Text`
   font-size: 20px;
   font-weight: 500;
 `;
+
+OrdersInAreaScreen.propTypes = {
+  navigation: PropTypes.object
+}
 
 export default OrdersInAreaScreen;
