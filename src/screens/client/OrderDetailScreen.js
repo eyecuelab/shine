@@ -1,22 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { ScrollView, Switch } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import styled from "styled-components/native";
-
-const SERVICES = [ 
-  'ADD POLISH', 'ADD RAIN PROTECTION', 'REPLACE SHOELACES'
-];
 
 const OrderDetailScreen = () => {
   const route = useRoute();
   const { image } = route.params;
 
-  const [addPolish, setAddPolish] = useState({ "POLISH": false });
-  // const [addRainProtection, setAddRainProtection = useState({ RAINPROTECTION: false })]
+  const [services, setServices] = useState([]);
 
-  const toggleSwitch = () => setAddPolish(previousState => ({"POLISH": !previousState["POLISH"]}));
+  const isSelected = service => services.some(s => s === service);
 
-  console.log(addPolish);
+  const addService = service => {
+    if (!isSelected(service)) {
+      setServices([...services, service]);
+    }
+  };
+
+  const removeService = service => {
+    if (isSelected(service)) {
+      setServices(services.filter(s => s !== service));
+    }
+  };  
+  
+  const toggleState = service => 
+    isSelected(service) ? removeService(service) : addService(service);  
+
+
+  const [addPolish, setAddPolish] = useState(false);
+  const togglePolish = () => { 
+    setAddPolish(previousState => !previousState)
+  }  
+
+  const [addRainProtection, setAddRainProtection] = useState(false);
+  const toggleRainProtection = () => { 
+    setAddRainProtection(previousState => !previousState)
+  }  
+
+  const [replaceShoelaces, setReplaceShoelaces] = useState(false);
+  const toggleShoelaces = () => { 
+    setReplaceShoelaces(previousState => !previousState)
+  }  
+
+  console.log("Service", services);
 
   return (
     <>
@@ -27,12 +53,30 @@ const OrderDetailScreen = () => {
             <Switch
               style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }}
               trackColor={{ false: "#767577", true: "#E6E6E6" }}
-              thumbColor={addPolish ? "#CBB387" : "#767577"}
+              thumbColor={addPolish ? "#CBB387" : "#f4f3f4"}
               ios_backgroundColor="#f4f3f4"
-              onValueChange={toggleSwitch}
+              onChange={() => toggleState("POLISH")}
+              onValueChange={togglePolish}
               value={addPolish}
             />
-        
+            <Switch
+              style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }}
+              trackColor={{ false: "#767577", true: "#E6E6E6" }}
+              thumbColor={addRainProtection ? "#CBB387" : "#f4f3f4"}
+              ios_backgroundColor="#f4f3f4"
+              onChange={() => toggleState("RAIN-PROTECTION")}
+              onValueChange={toggleRainProtection}
+              value={addRainProtection}
+            />
+            <Switch
+              style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }}
+              trackColor={{ false: "#767577", true: "#E6E6E6" }}
+              thumbColor={replaceShoelaces ? "#CBB387" : "#f4f3f4"}
+              ios_backgroundColor="#f4f3f4"
+              onChange={() => toggleState("REPLACE-SHOELACE")}
+              onValueChange={toggleShoelaces}
+              value={replaceShoelaces}
+            />
           </SwitchContainer>
       </Container>
     </>
