@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { StatusBar } from "react-native";
+/* eslint-disable no-undef */
+import React from 'react';
 import { useFonts } from '@use-expo/font';
 import { AppLoading } from 'expo';
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer } from '@react-navigation/native';
 // import Tabs from "./src/navigators/Tabs";
 import { RootNavigator } from './src/navigators';
-
 
 const App = () => {
   let [fontsLoaded] = useFonts({
@@ -13,18 +12,16 @@ const App = () => {
     'Marison-Script-Vintage': require('./assets/fonts/Marison-Script-Vintage.ttf'),
   });
 
-  return ( 
-    fontsLoaded ? 
-      ( <>
-          <NavigationContainer>
-            <RootNavigator />
-          </NavigationContainer>  
-          {/* <StatusBar barStyle="light-content" /> */}
-        </>
-      ) : (
-        <AppLoading />
-      )
+  return fontsLoaded ? (
+    <>
+      <NavigationContainer>
+        <RootNavigator />
+      </NavigationContainer>
+      {/* <StatusBar barStyle="light-content" /> */}
+    </>
+  ) : (
+    <AppLoading />
   );
-}
+};
 
 export default App;

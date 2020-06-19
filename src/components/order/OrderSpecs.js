@@ -1,73 +1,70 @@
-import React, { useState} from 'react';
-import { StyleSheet, FlatList} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
 import PropTypes from 'prop-types';
 
 const OrderSpecs = ({ image, jumpTo }) => {
+  const [sliderValue, setSliderValue] = useState('Within Two Days');
 
-const [sliderValue, setSliderValue] = useState('Within Two Days')
+  console.log(sliderValue);
 
-console.log(sliderValue);
-  
-const [shoeTypes, setShoeTypes ] = useState([
-  {type: "OUTDOOR", select: false},
-  {type: "INDOOR", select: false},
-  {type: "EXERCISE", select: false},
-  {type: "LEISURE", select: false},
-  {type: "FORMAL", select: false},
-  {type: "SOCIAL", select: false},
-]);
+  const [shoeTypes, setShoeTypes] = useState([
+    { type: 'OUTDOOR', select: false },
+    { type: 'INDOOR', select: false },
+    { type: 'EXERCISE', select: false },
+    { type: 'LEISURE', select: false },
+    { type: 'FORMAL', select: false },
+    { type: 'SOCIAL', select: false },
+  ]);
 
-const handleTypeChange = (type) => {
-  setShoeTypes(
-    shoeTypes.map(data => {
-      
-      if (type === data.type) {
-        data.select = !data.select;
-      }
-      return data;
-    })
-  )
-}
-// console.log(shoeTypes);
+  const handleTypeChange = (type) => {
+    setShoeTypes(
+      shoeTypes.map((data) => {
+        if (type === data.type) {
+          data.select = !data.select;
+        }
+        return data;
+      }),
+    );
+  };
+  // console.log(shoeTypes);
 
-const handleValueChange = (value) => {
-  let valueName = ''
-  if (value === 2) {
-    valueName = 'Within 24 Hours'
-  }
-  if (value === 4) {
-    valueName = 'Within 2 Days'
-  }
-  if (value === 6 ) {
-    valueName = 'Within a Week'
-  }
-  return valueName;
-}
+  const handleValueChange = (value) => {
+    let valueName = '';
+    if (value === 2) {
+      valueName = 'Within 24 Hours';
+    }
+    if (value === 4) {
+      valueName = 'Within 2 Days';
+    }
+    if (value === 6) {
+      valueName = 'Within a Week';
+    }
+    return valueName;
+  };
 
   return (
     <Container>
-      <ImageArea  source={{ uri: image }} />
+      <ImageArea source={{ uri: image }} />
       <Container>
-        <BodyText>
-          What is the typical use? 
-        </BodyText>
-      
-          <FlatList
-            scrollEnabled={false}
-            numColumns={3}
-            data={shoeTypes}
-            renderItem={({ item }) => 
-              <ShoeTypeButton 
-                type={item.type} 
-                select={item.select} 
-                handleTypeChange={handleTypeChange}
-              />}
-            keyExtractor={item => item.type}
-          />
-    
+        <BodyText>What is the typical use?</BodyText>
+
+        <FlatList
+          scrollEnabled={false}
+          numColumns={3}
+          data={shoeTypes}
+          renderItem={({ item }) => (
+            <ShoeTypeButton
+              type={item.type}
+              select={item.select}
+              handleTypeChange={handleTypeChange}
+            />
+          )}
+          keyExtractor={(item) => item.type}
+        />
+
         <SliderContainer>
           <BodyText>How soon do you need them cleaned?</BodyText>
           <BodyText>{sliderValue}</BodyText>
@@ -76,19 +73,22 @@ const handleValueChange = (value) => {
             minimumValue={2}
             maximumValue={6}
             value={4}
-            thumbTintColor='#ffffff'
+            thumbTintColor="#ffffff"
             thumbStyle={customStyles.thumb}
             // onValueChange={(value) => handleValueChange({ value })}
             onValueChange={(value) => setSliderValue(handleValueChange(value))}
-            
           />
         </SliderContainer>
         <Button
           title="CONTINUE"
-          containerStyle={{paddingTop: 20, width: 350 }}
-          buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+          containerStyle={{ paddingTop: 20, width: 350 }}
+          buttonStyle={{
+            backgroundColor: 'black',
+            height: 50,
+            borderRadius: 7,
+          }}
           onPress={() => {
-            jumpTo('third')
+            jumpTo('third');
           }}
         />
       </Container>
@@ -102,10 +102,10 @@ const customStyles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     shadowColor: 'black',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowRadius: 2,
-    shadowOpacity: 0.75
-  }
+    shadowOpacity: 0.75,
+  },
 });
 
 const SliderContainer = styled.View`
@@ -117,7 +117,7 @@ const SliderContainer = styled.View`
 `;
 
 const ImageArea = styled.Image`
-  flex: .75;
+  flex: 0.75;
   align-self: stretch;
   align-items: center;
   justify-content: center;
@@ -138,9 +138,8 @@ const BodyText = styled.Text`
 `;
 
 OrderSpecs.propTypes = {
-  image: PropTypes.any, 
+  image: PropTypes.any,
   jumpTo: PropTypes.func,
-}
-
+};
 
 export default OrderSpecs;
