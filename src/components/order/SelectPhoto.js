@@ -20,10 +20,11 @@ const options = {
 const initialLayout = { width: Dimensions.get('window').width };
 // const { width, height } = Dimensions.get("window");
 
-  const [test, setTest] = useState("");
+// const [test, setTest] = useState("");
 
+const SelectPhoto = ({ navigation }) => {
   const [image, setImage] = useState(null);
-  
+
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     { key: 'first' },
@@ -94,7 +95,6 @@ const initialLayout = { width: Dimensions.get('window').width };
 
   const PickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync(options);
-    // console.log(result);
     if (!result.cancelled) {
       setImage(result.uri);
     }
@@ -102,7 +102,6 @@ const initialLayout = { width: Dimensions.get('window').width };
 
   const TakePhoto = async () => {
     let result = await ImagePicker.launchCameraAsync(options);
-    // console.log(result.uri);
     if (!result.cancelled) {
       setImage(result.uri)
     }
@@ -124,7 +123,6 @@ const initialLayout = { width: Dimensions.get('window').width };
         onPress={TakePhoto} />
     </Container>
   ) : (
-    
     <TabView
       swipeEnabled={index === 1 ? false : true}
       navigationState={{ index, routes }}
@@ -136,7 +134,6 @@ const initialLayout = { width: Dimensions.get('window').width };
 }
 
 const ImageArea = styled.Image`
- 
   flex: .75;
   align-self: stretch;
   align-items: center;

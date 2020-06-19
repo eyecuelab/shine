@@ -15,7 +15,7 @@ const SetupOrAdd = ({ image, jumpTo, navigation }) => {
           containerStyle={{paddingTop: 20, width: 350 }}
           buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
           onPress={() => {
-            navigation.navigate('Log in', {image})
+            navigation.navigate('OrdersList', {image})
           }}
         />
         <Button
