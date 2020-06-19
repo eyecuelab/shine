@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, View } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
 
 const OrderSpecs = ({ image, jumpTo }) => {
+
+const [sliderValue, setSliderValue] = useState('Within Two Days')
+
+console.log(sliderValue);
   
 const [shoeTypes, setShoeTypes ] = useState([
   {type: "OUTDOOR", select: false},
@@ -14,17 +18,6 @@ const [shoeTypes, setShoeTypes ] = useState([
   {type: "FORMAL", select: false},
   {type: "SOCIAL", select: false},
 ]);
-
-useEffect(() => {
-  setShoeTypes(
-    shoeTypes.map((d) => {
-      return {
-        type: d.type,
-        select: d.select,
-      }
-    })
-  );
-}, []);
 
 const handleTypeChange = (type) => {
   setShoeTypes(
@@ -39,6 +32,20 @@ const handleTypeChange = (type) => {
 }
 // console.log(shoeTypes);
 
+const handleValueChange = (value) => {
+  let valueName = ''
+  if (value === 2) {
+    valueName = 'Within 24 Hours'
+  }
+  if (value === 4) {
+    valueName = 'Within 2 Days'
+  }
+  if (value === 6 ) {
+    valueName = 'Within a Week'
+  }
+  return valueName;
+}
+
   return (
     <Container>
       <ImageArea  source={{ uri: image }} />
@@ -46,27 +53,34 @@ const handleTypeChange = (type) => {
         <BodyText>
           What is the typical use? 
         </BodyText>
-
-        <FlatList
-          data={shoeTypes}
-          numColumns={3}
-          renderItem={({ item }) => 
-            <ShoeTypeButton 
-              type={item.type} 
-              select={item.select} 
-              handleTypeChange={handleTypeChange}
-            />}
-          keyExtractor={item => item.type}
-        />
-
+      
+          <FlatList
+            
+            scrollEnabled={false}
+            numColumns={3}
+            data={shoeTypes}
+            renderItem={({ item }) => 
+              <ShoeTypeButton 
+                type={item.type} 
+                select={item.select} 
+                handleTypeChange={handleTypeChange}
+              />}
+            keyExtractor={item => item.type}
+          />
+    
         <SliderContainer>
           <BodyText>How soon do you need them cleaned?</BodyText>
+          <BodyText>{sliderValue}</BodyText>
           <Slider
-            animateTransitions={false}
-            minimumValue={1}
-            maximumValue={5}
+            step={2}
+            minimumValue={2}
+            maximumValue={6}
+            value={4}
             thumbTintColor='#ffffff'
             thumbStyle={customStyles.thumb}
+            // onValueChange={(value) => handleValueChange({ value })}
+            onValueChange={(value) => setSliderValue(handleValueChange(value))}
+            
           />
         </SliderContainer>
         <Button
@@ -95,6 +109,8 @@ const customStyles = StyleSheet.create({
 });
 
 const SliderContainer = styled.View`
+  margin-left: 40px;
+  margin-right: 40px;
   align-self: stretch;
   align-items: stretch;
   justify-content: center;
@@ -121,8 +137,8 @@ const Container = styled.View`
 `;
 
 const BodyText = styled.Text`
-  text-align: center;
-  margin-top: 50px;
+  margin: 15px
+  text-align: center
   color: black;
   font-size: 18px;
 `;

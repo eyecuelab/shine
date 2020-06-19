@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from "../../components/shared/Header";
 import TakePhoto from '../../components/order/TakePhoto';
-import styled from "styled-components/native";
-import { ScrollView, Switch } from "react-native";
+
+
 
 const WelcomeScreen = ({ navigation }) => {
 
