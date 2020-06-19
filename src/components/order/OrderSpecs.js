@@ -54,7 +54,6 @@ const handleValueChange = (value) => {
         </BodyText>
       
           <FlatList
-            
             scrollEnabled={false}
             numColumns={3}
             data={shoeTypes}
