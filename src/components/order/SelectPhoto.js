@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Image, Dimensions, View, Text } from 'react-native';
+import { Dimensions } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
-import { TabView, SceneMap, ScrollPager } from 'react-native-tab-view';
+import { TabView } from 'react-native-tab-view';
 import OrderSpecs from './OrderSpecs';
 import OrderNotes from './OrderNotes';
 import SetupOrAdd from './SetupOrAdd';
-import { removeAllListeners } from 'expo-media-library';
+import PropTypes from 'prop-types';
 
 const options = {
   mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -20,8 +20,6 @@ const options = {
 const initialLayout = { width: Dimensions.get('window').width };
 // const { width, height } = Dimensions.get("window");
 
-// const [test, setTest] = useState("");
-
 const SelectPhoto = ({ navigation }) => {
   const [image, setImage] = useState(null);
 
@@ -30,51 +28,63 @@ const SelectPhoto = ({ navigation }) => {
     { key: 'first' },
     { key: 'second' },
     { key: 'third' },
-    { key: 'fourth' }
+    { key: 'fourth' },
   ]);
-  
-  const renderScene = ({ route, jumpTo  }) => {
-    console.log({jumpTo})
+
+  const renderScene = ({ route, jumpTo }) => {
     switch (route.key) {
       case 'first':
-        return (  
-          <Container>  
+        return (
+          <Container>
             <ImageArea source={{ uri: image }} />
             <Container>
-            <Button 
-              title="SELECT ANOTHER PHOTO" 
-              containerStyle={{paddingTop: 20, width: 350 }}
-              buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-              onPress={() => setImage(null)} />
-            <Button 
-              title="CONTINUE"
-              containerStyle={{paddingTop: 20, width: 350 }}
-              buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-              onPress={() => {
-                jumpTo("second")
-              }}
-            />
-            </Container>    
+              <Button
+                title="SELECT ANOTHER PHOTO"
+                containerStyle={{ paddingTop: 20, width: 350 }}
+                buttonStyle={{
+                  backgroundColor: 'black',
+                  height: 50,
+                  borderRadius: 7,
+                }}
+                onPress={() => setImage(null)}
+              />
+              <Button
+                title="CONTINUE"
+                containerStyle={{ paddingTop: 20, width: 350 }}
+                buttonStyle={{
+                  backgroundColor: 'black',
+                  height: 50,
+                  borderRadius: 7,
+                }}
+                onPress={() => {
+                  jumpTo('second');
+                }}
+              />
+            </Container>
           </Container>
-        )
+        );
       case 'second':
-        return <OrderSpecs  jumpTo={jumpTo} image={image} />
+        return <OrderSpecs jumpTo={jumpTo} image={image} />;
 
       case 'third':
-        return <OrderNotes jumpTo={jumpTo} image={image} />
+        return <OrderNotes jumpTo={jumpTo} image={image} />;
 
       case 'fourth':
-        return <SetupOrAdd jumpTo={jumpTo} image={image} navigation={navigation} />
-        
-      default: 
-        return null; 
+        return (
+          <SetupOrAdd jumpTo={jumpTo} image={image} navigation={navigation} />
+        );
+
+      default:
+        return null;
     }
   };
 
   useEffect(() => {
     (async () => {
       if (Constants.platform.ios) {
-        const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+        const {
+          status,
+        } = await ImagePicker.requestCameraRollPermissionsAsync();
         if (status !== 'granted') {
           alert('Sorry, we need camera roll permissions to make this work!');
         }
@@ -103,24 +113,24 @@ const SelectPhoto = ({ navigation }) => {
   const TakePhoto = async () => {
     let result = await ImagePicker.launchCameraAsync(options);
     if (!result.cancelled) {
-      setImage(result.uri)
+      setImage(result.uri);
     }
-  } 
+  };
 
-  return !image ? 
-  (
+  return !image ? (
     <Container>
-      <Button 
-        title="UPLOAD PHOTO" 
-        containerStyle={{paddingTop: 20, width: 350 }}
-        buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-        onPress={PickImage} 
+      <Button
+        title="UPLOAD PHOTO"
+        containerStyle={{ paddingTop: 20, width: 350 }}
+        buttonStyle={{ backgroundColor: 'black', height: 50, borderRadius: 7 }}
+        onPress={PickImage}
       />
-      <Button 
-        title="TAKE A PHOTO" 
-        containerStyle={{paddingTop: 20, width: 350 }}
-        buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-        onPress={TakePhoto} />
+      <Button
+        title="TAKE A PHOTO"
+        containerStyle={{ paddingTop: 20, width: 350 }}
+        buttonStyle={{ backgroundColor: 'black', height: 50, borderRadius: 7 }}
+        onPress={TakePhoto}
+      />
     </Container>
   ) : (
     <TabView
@@ -131,10 +141,10 @@ const SelectPhoto = ({ navigation }) => {
       initialLayout={initialLayout}
     />
   );
-}
+};
 
 const ImageArea = styled.Image`
-  flex: .75;
+  flex: 0.75;
   align-self: stretch;
   align-items: center;
   justify-content: center;
@@ -145,5 +155,11 @@ const Container = styled.View`
   align-items: center;
   justify-content: center;
 `;
+
+SelectPhoto.propTypes = {
+  navigation: PropTypes.object,
+  jumpTo: PropTypes.func,
+  route: PropTypes.object,
+};
 
 export default SelectPhoto;

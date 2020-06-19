@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, Switch } from "react-native";
+import { Switch } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import styled from "styled-components/native";
 
