@@ -11,8 +11,12 @@ const OrderDetailScreen = () => {
   const route = useRoute();
   const { image } = route.params;
 
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const [addPolish, setAddPolish] = useState({ "POLISH": false });
+  // const [addRainProtection, setAddRainProtection = useState({ RAINPROTECTION: false })]
+
+  const toggleSwitch = () => setAddPolish(previousState => ({"POLISH": !previousState["POLISH"]}));
+
+  console.log(addPolish);
 
   return (
     <>
@@ -23,13 +27,13 @@ const OrderDetailScreen = () => {
             <Switch
               style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }}
               trackColor={{ false: "#767577", true: "#E6E6E6" }}
-              thumbColor={isEnabled ? "#CBB387" : "#E6E6E6"}
-              ios_backgroundColor="#3e3e3e"
+              thumbColor={addPolish ? "#CBB387" : "#767577"}
+              ios_backgroundColor="#f4f3f4"
               onValueChange={toggleSwitch}
-              value={isEnabled}
+              value={addPolish}
             />
-          </SwitchContainer>
         
+          </SwitchContainer>
       </Container>
     </>
   );
@@ -56,7 +60,7 @@ const BodyText = styled.Text`
 `;
 
 const SwitchContainer = styled.View`
-
+  margin-left: auto;
 `;
 
 

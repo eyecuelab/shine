@@ -37,6 +37,7 @@ const handleTypeChange = (type) => {
     })
   )
 }
+// console.log(shoeTypes);
 
   return (
     <Container>
@@ -48,8 +49,8 @@ const handleTypeChange = (type) => {
 
         <FlatList
           data={shoeTypes}
+          numColumns={3}
           renderItem={({ item }) => 
-            
             <ShoeTypeButton 
               type={item.type} 
               select={item.select} 
