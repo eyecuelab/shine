@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, Switch, Text } from "react-native";
+import React, { useState } from 'react';
+import { ScrollView, Switch } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import styled from "styled-components/native";
 
@@ -7,26 +7,24 @@ const OrderDetailScreen = () => {
   const route = useRoute();
   const { image } = route.params;
 
+  // ========= states for additional services ======================
   const [services, setServices] = useState([]);
-
   const isSelected = service => services.some(s => s === service);
-
   const addService = service => {
     if (!isSelected(service)) {
       setServices([...services, service]);
     }
   };
-
   const removeService = service => {
     if (isSelected(service)) {
       setServices(services.filter(s => s !== service));
     }
   };  
-  
   const toggleState = service => 
     isSelected(service) ? removeService(service) : addService(service);  
+  // ===============================================================
 
-
+  // ==========states for toggle switch ============================
   const [addPolish, setAddPolish] = useState(false);
   const togglePolish = () => { 
     setAddPolish(previousState => !previousState)
@@ -41,7 +39,7 @@ const OrderDetailScreen = () => {
   const toggleShoelaces = () => { 
     setReplaceShoelaces(previousState => !previousState)
   }  
-
+  // ===============================================================
   console.log("Service", services);
 
   return (
@@ -121,19 +119,14 @@ const BodyText = styled.Text`
 const SwitchContainer = styled.View`
   margin: 50px 0px 30px 0px
   padding-top: 10px;
-  border: 5px
-  border-color: black;
 `;
 
 const PriceTextContainer = styled.View`
   margin-right: 110px;
-  border: 5px
-  border-color: black;
 `;
 
 const PriceContianer = styled.View`
-  border: 5px
-  border-color: black;
+
 `;
 
 const DollarSign = styled.Text`
