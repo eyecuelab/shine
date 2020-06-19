@@ -20,7 +20,7 @@ const options = {
 const initialLayout = { width: Dimensions.get('window').width };
 // const { width, height } = Dimensions.get("window");
 
-const SelectPhoto = ({ navigation }) => {
+  const [test, setTest] = useState("");
 
   const [image, setImage] = useState(null);
   

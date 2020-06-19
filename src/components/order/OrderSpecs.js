@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, View } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
@@ -18,17 +18,6 @@ const [shoeTypes, setShoeTypes ] = useState([
   {type: "FORMAL", select: false},
   {type: "SOCIAL", select: false},
 ]);
-
-useEffect(() => {
-  setShoeTypes(
-    shoeTypes.map((d) => {
-      return {
-        type: d.type,
-        select: d.select,
-      }
-    })
-  );
-}, []);
 
 const handleTypeChange = (type) => {
   setShoeTypes(
@@ -63,20 +52,21 @@ const handleValueChange = (value) => {
         <BodyText>
           What is the typical use? 
         </BodyText>
-        
-        <FlatList
-          data={shoeTypes}
-          numColumns={3}
-          renderItem={({ item }) => 
+      
+          <FlatList
             
-            <ShoeTypeButton 
-              type={item.type} 
-              select={item.select} 
-              handleTypeChange={handleTypeChange}
-            />}
-          keyExtractor={item => item.type}
-        />
-
+            scrollEnabled={false}
+            numColumns={3}
+            data={shoeTypes}
+            renderItem={({ item }) => 
+              <ShoeTypeButton 
+                type={item.type} 
+                select={item.select} 
+                handleTypeChange={handleTypeChange}
+              />}
+            keyExtractor={item => item.type}
+          />
+    
         <SliderContainer>
           <BodyText>How soon do you need them cleaned?</BodyText>
           <BodyText>{sliderValue}</BodyText>
@@ -146,8 +136,8 @@ const Container = styled.View`
 `;
 
 const BodyText = styled.Text`
-  text-align: center;
- 
+  margin: 15px
+  text-align: center
   color: black;
   font-size: 18px;
 `;
