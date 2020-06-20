@@ -5,7 +5,7 @@ import ScrollViewContailner from "../../components/shared/ScrollViewContainer";
 import AdditionalServiceSwitch from "../../components/order/AdditionalServiceSwitch";
 import Price from "../../components/shared/Price";
 import DashedLine from "../../components/shared/Dash";
-
+import Image from "../../components/shared/Image";
 
 const OrderDetailScreen = () => {
   const route = useRoute();
@@ -13,7 +13,7 @@ const OrderDetailScreen = () => {
 
   return (
     <ScrollViewContailner>
-      <ImageArea source={{ uri: image }}/>
+      {Image(image)}
       <Container>
         <BodyTextContainer>
           <BodyText>ADD POLISH</BodyText>
@@ -27,30 +27,24 @@ const OrderDetailScreen = () => {
           <Text>ROUGH EST.</Text>
         </PriceTextContainer>
         {Price(35, 99)}
-      </Container>
-      <DashedLine />
+        <DashedLine />
 
-      
+
+
+      </Container>
     </ScrollViewContailner>
   );
 };  
 
-const ImageArea = styled.Image`
-  flex: .75;
-  align-self: stretch;
+const Container = styled.View`
   align-items: center;
   justify-content: center;
-`;
-
-const Container = styled.View`
-  background: white;
-  flex: 1;
   flex-direction: row;
   flex-wrap: wrap;
 `;
 
 const BodyTextContainer = styled.View`
-  margin: 50px 90px 30px 0px;
+  margin: 50px 90px 50px 0px;
 `;
 
 const BodyText = styled.Text`

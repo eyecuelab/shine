@@ -1,14 +1,13 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
+import Image from '../shared/Image';
 import PropTypes from 'prop-types'
 
 const SetupOrAdd = ({ image, navigation }) => {
-
   return (
     <>
-      <ImageArea source={{ uri: image }}/>
-    
+      {Image(image)}
       <Container>
         <BodyText>The Cleaners are ready to work!</BodyText>
         <Button
@@ -28,22 +27,14 @@ const SetupOrAdd = ({ image, navigation }) => {
             // jumpTo('first')
           }}
         />
-        </Container>
+      </Container>
     </>
   );
 }
 
-const ImageArea = styled.Image`
-  flex: .75;
-  align-self: stretch;
+const Container = styled.View`
   align-items: center;
   justify-content: center;
-`;
-
-const Container = styled.View`
-  background: white;
-  flex: 1;
-  align-items: center;
 `;
 
 const BodyText = styled.Text`

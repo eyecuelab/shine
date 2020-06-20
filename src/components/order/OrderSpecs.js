@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { StyleSheet, Dimensions, FlatList } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
 import ScrollViewContainer from '../shared/ScrollViewContainer';
 import DashedLine from '../shared/Dash';
 import PropTypes from 'prop-types';
-
-const { width: WIDTH, height: HEIGHT } = Dimensions.get("window");
+import Image from '../shared/Image';
 
 const OrderSpecs = ({ image, jumpTo }) => {
+ 
   const [sliderValue, setSliderValue] = useState('Within Two Days');
   // console.log(sliderValue);
     
@@ -66,9 +66,7 @@ const OrderSpecs = ({ image, jumpTo }) => {
 
   return (
     <ScrollViewContainer>
-      <ImgContainer>
-        <ImageArea source={{ uri: image }} />
-      </ImgContainer>  
+      {Image(image)}
       <Container>
         <TypeContainer>
           <BodyText>
@@ -142,17 +140,6 @@ const customStyles = StyleSheet.create({
     shadowOpacity: 0.75,
   },
 });
-
-const ImgContainer = styled.View`
-  width: 100%;
-  height: ${HEIGHT / 3.1}px;
-`;
-
-const ImageArea = styled.Image`
-  width: 100%;
-  height:  100%;
-  position: absolute;
-`;
 
 const Container = styled.View`
   align-items: center;
