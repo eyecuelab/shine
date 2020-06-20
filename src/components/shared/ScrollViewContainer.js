@@ -8,6 +8,7 @@ const ScrollViewContainer = ({ contentContainerStyle, children }) => {
       style={{backgroundColor: "white"}}
       contentContainerStyle={{
         flex: 1,
+        position: "relative",
         justifyContent: "flex-start",
         ...contentContainerStyle
       }}

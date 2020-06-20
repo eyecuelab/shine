@@ -5,70 +5,98 @@ import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
 import ScrollViewContainer from '../shared/ScrollViewContainer';
 
+
 const OrderSpecs = ({ image, jumpTo }) => {
 
-const [sliderValue, setSliderValue] = useState('Within Two Days')
-// console.log(sliderValue);
-  
-const [shoeTypes, setShoeTypes ] = useState([
-  {type: "OUTDOOR", select: false},
-  {type: "INDOOR", select: false},
-  {type: "EXERCISE", select: false},
-  {type: "LEISURE", select: false},
-  {type: "FORMAL", select: false},
-  {type: "SOCIAL", select: false},
-]);
+  const [sliderValue, setSliderValue] = useState('Within Two Days')
+  // console.log(sliderValue);
+    
+  // const [shoeTypes, setShoeTypes ] = useState([
+  //   {type: "OUTDOOR", select: false},
+  //   {type: "INDOOR", select: false},
+  //   {type: "EXERCISE", select: false},
+  //   {type: "LEISURE", select: false},
+  //   {type: "FORMAL", select: false},
+  //   {type: "SOCIAL", select: false},
+  // ]);
 
-const handleTypeChange = (type) => {
-  setShoeTypes(
-    shoeTypes.map(data => {
-      
-      if (type === data.type) {
-        data.select = !data.select;
-      }
-      return data;
-    })
-  )
-}
-// console.log(shoeTypes);
+  // const handleTypeChange = (type) => {
+  //   setShoeTypes(
+  //     shoeTypes.map(data => {
+        
+  //       if (type === data.type) {
+  //         data.select = !data.select;
+  //       }
+  //       return data;
+  //     })
+  //   )
+  // }
 
-const handleValueChange = (value) => {
-  let valueName = ''
-  if (value === 2) {
-    valueName = 'Within 24 Hours'
+  const [shoeTypes, setShoeTypes] = useState({
+    INDOOR: false,
+    OUTDOOR: false,
+    EXERCISE: false,
+    LEISURE: false,
+    FORMAL: false,
+    SOCIAL: false,
+  });
+
+  const handleTypeChange = (type) => {
+    setShoeTypes((current) => ({
+      ...current,
+      [type]: !shoeTypes[type],
+    }))
   }
-  if (value === 4) {
-    valueName = 'Within 2 Days'
+  console.log(shoeTypes);
+
+  const handleValueChange = (value) => {
+    let valueName = ''
+    if (value === 2) {
+      valueName = 'Within 24 Hours'
+    }
+    if (value === 4) {
+      valueName = 'Within 2 Days'
+    }
+    if (value === 6 ) {
+      valueName = 'Within a Week'
+    }
+    return valueName;
   }
-  if (value === 6 ) {
-    valueName = 'Within a Week'
-  }
-  return valueName;
-}
 
   return (
     <ScrollViewContainer>
       <Container>
         <ImageArea  source={{ uri: image }} />
         <Container>
-          <BodyText>
-            What is the typical use? 
-          </BodyText>
-        
-            <FlatList
-              
-              scrollEnabled={false}
-              numColumns={3}
-              data={shoeTypes}
-              renderItem={({ item }) => 
-                <ShoeTypeButton 
-                  type={item.type} 
-                  select={item.select} 
-                  handleTypeChange={handleTypeChange}
-                />}
-              keyExtractor={item => item.type}
-            />
-      
+          <TypeContainer>
+            <BodyText>
+              What is the typical use? 
+            </BodyText>
+            <Row>
+              <ShoeTypeButton type="INDOOR" select={shoeTypes["INDOOR"]} handleTypeChange={handleTypeChange} />
+              <ShoeTypeButton type="OUTDOOR" select={shoeTypes["OUTDOOR"]} handleTypeChange={handleTypeChange} />
+              <ShoeTypeButton type="EXERCISE" select={shoeTypes["EXERCISE"]} handleTypeChange={handleTypeChange} />
+            </Row>
+            <Row>  
+              <ShoeTypeButton type="LEISURE" select={shoeTypes["LEISURE"]} handleTypeChange={handleTypeChange} />
+              <ShoeTypeButton type="FORMAL" select={shoeTypes["FORMAL"]} handleTypeChange={handleTypeChange} />
+              <ShoeTypeButton type="SOCIAL" select={shoeTypes["SOCIAL"]} handleTypeChange={handleTypeChange} />
+            </Row>
+          </TypeContainer>  
+
+          {/* <FlatList
+            scrollEnabled={false}
+            numColumns={3}
+            data={shoeTypes}
+            renderItem={({ item }) => 
+              <ShoeTypeButton 
+                type={item.type} 
+                select={item.select} 
+                handleTypeChange={handleTypeChange}
+              />}
+            keyExtractor={item => item.type}
+          /> */}
+     
           <SliderContainer>
             <BodyText>How soon do you need them cleaned?</BodyText>
             <BodyText>{sliderValue}</BodyText>
@@ -81,7 +109,6 @@ const handleValueChange = (value) => {
               thumbStyle={customStyles.thumb}
               // onValueChange={(value) => handleValueChange({ value })}
               onValueChange={(value) => setSliderValue(handleValueChange(value))}
-              
             />
           </SliderContainer>
           <Button
@@ -110,12 +137,15 @@ const customStyles = StyleSheet.create({
   }
 });
 
+const TypeContainer = styled.View`
+  margin: 100px 20px 20px 20px;
+`;
+
 const SliderContainer = styled.View`
-  margin-left: 40px;
-  margin-right: 40px;
   align-self: stretch;
   align-items: stretch;
   justify-content: center;
+  margin: 0px 40px 20px 40px;
 `;
 
 const Row = styled.View`
@@ -129,6 +159,7 @@ const ImageArea = styled.Image`
   align-self: stretch;
   align-items: center;
   justify-content: center;
+  position: relative;
 `;
 
 const Container = styled.View`

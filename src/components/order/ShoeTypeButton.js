@@ -34,5 +34,4 @@ ShoeTypeButton.propTypes = {
   type: PropTypes.string
 }
 
-
 export default ShoeTypeButton;

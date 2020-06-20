@@ -35,7 +35,8 @@ const AdditionalServiceSwitch = () => {
     setReplaceShoelaces(previousState => !previousState)
   }  
   // ===============================================================
-  console.log("Service", services);
+  
+  //console.log("Service", services);
 
   return (
     <>
