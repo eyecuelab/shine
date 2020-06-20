@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
+import PropTypes from 'prop-types'
 
-const SetupOrAdd = ({ image, jumpTo, navigation }) => {
+const SetupOrAdd = ({ image, navigation }) => {
 
   return (
     <>
@@ -53,5 +54,10 @@ const BodyText = styled.Text`
   color: black;
   font-size: 18px;
 `;
+
+SetupOrAdd.propTypes = {
+  navigation: PropTypes.object,
+  image: PropTypes.any
+}
 
 export default SetupOrAdd;

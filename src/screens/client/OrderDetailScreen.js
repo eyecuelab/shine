@@ -11,8 +11,6 @@ const OrderDetailScreen = () => {
   const route = useRoute();
   const { image } = route.params;
 
-  
-
   return (
     <ScrollViewContailner>
       <ImageArea source={{ uri: image }}/>
@@ -31,6 +29,7 @@ const OrderDetailScreen = () => {
         {Price(35, 99)}
       </Container>
       <DashedLine />
+
       
     </ScrollViewContailner>
   );

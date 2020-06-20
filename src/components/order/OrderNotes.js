@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import { TextInput } from 'react-native'; 
 import ScrollViewContainer from '../shared/ScrollViewContainer';
+import PropTypes from 'prop-types';
 
 const OrderNotes = ({ image, jumpTo }) => {
   const [value, onChangeText] = useState(null); 
@@ -68,5 +69,10 @@ const BodyText = styled.Text`
   color: black;
   font-size: 18px;
 `;
+
+OrderNotes.propTypes = {
+  image: PropTypes.any,
+  jumpTo: PropTypes.func,
+}
 
 export default OrderNotes;
