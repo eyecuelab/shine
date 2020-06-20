@@ -3,16 +3,18 @@ import {View, Keyboard, KeyboardAvoidingView } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import { TextInput } from 'react-native'; 
+import ScrollViewContainer from '../shared/ScrollViewContainer';
+import Image from '../shared/Image';
 import PropTypes from 'prop-types';
 
 const OrderNotes = ({ image, jumpTo }) => {
   const [value, onChangeText] = useState(null); 
-  
+  // console.log(value)
   return (
     <>
-      <KeyboardAvoidingView style={{flex: 1 }} behavior="padding">
-        <Container>
-          <ImageArea source={{ uri: image }}/>  
+      <ScrollViewContainer>
+        {Image(image)}
+        <KeyboardAvoidingView style={{flex: 1 }} behavior="padding">
           <Container>
             <BodyText>
               Notes for Cleaner 
@@ -39,23 +41,15 @@ const OrderNotes = ({ image, jumpTo }) => {
               }
             />
           </Container>
-        </Container>
-      </KeyboardAvoidingView >
+        </KeyboardAvoidingView >
+      </ScrollViewContainer>
     </>
   );
 };
 
-const ImageArea = styled.Image`
-  flex: .75;
-  align-self: stretch;
+const Container = styled.View`
   align-items: center;
   justify-content: center;
-`;
-
-const Container = styled.View`
-  background: white;
-  flex: 1;
-  align-items: center;
 `;
 
 const BodyText = styled.Text`

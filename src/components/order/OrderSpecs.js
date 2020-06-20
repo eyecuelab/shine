@@ -3,32 +3,51 @@ import { StyleSheet, FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
+import ScrollViewContainer from '../shared/ScrollViewContainer';
+import DashedLine from '../shared/Dash';
 import PropTypes from 'prop-types';
+import Image from '../shared/Image';
 
 const OrderSpecs = ({ image, jumpTo }) => {
+ 
   const [sliderValue, setSliderValue] = useState('Within Two Days');
+  // console.log(sliderValue);
+    
+  // const [shoeTypes, setShoeTypes] = useState([
+  //   { type: 'OUTDOOR', select: false },
+  //   { type: 'INDOOR', select: false },
+  //   { type: 'EXERCISE', select: false },
+  //   { type: 'LEISURE', select: false },
+  //   { type: 'FORMAL', select: false },
+  //   { type: 'SOCIAL', select: false },
+  // ]);
 
-  console.log(sliderValue);
+  // const handleTypeChange = (type) => {
+  //   setShoeTypes(
+  //     shoeTypes.map((data) => {
+  //       if (type === data.type) {
+  //         data.select = !data.select;
+  //       }
+  //       return data;
+  //     }),
+  //   );
+  // };
 
-  const [shoeTypes, setShoeTypes] = useState([
-    { type: 'OUTDOOR', select: false },
-    { type: 'INDOOR', select: false },
-    { type: 'EXERCISE', select: false },
-    { type: 'LEISURE', select: false },
-    { type: 'FORMAL', select: false },
-    { type: 'SOCIAL', select: false },
-  ]);
+  const [shoeTypes, setShoeTypes] = useState({
+    INDOOR: false,
+    OUTDOOR: false,
+    EXERCISE: false,
+    LEISURE: false,
+    FORMAL: false,
+    SOCIAL: false,
+  });
 
   const handleTypeChange = (type) => {
-    setShoeTypes(
-      shoeTypes.map((data) => {
-        if (type === data.type) {
-          data.select = !data.select;
-        }
-        return data;
-      }),
-    );
-  };
+    setShoeTypes((current) => ({
+      ...current,
+      [type]: !shoeTypes[type],
+    }))
+  }
   // console.log(shoeTypes);
 
   const handleValueChange = (value) => {
@@ -46,12 +65,26 @@ const OrderSpecs = ({ image, jumpTo }) => {
   };
 
   return (
-    <Container>
-      <ImageArea source={{ uri: image }} />
+    <ScrollViewContainer>
+      {Image(image)}
       <Container>
-        <BodyText>What is the typical use?</BodyText>
+        <TypeContainer>
+          <BodyText>
+            What is the typical use? 
+          </BodyText>
+          <Row>
+            <ShoeTypeButton type="INDOOR" select={shoeTypes["INDOOR"]} handleTypeChange={handleTypeChange} />
+            <ShoeTypeButton type="OUTDOOR" select={shoeTypes["OUTDOOR"]} handleTypeChange={handleTypeChange} />
+            <ShoeTypeButton type="EXERCISE" select={shoeTypes["EXERCISE"]} handleTypeChange={handleTypeChange} />
+          </Row>
+          <Row>  
+            <ShoeTypeButton type="LEISURE" select={shoeTypes["LEISURE"]} handleTypeChange={handleTypeChange} />
+            <ShoeTypeButton type="FORMAL" select={shoeTypes["FORMAL"]} handleTypeChange={handleTypeChange} />
+            <ShoeTypeButton type="SOCIAL" select={shoeTypes["SOCIAL"]} handleTypeChange={handleTypeChange} />
+          </Row>
+        </TypeContainer>  
 
-        <FlatList
+        {/* <FlatList
           scrollEnabled={false}
           numColumns={3}
           data={shoeTypes}
@@ -63,8 +96,8 @@ const OrderSpecs = ({ image, jumpTo }) => {
             />
           )}
           keyExtractor={(item) => item.type}
-        />
-
+        /> */}
+        <DashedLine />
         <SliderContainer>
           <BodyText>How soon do you need them cleaned?</BodyText>
           <BodyText>{sliderValue}</BodyText>
@@ -92,7 +125,7 @@ const OrderSpecs = ({ image, jumpTo }) => {
           }}
         />
       </Container>
-    </Container>
+    </ScrollViewContainer>
   );
 };
 
@@ -108,33 +141,33 @@ const customStyles = StyleSheet.create({
   },
 });
 
-const SliderContainer = styled.View`
-  margin-left: 40px;
-  margin-right: 40px;
-  align-self: stretch;
-  align-items: stretch;
-  justify-content: center;
-`;
-
-const ImageArea = styled.Image`
-  flex: 0.75;
-  align-self: stretch;
-  align-items: center;
-  justify-content: center;
-`;
-
 const Container = styled.View`
-  background: white;
-  flex: 1;
   align-items: center;
   justify-content: center;
 `;
 
 const BodyText = styled.Text`
-  margin: 15px
+  margin: 10px
   text-align: center
   color: black;
   font-size: 18px;
+`;
+
+const TypeContainer = styled.View`
+  margin: 20px 20px 30px 20px;
+`;
+
+const Row = styled.View`
+  margin-top: 10px;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+const SliderContainer = styled.View`
+  align-self: stretch;
+  align-items: stretch;
+  justify-content: center;
+  margin: 30px 40px 20px 40px;
 `;
 
 OrderSpecs.propTypes = {

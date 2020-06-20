@@ -35,5 +35,4 @@ ShoeTypeButton.propTypes = {
   handleTypeChange: PropTypes.func
 }
 
-
 export default ShoeTypeButton;

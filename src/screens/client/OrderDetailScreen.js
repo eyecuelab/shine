@@ -1,50 +1,19 @@
 import React, { useState } from 'react';
-import { Switch } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import styled from "styled-components/native";
+import ScrollViewContailner from "../../components/shared/ScrollViewContainer";
+import AdditionalServiceSwitch from "../../components/order/AdditionalServiceSwitch";
+import Price from "../../components/shared/Price";
+import DashedLine from "../../components/shared/Dash";
+import Image from "../../components/shared/Image";
 
 const OrderDetailScreen = () => {
   const route = useRoute();
   const { image } = route.params;
 
-  // ========= states for additional services ======================
-  const [services, setServices] = useState([]);
-  const isSelected = service => services.some(s => s === service);
-  const addService = service => {
-    if (!isSelected(service)) {
-      setServices([...services, service]);
-    }
-  };
-  const removeService = service => {
-    if (isSelected(service)) {
-      setServices(services.filter(s => s !== service));
-    }
-  };  
-  const toggleState = service => 
-    isSelected(service) ? removeService(service) : addService(service);  
-  // ===============================================================
-
-  // ==========states for toggle switch ============================
-  const [addPolish, setAddPolish] = useState(false);
-  const togglePolish = () => { 
-    setAddPolish(previousState => !previousState)
-  }  
-
-  const [addRainProtection, setAddRainProtection] = useState(false);
-  const toggleRainProtection = () => { 
-    setAddRainProtection(previousState => !previousState)
-  }  
-
-  const [replaceShoelaces, setReplaceShoelaces] = useState(false);
-  const toggleShoelaces = () => { 
-    setReplaceShoelaces(previousState => !previousState)
-  }  
-  // ===============================================================
-  console.log("Service", services);
-
   return (
-    <>
-      <ImageArea source={{ uri: image }}/>
+    <ScrollViewContailner>
+      {Image(image)}
       <Container>
         <BodyTextContainer>
           <BodyText>ADD POLISH</BodyText>
@@ -52,61 +21,30 @@ const OrderDetailScreen = () => {
           <BodyText>REPLACE SHOELACES</BodyText>
         </BodyTextContainer>
         <SwitchContainer>
-          <Switch
-            style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }], marginBottom: 5 }}
-            trackColor={{ false: "#767577", true: "#E6E6E6" }}
-            thumbColor={addPolish ? "#CBB387" : "#f4f3f4"}
-            ios_backgroundColor="#f4f3f4"
-            onChange={() => toggleState("POLISH")}
-            onValueChange={togglePolish}
-            value={addPolish}
-          />
-          <Switch
-            style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }], marginBottom: 5 }}
-            trackColor={{ false: "#939393", true: "#E6E6E6" }}
-            thumbColor={addRainProtection ? "#CBB387" : "#f4f3f4"}
-            ios_backgroundColor="#f4f3f4"
-            onChange={() => toggleState("RAIN-PROTECTION")}
-            onValueChange={toggleRainProtection}
-            value={addRainProtection}
-          />
-          <Switch
-            style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }}
-            trackColor={{ false: "#767577", true: "#E6E6E6" }}
-            thumbColor={replaceShoelaces ? "#CBB387" : "#f4f3f4"}
-            ios_backgroundColor="#f4f3f4"
-            onChange={() => toggleState("REPLACE-SHOELACE")}
-            onValueChange={toggleShoelaces}
-            value={replaceShoelaces}
-          />
+          <AdditionalServiceSwitch />
         </SwitchContainer>
         <PriceTextContainer>
-          <BodyText>ROUGH EST.</BodyText>
+          <Text>ROUGH EST.</Text>
         </PriceTextContainer>
-        <PriceContianer>
-          <DollarSign>$ <DallarsText>35</DallarsText><CentsText>99</CentsText></DollarSign>
-        </PriceContianer>
+        {Price(35, 99)}
+        <DashedLine />
+
+
+
       </Container>
-    </>
+    </ScrollViewContailner>
   );
 };  
 
-const ImageArea = styled.Image`
-  flex: .75;
-  align-self: stretch;
+const Container = styled.View`
   align-items: center;
   justify-content: center;
-`;
-
-const Container = styled.View`
-  background: white;
-  flex: 1;
   flex-direction: row;
   flex-wrap: wrap;
 `;
 
 const BodyTextContainer = styled.View`
-  margin: 50px 90px 30px 0px;
+  margin: 50px 90px 50px 0px;
 `;
 
 const BodyText = styled.Text`
@@ -125,28 +63,12 @@ const PriceTextContainer = styled.View`
   margin-right: 110px;
 `;
 
-const PriceContianer = styled.View`
-
-`;
-
-const DollarSign = styled.Text`
-  align-items: flex-start;
+const Text = styled.Text`
+  text-align: left;
+  margin: 15px 0px 0px 30px;
   color: black;
-  font-size: 25px;
-  font-family: Marison-Sans-Round;
+  font-size: 18px;
 `;
 
-const DallarsText = styled.Text`
-  color: black;
-  font-size: 100px;
-  font-family: Marison-Script-Vintage;
-`;
-
-const CentsText = styled.Text`
-  color: black;
-  font-size: 80px;
-  font-family: Marison-Script-Vintage;
-  text-decoration-line: underline;
-`;
 
 export default OrderDetailScreen;
