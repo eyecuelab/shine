@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, Dimensions, FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
 import ScrollViewContainer from '../shared/ScrollViewContainer';
+import DashedLine from '../shared/Dash';
 import PropTypes from 'prop-types';
+
+const { width: WIDTH, height: HEIGHT } = Dimensions.get("window");
 
 const OrderSpecs = ({ image, jumpTo }) => {
   const [sliderValue, setSliderValue] = useState('Within Two Days');
@@ -45,7 +48,7 @@ const OrderSpecs = ({ image, jumpTo }) => {
       [type]: !shoeTypes[type],
     }))
   }
-  console.log(shoeTypes);
+  // console.log(shoeTypes);
 
   const handleValueChange = (value) => {
     let valueName = '';
@@ -63,66 +66,66 @@ const OrderSpecs = ({ image, jumpTo }) => {
 
   return (
     <ScrollViewContainer>
+      <ImgContainer>
+        <ImageArea source={{ uri: image }} />
+      </ImgContainer>  
       <Container>
-        <ImageArea  source={{ uri: image }} />
-        <Container>
-          <TypeContainer>
-            <BodyText>
-              What is the typical use? 
-            </BodyText>
-            <Row>
-              <ShoeTypeButton type="INDOOR" select={shoeTypes["INDOOR"]} handleTypeChange={handleTypeChange} />
-              <ShoeTypeButton type="OUTDOOR" select={shoeTypes["OUTDOOR"]} handleTypeChange={handleTypeChange} />
-              <ShoeTypeButton type="EXERCISE" select={shoeTypes["EXERCISE"]} handleTypeChange={handleTypeChange} />
-            </Row>
-            <Row>  
-              <ShoeTypeButton type="LEISURE" select={shoeTypes["LEISURE"]} handleTypeChange={handleTypeChange} />
-              <ShoeTypeButton type="FORMAL" select={shoeTypes["FORMAL"]} handleTypeChange={handleTypeChange} />
-              <ShoeTypeButton type="SOCIAL" select={shoeTypes["SOCIAL"]} handleTypeChange={handleTypeChange} />
-            </Row>
-          </TypeContainer>  
+        <TypeContainer>
+          <BodyText>
+            What is the typical use? 
+          </BodyText>
+          <Row>
+            <ShoeTypeButton type="INDOOR" select={shoeTypes["INDOOR"]} handleTypeChange={handleTypeChange} />
+            <ShoeTypeButton type="OUTDOOR" select={shoeTypes["OUTDOOR"]} handleTypeChange={handleTypeChange} />
+            <ShoeTypeButton type="EXERCISE" select={shoeTypes["EXERCISE"]} handleTypeChange={handleTypeChange} />
+          </Row>
+          <Row>  
+            <ShoeTypeButton type="LEISURE" select={shoeTypes["LEISURE"]} handleTypeChange={handleTypeChange} />
+            <ShoeTypeButton type="FORMAL" select={shoeTypes["FORMAL"]} handleTypeChange={handleTypeChange} />
+            <ShoeTypeButton type="SOCIAL" select={shoeTypes["SOCIAL"]} handleTypeChange={handleTypeChange} />
+          </Row>
+        </TypeContainer>  
 
-          {/* <FlatList
-            scrollEnabled={false}
-            numColumns={3}
-            data={shoeTypes}
-            renderItem={({ item }) => (
-              <ShoeTypeButton
-                type={item.type}
-                select={item.select}
-                handleTypeChange={handleTypeChange}
-              />
-            )}
-            keyExtractor={(item) => item.type}
-          /> */}
-     
-          <SliderContainer>
-            <BodyText>How soon do you need them cleaned?</BodyText>
-            <BodyText>{sliderValue}</BodyText>
-            <Slider
-              step={2}
-              minimumValue={2}
-              maximumValue={6}
-              value={4}
-              thumbTintColor="#ffffff"
-              thumbStyle={customStyles.thumb}
-              // onValueChange={(value) => handleValueChange({ value })}
-              onValueChange={(value) => setSliderValue(handleValueChange(value))}
+        {/* <FlatList
+          scrollEnabled={false}
+          numColumns={3}
+          data={shoeTypes}
+          renderItem={({ item }) => (
+            <ShoeTypeButton
+              type={item.type}
+              select={item.select}
+              handleTypeChange={handleTypeChange}
             />
-          </SliderContainer>
-          <Button
-            title="CONTINUE"
-            containerStyle={{ paddingTop: 20, width: 350 }}
-            buttonStyle={{
-              backgroundColor: 'black',
-              height: 50,
-              borderRadius: 7,
-            }}
-            onPress={() => {
-              jumpTo('third');
-            }}
+          )}
+          keyExtractor={(item) => item.type}
+        /> */}
+        <DashedLine />
+        <SliderContainer>
+          <BodyText>How soon do you need them cleaned?</BodyText>
+          <BodyText>{sliderValue}</BodyText>
+          <Slider
+            step={2}
+            minimumValue={2}
+            maximumValue={6}
+            value={4}
+            thumbTintColor="#ffffff"
+            thumbStyle={customStyles.thumb}
+            // onValueChange={(value) => handleValueChange({ value })}
+            onValueChange={(value) => setSliderValue(handleValueChange(value))}
           />
-        </Container>
+        </SliderContainer>
+        <Button
+          title="CONTINUE"
+          containerStyle={{ paddingTop: 20, width: 350 }}
+          buttonStyle={{
+            backgroundColor: 'black',
+            height: 50,
+            borderRadius: 7,
+          }}
+          onPress={() => {
+            jumpTo('third');
+          }}
+        />
       </Container>
     </ScrollViewContainer>
   );
@@ -140,8 +143,31 @@ const customStyles = StyleSheet.create({
   },
 });
 
+const ImgContainer = styled.View`
+  width: 100%;
+  height: ${HEIGHT / 3.1}px;
+`;
+
+const ImageArea = styled.Image`
+  width: 100%;
+  height:  100%;
+  position: absolute;
+`;
+
+const Container = styled.View`
+  align-items: center;
+  justify-content: center;
+`;
+
+const BodyText = styled.Text`
+  margin: 10px
+  text-align: center
+  color: black;
+  font-size: 18px;
+`;
+
 const TypeContainer = styled.View`
-  margin: 100px 20px 20px 20px;
+  margin: 20px 20px 30px 20px;
 `;
 
 const Row = styled.View`
@@ -154,29 +180,7 @@ const SliderContainer = styled.View`
   align-self: stretch;
   align-items: stretch;
   justify-content: center;
-  margin: 0px 40px 20px 40px;
-`;
-
-const ImageArea = styled.Image`
-  flex: 0.75;
-  align-self: stretch;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-`;
-
-const Container = styled.View`
-  background: white;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-`;
-
-const BodyText = styled.Text`
-  margin: 15px
-  text-align: center
-  color: black;
-  font-size: 18px;
+  margin: 30px 40px 20px 40px;
 `;
 
 OrderSpecs.propTypes = {
