@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Dimensions, TextInput, StyleSheet } from 'react-native'; 
 import { useRoute } from "@react-navigation/native";
 import styled from "styled-components/native";
 import ScrollViewContailner from "../../components/shared/ScrollViewContainer";
@@ -8,9 +9,16 @@ import DashedLine from "../../components/shared/Dash";
 import Image from "../../components/shared/Image";
 import { Button } from 'react-native-elements';
 
+
+const { width, height } = Dimensions.get('window');
+
 const OrderDetailScreen = () => {
   const route = useRoute();
   const { image } = route.params;
+  
+  const [street, onChangeStreet] = useState();
+  const [unitNum, onChangeUnitNum] = useState();
+  const [zipcode, onChangeZipcode] = useState();
 
   return (
     <ScrollViewContailner>
@@ -31,11 +39,33 @@ const OrderDetailScreen = () => {
           </PriceTextContainer>
           {Price(35, 99)}
         </PriceContianer>
+
         <DashedLine />
+
         <Text>Pickup & drop-off location for the cleaner</Text>
-       
+        <TextInput
+          style={styles.input}
+          placeholder="STREET ADDRESS"
+          returnKeyType="next"
+          onChangeText={text => onChangeStreet(text)}
+          value={street}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="APT/ UNIT #/BUILDING"
+          returnKeyType="next"
+          onChangeText={text => onChangeUnitNum(text)}
+          value={unitNum}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="STREET ADDRESS"
+          returnKeyType="done"
+          onChangeText={text => onChangeZipcode(text)}
+          value={zipcode}
+        />
 
-
+        <DashedLine />
 
         <Button
           title="START A CLEANING REQUEST"
@@ -49,12 +79,22 @@ const OrderDetailScreen = () => {
             jumpTo('third');
           }}
         />
-
       </Container>
-
     </ScrollViewContailner>
   );
 };  
+
+const styles = StyleSheet.create({
+  input: {
+    width: width * 0.8, 
+    height: 40, 
+    borderColor: 'gray', 
+    borderWidth: 1, 
+    borderRadius: 7,
+    marginTop: 10,
+    textAlign: 'center'
+  }
+});
 
 const Container = styled.View`
   width: 100%;
@@ -66,7 +106,8 @@ const Container = styled.View`
 `;
 
 const Text = styled.Text`
-  margin: 10px;
+  margin-top: 10px;
+  padding-bottom: 10px;
   color: #42413c;
   font-size: 18px;
 `;
@@ -105,11 +146,7 @@ const PriceText = styled.Text`
   font-size: 18px;
 `;
 
-
-
-
 export default OrderDetailScreen;
-
 
 
 

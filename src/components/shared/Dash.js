@@ -9,7 +9,7 @@ const DashedLine = () => {
   return (
     <Container>
       <Dash 
-        style={{width:width * 0.85}}
+        style={{width:width * 0.8}}
         dashColor="#E6E6E6"  
         dashGap={5}
       />
