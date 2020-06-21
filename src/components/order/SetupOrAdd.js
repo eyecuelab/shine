@@ -40,7 +40,7 @@ const Container = styled.View`
 const BodyText = styled.Text`
   font-weight: bold
   text-align: center;
-  margin-top: 60px;
+  margin-top: 20px;
   margin-bottom: 20px;
   color: black;
   font-size: 18px;

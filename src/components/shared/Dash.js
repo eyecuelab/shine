@@ -1,19 +1,26 @@
 import React from 'react';
 import { Dimensions, View } from 'react-native';
 import Dash from 'react-native-dash';
+import styled from 'styled-components/native';
 
 const { width, height } = Dimensions.get("window");
 
 const DashedLine = () => {
   return (
-    <View style={{alignItems: "center", marginVertical: 20, position: "absolute"}}>
+    <Container>
       <Dash 
-        style={{width:width * 0.85, height:2, flex: 1}}
-        dashColor="#CBB387"  
+        style={{width:width * 0.85}}
+        dashColor="#E6E6E6"  
         dashGap={5}
       />
-    </View>
+    </Container>
   )
 }
+
+const Container = styled.View`
+  align-items: center;
+  justify-content: center;
+  padding-vertical: 30px;
+`;
 
 export default DashedLine;
