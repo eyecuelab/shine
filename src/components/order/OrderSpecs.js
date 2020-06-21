@@ -100,7 +100,9 @@ const OrderSpecs = ({ image, jumpTo }) => {
         <DashedLine />
         <SliderContainer>
           <BodyText>How soon do you need them cleaned?</BodyText>
-          <BodyText>{sliderValue}</BodyText>
+          <SlideTextContainer>
+            <SlideText>{sliderValue}</SlideText>
+          </SlideTextContainer>
           <Slider
             step={2}
             minimumValue={2}
@@ -114,7 +116,7 @@ const OrderSpecs = ({ image, jumpTo }) => {
         </SliderContainer>
         <Button
           title="CONTINUE"
-          containerStyle={{ paddingTop: 20, width: 350 }}
+          containerStyle={{ paddingTop: 10, width: 350 }}
           buttonStyle={{
             backgroundColor: 'black',
             height: 50,
@@ -147,14 +149,29 @@ const Container = styled.View`
 `;
 
 const BodyText = styled.Text`
-  margin: 10px
+  margin-bottom: 15px;
   text-align: center
   color: black;
   font-size: 18px;
 `;
 
+const SlideTextContainer = styled.View`
+  border-radius: 18px;
+  background-color: #CBB387;
+  padding: 10px;
+  width: 50%;
+  margin: auto;
+`;
+
+const SlideText = styled.Text`
+  margin-bottom: 5px;
+  text-align: center
+  color: #E6E6E6;
+  font-size: 18px;
+`;
+
 const TypeContainer = styled.View`
-  margin: 20px 20px 30px 20px;
+  margin: 20px 20px 0px 20px;
 `;
 
 const Row = styled.View`
@@ -167,7 +184,7 @@ const SliderContainer = styled.View`
   align-self: stretch;
   align-items: stretch;
   justify-content: center;
-  margin: 30px 40px 20px 40px;
+  margin: 0px 40px 20px 40px;
 `;
 
 OrderSpecs.propTypes = {
