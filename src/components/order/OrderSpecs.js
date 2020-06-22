@@ -48,7 +48,25 @@ const OrderSpecs = ({ image, jumpTo }) => {
       [type]: !shoeTypes[type],
     }))
   }
-  // console.log(shoeTypes);
+  console.log(shoeTypes);
+
+
+  // experiment to make price local state 
+  const setPrice = (shoeTypes) => {
+    let price = 10;
+    if (shoeTypes["LEISURE"] === true) {
+      price += 5;
+    } 
+    if (shoeTypes["FORMAL"] === true) {
+      price += 7;
+    }  
+    return price;
+  }
+  // console.log(setPrice(shoeTypes));
+  const [price = setPrice(shoeTypes)] = useState();
+  console.log(price);
+
+
 
   const handleValueChange = (value) => {
     let valueName = '';
