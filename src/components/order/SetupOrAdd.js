@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
+import Image from '../shared/Image';
+import PropTypes from 'prop-types'
 
-const SetupOrAdd = ({ image, jumpTo, navigation }) => {
-
+const SetupOrAdd = ({ image, navigation }) => {
   return (
     <>
-      <ImageArea source={{ uri: image }}/>
-    
+      {Image(image)}
       <Container>
         <BodyText>The Cleaners are ready to work!</BodyText>
         <Button
@@ -15,7 +15,7 @@ const SetupOrAdd = ({ image, jumpTo, navigation }) => {
           containerStyle={{paddingTop: 20, width: 350 }}
           buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
           onPress={() => {
-            navigation.navigate('Log in', {image})
+            navigation.navigate('OrdersList', {image})
           }}
         />
         <Button
@@ -27,31 +27,28 @@ const SetupOrAdd = ({ image, jumpTo, navigation }) => {
             // jumpTo('first')
           }}
         />
-        </Container>
+      </Container>
     </>
   );
 }
 
-const ImageArea = styled.Image`
-  flex: .75;
-  align-self: stretch;
+const Container = styled.View`
   align-items: center;
   justify-content: center;
-`;
-
-const Container = styled.View`
-  background: white;
-  flex: 1;
-  align-items: center;
 `;
 
 const BodyText = styled.Text`
   font-weight: bold
   text-align: center;
-  margin-top: 60px;
+  margin-top: 20px;
   margin-bottom: 20px;
   color: black;
   font-size: 18px;
 `;
+
+SetupOrAdd.propTypes = {
+  navigation: PropTypes.object,
+  image: PropTypes.any
+}
 
 export default SetupOrAdd;

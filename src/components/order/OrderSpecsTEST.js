@@ -18,7 +18,7 @@ const OrderSpecs = ({ image, jumpTo }) => {
       { id: 6, type: "SOCIAL" },
     ];
 
-    console.log(shoeTypeState[0]);
+    // console.log(shoeTypeState[0]);
 
     setShoeTypeState(
       shoeTypeState.map((d) => {

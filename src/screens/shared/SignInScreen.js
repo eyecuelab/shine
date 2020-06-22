@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from "../../components/shared/Header";
 import styled from "styled-components/native";
 import { Button } from 'react-native-elements';
 import { Dimensions, TextInput, StyleSheet } from 'react-native'; 

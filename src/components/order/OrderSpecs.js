@@ -1,97 +1,151 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, FlatList, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
 import { Button, Slider } from 'react-native-elements';
+import ScrollViewContainer from '../shared/ScrollViewContainer';
+import DashedLine from '../shared/Dash';
+import PropTypes from 'prop-types';
+import Image from '../shared/Image';
 
 const OrderSpecs = ({ image, jumpTo }) => {
+ 
+  const [sliderValue, setSliderValue] = useState('Within Two Days');
+  // console.log(sliderValue);
+    
+  // const [shoeTypes, setShoeTypes] = useState([
+  //   { type: 'OUTDOOR', select: false },
+  //   { type: 'INDOOR', select: false },
+  //   { type: 'EXERCISE', select: false },
+  //   { type: 'LEISURE', select: false },
+  //   { type: 'FORMAL', select: false },
+  //   { type: 'SOCIAL', select: false },
+  // ]);
 
-const [sliderValue, setSliderValue] = useState('Within Two Days')
+  // const handleTypeChange = (type) => {
+  //   setShoeTypes(
+  //     shoeTypes.map((data) => {
+  //       if (type === data.type) {
+  //         data.select = !data.select;
+  //       }
+  //       return data;
+  //     }),
+  //   );
+  // };
 
-console.log(sliderValue);
-  
-const [shoeTypes, setShoeTypes ] = useState([
-  {type: "OUTDOOR", select: false},
-  {type: "INDOOR", select: false},
-  {type: "EXERCISE", select: false},
-  {type: "LEISURE", select: false},
-  {type: "FORMAL", select: false},
-  {type: "SOCIAL", select: false},
-]);
+  const [shoeTypes, setShoeTypes] = useState({
+    INDOOR: false,
+    OUTDOOR: false,
+    EXERCISE: false,
+    LEISURE: false,
+    FORMAL: false,
+    SOCIAL: false,
+  });
 
-const handleTypeChange = (type) => {
-  setShoeTypes(
-    shoeTypes.map(data => {
-      
-      if (type === data.type) {
-        data.select = !data.select;
-      }
-      return data;
-    })
-  )
-}
-
-const handleValueChange = (value) => {
-  let valueName = ''
-  if (value === 2) {
-    valueName = 'Within 24 Hours'
+  const handleTypeChange = (type) => {
+    setShoeTypes((current) => ({
+      ...current,
+      [type]: !shoeTypes[type],
+    }))
   }
-  if (value === 4) {
-    valueName = 'Within 2 Days'
+  console.log(shoeTypes);
+
+
+  // experiment to make price local state 
+  const setPrice = (shoeTypes) => {
+    let price = 10;
+    if (shoeTypes["LEISURE"] === true) {
+      price += 5;
+    } 
+    if (shoeTypes["FORMAL"] === true) {
+      price += 7;
+    }  
+    return price;
   }
-  if (value === 6 ) {
-    valueName = 'Within a Week'
-  }
-  return valueName;
-}
+  // console.log(setPrice(shoeTypes));
+  const [price = setPrice(shoeTypes)] = useState();
+  console.log(price);
+
+
+
+  const handleValueChange = (value) => {
+    let valueName = '';
+    if (value === 2) {
+      valueName = 'Within 24 Hours';
+    }
+    if (value === 4) {
+      valueName = 'Within 2 Days';
+    }
+    if (value === 6) {
+      valueName = 'Within a Week';
+    }
+    return valueName;
+  };
 
   return (
-    <Container>
-      <ImageArea  source={{ uri: image }} />
+    <ScrollViewContainer>
+      {Image(image)}
       <Container>
-        <BodyText>
-          What is the typical use? 
-        </BodyText>
-      
-          <FlatList
-            
-            scrollEnabled={false}
-            numColumns={3}
-            data={shoeTypes}
-            renderItem={({ item }) => 
-              <ShoeTypeButton 
-                type={item.type} 
-                select={item.select} 
-                handleTypeChange={handleTypeChange}
-              />}
-            keyExtractor={item => item.type}
-          />
-    
+        <TypeContainer>
+          <BodyText>
+            What is the typical use? 
+          </BodyText>
+          <Row>
+            <ShoeTypeButton type="INDOOR" select={shoeTypes["INDOOR"]} handleTypeChange={handleTypeChange} />
+            <ShoeTypeButton type="OUTDOOR" select={shoeTypes["OUTDOOR"]} handleTypeChange={handleTypeChange} />
+            <ShoeTypeButton type="EXERCISE" select={shoeTypes["EXERCISE"]} handleTypeChange={handleTypeChange} />
+          </Row>
+          <Row>  
+            <ShoeTypeButton type="LEISURE" select={shoeTypes["LEISURE"]} handleTypeChange={handleTypeChange} />
+            <ShoeTypeButton type="FORMAL" select={shoeTypes["FORMAL"]} handleTypeChange={handleTypeChange} />
+            <ShoeTypeButton type="SOCIAL" select={shoeTypes["SOCIAL"]} handleTypeChange={handleTypeChange} />
+          </Row>
+        </TypeContainer>  
+
+        {/* <FlatList
+          scrollEnabled={false}
+          numColumns={3}
+          data={shoeTypes}
+          renderItem={({ item }) => (
+            <ShoeTypeButton
+              type={item.type}
+              select={item.select}
+              handleTypeChange={handleTypeChange}
+            />
+          )}
+          keyExtractor={(item) => item.type}
+        /> */}
+        <DashedLine />
         <SliderContainer>
           <BodyText>How soon do you need them cleaned?</BodyText>
-          <BodyText>{sliderValue}</BodyText>
+          <SlideTextContainer>
+            <SlideText>{sliderValue}</SlideText>
+          </SlideTextContainer>
           <Slider
             step={2}
             minimumValue={2}
             maximumValue={6}
             value={4}
-            thumbTintColor='#ffffff'
+            thumbTintColor="#ffffff"
             thumbStyle={customStyles.thumb}
             // onValueChange={(value) => handleValueChange({ value })}
             onValueChange={(value) => setSliderValue(handleValueChange(value))}
-            
           />
         </SliderContainer>
         <Button
           title="CONTINUE"
-          containerStyle={{paddingTop: 20, width: 350 }}
-          buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+          containerStyle={{ paddingVertical: 10, width: 350 }}
+          buttonStyle={{
+            backgroundColor: 'black',
+            height: 50,
+            borderRadius: 7,
+          }}
           onPress={() => {
-            jumpTo('third')
+            jumpTo('third');
           }}
         />
       </Container>
-    </Container>
+    </ScrollViewContainer>
   );
 };
 
@@ -101,18 +155,41 @@ const customStyles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     shadowColor: 'black',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowRadius: 2,
-    shadowOpacity: 0.75
-  }
+    shadowOpacity: 0.75,
+  },
 });
 
-const SliderContainer = styled.View`
-  margin-left: 40px;
-  margin-right: 40px;
-  align-self: stretch;
-  align-items: stretch;
+const Container = styled.View`
+  align-items: center;
   justify-content: center;
+`;
+
+const BodyText = styled.Text`
+  margin-bottom: 15px;
+  text-align: center
+  color: black;
+  font-size: 18px;
+`;
+
+const SlideTextContainer = styled.View`
+  border-radius: 18px;
+  background-color: #CBB387;
+  padding: 10px;
+  width: 60%;
+  margin: auto;
+`;
+
+const SlideText = styled.Text`
+  margin-bottom: 5px;
+  text-align: center
+  color: #E6E6E6;
+  font-size: 18px;
+`;
+
+const TypeContainer = styled.View`
+  margin: 20px 20px 0px 20px;
 `;
 
 const Row = styled.View`
@@ -121,25 +198,16 @@ const Row = styled.View`
   justify-content: center;
 `;
 
-const ImageArea = styled.Image`
-  flex: .75;
+const SliderContainer = styled.View`
   align-self: stretch;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
+  margin: 0px 40px 20px 40px;
 `;
 
-const Container = styled.View`
-  background: white;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-`;
-
-const BodyText = styled.Text`
-  margin: 15px
-  text-align: center
-  color: black;
-  font-size: 18px;
-`;
+OrderSpecs.propTypes = {
+  image: PropTypes.any,
+  jumpTo: PropTypes.func,
+};
 
 export default OrderSpecs;
