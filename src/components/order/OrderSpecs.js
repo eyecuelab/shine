@@ -177,7 +177,7 @@ const SlideTextContainer = styled.View`
   border-radius: 18px;
   background-color: #CBB387;
   padding: 10px;
-  width: 50%;
+  width: 60%;
   margin: auto;
 `;
 

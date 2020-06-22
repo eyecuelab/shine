@@ -5,12 +5,13 @@ import { Button } from 'react-native-elements';
 import { TextInput } from 'react-native'; 
 import Image from '../shared/Image';
 import PropTypes from 'prop-types';
+import ScrollViewContainer from '../shared/ScrollViewContainer';
 
 const OrderNotes = ({ image, jumpTo }) => {
   const [value, onChangeText] = useState(null); 
   // console.log(value)
   return (
-    <>
+    <ScrollViewContainer>
       {Image(image)}
       <KeyboardAvoidingView style={{flex: 1 }} behavior="padding">
         <Container>
@@ -40,7 +41,7 @@ const OrderNotes = ({ image, jumpTo }) => {
           />
         </Container>
       </KeyboardAvoidingView >
-    </>
+    </ScrollViewContainer>
   );
 };
 
