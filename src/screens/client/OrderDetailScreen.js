@@ -12,7 +12,7 @@ import { Button } from 'react-native-elements';
 
 const { width, height } = Dimensions.get('window');
 
-const OrderDetailScreen = () => {
+const OrderDetailScreen = ({ navigation }) => {
   const route = useRoute();
   const { image } = route.params;
   
@@ -69,14 +69,14 @@ const OrderDetailScreen = () => {
 
         <Button
           title="START A CLEANING REQUEST"
-          containerStyle={{ paddingTop: 20, width: 350 }}
+          containerStyle={{ paddingVertical: 10, width: 350 }}
           buttonStyle={{
             backgroundColor: 'black',
             height: 50,
             borderRadius: 7,
           }}
           onPress={() => {
-            jumpTo('third');
+            navigation.navigate('OrdersList', {image})
           }}
         />
       </Container>
@@ -87,7 +87,7 @@ const OrderDetailScreen = () => {
 const styles = StyleSheet.create({
   input: {
     width: width * 0.8, 
-    height: 40, 
+    height: 45, 
     borderColor: 'gray', 
     borderWidth: 1, 
     borderRadius: 7,
@@ -118,7 +118,7 @@ const SwitchTextContainer = styled.View`
 
 const SwitchText = styled.Text`
   text-align: left;
-  margin: 15px 0px 0px 30px;
+  margin: 15px 0px 0px 20px;
   color: black;
   font-size: 18px;
 `;
@@ -141,7 +141,6 @@ const PriceTextContainer = styled.View`
 const PriceText = styled.Text`
   text-align: left;
   padding-left: 10px;
-  margin-left: 10px;
   color: black;
   font-size: 18px;
 `;

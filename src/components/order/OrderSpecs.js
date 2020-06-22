@@ -48,7 +48,25 @@ const OrderSpecs = ({ image, jumpTo }) => {
       [type]: !shoeTypes[type],
     }))
   }
-  // console.log(shoeTypes);
+  console.log(shoeTypes);
+
+
+  // experiment to make price local state 
+  const setPrice = (shoeTypes) => {
+    let price = 10;
+    if (shoeTypes["LEISURE"] === true) {
+      price += 5;
+    } 
+    if (shoeTypes["FORMAL"] === true) {
+      price += 7;
+    }  
+    return price;
+  }
+  // console.log(setPrice(shoeTypes));
+  const [price = setPrice(shoeTypes)] = useState();
+  console.log(price);
+
+
 
   const handleValueChange = (value) => {
     let valueName = '';
@@ -116,7 +134,7 @@ const OrderSpecs = ({ image, jumpTo }) => {
         </SliderContainer>
         <Button
           title="CONTINUE"
-          containerStyle={{ paddingTop: 10, width: 350 }}
+          containerStyle={{ paddingVertical: 10, width: 350 }}
           buttonStyle={{
             backgroundColor: 'black',
             height: 50,
@@ -159,7 +177,7 @@ const SlideTextContainer = styled.View`
   border-radius: 18px;
   background-color: #CBB387;
   padding: 10px;
-  width: 50%;
+  width: 60%;
   margin: auto;
 `;
 
