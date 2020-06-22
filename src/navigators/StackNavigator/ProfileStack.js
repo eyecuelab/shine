@@ -1,9 +1,7 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import SignInScreen from "../../screens/shared/SignInScreen";
-import SignUpScreen from "../../screens/shared/SignUpScreen";
-
-
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import SignInScreen from '../../screens/shared/SignInScreen';
+import SignUpScreen from '../../screens/shared/SignUpScreen';
 
 const ProfileStack = createStackNavigator();
 

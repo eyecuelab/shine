@@ -9,19 +9,19 @@ const OrdersList = () => {
 
   const navigation = useNavigation();
   const goToDetail = () => {
-    navigation.navigate('OrderDetail', {image})
-  }
+    navigation.navigate('OrderDetail', { image });
+  };
 
   return (
     <>
-    <TouchableOpacity onPress={goToDetail}> 
-      <Container>
-        <ImageArea source={{ uri: image }}/>
-      </Container>
-    </TouchableOpacity>  
-    </>  
-  ); 
-}
+      <TouchableOpacity onPress={goToDetail}>
+        <Container>
+          <ImageArea source={{ uri: image }} />
+        </Container>
+      </TouchableOpacity>
+    </>
+  );
+};
 
 const Container = styled.View`
   margin: 10px;

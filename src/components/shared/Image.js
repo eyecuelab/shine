@@ -3,15 +3,15 @@ import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 
-const { width: WIDTH, height: HEIGHT } = Dimensions.get("window");
+const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
 const Image = (imageURI) => {
   return (
     <ImgContainer>
-      <ImageArea source={{ uri: (imageURI) }} />
-    </ImgContainer>  
-  )
-}
+      <ImageArea source={{ uri: imageURI }} />
+    </ImgContainer>
+  );
+};
 
 const ImgContainer = styled.View`
   width: 100%;
@@ -21,12 +21,12 @@ const ImgContainer = styled.View`
 
 const ImageArea = styled.Image`
   width: 100%;
-  height:  100%;
+  height: 100%;
   position: absolute;
 `;
 
 Image.propTypes = {
-  image: PropTypes.string
+  image: PropTypes.string,
 };
 
 export default Image;

@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from "../../components/shared/Header";
-import styled from "styled-components/native";
+import Header from '../../components/shared/Header';
+import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 
 const CleanerApplicationScreen = ({ navigation }) => {
@@ -11,8 +11,8 @@ const CleanerApplicationScreen = ({ navigation }) => {
         <Text>CleanerApplicationScreen</Text>
       </Container>
     </>
-  )
-};  
+  );
+};
 
 const Container = styled.View`
   flex: 1;
@@ -27,7 +27,7 @@ const Text = styled.Text`
 `;
 
 CleanerApplicationScreen.propTypes = {
-  navigation: PropTypes.object
-}
+  navigation: PropTypes.object,
+};
 
 export default CleanerApplicationScreen;

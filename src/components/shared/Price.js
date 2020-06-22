@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components/native";
+import React from 'react';
+import styled from 'styled-components/native';
 
 const Price = (dollars, cents) => {
   return (
@@ -16,8 +16,8 @@ const Price = (dollars, cents) => {
         </CentsContainer>
       </PriceContianer>
     </>
-  )
-}
+  );
+};
 
 const PriceContianer = styled.View`
   flex-direction: row;

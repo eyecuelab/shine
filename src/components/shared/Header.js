@@ -1,25 +1,24 @@
 import React from 'react';
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 
 const Header = ({ title, navigation }) => {
-
   const openMenu = () => {
     navigation.openDrawer();
-  }
+  };
 
   return (
     <SafeAreaView>
       <Container>
         <Icon>
-          <MaterialIcons name='menu' size={28} onPress={openMenu} />
+          <MaterialIcons name="menu" size={28} onPress={openMenu} />
         </Icon>
         <Text>{title}</Text>
       </Container>
     </SafeAreaView>
   );
-}
+};
 
 const SafeAreaView = styled.SafeAreaView`
   flex: 0.1;
@@ -46,9 +45,7 @@ const Text = styled.Text`
 
 Header.propTypes = {
   title: PropTypes.string,
-  navigation: PropTypes.object
-}
+  navigation: PropTypes.object,
+};
 
 export default Header;
-
-

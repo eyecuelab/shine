@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
-import { Dimensions, TextInput, StyleSheet } from 'react-native'; 
-import { useRoute } from "@react-navigation/native";
-import styled from "styled-components/native";
-import ScrollViewContailner from "../../components/shared/ScrollViewContainer";
-import AdditionalServiceSwitch from "../../components/order/AdditionalServiceSwitch";
-import Price from "../../components/shared/Price";
-import DashedLine from "../../components/shared/Dash";
-import Image from "../../components/shared/Image";
+import { Dimensions, TextInput, StyleSheet } from 'react-native';
+import { useRoute } from '@react-navigation/native';
+import styled from 'styled-components/native';
+import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
+import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
+import Price from '../../components/shared/Price';
+import DashedLine from '../../components/shared/Dash';
+import Image from '../../components/shared/Image';
 import { Button } from 'react-native-elements';
-
 
 const { width, height } = Dimensions.get('window');
 
 const OrderDetailScreen = ({ navigation }) => {
   const route = useRoute();
   const { image } = route.params;
-  
+
   const [street, onChangeStreet] = useState();
   const [unitNum, onChangeUnitNum] = useState();
   const [zipcode, onChangeZipcode] = useState();
@@ -47,21 +46,21 @@ const OrderDetailScreen = ({ navigation }) => {
           style={styles.input}
           placeholder="STREET ADDRESS"
           returnKeyType="next"
-          onChangeText={text => onChangeStreet(text)}
+          onChangeText={(text) => onChangeStreet(text)}
           value={street}
         />
         <TextInput
           style={styles.input}
           placeholder="APT/ UNIT #/BUILDING"
           returnKeyType="next"
-          onChangeText={text => onChangeUnitNum(text)}
+          onChangeText={(text) => onChangeUnitNum(text)}
           value={unitNum}
         />
         <TextInput
           style={styles.input}
           placeholder="STREET ADDRESS"
           returnKeyType="done"
-          onChangeText={text => onChangeZipcode(text)}
+          onChangeText={(text) => onChangeZipcode(text)}
           value={zipcode}
         />
 
@@ -76,24 +75,24 @@ const OrderDetailScreen = ({ navigation }) => {
             borderRadius: 7,
           }}
           onPress={() => {
-            navigation.navigate('OrdersList', {image})
+            navigation.navigate('OrdersList', { image });
           }}
         />
       </Container>
     </ScrollViewContailner>
   );
-};  
+};
 
 const styles = StyleSheet.create({
   input: {
-    width: width * 0.8, 
-    height: 45, 
-    borderColor: 'gray', 
-    borderWidth: 1, 
+    width: width * 0.8,
+    height: 45,
+    borderColor: 'gray',
+    borderWidth: 1,
     borderRadius: 7,
     marginTop: 10,
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });
 
 const Container = styled.View`
@@ -146,7 +145,5 @@ const PriceText = styled.Text`
 `;
 
 export default OrderDetailScreen;
-
-
 
 // border: 1px solid black;
