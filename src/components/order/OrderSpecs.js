@@ -116,7 +116,7 @@ const OrderSpecs = ({ image, jumpTo }) => {
         </SliderContainer>
         <Button
           title="CONTINUE"
-          containerStyle={{ paddingTop: 10, width: 350 }}
+          containerStyle={{ paddingVertical: 10, width: 350 }}
           buttonStyle={{
             backgroundColor: 'black',
             height: 50,
