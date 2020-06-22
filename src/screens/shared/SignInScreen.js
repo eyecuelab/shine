@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
-import { Dimensions, TextInput, StyleSheet } from 'react-native'; 
+import { Dimensions, TextInput, StyleSheet } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
@@ -38,26 +38,30 @@ const SignInScreen = () => {
         />
         <Button
           title="Log in"
-          containerStyle={{paddingTop: 20, width: 350 }}
-          buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-          // onPress={() => signIn({ username, password })} 
+          containerStyle={{ paddingTop: 20, width: 350 }}
+          buttonStyle={{
+            backgroundColor: 'black',
+            height: 50,
+            borderRadius: 7,
+          }}
+          // onPress={() => signIn({ username, password })}
         />
       </Container>
     </>
-  )
-};  
+  );
+};
 
 const styles = StyleSheet.create({
   input: {
-    borderBottomColor: "#8A8F9E",
+    borderBottomColor: '#8A8F9E',
     borderBottomWidth: StyleSheet.hairlineWidth,
     height: 40,
     width: width * 0.85,
     marginVertical: 5,
     paddingHorizontal: 20,
     fontSize: 15,
-    color: "#161F3D" 
-  }
+    color: '#161F3D',
+  },
 });
 
 const Container = styled.View`

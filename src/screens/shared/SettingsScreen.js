@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from "../../components/shared/Header";
-import styled from "styled-components/native";
+import Header from '../../components/shared/Header';
+import styled from 'styled-components/native';
 
 const SettingsScreen = ({ navigation }) => {
   return (
@@ -10,8 +10,8 @@ const SettingsScreen = ({ navigation }) => {
         <Text>SettingsScreen</Text>
       </Container>
     </>
-  )
-};  
+  );
+};
 
 const Container = styled.View`
   flex: 1;

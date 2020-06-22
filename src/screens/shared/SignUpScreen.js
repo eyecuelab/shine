@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 
 const SignUpScreen = ({ navigation }) => {
@@ -7,15 +7,20 @@ const SignUpScreen = ({ navigation }) => {
     <Container>
       <Button
         title="Sign up with Email"
-        containerStyle={{paddingTop: 20, width: 350, marginVertical: 20 }}
-        buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
+        containerStyle={{ paddingTop: 20, width: 350, marginVertical: 20 }}
+        buttonStyle={{ backgroundColor: 'black', height: 50, borderRadius: 7 }}
         onPress={() => navigation.navigate('Sign up')}
       />
-      <Text>Already have an account? <TextLink onPress={() => navigation.navigate('Log in')}> Log in</TextLink></Text>
-      
+      <Text>
+        Already have an account?{' '}
+        <TextLink onPress={() => navigation.navigate('Log in')}>
+          {' '}
+          Log in
+        </TextLink>
+      </Text>
     </Container>
   );
-}
+};
 
 const Container = styled.View`
   flex: 1;
@@ -29,10 +34,9 @@ const Text = styled.Text`
 `;
 
 const TextLink = styled.Text`
-  color: #CBB387;
+  color: #cbb387;
   font-size: 16px;
   font-weight: 500;
 `;
-
 
 export default SignUpScreen;

@@ -1,10 +1,10 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "../../screens/shared/HomeScreen";
-import NewOrderScreen from "../../screens/client/NewOrderScreen";
-import OrdersListScreen from "../../screens/client/OrdersListScreen";
-import OrderDetailScreen from "../../screens/client/OrderDetailScreen";
-import SignInScreen from "../../screens/shared/SignInScreen";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from '../../screens/shared/HomeScreen';
+import NewOrderScreen from '../../screens/client/NewOrderScreen';
+import OrdersListScreen from '../../screens/client/OrdersListScreen';
+import OrderDetailScreen from '../../screens/client/OrderDetailScreen';
+import SignInScreen from '../../screens/shared/SignInScreen';
 
 const HomeStack = createStackNavigator();
 

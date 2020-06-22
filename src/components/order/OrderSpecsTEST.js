@@ -10,55 +10,53 @@ const OrderSpecs = ({ image, jumpTo }) => {
 
   useEffect(() => {
     let shoeTypeState = [
-      { select: false, id: 1, type: "INDOOR" },
-      { id: 2, type: "OUTDOOR" },
-      { id: 3, type: "EXERCISE" },
-      { id: 4, type: "LEISURE" },
-      { id: 5, type: "FORMAL" },
-      { id: 6, type: "SOCIAL" },
+      { select: false, id: 1, type: 'INDOOR' },
+      { id: 2, type: 'OUTDOOR' },
+      { id: 3, type: 'EXERCISE' },
+      { id: 4, type: 'LEISURE' },
+      { id: 5, type: 'FORMAL' },
+      { id: 6, type: 'SOCIAL' },
     ];
 
     // console.log(shoeTypeState[0]);
 
     setShoeTypeState(
       shoeTypeState.map((d) => {
-        return  {
+        return {
           select: false,
-          id: d.id, 
-          type: d.type 
+          id: d.id,
+          type: d.type,
         };
-      })
+      }),
     );
   }, []);
 
   return (
+    <Container>
+      <ImageArea source={{ uri: image }} />
       <Container>
-        <ImageArea  source={{ uri: image }} />
-        <Container>
-          <BodyText>
-            What is the typical use? 
-          </BodyText>
+        <BodyText>What is the typical use?</BodyText>
 
-        {shoeTypeState.map((d, i) =>(
+        {shoeTypeState.map((d, i) => (
           <Row key={d.id}>
-            <CheckBox onPress={() => {
-              setShoeTypeState(
-                shoeTypeState.map(data => {
-                  if (d.id === data.id) {
-                    data.select = !data.select;
-                  }
-                  console.log(data.select)
-                  return data;
-                })
-              )
-            }}
-            checked={d.select}
+            <CheckBox
+              onPress={() => {
+                setShoeTypeState(
+                  shoeTypeState.map((data) => {
+                    if (d.id === data.id) {
+                      data.select = !data.select;
+                    }
+                    console.log(data.select);
+                    return data;
+                  }),
+                );
+              }}
+              checked={d.select}
             />
           </Row>
         ))}
 
-
-          {/* <Row>
+        {/* <Row>
             <ShoeTypeButton 
               type="INDOOR"/>
             <ShoeTypeButton 
@@ -74,27 +72,31 @@ const OrderSpecs = ({ image, jumpTo }) => {
             <ShoeTypeButton 
               type="SOCIAL"/>
           </Row> */}
-          <SliderContainer>
-            <BodyText>How soon do you need them cleaned?</BodyText>
-            <Slider
-              animateTransitions={true}
-              minimumValue={1}
-              maximumValue={10}
-              thumbTintColor='#ffffff'
-              thumbStyle={customStyles.thumb}
-            />
-          </SliderContainer>
-          <Button
-            title="CONTINUE"
-            containerStyle={{paddingTop: 20, width: 350 }}
-            buttonStyle={{backgroundColor: 'black', height: 50, borderRadius: 7}}
-            onPress={() => {
-              jumpTo('third')
-            }}
+        <SliderContainer>
+          <BodyText>How soon do you need them cleaned?</BodyText>
+          <Slider
+            animateTransitions={true}
+            minimumValue={1}
+            maximumValue={10}
+            thumbTintColor="#ffffff"
+            thumbStyle={customStyles.thumb}
           />
-        </Container>
+        </SliderContainer>
+        <Button
+          title="CONTINUE"
+          containerStyle={{ paddingTop: 20, width: 350 }}
+          buttonStyle={{
+            backgroundColor: 'black',
+            height: 50,
+            borderRadius: 7,
+          }}
+          onPress={() => {
+            jumpTo('third');
+          }}
+        />
       </Container>
-  )
+    </Container>
+  );
 };
 
 const customStyles = StyleSheet.create({
@@ -103,10 +105,10 @@ const customStyles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     shadowColor: 'black',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowRadius: 2,
-    shadowOpacity: 0.75
-  }
+    shadowOpacity: 0.75,
+  },
 });
 
 const SliderContainer = styled.View`
@@ -122,7 +124,7 @@ const Row = styled.View`
 `;
 
 const ImageArea = styled.Image`
-  flex: .75;
+  flex: 0.75;
   align-self: stretch;
   align-items: center;
   justify-content: center;

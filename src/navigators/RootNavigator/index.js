@@ -1,15 +1,14 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import OrderStack from "./OrderStack";
-import HomeStack from "../StackNavigator/HomeStack";
-import ProfileStack from "../StackNavigator/ProfileStack";
-import CleanersDrawer from "../DrawerNavigator/CleanersDrawer";
+import HomeStack from '../StackNavigator/HomeStack';
+import ProfileStack from '../StackNavigator/ProfileStack';
+import CleanersDrawer from '../DrawerNavigator/CleanersDrawer';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
 
 const RootNavigator = () => {
-
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -18,7 +17,7 @@ const RootNavigator = () => {
         inactiveTintColor: '#939393',
       }}
     >
-      <Tab.Screen 
+      <Tab.Screen
         name="Home"
         options={{
           tabBarLabel: 'Home',
@@ -27,38 +26,40 @@ const RootNavigator = () => {
           ),
         }}
       >
-        {() => (
-          <HomeStack />       
-        )}
+        {() => <HomeStack />}
       </Tab.Screen>
-      <Tab.Screen 
+      <Tab.Screen
         name="Cleaner"
         options={{
           tabBarLabel: 'Cleaner',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="shoe-formal" color={color} size={size} />
+            <MaterialCommunityIcons
+              name="shoe-formal"
+              color={color}
+              size={size}
+            />
           ),
         }}
       >
-        {() => (
-          <CleanersDrawer />
-        )}
+        {() => <CleanersDrawer />}
       </Tab.Screen>
       <Tab.Screen
         name="Profile"
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account-outline" color={color} size={size} />
+            <MaterialCommunityIcons
+              name="account-outline"
+              color={color}
+              size={size}
+            />
           ),
         }}
       >
-        {() => (
-          <ProfileStack />
-        )}    
+        {() => <ProfileStack />}
       </Tab.Screen>
     </Tab.Navigator>
   );
-}
+};
 
 export default RootNavigator;

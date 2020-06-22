@@ -9,10 +9,9 @@ import PropTypes from 'prop-types';
 import Image from '../shared/Image';
 
 const OrderSpecs = ({ image, jumpTo }) => {
- 
   const [sliderValue, setSliderValue] = useState('Within Two Days');
   // console.log(sliderValue);
-    
+
   // const [shoeTypes, setShoeTypes] = useState([
   //   { type: 'OUTDOOR', select: false },
   //   { type: 'INDOOR', select: false },
@@ -46,27 +45,24 @@ const OrderSpecs = ({ image, jumpTo }) => {
     setShoeTypes((current) => ({
       ...current,
       [type]: !shoeTypes[type],
-    }))
-  }
+    }));
+  };
   console.log(shoeTypes);
 
-
-  // experiment to make price local state 
+  // experiment to make price local state
   const setPrice = (shoeTypes) => {
     let price = 10;
-    if (shoeTypes["LEISURE"] === true) {
+    if (shoeTypes['LEISURE'] === true) {
       price += 5;
-    } 
-    if (shoeTypes["FORMAL"] === true) {
+    }
+    if (shoeTypes['FORMAL'] === true) {
       price += 7;
-    }  
+    }
     return price;
-  }
+  };
   // console.log(setPrice(shoeTypes));
   const [price = setPrice(shoeTypes)] = useState();
   console.log(price);
-
-
 
   const handleValueChange = (value) => {
     let valueName = '';
@@ -87,20 +83,42 @@ const OrderSpecs = ({ image, jumpTo }) => {
       {Image(image)}
       <Container>
         <TypeContainer>
-          <BodyText>
-            What is the typical use? 
-          </BodyText>
+          <BodyText>What is the typical use?</BodyText>
           <Row>
-            <ShoeTypeButton type="INDOOR" select={shoeTypes["INDOOR"]} handleTypeChange={handleTypeChange} />
-            <ShoeTypeButton type="OUTDOOR" select={shoeTypes["OUTDOOR"]} handleTypeChange={handleTypeChange} />
-            <ShoeTypeButton type="EXERCISE" select={shoeTypes["EXERCISE"]} handleTypeChange={handleTypeChange} />
+            <ShoeTypeButton
+              type="INDOOR"
+              select={shoeTypes['INDOOR']}
+              handleTypeChange={handleTypeChange}
+            />
+            <ShoeTypeButton
+              type="OUTDOOR"
+              select={shoeTypes['OUTDOOR']}
+              handleTypeChange={handleTypeChange}
+            />
+            <ShoeTypeButton
+              type="EXERCISE"
+              select={shoeTypes['EXERCISE']}
+              handleTypeChange={handleTypeChange}
+            />
           </Row>
-          <Row>  
-            <ShoeTypeButton type="LEISURE" select={shoeTypes["LEISURE"]} handleTypeChange={handleTypeChange} />
-            <ShoeTypeButton type="FORMAL" select={shoeTypes["FORMAL"]} handleTypeChange={handleTypeChange} />
-            <ShoeTypeButton type="SOCIAL" select={shoeTypes["SOCIAL"]} handleTypeChange={handleTypeChange} />
+          <Row>
+            <ShoeTypeButton
+              type="LEISURE"
+              select={shoeTypes['LEISURE']}
+              handleTypeChange={handleTypeChange}
+            />
+            <ShoeTypeButton
+              type="FORMAL"
+              select={shoeTypes['FORMAL']}
+              handleTypeChange={handleTypeChange}
+            />
+            <ShoeTypeButton
+              type="SOCIAL"
+              select={shoeTypes['SOCIAL']}
+              handleTypeChange={handleTypeChange}
+            />
           </Row>
-        </TypeContainer>  
+        </TypeContainer>
 
         {/* <FlatList
           scrollEnabled={false}
@@ -175,7 +193,7 @@ const BodyText = styled.Text`
 
 const SlideTextContainer = styled.View`
   border-radius: 18px;
-  background-color: #CBB387;
+  background-color: #cbb387;
   padding: 10px;
   width: 60%;
   margin: auto;
