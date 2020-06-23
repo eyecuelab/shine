@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import Header from '../../components/shared/Header';
-import TakePhoto from '../../components/order/TakePhoto';
-import Dash from '../../components/shared/Dash';
-import Price from '../../components/shared/Price';
+import axios from "axios";
 
 const WelcomeScreen = ({ navigation }) => {
-  const [screenView, setScreenView] = useState('TakePhoto');
+ 
+
+  const logIn = () => axios.post(`https://shoeshine.herokuapp.com/login`, {
+    "email": "example@example.com", 
+    "password": "theshoe"
+  });
+
+  console.log(logIn);
 
   return (
     <>
       <Header title="Welcome" navigation={navigation} />
-      <Dash />
-      {Price(35, 99)}
-      {/* <TakePhoto onContinue={screenView}/> */}
     </>
   );
 };

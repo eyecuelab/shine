@@ -1,18 +1,16 @@
 import * as React from 'react';
-import Header from '../../components/shared/Header';
 import { Button } from 'react-native-elements';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import AuthContext from '../../components/AuthContext';
 
-const ClientProfileScreen = ({ navigation }) => {
+const ClientProfileScreen = () => {
   const { state, authContext } = React.useContext(AuthContext);
-  console.log("signOut func", authContext.signOut);
-  console.log(state);
+  // console.log("signOut func", authContext.signOut);
+  // console.log(state);
 
   return (
     <>
-      <Header title="Profile" navigation={navigation} />
       <Container>
         <Text>Loged in!</Text>
         <Button
