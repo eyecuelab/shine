@@ -1,13 +1,11 @@
+import * as c from './types';
+
 let nextOrderId = 0;
 
 export const addOrder = (order) => {
   return {
-    type: 'add_order',
+    type: c.ADD_ORDER,
     id: nextOrderId++,
-    image: order.image,
-    shoeTypes: order.shoeTypes,
-    timeFrame: order.TimeFrame,
-    note: order.note,
-    price: order.price,
+    payload: order,
   };
 };
