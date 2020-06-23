@@ -3,8 +3,8 @@ import React from 'react';
 import { useFonts } from '@use-expo/font';
 import { AppLoading } from 'expo';
 import { NavigationContainer } from '@react-navigation/native';
-// import Tabs from "./src/navigators/Tabs";
 import { RootNavigator } from './src/navigators';
+import { AuthProvider } from './src/components/AuthContext';
 
 const App = () => {
   let [fontsLoaded] = useFonts({
@@ -14,10 +14,11 @@ const App = () => {
 
   return fontsLoaded ? (
     <>
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
-      {/* <StatusBar barStyle="light-content" /> */}
+      <AuthProvider>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </AuthProvider>
     </>
   ) : (
     <AppLoading />

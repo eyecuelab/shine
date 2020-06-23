@@ -1,16 +1,20 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import { Dimensions, TextInput, StyleSheet } from 'react-native';
+import AuthContext from '../../components/AuthContext';
 
 const { width, height } = Dimensions.get('window');
 
 const SignInScreen = () => {
+  const { authContext } = React.useContext(AuthContext);
+  // console.log("signIn func", authContext.signIn);
+
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
-
-  // const { signIn } = React.useContext(AuthContext);
-
+  // console.log(username)
+  // console.log(password)
+  
   return (
     <>
       <Container>
@@ -44,7 +48,7 @@ const SignInScreen = () => {
             height: 50,
             borderRadius: 7,
           }}
-          // onPress={() => signIn({ username, password })}
+          onPress={() => authContext.signIn({ username, password })}
         />
       </Container>
     </>
