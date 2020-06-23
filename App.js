@@ -5,6 +5,9 @@ import { AppLoading } from 'expo';
 import { NavigationContainer } from '@react-navigation/native';
 // import Tabs from "./src/navigators/Tabs";
 import { RootNavigator } from './src/navigators';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducers from './src/reducers';
 
 const App = () => {
   let [fontsLoaded] = useFonts({
@@ -13,12 +16,14 @@ const App = () => {
   });
 
   return fontsLoaded ? (
-    <>
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
-      {/* <StatusBar barStyle="light-content" /> */}
-    </>
+    <Provider store={createStore(reducers)}>
+      <>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+        {/* <StatusBar barStyle="light-content" /> */}
+      </>
+    </Provider>
   ) : (
     <AppLoading />
   );
