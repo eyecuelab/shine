@@ -1,5 +1,4 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import {
   DrawerContentScrollView,
@@ -27,7 +26,7 @@ const Container = styled.View`
 const ImageBackground = styled.ImageBackground`
   width: undefined;
   padding: 16px;
-  paddingtop: 48px;
+  padding-top: 48px;
 `;
 
 const Profile = styled.Image`
@@ -40,8 +39,8 @@ const Profile = styled.Image`
 
 const Name = styled.Text`
   color: #fff;
-  fontsize: 20px;
-  fontweight: 800;
+  font-size: 20px;
+  font-weight: 800;
   margin-vertical: 8px;
   font-family: Marison-Sans-Round;
 `;

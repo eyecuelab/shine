@@ -1,14 +1,30 @@
 import * as React from 'react';
 import Header from '../../components/shared/Header';
+import { Button } from 'react-native-elements';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
+import AuthContext from '../../components/AuthContext';
 
 const ClientProfileScreen = ({ navigation }) => {
+  const { state, authContext } = React.useContext(AuthContext);
+  console.log("signOut func", authContext.signOut);
+  console.log(state);
+
   return (
     <>
       <Header title="Profile" navigation={navigation} />
       <Container>
-        <Text>ClientProfileScreen</Text>
+        <Text>Loged in!</Text>
+        <Button
+          title="Log Out"
+          containerStyle={{ paddingTop: 20, width: 350 }}
+          buttonStyle={{
+            backgroundColor: 'black',
+            height: 50,
+            borderRadius: 7,
+          }}
+          onPress={() => authContext.signOut()}
+        />
       </Container>
     </>
   );
