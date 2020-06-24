@@ -8,8 +8,14 @@ import DashedLine from '../shared/Dash';
 import PropTypes from 'prop-types';
 import Image from '../shared/Image';
 
-const OrderSpecs = ({ image, jumpTo }) => {
-  const [sliderValue, setSliderValue] = useState('Within Two Days');
+const OrderSpecs = ({
+  image,
+  jumpTo,
+  sliderValue,
+  setSliderValue,
+  shoeTypes,
+  setShoeTypes,
+}) => {
   // console.log(sliderValue);
 
   // const [shoeTypes, setShoeTypes] = useState([
@@ -32,22 +38,12 @@ const OrderSpecs = ({ image, jumpTo }) => {
   //   );
   // };
 
-  const [shoeTypes, setShoeTypes] = useState({
-    INDOOR: false,
-    OUTDOOR: false,
-    EXERCISE: false,
-    LEISURE: false,
-    FORMAL: false,
-    SOCIAL: false,
-  });
-
   const handleTypeChange = (type) => {
     setShoeTypes((current) => ({
       ...current,
       [type]: !shoeTypes[type],
     }));
   };
-  console.log(shoeTypes);
 
   // experiment to make price local state
   const setPrice = (shoeTypes) => {
@@ -226,6 +222,10 @@ const SliderContainer = styled.View`
 OrderSpecs.propTypes = {
   image: PropTypes.any,
   jumpTo: PropTypes.func,
+  sliderValue: PropTypes.string,
+  setSliderValue: PropTypes.func,
+  shoeTypes: PropTypes.object,
+  setShoeTypes: PropTypes.func,
 };
 
 export default OrderSpecs;
