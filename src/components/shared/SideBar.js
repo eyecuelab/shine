@@ -1,24 +1,30 @@
-import React from 'react';
-import { ScrollView } from 'react-native';
+import * as React from 'react';
 import styled from 'styled-components/native';
+import AuthContext from '../../components/AuthContext';
 import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
 
-const SideBar = (props) => (
-  <DrawerContentScrollView {...props}>
-    <ImageBackground source={require('../../../assets/images/profile-bg.png')}>
-      <Profile source={require('../../../assets/images/profile-pic.png')} />
-      <Name>Shoe Shiner</Name>
-    </ImageBackground>
+const SideBar = (props) => {
+  const { authState } = React.useContext(AuthContext);
 
-    <Container forceInset={{ top: 'always', horizontal: 'never' }}>
-      <DrawerItemList {...props} />
-    </Container>
-  </DrawerContentScrollView>
-);
+  return (
+    <DrawerContentScrollView {...props}>
+      <ImageBackground
+        source={require('../../../assets/images/profile-bg.png')}
+      >
+        <Profile source={require('../../../assets/images/profile-pic.png')} />
+        <Name>{authState.userName}</Name>
+      </ImageBackground>
+
+      <Container forceInset={{ top: 'always', horizontal: 'never' }}>
+        <DrawerItemList {...props} />
+      </Container>
+    </DrawerContentScrollView>
+  );
+};
 
 const Container = styled.View`
   flex: 1;
@@ -27,7 +33,7 @@ const Container = styled.View`
 const ImageBackground = styled.ImageBackground`
   width: undefined;
   padding: 16px;
-  paddingtop: 48px;
+  padding-top: 48px;
 `;
 
 const Profile = styled.Image`
@@ -40,8 +46,8 @@ const Profile = styled.Image`
 
 const Name = styled.Text`
   color: #fff;
-  fontsize: 20px;
-  fontweight: 800;
+  font-size: 20px;
+  font-weight: 800;
   margin-vertical: 8px;
   font-family: Marison-Sans-Round;
 `;

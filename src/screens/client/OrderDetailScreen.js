@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     marginTop: 10,
     textAlign: 'center',
-  },
+  }
 });
 
 const Container = styled.View`
