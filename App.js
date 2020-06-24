@@ -5,6 +5,9 @@ import { AppLoading } from 'expo';
 import { NavigationContainer } from '@react-navigation/native';
 import { RootNavigator } from './src/navigators';
 import { AuthProvider } from './src/components/AuthContext';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducers from './src/reducers';
 
 const App = () => {
   let [fontsLoaded] = useFonts({
@@ -13,13 +16,15 @@ const App = () => {
   });
 
   return fontsLoaded ? (
-    <>
-      <AuthProvider>
-        <NavigationContainer>
-          <RootNavigator />
-        </NavigationContainer>
-      </AuthProvider>
-    </>
+    <Provider store={createStore(reducers)}>
+      <>
+        <AuthProvider>
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </AuthProvider>
+      </>
+    </Provider>
   ) : (
     <AppLoading />
   );
