@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Keyboard, KeyboardAvoidingView } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
@@ -7,9 +7,7 @@ import Image from '../shared/Image';
 import PropTypes from 'prop-types';
 import ScrollViewContainer from '../shared/ScrollViewContainer';
 
-const OrderNotes = ({ image, jumpTo }) => {
-  const [value, onChangeText] = useState(null);
-  // console.log(value)
+const OrderNotes = ({ image, jumpTo, note, setNote }) => {
   return (
     <ScrollViewContainer>
       {Image(image)}
@@ -29,8 +27,8 @@ const OrderNotes = ({ image, jumpTo }) => {
                 paddingTop: 10,
                 fontSize: 20,
               }}
-              onChangeText={(text) => onChangeText(text)}
-              value={value}
+              onChangeText={(text) => setNote(text)}
+              value={note}
               multiline={true}
               editable={true}
               onSubmitEditing={Keyboard.dismiss}
@@ -73,6 +71,8 @@ const BodyText = styled.Text`
 OrderNotes.propTypes = {
   image: PropTypes.any,
   jumpTo: PropTypes.func,
+  note: PropTypes.string,
+  setNote: PropTypes.func,
 };
 
 export default OrderNotes;

@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Dimensions } from 'react-native';
+import React, { useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
-import { TabView } from 'react-native-tab-view';
-import OrderSpecs from './OrderSpecs';
-import OrderNotes from './OrderNotes';
-import SetupOrAdd from './SetupOrAdd';
 import PropTypes from 'prop-types';
 
 const options = {
@@ -17,68 +12,7 @@ const options = {
   quality: 1,
 };
 
-const initialLayout = { width: Dimensions.get('window').width };
-// const { width, height } = Dimensions.get("window");
-
-const SelectPhoto = ({ navigation }) => {
-  const [image, setImage] = useState(null);
-
-  const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    { key: 'first' },
-    { key: 'second' },
-    { key: 'third' },
-    { key: 'fourth' },
-  ]);
-
-  const renderScene = ({ route, jumpTo }) => {
-    switch (route.key) {
-      case 'first':
-        return (
-          <Container>
-            <ImageArea source={{ uri: image }} />
-            <Container>
-              <Button
-                title="SELECT ANOTHER PHOTO"
-                containerStyle={{ paddingTop: 20, width: 350 }}
-                buttonStyle={{
-                  backgroundColor: 'black',
-                  height: 50,
-                  borderRadius: 7,
-                }}
-                onPress={() => setImage(null)}
-              />
-              <Button
-                title="CONTINUE"
-                containerStyle={{ paddingTop: 20, width: 350 }}
-                buttonStyle={{
-                  backgroundColor: 'black',
-                  height: 50,
-                  borderRadius: 7,
-                }}
-                onPress={() => {
-                  jumpTo('second');
-                }}
-              />
-            </Container>
-          </Container>
-        );
-      case 'second':
-        return <OrderSpecs jumpTo={jumpTo} image={image} />;
-
-      case 'third':
-        return <OrderNotes jumpTo={jumpTo} image={image} />;
-
-      case 'fourth':
-        return (
-          <SetupOrAdd jumpTo={jumpTo} image={image} navigation={navigation} />
-        );
-
-      default:
-        return null;
-    }
-  };
-
+const SelectPhoto = ({ jumpTo, image, setImage }) => {
   useEffect(() => {
     (async () => {
       if (Constants.platform.ios) {
@@ -87,17 +21,6 @@ const SelectPhoto = ({ navigation }) => {
         } = await ImagePicker.requestCameraRollPermissionsAsync();
         if (status !== 'granted') {
           alert('Sorry, we need camera roll permissions to make this work!');
-        }
-      }
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      if (Constants.platform.ios) {
-        const { status } = await ImagePicker.requestCameraPermissionsAsync();
-        if (status !== 'granted') {
-          alert('Sorry, we need camera permissions to make this work!');
         }
       }
     })();
@@ -117,7 +40,7 @@ const SelectPhoto = ({ navigation }) => {
     }
   };
 
-  return !image ? (
+  return image === 'empty.img' ? (
     <Container>
       <Button
         title="UPLOAD PHOTO"
@@ -133,13 +56,33 @@ const SelectPhoto = ({ navigation }) => {
       />
     </Container>
   ) : (
-    <TabView
-      swipeEnabled={index === 1 ? false : true}
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      initialLayout={initialLayout}
-    />
+    <Container>
+      <ImageArea source={{ uri: image }} />
+      <Container>
+        <Button
+          title="SELECT ANOTHER PHOTO"
+          containerStyle={{ paddingTop: 20, width: 350 }}
+          buttonStyle={{
+            backgroundColor: 'black',
+            height: 50,
+            borderRadius: 7,
+          }}
+          onPress={() => setImage('empty.img')}
+        />
+        <Button
+          title="CONTINUE"
+          containerStyle={{ paddingTop: 20, width: 350 }}
+          buttonStyle={{
+            backgroundColor: 'black',
+            height: 50,
+            borderRadius: 7,
+          }}
+          onPress={() => {
+            jumpTo('second');
+          }}
+        />
+      </Container>
+    </Container>
   );
 };
 
@@ -159,7 +102,8 @@ const Container = styled.View`
 SelectPhoto.propTypes = {
   navigation: PropTypes.object,
   jumpTo: PropTypes.func,
-  route: PropTypes.object,
+  image: PropTypes.any,
+  setImage: PropTypes.func,
 };
 
 export default SelectPhoto;
