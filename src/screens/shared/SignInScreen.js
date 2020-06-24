@@ -10,11 +10,9 @@ const SignInScreen = () => {
   const { authContext } = React.useContext(AuthContext);
   // console.log("signIn func", authContext.signIn);
 
-  const [username, setUsername] = React.useState('');
+  const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  // console.log(username)
-  // console.log(password)
-  
+
   return (
     <>
       <Container>
@@ -26,8 +24,8 @@ const SignInScreen = () => {
           autoCapitalize="none"
           autoCorrect={false}
           style={styles.input}
-          value={username}
-          onChangeText={setUsername}
+          value={email}
+          onChangeText={setEmail}
         />
         <TextInput
           placeholder="Password"
@@ -48,7 +46,7 @@ const SignInScreen = () => {
             height: 50,
             borderRadius: 7,
           }}
-          onPress={() => authContext.signIn({ username, password })}
+          onPress={() => authContext.signIn({ email, password })}
         />
       </Container>
     </>

@@ -18,10 +18,17 @@ export const AuthProvider = ({ children }) => {
       case 'RESTORE_TOKEN':
         return {
           ...prevState,
+          userName: action.name,
           userToken: action.token,
           isLoading: false,
         };
       case 'SIGN_IN':
+        if (action.token) {
+          AsyncStorage.setItem('userToken', action.token);
+        }
+        if (action.name) {
+          AsyncStorage.setItem('userName', action.name);
+        }
         return {
           ...prevState,
           userName: action.name,
@@ -48,7 +55,7 @@ export const AuthProvider = ({ children }) => {
       signIn: async (data) => {
         axios
           .post(`https://shoeshine.herokuapp.com/login`, {
-            email: data['username'],
+            email: data['email'],
             password: data['password'],
           })
 
@@ -61,20 +68,11 @@ export const AuthProvider = ({ children }) => {
 
             dispatch({ type: 'SIGN_IN', name: userName, token: userToken });
           });
-
-        // const _storeToken = async () => {
-        //   console.log('Token: ', userToken);
-        //   try {
-        //     await AsyncStorage.setItem('userToken', userToken);
-        //   } catch (error) {
-        //     console.log('Something went wrong', error);
-        //   }
-        // };
-        // _storeToken();
       },
 
       signOut: async () => {
         try {
+          await AsyncStorage.removeItem('userName');
           await AsyncStorage.removeItem('userToken');
         } catch (error) {
           console.log('Something went wrong', error);
@@ -95,21 +93,20 @@ export const AuthProvider = ({ children }) => {
   );
 
   React.useEffect(() => {
-    // Fetch the token from storage then navigate to our appropriate place
     const bootstrapAsync = async () => {
       let userToken;
-      // userToken = null;
+      let userName;
+
       try {
         userToken = await AsyncStorage.getItem('userToken');
+        userName = await AsyncStorage.getItem('userName');
       } catch (error) {
         console.log('Something went wrong', error);
       }
-      console.log('user token: ', userToken);
-      // After restoring token, we may need to validate it in production apps
+      // console.log('user token: ', userToken);
+      // console.log('user name: ', userName);
 
-      // This will switch to the App screen or Auth screen and this loading
-      // screen will be unmounted and thrown away.
-      dispatch({ type: 'RESTORE_TOKEN', token: userToken });
+      dispatch({ type: 'RESTORE_TOKEN', name: userName, token: userToken });
     };
 
     bootstrapAsync();
