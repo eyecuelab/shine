@@ -2,14 +2,10 @@ import * as React from 'react';
 import { AsyncStorage } from 'react-native';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { cos } from 'react-native-reanimated';
 
 const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
-  // const [isLoading, setIsLoading] = React.useState(true);
-  // const [userToken, setUserToken] = React.useState(null);
-
   const initialAuthState = {
     isLoading: true,
     isSignout: false,
@@ -28,7 +24,7 @@ export const AuthProvider = ({ children }) => {
       case 'SIGN_IN':
         return {
           ...prevState,
-          userName: action.id,
+          userName: action.name,
           userToken: action.token,
           isSignout: false,
           isLoading: false,
@@ -45,23 +41,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const [authState, dispatch] = React.useReducer(authReducer, initialAuthState);
-
-  console.log('STATE', authState);
-
-  // const makeRequest = () =>
-  //   axios
-  //     .post(`https://shoeshine.herokuapp.com/login`, {
-  //       email: 'example@example.com',
-  //       password: 'theshoe',
-  //     })
-  //     .then(
-  //       (response) => {
-  //         console.log(response);
-  //       },
-  //       (error) => {
-  //         console.log(error);
-  //       },
-  //     );
+  console.log('AUTH STATE: ', authState);
 
   const authContext = React.useMemo(
     () => ({
@@ -74,32 +54,23 @@ export const AuthProvider = ({ children }) => {
 
           .then((response) => {
             const userToken = response.data.data.attributes.token;
+            const userName =
+              response.data.included[0].attributes.first_name +
+              ' ' +
+              response.data.included[0].attributes.last_name;
 
-            dispatch({ type: 'SIGN_IN', token: userToken });
-            // return userToken;
+            dispatch({ type: 'SIGN_IN', name: userName, token: userToken });
           });
+
         // const _storeToken = async () => {
-        //   const { userToken } = response.data.data.attributes;
+        //   console.log('Token: ', userToken);
         //   try {
         //     await AsyncStorage.setItem('userToken', userToken);
         //   } catch (error) {
         //     console.log('Something went wrong', error);
         //   }
-        //   console.log('user token: ', userToken);
-        //   dispatch({ type: 'SIGN_IN', token: userToken });
         // };
-
-        // })
-
-        // .then(async (userToken) => {
-        //   try {
-        //     await AsyncStorage.setItem('userToken', userToken);
-        //   } catch (error) {
-        //     console.log('Something went wrong', error);
-        //   }
-        //   console.log('user token: ', userToken);
-        //   dispatch({ type: 'SIGN_IN', token: userToken });
-        // });
+        // _storeToken();
       },
 
       signOut: async () => {
@@ -127,7 +98,7 @@ export const AuthProvider = ({ children }) => {
     // Fetch the token from storage then navigate to our appropriate place
     const bootstrapAsync = async () => {
       let userToken;
-      userToken = null;
+      // userToken = null;
       try {
         userToken = await AsyncStorage.getItem('userToken');
       } catch (error) {

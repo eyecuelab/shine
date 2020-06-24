@@ -1,23 +1,30 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components/native';
+import AuthContext from '../../components/AuthContext';
 import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
 
-const SideBar = (props) => (
-  <DrawerContentScrollView {...props}>
-    <ImageBackground source={require('../../../assets/images/profile-bg.png')}>
-      <Profile source={require('../../../assets/images/profile-pic.png')} />
-      <Name>Shoe Shiner</Name>
-    </ImageBackground>
+const SideBar = (props) => {
+  const { authState } = React.useContext(AuthContext);
 
-    <Container forceInset={{ top: 'always', horizontal: 'never' }}>
-      <DrawerItemList {...props} />
-    </Container>
-  </DrawerContentScrollView>
-);
+  return (
+    <DrawerContentScrollView {...props}>
+      <ImageBackground
+        source={require('../../../assets/images/profile-bg.png')}
+      >
+        <Profile source={require('../../../assets/images/profile-pic.png')} />
+        <Name>{authState.userName}</Name>
+      </ImageBackground>
+
+      <Container forceInset={{ top: 'always', horizontal: 'never' }}>
+        <DrawerItemList {...props} />
+      </Container>
+    </DrawerContentScrollView>
+  );
+};
 
 const Container = styled.View`
   flex: 1;
