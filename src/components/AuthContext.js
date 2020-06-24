@@ -1,123 +1,117 @@
 import * as React from 'react';
 import { AsyncStorage } from 'react-native';
 import PropTypes from 'prop-types';
-import axios from "axios";
+import axios from 'axios';
 import { cos } from 'react-native-reanimated';
 
 const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
+  // const [isLoading, setIsLoading] = React.useState(true);
+  // const [userToken, setUserToken] = React.useState(null);
 
-  const [state, dispatch] = React.useReducer(
-    (prevState, action) => {
-      switch (action.type) {
-        case 'RESTORE_TOKEN':
-          return {
-            ...prevState,
-            userToken: action.token,
-            isLoading: false,
-          };
-        case 'SIGN_IN':
-          return {
-            ...prevState,
-            isSignout: false,
-            userToken: action.token,
-          };
-        case 'SIGN_OUT':
-          return {
-            ...prevState,
-            isSignout: true,
-            userToken: null,
-          };
-      }
-    },
-    {
-      isLoading: true,
-      isSignout: false,
-      userToken: null,
+  const initialAuthState = {
+    isLoading: true,
+    isSignout: false,
+    userName: null,
+    userToken: null,
+  };
+
+  const authReducer = (prevState, action) => {
+    switch (action.type) {
+      case 'RESTORE_TOKEN':
+        return {
+          ...prevState,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case 'SIGN_IN':
+        return {
+          ...prevState,
+          userName: action.id,
+          userToken: action.token,
+          isSignout: false,
+          isLoading: false,
+        };
+      case 'SIGN_OUT':
+        return {
+          ...prevState,
+          userName: null,
+          userToken: null,
+          isSignout: true,
+          isLoading: false,
+        };
     }
-  );
-  console.log("STATE", state);
+  };
 
+  const [authState, dispatch] = React.useReducer(authReducer, initialAuthState);
 
-  // React.useEffect(() => {
-  //   // Fetch the token from storage then navigate to our appropriate place
-  //   const bootstrapAsync = async () => {
-  //     let userToken;
+  console.log('STATE', authState);
 
-  //     try {
-  //       userToken = await AsyncStorage.getItem('userToken');
-  //     } catch (error) {
-  //       console.log("Something went wrong", error);
-  //     }
+  // const makeRequest = () =>
+  //   axios
+  //     .post(`https://shoeshine.herokuapp.com/login`, {
+  //       email: 'example@example.com',
+  //       password: 'theshoe',
+  //     })
+  //     .then(
+  //       (response) => {
+  //         console.log(response);
+  //       },
+  //       (error) => {
+  //         console.log(error);
+  //       },
+  //     );
 
-  //     // After restoring token, we may need to validate it in production apps
-
-  //     // This will switch to the App screen or Auth screen and this loading
-  //     // screen will be unmounted and thrown away.
-  //     dispatch({ type: 'RESTORE_TOKEN', token: userToken });
-  //   };
-
-  //   bootstrapAsync();
-  // }, []);
-
-  const [token, setToken] = React.useState();
-  // const _storeToken = async () => {
-  //   try {
-  //     await AsyncStorage.setItem('userToken', token);  
-  //   } catch (error) {
-  //     alert(error);
-  //   }
-  // };
-
-  // const _getToken = async () => {
-  //   try {
-  //     let token = await AsyncStorage.getItem('userToken');
-  //     if (token !== null) {
-  //       setToken(JSON.parse(token));
-  //     }
-  //   } catch (error) {
-  //     alert(error);
-  //   }
-  // };
-
-  // const _removeToken = async () => {
-  //   try {
-  //     await AsyncStorage.removeItem('userToken');
-  //   } catch (error) {
-  //     alert(error);
-  //   } finally {
-  //     setToken('');
-  //   }  
-  // };
-
-  // React.useEffect(() => {
-  //   _getToken();
-  // }, []);  
-        
   const authContext = React.useMemo(
     () => ({
-      signIn: async data => {
-          axios.post(`https://shoeshine.herokuapp.com/login`, {
-          "email": data["username"], 
-          "password": data["password"]
-        })
-        .then((response) => {
-          // console.log(response.data.data.attributes.token);    
-          setToken(token => token === response.data.data.attributes.token)
-          // _getToken();
-          
-        }, (error) => {
-          // console.log("Something went wrong", error);
-          alert(error)
-        });
-        dispatch({ type: 'SIGN_IN', token: token });
+      signIn: async (data) => {
+        axios
+          .post(`https://shoeshine.herokuapp.com/login`, {
+            email: data['username'],
+            password: data['password'],
+          })
+
+          .then((response) => {
+            const userToken = response.data.data.attributes.token;
+
+            dispatch({ type: 'SIGN_IN', token: userToken });
+            // return userToken;
+          });
+        // const _storeToken = async () => {
+        //   const { userToken } = response.data.data.attributes;
+        //   try {
+        //     await AsyncStorage.setItem('userToken', userToken);
+        //   } catch (error) {
+        //     console.log('Something went wrong', error);
+        //   }
+        //   console.log('user token: ', userToken);
+        //   dispatch({ type: 'SIGN_IN', token: userToken });
+        // };
+
+        // })
+
+        // .then(async (userToken) => {
+        //   try {
+        //     await AsyncStorage.setItem('userToken', userToken);
+        //   } catch (error) {
+        //     console.log('Something went wrong', error);
+        //   }
+        //   console.log('user token: ', userToken);
+        //   dispatch({ type: 'SIGN_IN', token: userToken });
+        // });
       },
 
+      signOut: async () => {
+        try {
+          await AsyncStorage.removeItem('userToken');
+        } catch (error) {
+          console.log('Something went wrong', error);
+        }
+        dispatch({ type: 'SIGN_OUT' });
+      },
 
-
-      signOut: () => dispatch({ type: 'SIGN_OUT' }),
-      signUp: async data => {
+      signUp: async (data) => {
         // In a production app, we need to send user data to server and get a token
         // We will also need to handle errors if sign up failed
         // After getting token, we need to persist the token using `AsyncStorage`
@@ -126,31 +120,39 @@ export const AuthProvider = ({ children }) => {
         dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
       },
     }),
-    []
+    [],
   );
 
+  React.useEffect(() => {
+    // Fetch the token from storage then navigate to our appropriate place
+    const bootstrapAsync = async () => {
+      let userToken;
+      userToken = null;
+      try {
+        userToken = await AsyncStorage.getItem('userToken');
+      } catch (error) {
+        console.log('Something went wrong', error);
+      }
+      console.log('user token: ', userToken);
+      // After restoring token, we may need to validate it in production apps
 
-  // const logIn = () => axios.post(`https://shoeshine.herokuapp.com/login`, {
-  //   "email": "example@example.com", 
-  //   "password": "theshoe"
-  // })
-  // .then((response) => {
-  //   console.log(response);
-  // }, (error) => {
-  //   console.log(error);
-  // });
+      // This will switch to the App screen or Auth screen and this loading
+      // screen will be unmounted and thrown away.
+      dispatch({ type: 'RESTORE_TOKEN', token: userToken });
+    };
 
-  // console.log("test", () => authContext.signIn());
-   
+    bootstrapAsync();
+  }, []);
+
   return (
-    <AuthContext.Provider value={{authContext, state}}>
+    <AuthContext.Provider value={{ authContext, authState }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
 AuthContext.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default AuthContext;

@@ -8,22 +8,19 @@ import AuthContext from '../../components/AuthContext';
 const ProfileStack = createStackNavigator();
 
 const ProfileStackNavigator = () => {
-
-  const { state } = React.useContext(AuthContext);
+  const { authState } = React.useContext(AuthContext);
   // console.log("state", state);
 
   return (
     <ProfileStack.Navigator>
-      {
-        state.userToken == null ? (
-          <>
-            <ProfileStack.Screen name="Sign up" component={SignUpScreen} />
-            <ProfileStack.Screen name="Log in" component={SignInScreen} />
-          </>
-        ) : (
-          <ProfileStack.Screen name="Profile" component={ClientProfileScreen} />
-        )
-      }
+      {authState.userToken == null ? (
+        <>
+          <ProfileStack.Screen name="Sign up" component={SignUpScreen} />
+          <ProfileStack.Screen name="Log in" component={SignInScreen} />
+        </>
+      ) : (
+        <ProfileStack.Screen name="Profile" component={ClientProfileScreen} />
+      )}
     </ProfileStack.Navigator>
   );
 };
