@@ -4,6 +4,7 @@ import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
 import TopImage from '../../components/shared/Image';
 import PriceWhite from '../../components/shared/PriceWhite';
+import { Button } from 'react-native-elements';
 
 const OrderFinalScreen = ({ navigation }) => {
   // const route = useRoute();
@@ -48,6 +49,20 @@ const OrderFinalScreen = ({ navigation }) => {
             <DueText>RETURNED BY THURSDAY</DueText>
           </PriceTicketContainer>
         </BidsContainer>
+
+        <Button
+          title="CANCEL SERVICE"
+          containerStyle={{ paddingVertical: 10, width: 350 }}
+          buttonStyle={{
+            color: 'black',
+            backgroundColor: '#939393',
+            height: 50,
+            borderRadius: 7,
+          }}
+          onPress={() => {
+            navigation.navigate('OrdersList', { image });
+          }}
+        />
       </Container>
     </ScrollViewContailner>
   );
