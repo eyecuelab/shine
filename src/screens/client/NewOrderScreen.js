@@ -26,6 +26,7 @@ const NewOrderScreen = ({ addOrder, navigation }) => {
     SOCIAL: false,
   });
   const [note, setNote] = useState('');
+
   // ROUTE STATE
   const [routes] = useState([
     { key: 'first' },
@@ -33,6 +34,7 @@ const NewOrderScreen = ({ addOrder, navigation }) => {
     { key: 'third' },
     { key: 'fourth' },
   ]);
+
   const orderInfo = {
     image: image,
     shoeTypes: 'indoor',

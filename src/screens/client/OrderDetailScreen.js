@@ -139,6 +139,7 @@ const PriceTextContainer = styled.View`
 
 const PriceText = styled.Text`
   text-align: left;
+
   padding-left: 10px;
   color: black;
   font-size: 18px;

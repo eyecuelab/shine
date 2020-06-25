@@ -23,13 +23,31 @@ const OrderFinalScreen = ({ navigation }) => {
           <AdditionalServiceSwitch />
         </SwitchContainer>
 
-        <PriceTicketContainer>
-          <PriceTicket
-            source={require('../../../assets/images/price-ticket.png')}
-          />
-          <PriceContianer>{PriceWhite(35, 99)}</PriceContianer>
-          <DueText>RETURNED BY THURSDAY</DueText>
-        </PriceTicketContainer>
+        <BidsContainer>
+          <PriceTicketContainer>
+            <PriceTicket
+              source={require('../../../assets/images/price-ticket.png')}
+            />
+            <PriceContianer>{PriceWhite(35, 99)}</PriceContianer>
+            <DueText>RETURNED BY THURSDAY</DueText>
+          </PriceTicketContainer>
+
+          <PriceTicketContainer>
+            <PriceTicket
+              source={require('../../../assets/images/price-ticket.png')}
+            />
+            <PriceContianer>{PriceWhite(35, 99)}</PriceContianer>
+            <DueText>RETURNED BY THURSDAY</DueText>
+          </PriceTicketContainer>
+
+          <PriceTicketContainer>
+            <PriceTicket
+              source={require('../../../assets/images/price-ticket.png')}
+            />
+            <PriceContianer>{PriceWhite(35, 99)}</PriceContianer>
+            <DueText>RETURNED BY THURSDAY</DueText>
+          </PriceTicketContainer>
+        </BidsContainer>
       </Container>
     </ScrollViewContailner>
   );
@@ -67,10 +85,19 @@ const SwitchContainer = styled.View`
   padding-top: 10px;
 `;
 
-const PriceTicketContainer = styled.View`
+const BidsContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const PriceTicketContainer = styled.TouchableOpacity`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  margin: 100px;
+  border: 1px solid yellow;
 `;
 
 const PriceTicket = styled.Image`

@@ -19,21 +19,20 @@ const Price = (dollars, cents) => {
   );
 };
 
-// const PriceContianer = styled.View`
-//   flex-direction: row;
-//   flex-wrap: wrap;
-//   align-items: center;
-//   justify-content: center;
-// `;
-
 const PriceContianer = styled.View`
-  border: 1px solid black;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  width: 50%;
 `;
+
+// const PriceContianer = styled.View`
+//   flex: 1;
+//   flex-direction: row;
+//   margin: 0px 30px;
+//   align-items: center;
+//   justify-content: center;
+// `;
 
 // const PriceContianer = styled.View`
 //   border: 1px solid black;
