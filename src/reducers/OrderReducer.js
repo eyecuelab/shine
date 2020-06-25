@@ -13,6 +13,16 @@ const orders = (state = [], action) => {
           timeFrame: action.payload.orderInfo.timeFrame,
           note: action.payload.orderInfo.note,
           price: action.payload.orderInfo.price,
+          addOns: {
+            polish: false,
+            rainProtection: false,
+            replaceLaces: false,
+          },
+          orderAddress: {
+            streetAddress: '',
+            aptNumber: '',
+            zipCode: '',
+          },
         },
       ];
     default:
