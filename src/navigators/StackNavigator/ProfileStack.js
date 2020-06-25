@@ -4,6 +4,7 @@ import SignInScreen from '../../screens/shared/SignInScreen';
 import SignUpScreen from '../../screens/shared/SignUpScreen';
 import ClientProfileScreen from '../../screens/client/ClientProfileScreen';
 import AuthContext from '../../components/AuthContext';
+import CleanerApplicationScreen from '../../screens/client/CleanerApplicationScreen';
 
 const ProfileStack = createStackNavigator();
 
@@ -19,7 +20,13 @@ const ProfileStackNavigator = () => {
           <ProfileStack.Screen name="Log in" component={SignInScreen} />
         </>
       ) : (
-        <ProfileStack.Screen name="Profile" component={ClientProfileScreen} />
+        <>
+          <ProfileStack.Screen name="Profile" component={ClientProfileScreen} />
+          <ProfileStack.Screen
+            name="CleanerApplication"
+            component={CleanerApplicationScreen}
+          />
+        </>
       )}
     </ProfileStack.Navigator>
   );

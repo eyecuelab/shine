@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import AuthContext from '../../components/AuthContext';
 
-const ClientProfileScreen = () => {
+const ClientProfileScreen = ({ navigation }) => {
   const { state, authContext } = React.useContext(AuthContext);
   // console.log("signOut func", authContext.signOut);
   // console.log(state);
@@ -13,6 +13,16 @@ const ClientProfileScreen = () => {
     <>
       <Container>
         <Text>Loged in!</Text>
+        <Button
+          title="Become a Cleaner"
+          containerStyle={{ paddingTop: 20, width: 350 }}
+          buttonStyle={{
+            backgroundColor: 'black',
+            height: 50,
+            borderRadius: 7,
+          }}
+          onPress={() => navigation.navigate('CleanerApplication')}
+        />
         <Button
           title="Log Out"
           containerStyle={{ paddingTop: 20, width: 350 }}

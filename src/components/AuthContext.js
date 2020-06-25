@@ -67,6 +67,14 @@ export const AuthProvider = ({ children }) => {
               response.data.included[0].attributes.last_name;
 
             dispatch({ type: 'SIGN_IN', name: userName, token: userToken });
+          })
+
+          .catch((error) => {
+            alert(
+              'Incorrect email or password',
+              'Email is invalid',
+              "Password can't be blanck",
+            );
           });
       },
 
