@@ -45,13 +45,21 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
       <Button
         title="UPLOAD PHOTO"
         containerStyle={{ paddingTop: 20, width: 350 }}
-        buttonStyle={{ backgroundColor: 'black', height: 50, borderRadius: 7 }}
+        buttonStyle={{
+          backgroundColor: '#939393',
+          height: 50,
+          borderRadius: 7,
+        }}
         onPress={PickImage}
       />
       <Button
         title="TAKE A PHOTO"
         containerStyle={{ paddingTop: 20, width: 350 }}
-        buttonStyle={{ backgroundColor: 'black', height: 50, borderRadius: 7 }}
+        buttonStyle={{
+          backgroundColor: '#2C2C2C',
+          height: 50,
+          borderRadius: 7,
+        }}
         onPress={TakePhoto}
       />
     </Container>
@@ -60,10 +68,10 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
       <ImageArea source={{ uri: image }} />
       <Container>
         <Button
-          title="SELECT ANOTHER PHOTO"
+          title="CHANGE PHOTO"
           containerStyle={{ paddingTop: 20, width: 350 }}
           buttonStyle={{
-            backgroundColor: 'black',
+            backgroundColor: '#939393',
             height: 50,
             borderRadius: 7,
           }}

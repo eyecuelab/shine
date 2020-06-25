@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-const Price = (dollars, cents) => {
+const PriceWhite = (dollars, cents) => {
   return (
     <>
       <PriceContianer>
@@ -21,34 +21,15 @@ const Price = (dollars, cents) => {
 
 const PriceContianer = styled.View`
   flex-direction: row;
-  flex-wrap: wrap;
+  flex: 1;
   align-items: center;
   justify-content: center;
 `;
 
-// const PriceContianer = styled.View`
-//   flex: 1;
-//   flex-direction: row;
-//   margin: 0px 30px;
-//   align-items: center;
-//   justify-content: center;
-// `;
-
-// const PriceContianer = styled.View`
-//   border: 1px solid black;
-//   flex-direction: row;
-//   flex-wrap: wrap;
-//   align-items: center;
-//   justify-content: center;
-//   width: 50%;
-//   position: relative;
-//   margin: 0px 30px;
-// `;
-
 const SignContainer = styled.View``;
 
 const DollarSign = styled.Text`
-  color: black;
+  color: #e6e6e6;
   font-size: 22px;
   font-family: Marison-Sans-Round;
 `;
@@ -56,7 +37,7 @@ const DollarSign = styled.Text`
 const DollarContainer = styled.View``;
 
 const DollarsText = styled.Text`
-  color: black;
+  color: #e6e6e6;
   font-size: 120px;
   font-family: Marison-Script-Vintage;
 `;
@@ -64,10 +45,10 @@ const DollarsText = styled.Text`
 const CentsContainer = styled.View``;
 
 const CentsText = styled.Text`
-  color: black;
+  color: #e6e6e6;
   font-size: 70px;
   font-family: Marison-Script-Vintage;
   text-decoration-line: underline;
 `;
 
-export default Price;
+export default PriceWhite;

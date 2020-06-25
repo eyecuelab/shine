@@ -6,8 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "lint": "eslint",
-    "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001'"
+    "lint": "eslint"
   },
   "dependencies": {
     "@react-native-community/eslint-config": "^2.0.0",
