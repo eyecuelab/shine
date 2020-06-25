@@ -26,7 +26,7 @@ const ClientProfileScreen = ({ navigation }) => {
 
         <ListItem>
           <Text>Account</Text>
-          <Text>example@example.com</Text>
+          <Text>{authState.userEmail}</Text>
         </ListItem>
 
         <ListItem>
