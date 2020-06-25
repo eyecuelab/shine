@@ -60,7 +60,7 @@ const OrderFinalScreen = ({ navigation }) => {
             borderRadius: 7,
           }}
           onPress={() => {
-            navigation.navigate('OrdersList', { image });
+            navigation.navigate('OrdersList');
           }}
         />
       </Container>

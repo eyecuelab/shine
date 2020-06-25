@@ -83,10 +83,12 @@ export const AuthProvider = ({ children }) => {
           })
 
           .catch((error) => {
+            console.log(error);
             alert(
-              'Incorrect email or password',
-              'Email is invalid',
-              "Password can't be blanck",
+              error,
+              // 'Incorrect email or password',
+              // 'Email is invalid',
+              // "Password can't be blanck",
             );
           });
       },
@@ -128,7 +130,12 @@ export const AuthProvider = ({ children }) => {
         console.log('Something went wrong', error);
       }
 
-      dispatch({ type: 'RESTORE_TOKEN', name: userName, token: userToken });
+      dispatch({
+        type: 'RESTORE_TOKEN',
+        name: userName,
+        token: userToken,
+        email: userEmail,
+      });
     };
 
     bootstrapAsync();
