@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const [authState, dispatch] = React.useReducer(authReducer, initialAuthState);
-  console.log('AUTH STATE: ', authState);
+  // console.log('AUTH STATE: ', authState);
 
   const authContext = React.useMemo(
     () => ({
