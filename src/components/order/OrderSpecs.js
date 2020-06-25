@@ -56,7 +56,7 @@ const OrderSpecs = ({
     }
     return price;
   };
-  // console.log(setPrice(shoeTypes));
+
   const [price = setPrice(shoeTypes)] = useState();
   console.log(price);
 
