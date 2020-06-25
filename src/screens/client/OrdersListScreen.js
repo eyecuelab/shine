@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, FlatList } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import {
@@ -24,15 +24,23 @@ const OrdersList = ({ orders }) => {
   };
 
   return (
-    <Container>
-      <FlatList
-        contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap' }}
-        numColumns={2}
-        data={orders}
-        renderItem={(order) => renderItem(order)}
-        keyExtractor={(order) => order.id}
-      />
-    </Container>
+    <ScrollView
+      contentContainerStyle={{
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        alignItems: 'flex-start',
+        margin: 10,
+      }}
+    >
+      {orders.map((item) => {
+        return (
+          <Container key={item.id}>
+            <OrderItem order={item} />
+          </Container>
+        );
+      })}
+    </ScrollView>
   );
 };
 

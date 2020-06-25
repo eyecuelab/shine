@@ -4,11 +4,7 @@ import styled from 'styled-components/native';
 
 const ListItem = ({ order }) => {
   // console.log('TEST: ', order.item.image);
-  return (
-    <View style={{ alignSelf: 'stretch' }}>
-      <ImageArea source={{ uri: order.image }} />
-    </View>
-  );
+  return <ImageArea source={{ uri: order.image }} />;
 };
 
 const ImageArea = styled.Image`
