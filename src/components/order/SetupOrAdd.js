@@ -8,7 +8,7 @@ const SetupOrAdd = ({ image, navigation, submit }) => {
   // onPress Function
   const handleSubmit = () => {
     submit();
-    navigation.navigate('OrdersList', { image });
+    navigation.navigate('OrdersList');
   };
 
   return (

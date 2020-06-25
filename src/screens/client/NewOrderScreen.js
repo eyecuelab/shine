@@ -101,7 +101,7 @@ NewOrderScreen.propTypes = {
   jumpTo: PropTypes.func,
   route: PropTypes.object,
   addOrder: PropTypes.func,
-  orders: PropTypes.object,
+  orders: PropTypes.array,
 };
 
 export default connect(mapStateToProps, actions)(NewOrderScreen);
