@@ -13,7 +13,9 @@ const { width, height } = Dimensions.get('window');
 
 const OrderDetailScreen = ({ navigation }) => {
   const route = useRoute();
-  const { image } = route.params;
+  // const { image } = route.params;
+  const item = route.params;
+  console.log('DETAIL IMAGE', item);
 
   const [street, onChangeStreet] = useState();
   const [unitNum, onChangeUnitNum] = useState();
@@ -21,7 +23,7 @@ const OrderDetailScreen = ({ navigation }) => {
 
   return (
     <ScrollViewContailner>
-      {Image(image)}
+      {Image(item.image)}
       <Container>
         <Text>Nice! The shoe cleaners are ready to work!</Text>
         <SwitchTextContainer>
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     marginTop: 10,
     textAlign: 'center',
-  }
+  },
 });
 
 const Container = styled.View`
