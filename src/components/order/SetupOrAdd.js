@@ -36,7 +36,6 @@ const SetupOrAdd = ({ image, navigation, submit }) => {
           }}
           onPress={() => {
             navigation.navigate('Home', { image });
-            // jumpTo('first')
           }}
         />
       </Container>
