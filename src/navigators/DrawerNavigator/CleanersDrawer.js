@@ -9,6 +9,7 @@ import CleanerProfileScreen from '../../screens/cleaner/CleanerProfileScreen';
 import CompletedOrdersScreen from '../../screens/cleaner/CompletedOrdersScreen';
 import LiveOrdersScreen from '../../screens/cleaner/LiveOrdersScreen';
 import OrdersInAreaScreen from '../../screens/cleaner/OrdersInAreaScreen';
+import OrderFinalScreen from '../../screens/client/OrderFinalScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -51,6 +52,7 @@ const CleanersDrawerNavigator = () => {
         },
       })}
     >
+      <Drawer.Screen name="OrderFinal" component={OrderFinalScreen} />
       <Drawer.Screen name="Welcome" component={WelcomeScreen} />
       <Drawer.Screen name="Settings" component={SettingsScreen} />
       <Drawer.Screen
