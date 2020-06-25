@@ -8,8 +8,9 @@ import Price from '../../components/shared/Price';
 import DashedLine from '../../components/shared/Dash';
 import Image from '../../components/shared/Image';
 import { Button } from 'react-native-elements';
+import PropTypes from 'prop-types';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const OrderDetailScreen = ({ navigation }) => {
   const route = useRoute();
@@ -77,7 +78,7 @@ const OrderDetailScreen = ({ navigation }) => {
             borderRadius: 7,
           }}
           onPress={() => {
-            navigation.navigate('OrdersList', { image });
+            navigation.navigate('OrdersList');
           }}
         />
       </Container>
@@ -145,6 +146,10 @@ const PriceText = styled.Text`
   color: black;
   font-size: 18px;
 `;
+
+OrderDetailScreen.propTypes = {
+  navigation: PropTypes.object,
+};
 
 export default OrderDetailScreen;
 
