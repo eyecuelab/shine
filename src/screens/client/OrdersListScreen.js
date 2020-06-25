@@ -28,7 +28,7 @@ const OrdersList = ({ orders }) => {
       contentContainerStyle={{
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         alignItems: 'flex-start',
         margin: 10,
       }}
