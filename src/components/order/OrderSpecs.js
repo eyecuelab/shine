@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
@@ -46,18 +46,18 @@ const OrderSpecs = ({
   };
 
   // experiment to make price local state
-  const setPrice = (shoeTypes) => {
-    let price = 10;
-    if (shoeTypes['LEISURE'] === true) {
-      price += 5;
-    }
-    if (shoeTypes['FORMAL'] === true) {
-      price += 7;
-    }
-    return price;
-  };
+  // const setPrice = (shoeTypes) => {
+  //   let price = 10;
+  //   if (shoeTypes['LEISURE'] === true) {
+  //     price += 5;
+  //   }
+  //   if (shoeTypes['FORMAL'] === true) {
+  //     price += 7;
+  //   }
+  //   return price;
+  // };
 
-  const [price = setPrice(shoeTypes)] = useState();
+  // const [price = setPrice(shoeTypes)] = useState();
 
   const handleValueChange = (value) => {
     let valueName = '';

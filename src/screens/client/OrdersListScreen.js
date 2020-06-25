@@ -1,12 +1,9 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import {
-  useRoute,
-  useNavigation,
-  useLinkProps,
-} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import OrderItem from '../../components/order/OrderItem';
 
@@ -14,13 +11,10 @@ const OrdersList = ({ orders }) => {
   // const route = useRoute();
   // const { image } = route.params;
 
-  // const navigation = useNavigation();
-  // const goToDetail = () => {
-  //   navigation.navigate('OrderDetail', { image });
-  // };
-
-  const renderItem = (order) => {
-    return <OrderItem order={order.item} />;
+  const navigation = useNavigation();
+  const goToDetail = (item) => {
+    console.log('ITEM', item);
+    navigation.navigate('OrderDetail', item);
   };
 
   return (
@@ -34,10 +28,13 @@ const OrdersList = ({ orders }) => {
       }}
     >
       {orders.map((item) => {
+        // console.log(item);
         return (
-          <Container key={item.id}>
-            <OrderItem order={item} />
-          </Container>
+          <TouchableOpacity key={item.id} onPress={() => goToDetail(item)}>
+            <Container>
+              <OrderItem order={item} />
+            </Container>
+          </TouchableOpacity>
         );
       })}
     </ScrollView>
@@ -47,6 +44,10 @@ const OrdersList = ({ orders }) => {
 const Container = styled.View`
   margin: 10px;
 `;
+
+OrdersList.propTypes = {
+  orders: PropTypes.array,
+};
 
 const mapStateToProps = (state) => {
   return { orders: state.orders };
