@@ -4,7 +4,13 @@ import { Button } from 'react-native-elements';
 import Image from '../shared/Image';
 import PropTypes from 'prop-types';
 
-const SetupOrAdd = ({ image, navigation }) => {
+const SetupOrAdd = ({ image, navigation, submit }) => {
+  // onPress Function
+  const handleSubmit = () => {
+    submit();
+    navigation.navigate('OrdersList');
+  };
+
   return (
     <>
       {Image(image)}
@@ -18,9 +24,7 @@ const SetupOrAdd = ({ image, navigation }) => {
             height: 50,
             borderRadius: 7,
           }}
-          onPress={() => {
-            navigation.navigate('OrdersList', { image });
-          }}
+          onPress={handleSubmit}
         />
         <Button
           title="ADD ANOTHER PAIR"
@@ -32,7 +36,6 @@ const SetupOrAdd = ({ image, navigation }) => {
           }}
           onPress={() => {
             navigation.navigate('Home', { image });
-            // jumpTo('first')
           }}
         />
       </Container>
@@ -57,6 +60,7 @@ const BodyText = styled.Text`
 SetupOrAdd.propTypes = {
   navigation: PropTypes.object,
   image: PropTypes.any,
+  submit: PropTypes.func,
 };
 
 export default SetupOrAdd;

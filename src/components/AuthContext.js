@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
     isSignout: false,
     userName: null,
     userToken: null,
+    userEmail: null,
   };
 
   const authReducer = (prevState, action) => {
@@ -18,14 +19,26 @@ export const AuthProvider = ({ children }) => {
       case 'RESTORE_TOKEN':
         return {
           ...prevState,
+          userName: action.name,
           userToken: action.token,
+          userEmail: action.email,
           isLoading: false,
         };
       case 'SIGN_IN':
+        if (action.token) {
+          AsyncStorage.setItem('userToken', action.token);
+        }
+        if (action.name) {
+          AsyncStorage.setItem('userName', action.name);
+        }
+        if (action.email) {
+          AsyncStorage.setItem('userEmail', action.email);
+        }
         return {
           ...prevState,
           userName: action.name,
           userToken: action.token,
+          userEmail: action.email,
           isSignout: false,
           isLoading: false,
         };
@@ -34,6 +47,7 @@ export const AuthProvider = ({ children }) => {
           ...prevState,
           userName: null,
           userToken: null,
+          userEmail: null,
           isSignout: true,
           isLoading: false,
         };
@@ -48,7 +62,7 @@ export const AuthProvider = ({ children }) => {
       signIn: async (data) => {
         axios
           .post(`https://shoeshine.herokuapp.com/login`, {
-            email: data['username'],
+            email: data['email'],
             password: data['password'],
           })
 
@@ -58,24 +72,30 @@ export const AuthProvider = ({ children }) => {
               response.data.included[0].attributes.first_name +
               ' ' +
               response.data.included[0].attributes.last_name;
+            const userEmail = response.data.included[0].attributes.email;
 
-            dispatch({ type: 'SIGN_IN', name: userName, token: userToken });
+            dispatch({
+              type: 'SIGN_IN',
+              name: userName,
+              token: userToken,
+              email: userEmail,
+            });
+          })
+
+          .catch((error) => {
+            alert(
+              'Incorrect email or password',
+              'Email is invalid',
+              "Password can't be blanck",
+            );
           });
-
-        // const _storeToken = async () => {
-        //   console.log('Token: ', userToken);
-        //   try {
-        //     await AsyncStorage.setItem('userToken', userToken);
-        //   } catch (error) {
-        //     console.log('Something went wrong', error);
-        //   }
-        // };
-        // _storeToken();
       },
 
       signOut: async () => {
         try {
+          await AsyncStorage.removeItem('userName');
           await AsyncStorage.removeItem('userToken');
+          await AsyncStorage.removeItem('userEmail');
         } catch (error) {
           console.log('Something went wrong', error);
         }
@@ -95,21 +115,20 @@ export const AuthProvider = ({ children }) => {
   );
 
   React.useEffect(() => {
-    // Fetch the token from storage then navigate to our appropriate place
     const bootstrapAsync = async () => {
       let userToken;
-      // userToken = null;
+      let userName;
+      let userEmail;
+
       try {
         userToken = await AsyncStorage.getItem('userToken');
+        userName = await AsyncStorage.getItem('userName');
+        userEmail = await AsyncStorage.getItem('userEmail');
       } catch (error) {
         console.log('Something went wrong', error);
       }
-      console.log('user token: ', userToken);
-      // After restoring token, we may need to validate it in production apps
 
-      // This will switch to the App screen or Auth screen and this loading
-      // screen will be unmounted and thrown away.
-      dispatch({ type: 'RESTORE_TOKEN', token: userToken });
+      dispatch({ type: 'RESTORE_TOKEN', name: userName, token: userToken });
     };
 
     bootstrapAsync();

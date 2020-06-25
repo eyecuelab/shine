@@ -1,20 +1,28 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
-import { Dimensions, TextInput, StyleSheet } from 'react-native';
+import {
+  Dimensions,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import AuthContext from '../../components/AuthContext';
+import { Feather } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get('window');
 
 const SignInScreen = () => {
   const { authContext } = React.useContext(AuthContext);
-  // console.log("signIn func", authContext.signIn);
 
-  const [username, setUsername] = React.useState('');
+  const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  // console.log(username)
-  // console.log(password)
-  
+  const [secureTextEntry, setSecureTextEntry] = React.useState(true);
+
+  const toggleSecureTextEntry = () => {
+    setSecureTextEntry((previousState) => !previousState);
+  };
+
   return (
     <>
       <Container>
@@ -26,20 +34,29 @@ const SignInScreen = () => {
           autoCapitalize="none"
           autoCorrect={false}
           style={styles.input}
-          value={username}
-          onChangeText={setUsername}
+          value={email}
+          onChangeText={setEmail}
         />
-        <TextInput
-          placeholder="Password"
-          returnKeyType="done"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={false}
-          style={styles.input}
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
+        <InputContainer>
+          <TextInput
+            placeholder="Password"
+            returnKeyType="done"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+            style={styles.input}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={secureTextEntry}
+          />
+          <SecureButton onPress={toggleSecureTextEntry}>
+            {secureTextEntry ? (
+              <Feather name="eye-off" color="grey" size={20} />
+            ) : (
+              <Feather name="eye" color="grey" size={20} />
+            )}
+          </SecureButton>
+        </InputContainer>
         <Button
           title="Log in"
           containerStyle={{ paddingTop: 20, width: 350 }}
@@ -48,7 +65,7 @@ const SignInScreen = () => {
             height: 50,
             borderRadius: 7,
           }}
-          onPress={() => authContext.signIn({ username, password })}
+          onPress={() => authContext.signIn({ email, password })}
         />
       </Container>
     </>
@@ -72,6 +89,16 @@ const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
+`;
+
+const InputContainer = styled.View`
+  flex-direction: row;
+`;
+
+const SecureButton = styled.TouchableOpacity`
+  position: absolute;
+  margin-left: 300px;
+  margin-top: 15px;
 `;
 
 const Text = styled.Text`

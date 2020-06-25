@@ -35,8 +35,8 @@ const Text = styled.Text`
 
 const TextLink = styled.Text`
   color: #cbb387;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 600;
 `;
 
 export default SignUpScreen;

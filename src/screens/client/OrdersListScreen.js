@@ -1,25 +1,46 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { ScrollView, View } from 'react-native';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
+import {
+  useRoute,
+  useNavigation,
+  useLinkProps,
+} from '@react-navigation/native';
 import styled from 'styled-components/native';
+import OrderItem from '../../components/order/OrderItem';
 
-const OrdersList = () => {
-  const route = useRoute();
-  const { image } = route.params;
+const OrdersList = ({ orders }) => {
+  // const route = useRoute();
+  // const { image } = route.params;
 
-  const navigation = useNavigation();
-  const goToDetail = () => {
-    navigation.navigate('OrderDetail', { image });
+  // const navigation = useNavigation();
+  // const goToDetail = () => {
+  //   navigation.navigate('OrderDetail', { image });
+  // };
+
+  const renderItem = (order) => {
+    return <OrderItem order={order.item} />;
   };
 
   return (
-    <>
-      <TouchableOpacity onPress={goToDetail}>
-        <Container>
-          <ImageArea source={{ uri: image }} />
-        </Container>
-      </TouchableOpacity>
-    </>
+    <ScrollView
+      contentContainerStyle={{
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        margin: 10,
+      }}
+    >
+      {orders.map((item) => {
+        return (
+          <Container key={item.id}>
+            <OrderItem order={item} />
+          </Container>
+        );
+      })}
+    </ScrollView>
   );
 };
 
@@ -27,11 +48,8 @@ const Container = styled.View`
   margin: 10px;
 `;
 
-const ImageArea = styled.Image`
-  width: 160px;
-  height: 160px;
-  border-radius: 4px;
-  padding: 5px;
-`;
+const mapStateToProps = (state) => {
+  return { orders: state.orders };
+};
 
-export default OrdersList;
+export default connect(mapStateToProps, actions)(OrdersList);
