@@ -12,12 +12,12 @@ const SideBar = (props) => {
 
   return (
     <DrawerContentScrollView {...props}>
-      <ImageBackground
+      {/* <ImageBackground
         source={require('../../../assets/images/profile-bg.png')}
       >
         <Profile source={require('../../../assets/images/profile-pic.png')} />
         <Name>{authState.userName}</Name>
-      </ImageBackground>
+      </ImageBackground> */}
 
       <Container forceInset={{ top: 'always', horizontal: 'never' }}>
         <DrawerItemList {...props} />

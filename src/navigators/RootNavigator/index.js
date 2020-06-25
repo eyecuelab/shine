@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import OrderStack from "./OrderStack";
 import HomeStack from '../StackNavigator/HomeStack';
 import ProfileStack from '../StackNavigator/ProfileStack';
 import CleanersDrawer from '../DrawerNavigator/CleanersDrawer';

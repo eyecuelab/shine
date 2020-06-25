@@ -3,7 +3,6 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useWindowDimensions } from 'react-native';
 import SideBar from '../../components/shared/SideBar';
 import { Feather } from '@expo/vector-icons';
-import CleanerApplicationScreen from '../../screens/client/CleanerApplicationScreen';
 import SettingsScreen from '../../screens/shared/SettingsScreen';
 import WelcomeScreen from '../../screens/shared/WelcomeScreen';
 import CleanerProfileScreen from '../../screens/cleaner/CleanerProfileScreen';
@@ -54,11 +53,6 @@ const CleanersDrawerNavigator = () => {
     >
       <Drawer.Screen name="Welcome" component={WelcomeScreen} />
       <Drawer.Screen name="Settings" component={SettingsScreen} />
-      <Drawer.Screen
-        name="CleanerApplication"
-        component={CleanerApplicationScreen}
-        options={{ title: 'Cleaner Application' }}
-      />
       <Drawer.Screen
         name="CleanerProfile"
         component={CleanerProfileScreen}
