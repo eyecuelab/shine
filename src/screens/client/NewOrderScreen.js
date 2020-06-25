@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { Dimensions } from 'react-native';
+import { connect } from 'react-redux';
 import { TabView } from 'react-native-tab-view';
 import OrderSpecs from '../../components/order/OrderSpecs';
 import OrderNotes from '../../components/order/OrderNotes';
 import SetupOrAdd from '../../components/order/SetupOrAdd';
 import PropTypes from 'prop-types';
 import SelectPhoto from '../../components/order/SelectPhoto';
+import * as actions from '../../actions';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
-const NewOrderScreen = ({ navigation }) => {
+const NewOrderScreen = ({ addOrder, navigation }) => {
   // ALL HOOKS FOR ORDERFORM VALUES
+  console.log(addOrder);
   const [image, setImage] = useState('empty.img');
   const [index, setIndex] = useState(0);
   const [sliderValue, setSliderValue] = useState('Within Two Days');
@@ -22,7 +25,7 @@ const NewOrderScreen = ({ navigation }) => {
     FORMAL: false,
     SOCIAL: false,
   });
-  const [note, setNote] = useState(null);
+  const [note, setNote] = useState('');
   // ROUTE STATE
   const [routes] = useState([
     { key: 'first' },
@@ -30,6 +33,13 @@ const NewOrderScreen = ({ navigation }) => {
     { key: 'third' },
     { key: 'fourth' },
   ]);
+  const orderInfo = {
+    image: image,
+    shoeTypes: 'indoor',
+    timeFrame: sliderValue,
+    note: note,
+    price: 7,
+  };
 
   const renderScene = ({ route, jumpTo }) => {
     switch (route.key) {
@@ -59,7 +69,12 @@ const NewOrderScreen = ({ navigation }) => {
         );
       case 'fourth':
         return (
-          <SetupOrAdd jumpTo={jumpTo} image={image} navigation={navigation} />
+          <SetupOrAdd
+            submit={() => addOrder({ orderInfo })}
+            jumpTo={jumpTo}
+            image={image}
+            navigation={navigation}
+          />
         );
       default:
         return null;
@@ -81,6 +96,7 @@ NewOrderScreen.propTypes = {
   navigation: PropTypes.object,
   jumpTo: PropTypes.func,
   route: PropTypes.object,
+  addOrder: PropTypes.func,
 };
 
-export default NewOrderScreen;
+export default connect(null, actions)(NewOrderScreen);
