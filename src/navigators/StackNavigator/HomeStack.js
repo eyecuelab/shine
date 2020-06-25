@@ -4,7 +4,7 @@ import HomeScreen from '../../screens/shared/HomeScreen';
 import NewOrderScreen from '../../screens/client/NewOrderScreen';
 import OrdersListScreen from '../../screens/client/OrdersListScreen';
 import OrderDetailScreen from '../../screens/client/OrderDetailScreen';
-import SignInScreen from '../../screens/shared/SignInScreen';
+import OrderFinalScreen from '../../screens/client/OrderFinalScreen';
 
 const HomeStack = createStackNavigator();
 
@@ -14,6 +14,7 @@ const HomeStackNavigator = () => (
     <HomeStack.Screen name="NewOrder" component={NewOrderScreen} />
     <HomeStack.Screen name="OrdersList" component={OrdersListScreen} />
     <HomeStack.Screen name="OrderDetail" component={OrderDetailScreen} />
+    <HomeStack.Screen name="OrderFinal" component={OrderFinalScreen} />
   </HomeStack.Navigator>
 );
 
