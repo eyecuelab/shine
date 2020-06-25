@@ -11,9 +11,9 @@ import * as actions from '../../actions';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
-const NewOrderScreen = ({ addOrder, navigation }) => {
+const NewOrderScreen = ({ addOrder, navigation, orders }) => {
   // ALL HOOKS FOR ORDERFORM VALUES
-  console.log(addOrder);
+  console.log('ORDERS: ', orders);
   const [image, setImage] = useState('empty.img');
   const [index, setIndex] = useState(0);
   const [sliderValue, setSliderValue] = useState('Within Two Days');
@@ -94,11 +94,16 @@ const NewOrderScreen = ({ addOrder, navigation }) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  return { orders: state.orders };
+};
+
 NewOrderScreen.propTypes = {
   navigation: PropTypes.object,
   jumpTo: PropTypes.func,
   route: PropTypes.object,
   addOrder: PropTypes.func,
+  orders: PropTypes.array,
 };
 
-export default connect(null, actions)(NewOrderScreen);
+export default connect(mapStateToProps, actions)(NewOrderScreen);
