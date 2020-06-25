@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
+import PropTypes from 'prop-types';
 
 const ListItem = ({ order }) => {
   // console.log('TEST: ', order.item.image);
@@ -13,5 +13,9 @@ const ImageArea = styled.Image`
   border-radius: 4px;
   padding: 5px;
 `;
+
+ListItem.propTypes = {
+  order: PropTypes.object,
+};
 
 export default ListItem;
