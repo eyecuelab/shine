@@ -38,7 +38,7 @@ const Container = styled.View`
 const ImageArea = styled.TouchableOpacity`
   width: 200px;
   height: 200px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 `;
 
 const Image = styled.Image`

@@ -120,7 +120,7 @@ const PriceContianer = styled.View`
 `;
 
 const DueText = styled.Text`
-  color: #e6e6e6;
+  color: white;
   font-size: 14px;
   font-weight: 700;
   text-align: center;
