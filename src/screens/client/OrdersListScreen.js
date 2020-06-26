@@ -12,10 +12,9 @@ const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 const OrdersList = ({ orders }) => {
   // const route = useRoute();
   // const { image } = route.params;
-
+  console.log('ORDERS: ', orders);
   const navigation = useNavigation();
   const goToDetail = (item) => {
-    console.log('ITEM', item);
     navigation.navigate('OrderDetail', item);
   };
 
