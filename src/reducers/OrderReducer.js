@@ -25,6 +25,16 @@ const orders = (state = [], action) => {
           },
         },
       ];
+    case types.ADD_ADD_ONS:
+      return state.map((item, index) => {
+        if (item.id === action.payload.addOns.id) {
+          return {
+            ...item,
+            addOns: action.payload.addOns,
+          };
+        }
+        return item;
+      });
     default:
       return state;
   }
