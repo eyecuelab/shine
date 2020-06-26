@@ -1,8 +1,8 @@
-import * as c from '../actions/types';
+import * as types from '../actions/types';
 
 const orders = (state = [], action) => {
   switch (action.type) {
-    case c.ADD_ORDER:
+    case types.ADD_ORDER:
       console.log('ACTION: ', action.payload.orderInfo.image);
       return [
         ...state,
