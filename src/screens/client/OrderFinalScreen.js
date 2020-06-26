@@ -27,10 +27,10 @@ const OrderFinalScreen = ({ navigation }) => {
         <BidsContainer>
           <PriceTicketContainer>
             <PriceTicket
-              source={require('../../../assets/images/price-ticket.png')}
+              source={require('../../../assets/images/price-ticket-black.png')}
             />
             <PriceContianer>
-              {PriceWhite(35, 99)}
+              {PriceWhite(34, 99)}
               <DueText>RETURNED BY THURSDAY</DueText>
             </PriceContianer>
             <ExpireText>Expires in 12HR</ExpireText>
@@ -38,7 +38,7 @@ const OrderFinalScreen = ({ navigation }) => {
 
           <PriceTicketContainer>
             <PriceTicket
-              source={require('../../../assets/images/price-ticket.png')}
+              source={require('../../../assets/images/price-ticket-black.png')}
             />
             <PriceContianer>
               {PriceWhite(41, 99)}
@@ -49,7 +49,7 @@ const OrderFinalScreen = ({ navigation }) => {
 
           <PriceTicketContainer>
             <PriceTicket
-              source={require('../../../assets/images/price-ticket.png')}
+              source={require('../../../assets/images/price-ticket-black.png')}
             />
             <PriceContianer>
               {PriceWhite(47, 99)}

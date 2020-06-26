@@ -9,7 +9,6 @@ const ListItem = ({ order }) => {
 
 const ImageArea = styled.Image`
   width: 160px;
-
   height: 160px;
   border-radius: 4px;
   padding: 5px;
