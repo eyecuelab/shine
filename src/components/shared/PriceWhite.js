@@ -29,7 +29,7 @@ const PriceContianer = styled.View`
 const SignContainer = styled.View``;
 
 const DollarSign = styled.Text`
-  color: #e6e6e6;
+  color: white;
   font-size: 22px;
   font-family: Marison-Sans-Round;
 `;
@@ -37,7 +37,7 @@ const DollarSign = styled.Text`
 const DollarContainer = styled.View``;
 
 const DollarsText = styled.Text`
-  color: #e6e6e6;
+  color: white;
   font-size: 120px;
   font-family: Marison-Script-Vintage;
 `;
@@ -45,7 +45,7 @@ const DollarsText = styled.Text`
 const CentsContainer = styled.View``;
 
 const CentsText = styled.Text`
-  color: #e6e6e6;
+  color: white;
   font-size: 70px;
   font-family: Marison-Script-Vintage;
   text-decoration-line: underline;

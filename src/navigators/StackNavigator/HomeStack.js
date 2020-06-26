@@ -10,13 +10,47 @@ import OrderStatusScreen from '../../screens/client/OrderStatusScreen';
 const HomeStack = createStackNavigator();
 
 const HomeStackNavigator = () => (
-  <HomeStack.Navigator>
-    <HomeStack.Screen name="Home" component={HomeScreen} />
-    <HomeStack.Screen name="NewOrder" component={NewOrderScreen} />
-    <HomeStack.Screen name="OrdersList" component={OrdersListScreen} />
-    <HomeStack.Screen name="OrderDetail" component={OrderDetailScreen} />
-    <HomeStack.Screen name="OrderFinal" component={OrderFinalScreen} />
-    <HomeStack.Screen name="OrderStatus" component={OrderStatusScreen} />
+  <HomeStack.Navigator
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: '#CBB387',
+        borderBottomColor: '#CBB387',
+        shadowColor: '#CBB387',
+      },
+      headerTintColor: '#FFFFFF',
+      headerBackTitleVisible: false,
+    }}
+  >
+    <HomeStack.Screen
+      name="Home"
+      component={HomeScreen}
+      options={{ title: '' }}
+    />
+    <HomeStack.Screen
+      name="NewOrder"
+      component={NewOrderScreen}
+      options={{ title: 'New Order' }}
+    />
+    <HomeStack.Screen
+      name="OrdersList"
+      component={OrdersListScreen}
+      options={{ title: 'Orders List' }}
+    />
+    <HomeStack.Screen
+      name="OrderDetail"
+      component={OrderDetailScreen}
+      options={{ title: 'Order Detail' }}
+    />
+    <HomeStack.Screen
+      name="OrderFinal"
+      component={OrderFinalScreen}
+      options={{ title: '' }}
+    />
+    <HomeStack.Screen
+      name="OrderStatus"
+      component={OrderStatusScreen}
+      options={{ title: '' }}
+    />
   </HomeStack.Navigator>
 );
 

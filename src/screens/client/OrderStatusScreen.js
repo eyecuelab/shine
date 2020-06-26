@@ -2,7 +2,7 @@ import React from 'react';
 import { Dimensions, Image } from 'react-native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
-import TopImage from '../../components/shared/Image';
+import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceWhite from '../../components/shared/PriceWhite';
 import DashLine from '../../components/shared/Dash';
 import DashedLine from '../../components/shared/Dash';
@@ -14,7 +14,7 @@ const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 const OrderStatusScreen = () => {
   return (
     <ScrollViewContailner>
-      {TopImage()}
+      {ShoePhoto()}
       <TopContainer>
         <PriceTicketContainer>
           <PriceTicket
@@ -89,7 +89,6 @@ const TopContainer = styled.View`
   height: ${HEIGHT / 2.3}px;
   margin-bottom: 50px;
   position: absolute;
-  border: 1px solid blue;
 `;
 
 const BottomContainer = styled.View`
@@ -99,14 +98,12 @@ const BottomContainer = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   padding-bottom: 50px;
-  border: 1px solid red;
 `;
 
 const PriceTicketContainer = styled.View`
   align-items: center;
   justify-content: space-between;
   padding-bottom: 20px;
-  border: 1px solid black;
 `;
 
 const PriceTicket = styled.Image`
@@ -123,7 +120,7 @@ const PriceContianer = styled.View`
 `;
 
 const DueText = styled.Text`
-  color: #e6e6e6;
+  color: white;
   font-size: 14px;
   font-weight: 700;
   text-align: center;
@@ -165,7 +162,6 @@ const SwitchContainer = styled.View`
 const MessageContainer = styled.View`
   align-items: center;
   justify-content: flex-start;
-  border: 1px solid green;
 `;
 
 const Profile = styled.Image`
