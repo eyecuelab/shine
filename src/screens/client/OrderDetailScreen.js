@@ -21,18 +21,20 @@ const OrderDetailScreen = ({
   orders,
   addOrderAddress,
 }) => {
-  console.log('ORDERS: ', orders);
+  // console.log('ORDERS: ', orders);
   const route = useRoute();
   // const { image } = route.params;
   const item = route.params;
 
-  const [polish, setPolish] = useState(false);
-  const [rainProtection, setRainProtection] = useState(false);
-  const [replaceLaces, setReplaceLaces] = useState(false);
+  const [polish, setPolish] = useState(item.addOns.polish);
+  const [rainProtection, setRainProtection] = useState(
+    item.addOns.rainProtection,
+  );
+  const [replaceLaces, setReplaceLaces] = useState(item.addOns.replaceLaces);
 
-  const [street, onChangeStreet] = useState();
-  const [unitNum, onChangeUnitNum] = useState();
-  const [zipcode, onChangeZipcode] = useState();
+  const [street, onChangeStreet] = useState(item.orderAddress.streetAddress);
+  const [unitNum, onChangeUnitNum] = useState(item.orderAddress.aptNumber);
+  const [zipcode, onChangeZipcode] = useState(item.orderAddress.zipcode);
   // const [addOns, setAddOns] = useState();
 
   const handleSubmit = () => {
