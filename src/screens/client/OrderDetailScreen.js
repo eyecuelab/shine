@@ -15,7 +15,13 @@ import * as actions from '../../actions';
 
 const { width } = Dimensions.get('window');
 
-const OrderDetailScreen = ({ navigation, addAddOns, orders }) => {
+const OrderDetailScreen = ({
+  navigation,
+  addAddOns,
+  orders,
+  addOrderAddress,
+}) => {
+  console.log('ORDERS: ', orders);
   const route = useRoute();
   // const { image } = route.params;
   const item = route.params;
@@ -34,6 +40,11 @@ const OrderDetailScreen = ({ navigation, addAddOns, orders }) => {
       polish: polish,
       rainProtection: rainProtection,
       replaceLaces: replaceLaces,
+    });
+    addOrderAddress(item.id, {
+      streetAddress: street,
+      aptNumber: unitNum,
+      zipcode: zipcode,
     });
     navigation.navigate('OrdersList');
   };
@@ -175,6 +186,7 @@ const PriceText = styled.Text`
 OrderDetailScreen.propTypes = {
   navigation: PropTypes.object,
   addAddOns: PropTypes.func,
+  addOrderAddress: PropTypes.func,
   orders: PropTypes.array,
 };
 

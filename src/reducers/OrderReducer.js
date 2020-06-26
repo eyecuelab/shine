@@ -3,7 +3,6 @@ import * as types from '../actions/types';
 const orders = (state = [], action) => {
   switch (action.type) {
     case types.ADD_ORDER:
-      console.log('ACTION: ', action.payload.orderInfo.image);
       return [
         ...state,
         {
@@ -34,6 +33,15 @@ const orders = (state = [], action) => {
           };
         }
         return item;
+      });
+    case types.ADD_ORDER_ADDRESS:
+      return state.map((item, index) => {
+        if (item.id === action.id) {
+          return {
+            ...item,
+            orderAddress: action.payload,
+          };
+        }
       });
     default:
       return state;
