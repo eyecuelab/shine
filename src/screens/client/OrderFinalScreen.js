@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
-import TopImage from '../../components/shared/Image';
+import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceWhite from '../../components/shared/PriceWhite';
 import { Button } from 'react-native-elements';
 
@@ -12,7 +12,7 @@ const OrderFinalScreen = ({ navigation }) => {
 
   return (
     <ScrollViewContailner>
-      {TopImage()}
+      {ShoePhoto()}
       <Container>
         <Text>You've recieved cleaning quotes!</Text>
         <SwitchTextContainer>

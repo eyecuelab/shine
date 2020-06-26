@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
-import Image from '../shared/Image';
+import ShoePhoto from '../shared/ShoePhoto';
 import PropTypes from 'prop-types';
 
 const SetupOrAdd = ({ image, navigation, submit }) => {
@@ -13,7 +13,7 @@ const SetupOrAdd = ({ image, navigation, submit }) => {
 
   return (
     <>
-      {Image(image)}
+      {ShoePhoto(image)}
       <Container>
         <BodyText>The Cleaners are ready to work!</BodyText>
         <Button

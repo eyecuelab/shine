@@ -6,7 +6,7 @@ import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
 import Price from '../../components/shared/Price';
 import DashedLine from '../../components/shared/Dash';
-import Image from '../../components/shared/Image';
+import ShoePhoto from '../../components/shared/ShoePhoto';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 
@@ -24,7 +24,7 @@ const OrderDetailScreen = ({ navigation }) => {
 
   return (
     <ScrollViewContailner>
-      {Image(item.image)}
+      {ShoePhoto(item.image)}
       <Container>
         <Text>Nice! The shoe cleaners are ready to work!</Text>
         <SwitchTextContainer>

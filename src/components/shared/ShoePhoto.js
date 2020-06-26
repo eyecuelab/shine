@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
-const Image = (imageURI) => {
+const ShoePhoto = (imageURI) => {
   return imageURI ? (
     <ImgContainer>
       <ImageArea source={{ uri: imageURI }} />
@@ -31,11 +31,10 @@ const ImgContainer = styled.View`
 const ImageArea = styled.Image`
   width: 100%;
   height: 100%;
-  position: absolute;
 `;
 
-Image.propTypes = {
+ShoePhoto.propTypes = {
   imageURI: PropTypes.string,
 };
 
-export default Image;
+export default ShoePhoto;
