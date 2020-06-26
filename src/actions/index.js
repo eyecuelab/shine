@@ -10,16 +10,18 @@ export const addOrder = (order) => {
   };
 };
 
-export const addAddOns = (addOns) => {
+export const addAddOns = (id, addOns) => {
   return {
     type: types.ADD_ADD_ONS,
+    id: id,
     payload: addOns,
   };
 };
 
-export const addOrderAddress = (orderAddress) => {
+export const addOrderAddress = (id, orderAddress) => {
   return {
     type: types.ADD_ORDER_ADDRESS,
+    id: id,
     payload: orderAddress,
   };
 };

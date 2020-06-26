@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Dimensions, TextInput, StyleSheet, Switch } from 'react-native';
+import { Dimensions, TextInput, StyleSheet } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
@@ -15,25 +15,38 @@ import * as actions from '../../actions';
 
 const { width } = Dimensions.get('window');
 
-const OrderDetailScreen = ({ navigation }) => {
+const OrderDetailScreen = ({
+  navigation,
+  addAddOns,
+  orders,
+  addOrderAddress,
+}) => {
+  // console.log('ORDERS: ', orders);
   const route = useRoute();
   // const { image } = route.params;
   const item = route.params;
 
-  const [polish, setPolish] = useState(false);
-  const [rainProtection, setRainProtection] = useState(false);
-  const [replaceLaces, setReplaceLaces] = useState(false);
+  const [polish, setPolish] = useState(item.addOns.polish);
+  const [rainProtection, setRainProtection] = useState(
+    item.addOns.rainProtection,
+  );
+  const [replaceLaces, setReplaceLaces] = useState(item.addOns.replaceLaces);
 
-  const [street, onChangeStreet] = useState();
-  const [unitNum, onChangeUnitNum] = useState();
-  const [zipcode, onChangeZipcode] = useState();
-  const [addOns, setAddOns] = useState();
+  const [street, onChangeStreet] = useState(item.orderAddress.streetAddress);
+  const [unitNum, onChangeUnitNum] = useState(item.orderAddress.aptNumber);
+  const [zipcode, onChangeZipcode] = useState(item.orderAddress.zipcode);
+  // const [addOns, setAddOns] = useState();
 
   const handleSubmit = () => {
-    setAddOns({
+    addAddOns(item.id, {
       polish: polish,
       rainProtection: rainProtection,
       replaceLaces: replaceLaces,
+    });
+    addOrderAddress(item.id, {
+      streetAddress: street,
+      aptNumber: unitNum,
+      zipcode: zipcode,
     });
     navigation.navigate('OrdersList');
   };
@@ -103,7 +116,7 @@ const OrderDetailScreen = ({ navigation }) => {
             borderRadius: 7,
           }}
           onPress={() => {
-            handleSubmit;
+            handleSubmit();
           }}
         />
       </Container>
@@ -174,6 +187,9 @@ const PriceText = styled.Text`
 
 OrderDetailScreen.propTypes = {
   navigation: PropTypes.object,
+  addAddOns: PropTypes.func,
+  addOrderAddress: PropTypes.func,
+  orders: PropTypes.array,
 };
 
 const mapStateToProps = (state) => {
