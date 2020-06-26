@@ -5,6 +5,7 @@ import NewOrderScreen from '../../screens/client/NewOrderScreen';
 import OrdersListScreen from '../../screens/client/OrdersListScreen';
 import OrderDetailScreen from '../../screens/client/OrderDetailScreen';
 import OrderFinalScreen from '../../screens/client/OrderFinalScreen';
+import OrderStatusScreen from '../../screens/client/OrderStatusScreen';
 
 const HomeStack = createStackNavigator();
 
@@ -15,6 +16,7 @@ const HomeStackNavigator = () => (
     <HomeStack.Screen name="OrdersList" component={OrdersListScreen} />
     <HomeStack.Screen name="OrderDetail" component={OrderDetailScreen} />
     <HomeStack.Screen name="OrderFinal" component={OrderFinalScreen} />
+    <HomeStack.Screen name="OrderStatus" component={OrderStatusScreen} />
   </HomeStack.Navigator>
 );
 
