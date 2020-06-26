@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { ScrollView, TouchableOpacity, Dimensions, Text } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { useNavigation } from '@react-navigation/native';
@@ -19,43 +19,65 @@ const OrdersList = ({ orders }) => {
     navigation.navigate('OrderDetail', item);
   };
 
-  console.log(orders);
+  if (orders.length !== 0) {
+    return (
+      <>
+        <ListContainer>
+          <ImageArea onPress={() => navigation.navigate('NewOrder')}>
+            <Image source={require('../../../assets/images/logo.png')} />
+          </ImageArea>
+        </ListContainer>
 
-  return (
-    <>
-      <Container>
-        <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-          <Image source={require('../../../assets/images/logo.png')} />
-        </ImageArea>
-      </Container>
-
-      <ScrollView
-        contentContainerStyle={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-          margin: 10,
-        }}
-      >
-        {orders.map((item) => {
-          // console.log(item);
-          return (
-            <TouchableOpacity key={item.id} onPress={() => goToDetail(item)}>
-              <ItemsContainer>
-                <OrderItem order={item} />
-              </ItemsContainer>
-            </TouchableOpacity>
-          );
-        })}
-      </ScrollView>
-    </>
-  );
+        <ScrollView
+          contentContainerStyle={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            margin: 10,
+          }}
+        >
+          {orders &&
+            orders.map((item) => {
+              // console.log(item);
+              return (
+                <TouchableOpacity
+                  key={item.id}
+                  onPress={() => goToDetail(item)}
+                >
+                  <ItemsContainer>
+                    <OrderItem order={item} />
+                  </ItemsContainer>
+                </TouchableOpacity>
+              );
+            })}
+        </ScrollView>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <HomeContainer>
+          <ImageArea onPress={() => navigation.navigate('NewOrder')}>
+            <Image source={require('../../../assets/images/logo.png')} />
+          </ImageArea>
+        </HomeContainer>
+      </>
+    );
+  }
 };
 
-const Container = styled.View`
+const HomeContainer = styled.View`
   width: 100%;
-  height: ${HEIGHT / 3.3}px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: #cbb387;
+`;
+
+const ListContainer = styled.View`
+  width: 100%;
+  height: ${HEIGHT / 3.2}px;
   align-items: center;
   justify-content: center;
   background-color: #cbb387;
