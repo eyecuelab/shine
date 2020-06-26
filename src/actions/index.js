@@ -10,9 +10,10 @@ export const addOrder = (order) => {
   };
 };
 
-export const addAddOns = (addOns) => {
+export const addAddOns = (id, addOns) => {
   return {
     type: types.ADD_ADD_ONS,
+    id: id,
     payload: addOns,
   };
 };

@@ -12,7 +12,7 @@ const orders = (state = [], action) => {
           shoeTypes: action.payload.orderInfo.shoeTypes,
           timeFrame: action.payload.orderInfo.timeFrame,
           note: action.payload.orderInfo.note,
-          price: action.payload.orderInfo.price,
+          estimatedPrice: action.payload.orderInfo.price,
           addOns: {
             polish: false,
             rainProtection: false,
@@ -27,10 +27,10 @@ const orders = (state = [], action) => {
       ];
     case types.ADD_ADD_ONS:
       return state.map((item, index) => {
-        if (item.id === action.payload.addOns.id) {
+        if (item.id === action.id) {
           return {
             ...item,
-            addOns: action.payload.addOns,
+            addOns: action.payload,
           };
         }
         return item;

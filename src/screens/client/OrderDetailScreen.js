@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Dimensions, TextInput, StyleSheet, Switch } from 'react-native';
+import { Dimensions, TextInput, StyleSheet } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
@@ -15,7 +15,7 @@ import * as actions from '../../actions';
 
 const { width } = Dimensions.get('window');
 
-const OrderDetailScreen = ({ navigation }) => {
+const OrderDetailScreen = ({ navigation, addAddOns, orders }) => {
   const route = useRoute();
   // const { image } = route.params;
   const item = route.params;
@@ -27,10 +27,10 @@ const OrderDetailScreen = ({ navigation }) => {
   const [street, onChangeStreet] = useState();
   const [unitNum, onChangeUnitNum] = useState();
   const [zipcode, onChangeZipcode] = useState();
-  const [addOns, setAddOns] = useState();
+  // const [addOns, setAddOns] = useState();
 
   const handleSubmit = () => {
-    setAddOns({
+    addAddOns(item.id, {
       polish: polish,
       rainProtection: rainProtection,
       replaceLaces: replaceLaces,
@@ -103,7 +103,7 @@ const OrderDetailScreen = ({ navigation }) => {
             borderRadius: 7,
           }}
           onPress={() => {
-            handleSubmit;
+            handleSubmit();
           }}
         />
       </Container>
@@ -174,6 +174,8 @@ const PriceText = styled.Text`
 
 OrderDetailScreen.propTypes = {
   navigation: PropTypes.object,
+  addAddOns: PropTypes.func,
+  orders: PropTypes.array,
 };
 
 const mapStateToProps = (state) => {
