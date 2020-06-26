@@ -3,15 +3,15 @@ import { View, Keyboard, KeyboardAvoidingView } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import { TextInput } from 'react-native';
-import Image from '../shared/Image';
+import ShoePhoto from '../shared/ShoePhoto';
 import PropTypes from 'prop-types';
 import ScrollViewContainer from '../shared/ScrollViewContainer';
 
 const OrderNotes = ({ image, jumpTo, note, setNote }) => {
   return (
     <ScrollViewContainer>
-      {Image(image)}
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+        {ShoePhoto(image)}
         <Container>
           <BodyText>Notes for Cleaner</BodyText>
           <View>

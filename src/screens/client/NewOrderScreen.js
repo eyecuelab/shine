@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { TabView } from 'react-native-tab-view';
+import { TabView, TabBar } from 'react-native-tab-view';
 import OrderSpecs from '../../components/order/OrderSpecs';
 import OrderNotes from '../../components/order/OrderNotes';
 import SetupOrAdd from '../../components/order/SetupOrAdd';
@@ -29,10 +29,10 @@ const NewOrderScreen = ({ addOrder, navigation, orders }) => {
 
   // ROUTE STATE
   const [routes] = useState([
-    { key: 'first' },
-    { key: 'second' },
-    { key: 'third' },
-    { key: 'fourth' },
+    { key: 'first', title: 'Step 1' },
+    { key: 'second', title: 'Step 2' },
+    { key: 'third', title: 'Step 3' },
+    { key: 'fourth', title: 'Step 4' },
   ]);
 
   const orderInfo = {
@@ -85,6 +85,13 @@ const NewOrderScreen = ({ addOrder, navigation, orders }) => {
 
   return (
     <TabView
+      renderTabBar={(props) => (
+        <TabBar
+          {...props}
+          indicatorStyle={{ backgroundColor: '#2c2c2c', height: 3 }}
+          style={{ backgroundColor: '#CBB387' }}
+        />
+      )}
       swipeEnabled={index === 1 || image === 'empty.img' ? false : true}
       navigationState={{ index, routes }}
       renderScene={renderScene}

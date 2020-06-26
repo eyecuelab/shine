@@ -6,7 +6,7 @@ import { Button, Slider } from 'react-native-elements';
 import ScrollViewContainer from '../shared/ScrollViewContainer';
 import DashedLine from '../shared/Dash';
 import PropTypes from 'prop-types';
-import Image from '../shared/Image';
+import ShoePhoto from '../shared/ShoePhoto';
 
 const OrderSpecs = ({
   image,
@@ -75,7 +75,7 @@ const OrderSpecs = ({
 
   return (
     <ScrollViewContainer>
-      {Image(image)}
+      {ShoePhoto(image)}
       <Container>
         <TypeContainer>
           <BodyText>What is the typical use?</BodyText>

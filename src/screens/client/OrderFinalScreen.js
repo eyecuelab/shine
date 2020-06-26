@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
-import TopImage from '../../components/shared/Image';
+import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceWhite from '../../components/shared/PriceWhite';
 import { Button } from 'react-native-elements';
 
@@ -12,7 +12,7 @@ const OrderFinalScreen = ({ navigation }) => {
 
   return (
     <ScrollViewContailner>
-      {TopImage()}
+      {ShoePhoto()}
       <Container>
         <Text>You've recieved cleaning quotes!</Text>
         <SwitchTextContainer>
@@ -27,32 +27,41 @@ const OrderFinalScreen = ({ navigation }) => {
         <BidsContainer>
           <PriceTicketContainer>
             <PriceTicket
-              source={require('../../../assets/images/price-ticket.png')}
+              source={require('../../../assets/images/price-ticket-black.png')}
             />
-            <PriceContianer>{PriceWhite(35, 99)}</PriceContianer>
-            <DueText>RETURNED BY THURSDAY</DueText>
+            <PriceContianer>
+              {PriceWhite(34, 99)}
+              <DueText>RETURNED BY THURSDAY</DueText>
+            </PriceContianer>
+            <ExpireText>Expires in 12HR</ExpireText>
           </PriceTicketContainer>
 
           <PriceTicketContainer>
             <PriceTicket
-              source={require('../../../assets/images/price-ticket.png')}
+              source={require('../../../assets/images/price-ticket-black.png')}
             />
-            <PriceContianer>{PriceWhite(35, 99)}</PriceContianer>
-            <DueText>RETURNED BY THURSDAY</DueText>
+            <PriceContianer>
+              {PriceWhite(41, 99)}
+              <DueText>RETURNED BY TOMORROW</DueText>
+            </PriceContianer>
+            <ExpireText>Expires in 3HR</ExpireText>
           </PriceTicketContainer>
 
           <PriceTicketContainer>
             <PriceTicket
-              source={require('../../../assets/images/price-ticket.png')}
+              source={require('../../../assets/images/price-ticket-black.png')}
             />
-            <PriceContianer>{PriceWhite(35, 99)}</PriceContianer>
-            <DueText>RETURNED BY THURSDAY</DueText>
+            <PriceContianer>
+              {PriceWhite(47, 99)}
+              <DueText>RETURNED TODAY</DueText>
+            </PriceContianer>
+            <ExpireText>Expires in 3MIN</ExpireText>
           </PriceTicketContainer>
         </BidsContainer>
 
         <Button
           title="CANCEL SERVICE"
-          containerStyle={{ paddingVertical: 10, width: 350 }}
+          containerStyle={{ paddingVertical: 40, width: 350 }}
           buttonStyle={{
             color: 'black',
             backgroundColor: '#939393',
@@ -111,25 +120,34 @@ const PriceTicketContainer = styled.TouchableOpacity`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin: 100px;
-  border: 1px solid yellow;
+  padding-bottom: 20px;
 `;
 
 const PriceTicket = styled.Image`
   margin: 30px;
-  position: absolute;
+  flex-wrap: wrap;
 `;
 
 const PriceContianer = styled.View`
   flex-wrap: wrap;
   width: 200px;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
 `;
 
 const DueText = styled.Text`
-  flex-wrap: wrap;
   color: #e6e6e6;
   font-size: 14px;
   font-weight: 700;
+  text-align: center;
+`;
+
+const ExpireText = styled.Text`
+  color: #939393;
+  font-size: 18px;
+  font-family: Marison-Sans-Round;
+  text-align: center;
 `;
 
 export default OrderFinalScreen;

@@ -83,13 +83,7 @@ export const AuthProvider = ({ children }) => {
           })
 
           .catch((error) => {
-            console.log(error);
-            alert(
-              error,
-              // 'Incorrect email or password',
-              // 'Email is invalid',
-              // "Password can't be blanck",
-            );
+            alert(error.response.data.message);
           });
       },
 
