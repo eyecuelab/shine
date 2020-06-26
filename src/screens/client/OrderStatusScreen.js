@@ -7,6 +7,7 @@ import PriceWhite from '../../components/shared/PriceWhite';
 import DashLine from '../../components/shared/Dash';
 import DashedLine from '../../components/shared/Dash';
 import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
+import { Button } from 'react-native-elements';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
@@ -37,7 +38,9 @@ const OrderStatusScreen = () => {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </TextBox>
+
         <DashedLine />
+
         <SwitchTextContainer>
           <SwitchText>SHOES PICKED UP</SwitchText>
           <SwitchText>SHOES CLEANED</SwitchText>
@@ -48,7 +51,32 @@ const OrderStatusScreen = () => {
         <SwitchContainer>
           <AdditionalServiceSwitch />
         </SwitchContainer>
+
         <DashedLine />
+
+        <MessageContainer>
+          <TextContainer>
+            <Text>
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+              officia deserunt mollit anim id est laborum.
+            </Text>
+          </TextContainer>
+          <Profile source={require('../../../assets/images/profile-pic.png')} />
+        </MessageContainer>
+
+        <MessageContainer>
+          <TextContainerBlack>
+            <Text>
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+              officia deserunt mollit anim id est laborum.
+            </Text>
+          </TextContainerBlack>
+          <Profile source={require('../../../assets/images/profile-pic.png')} />
+        </MessageContainer>
+
+        <TextInputContainer>
+          <TextInput placeholder="ENTER MESSAGE HERE"></TextInput>
+        </TextInputContainer>
       </BottomContainer>
     </ScrollViewContailner>
   );
@@ -70,6 +98,7 @@ const BottomContainer = styled.View`
   margin-top: 70px;
   flex-direction: row;
   flex-wrap: wrap;
+  padding-bottom: 50px;
   border: 1px solid red;
 `;
 
@@ -131,6 +160,58 @@ const SwitchText = styled.Text`
 const SwitchContainer = styled.View`
   margin-top: 40px;
   padding-top: 10px;
+`;
+
+const MessageContainer = styled.View`
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px solid green;
+`;
+
+const Profile = styled.Image`
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  border-width: 1px;
+  border-color: #e6e6e6;
+  position: absolute;
+`;
+
+const TextContainer = styled.View`
+  background-color: #cbb387;
+  border-radius: 10px;
+  padding: 50px 20px 20px 20px;
+  margin: 40px;
+`;
+
+const TextContainerBlack = styled.View`
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  padding: 50px 20px 20px 20px;
+  margin: 40px;
+`;
+
+const Text = styled.Text`
+  color: white;
+  font-size: 18px;
+  text-align: left;
+`;
+
+const TextInputContainer = styled.View`
+  width: 100%;
+  margin-top: 30px;
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
+  background-color: #2c2c2c;
+`;
+
+const TextInput = styled.TextInput`
+  height: 50px;
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+  text-align: center;
 `;
 
 export default OrderStatusScreen;
