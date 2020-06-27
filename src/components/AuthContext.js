@@ -142,7 +142,7 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-AuthContext.propTypes = {
+AuthProvider.propTypes = {
   children: PropTypes.node,
 };
 
