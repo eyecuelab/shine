@@ -25,3 +25,11 @@ export const addOrderAddress = (id, orderAddress) => {
     payload: orderAddress,
   };
 };
+
+export const requestComplete = (id, requestCompleted) => {
+  return {
+    type: types.REQUEST_COMPLETE,
+    id: id,
+    payload: requestCompleted,
+  };
+};

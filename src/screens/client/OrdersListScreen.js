@@ -12,21 +12,19 @@ const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 const OrdersList = ({ orders }) => {
   // const route = useRoute();
   // const { image } = route.params;
-  console.log('ORDERS: ', orders);
+  // console.log('ORDERS: ', orders);
   const navigation = useNavigation();
   const goToDetail = (item) => {
     navigation.navigate('OrderDetail', item);
   };
 
-  console.log(orders);
-
   return (
     <>
-      <Container>
+      {/* <ListContainer>
         <ImageArea onPress={() => navigation.navigate('NewOrder')}>
           <Image source={require('../../../assets/images/logo.png')} />
         </ImageArea>
-      </Container>
+      </ListContainer> */}
 
       <ScrollView
         contentContainerStyle={{
@@ -37,24 +35,33 @@ const OrdersList = ({ orders }) => {
           margin: 10,
         }}
       >
-        {orders.map((item) => {
-          // console.log(item);
-          return (
-            <TouchableOpacity key={item.id} onPress={() => goToDetail(item)}>
-              <ItemsContainer>
-                <OrderItem order={item} />
-              </ItemsContainer>
-            </TouchableOpacity>
-          );
-        })}
+        {orders &&
+          orders.map((item) => {
+            // console.log(item);
+            return (
+              <TouchableOpacity key={item.id} onPress={() => goToDetail(item)}>
+                <ItemsContainer>
+                  <OrderItem order={item} />
+                </ItemsContainer>
+              </TouchableOpacity>
+            );
+          })}
       </ScrollView>
     </>
   );
 };
 
-const Container = styled.View`
+const HomeContainer = styled.View`
   width: 100%;
-  height: ${HEIGHT / 3.3}px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: #cbb387;
+`;
+
+const ListContainer = styled.View`
+  width: 100%;
+  height: ${HEIGHT / 3.2}px;
   align-items: center;
   justify-content: center;
   background-color: #cbb387;

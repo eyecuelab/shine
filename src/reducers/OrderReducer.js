@@ -22,6 +22,7 @@ const orders = (state = [], action) => {
             aptNumber: '',
             zipCode: '',
           },
+          requestCompleted: false,
         },
       ];
     case types.ADD_ADD_ONS:
@@ -40,6 +41,15 @@ const orders = (state = [], action) => {
           return {
             ...item,
             orderAddress: action.payload,
+          };
+        }
+      });
+    case types.REQUEST_COMPLETE:
+      return state.map((item, index) => {
+        if (item.id === action.id) {
+          return {
+            ...item,
+            requestCompleted: action.payload,
           };
         }
       });

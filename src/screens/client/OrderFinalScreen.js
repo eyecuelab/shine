@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceWhite from '../../components/shared/PriceWhite';
 import { Button } from 'react-native-elements';
+import PropTypes from 'prop-types';
+import * as actions from '../../actions';
 
-const OrderFinalScreen = ({ navigation }) => {
-  // const route = useRoute();
-  // const { image } = route.params;
+const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
+  const [requestCompleted, setRequestCompleted] = useState(
+    orders[0].requestCompleted,
+  );
+
+  const handleSubmit = () => {
+    requestComplete(orders[0].id, true);
+    //ADD MODAL TO CONFIRM, THEN NAVIGATE TO HOME
+    alert('Would you like to proceed with this proposal?');
+    // navigation.navigate('Home');
+  };
 
   return (
     <ScrollViewContailner>
@@ -25,7 +36,11 @@ const OrderFinalScreen = ({ navigation }) => {
         </SwitchContainer>
 
         <BidsContainer>
-          <PriceTicketContainer>
+          <PriceTicketContainer
+            onPress={() => {
+              handleSubmit();
+            }}
+          >
             <PriceTicket
               source={require('../../../assets/images/price-ticket-black.png')}
             />
@@ -36,7 +51,11 @@ const OrderFinalScreen = ({ navigation }) => {
             <ExpireText>Expires in 12HR</ExpireText>
           </PriceTicketContainer>
 
-          <PriceTicketContainer>
+          <PriceTicketContainer
+            onPress={() => {
+              handleSubmit();
+            }}
+          >
             <PriceTicket
               source={require('../../../assets/images/price-ticket-black.png')}
             />
@@ -47,7 +66,11 @@ const OrderFinalScreen = ({ navigation }) => {
             <ExpireText>Expires in 3HR</ExpireText>
           </PriceTicketContainer>
 
-          <PriceTicketContainer>
+          <PriceTicketContainer
+            onPress={() => {
+              handleSubmit();
+            }}
+          >
             <PriceTicket
               source={require('../../../assets/images/price-ticket-black.png')}
             />
@@ -69,7 +92,7 @@ const OrderFinalScreen = ({ navigation }) => {
             borderRadius: 7,
           }}
           onPress={() => {
-            navigation.navigate('OrdersList');
+            navigation.navigate('Home');
           }}
         />
       </Container>
@@ -150,4 +173,14 @@ const ExpireText = styled.Text`
   text-align: center;
 `;
 
-export default OrderFinalScreen;
+OrderFinalScreen.propTypes = {
+  navigation: PropTypes.object,
+  requestComplete: PropTypes.func,
+  orders: PropTypes.array,
+};
+
+const mapStateToProps = (state) => {
+  return { orders: state.orders };
+};
+
+export default connect(mapStateToProps, actions)(OrderFinalScreen);
