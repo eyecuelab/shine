@@ -7,8 +7,9 @@ import PriceWhite from '../../components/shared/PriceWhite';
 import { Button } from 'react-native-elements';
 
 const OrderFinalScreen = ({ navigation }) => {
-  // const route = useRoute();
-  // const { image } = route.params;
+  const handleSubmit = () => {
+    navigation.navigate('OrderStatus');
+  };
 
   return (
     <ScrollViewContailner>
@@ -25,7 +26,11 @@ const OrderFinalScreen = ({ navigation }) => {
         </SwitchContainer>
 
         <BidsContainer>
-          <PriceTicketContainer>
+          <PriceTicketContainer
+            onPress={() => {
+              handleSubmit();
+            }}
+          >
             <PriceTicket
               source={require('../../../assets/images/price-ticket-black.png')}
             />
@@ -36,7 +41,11 @@ const OrderFinalScreen = ({ navigation }) => {
             <ExpireText>Expires in 12HR</ExpireText>
           </PriceTicketContainer>
 
-          <PriceTicketContainer>
+          <PriceTicketContainer
+            onPress={() => {
+              handleSubmit();
+            }}
+          >
             <PriceTicket
               source={require('../../../assets/images/price-ticket-black.png')}
             />
@@ -47,7 +56,11 @@ const OrderFinalScreen = ({ navigation }) => {
             <ExpireText>Expires in 3HR</ExpireText>
           </PriceTicketContainer>
 
-          <PriceTicketContainer>
+          <PriceTicketContainer
+            onPress={() => {
+              handleSubmit();
+            }}
+          >
             <PriceTicket
               source={require('../../../assets/images/price-ticket-black.png')}
             />
@@ -69,7 +82,7 @@ const OrderFinalScreen = ({ navigation }) => {
             borderRadius: 7,
           }}
           onPress={() => {
-            navigation.navigate('OrdersList');
+            navigation.navigate('Home');
           }}
         />
       </Container>

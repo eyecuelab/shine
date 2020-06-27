@@ -23,7 +23,6 @@ const OrderDetailScreen = ({
 }) => {
   // console.log('ORDERS: ', orders);
   const route = useRoute();
-  // const { image } = route.params;
   const item = route.params;
 
   const [polish, setPolish] = useState(item.addOns.polish);
@@ -48,7 +47,7 @@ const OrderDetailScreen = ({
       aptNumber: unitNum,
       zipcode: zipcode,
     });
-    navigation.navigate('OrdersList');
+    navigation.navigate('Home');
   };
 
   return (

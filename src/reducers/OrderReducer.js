@@ -43,6 +43,7 @@ const orders = (state = [], action) => {
           };
         }
       });
+
     default:
       return state;
   }

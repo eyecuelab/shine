@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, TouchableOpacity, Dimensions, Text } from 'react-native';
+import { ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { useNavigation } from '@react-navigation/native';
@@ -18,52 +18,37 @@ const OrdersList = ({ orders }) => {
     navigation.navigate('OrderDetail', item);
   };
 
-  if (orders.length !== 0) {
-    return (
-      <>
-        <ListContainer>
-          <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-            <Image source={require('../../../assets/images/logo.png')} />
-          </ImageArea>
-        </ListContainer>
+  return (
+    <>
+      {/* <ListContainer>
+        <ImageArea onPress={() => navigation.navigate('NewOrder')}>
+          <Image source={require('../../../assets/images/logo.png')} />
+        </ImageArea>
+      </ListContainer> */}
 
-        <ScrollView
-          contentContainerStyle={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            margin: 10,
-          }}
-        >
-          {orders &&
-            orders.map((item) => {
-              // console.log(item);
-              return (
-                <TouchableOpacity
-                  key={item.id}
-                  onPress={() => goToDetail(item)}
-                >
-                  <ItemsContainer>
-                    <OrderItem order={item} />
-                  </ItemsContainer>
-                </TouchableOpacity>
-              );
-            })}
-        </ScrollView>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <HomeContainer>
-          <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-            <Image source={require('../../../assets/images/logo.png')} />
-          </ImageArea>
-        </HomeContainer>
-      </>
-    );
-  }
+      <ScrollView
+        contentContainerStyle={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          margin: 10,
+        }}
+      >
+        {orders &&
+          orders.map((item) => {
+            // console.log(item);
+            return (
+              <TouchableOpacity key={item.id} onPress={() => goToDetail(item)}>
+                <ItemsContainer>
+                  <OrderItem order={item} />
+                </ItemsContainer>
+              </TouchableOpacity>
+            );
+          })}
+      </ScrollView>
+    </>
+  );
 };
 
 const HomeContainer = styled.View`

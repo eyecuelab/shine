@@ -1,13 +1,11 @@
 import React from 'react';
-import { Dimensions, Image } from 'react-native';
+import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceWhite from '../../components/shared/PriceWhite';
-import DashLine from '../../components/shared/Dash';
 import DashedLine from '../../components/shared/Dash';
 import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
-import { Button } from 'react-native-elements';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
@@ -33,7 +31,9 @@ const OrderStatusScreen = () => {
           source={require('../../../assets/images/default-map.png')}
         ></MapArea>
         <TextBox>532 NW 12th Ave. Portland, OR 97209</TextBox>
+
         <DashedLine />
+
         <TextBox>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.

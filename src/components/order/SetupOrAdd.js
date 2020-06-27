@@ -11,6 +11,11 @@ const SetupOrAdd = ({ image, navigation, submit }) => {
     navigation.navigate('OrdersList');
   };
 
+  const handleAddAnother = () => {
+    submit();
+    navigation.navigate('Home');
+  };
+
   return (
     <>
       {ShoePhoto(image)}
@@ -34,9 +39,7 @@ const SetupOrAdd = ({ image, navigation, submit }) => {
             height: 50,
             borderRadius: 7,
           }}
-          onPress={() => {
-            navigation.navigate('Home', { image });
-          }}
+          onPress={handleAddAnother}
         />
       </Container>
     </>
