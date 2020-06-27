@@ -1,19 +1,24 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
-import Image from '../shared/Image';
+import ShoePhoto from '../shared/ShoePhoto';
 import PropTypes from 'prop-types';
 
 const SetupOrAdd = ({ image, navigation, submit }) => {
   // onPress Function
   const handleSubmit = () => {
     submit();
-    navigation.navigate('OrdersList');
+    navigation.navigate('OrderDetail');
   };
+
+  // const handleAddAnother = () => {
+  //   submit();
+  //   navigation.navigate('Home');
+  // };
 
   return (
     <>
-      {Image(image)}
+      {ShoePhoto(image)}
       <Container>
         <BodyText>The Cleaners are ready to work!</BodyText>
         <Button
@@ -26,7 +31,7 @@ const SetupOrAdd = ({ image, navigation, submit }) => {
           }}
           onPress={handleSubmit}
         />
-        <Button
+        {/* <Button
           title="ADD ANOTHER PAIR"
           containerStyle={{ paddingTop: 20, width: 350 }}
           buttonStyle={{
@@ -34,10 +39,8 @@ const SetupOrAdd = ({ image, navigation, submit }) => {
             height: 50,
             borderRadius: 7,
           }}
-          onPress={() => {
-            navigation.navigate('Home', { image });
-          }}
-        />
+          onPress={handleAddAnother}
+        /> */}
       </Container>
     </>
   );

@@ -1,6 +1,9 @@
 import React from 'react';
+import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
+
+const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
 const ListItem = ({ order }) => {
   // console.log('TEST: ', order.item.image);
@@ -8,10 +11,9 @@ const ListItem = ({ order }) => {
 };
 
 const ImageArea = styled.Image`
-  width: 160px;
-  height: 160px;
+  width: ${WIDTH / 2.4}px;
+  height: ${HEIGHT / 5}px;
   border-radius: 4px;
-  padding: 5px;
 `;
 
 ListItem.propTypes = {

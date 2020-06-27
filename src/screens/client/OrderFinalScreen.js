@@ -1,18 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
-import TopImage from '../../components/shared/Image';
+import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceWhite from '../../components/shared/PriceWhite';
 import { Button } from 'react-native-elements';
+import PropTypes from 'prop-types';
+import * as actions from '../../actions';
 
-const OrderFinalScreen = ({ navigation }) => {
-  // const route = useRoute();
-  // const { image } = route.params;
+const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
+  const [requestCompleted, setRequestCompleted] = useState(
+    orders[0].requestCompleted,
+  );
+
+  const handleSubmit = () => {
+    requestComplete(orders[0].id, true);
+    //ADD MODAL TO CONFIRM, THEN NAVIGATE TO HOME
+    alert('Would you like to proceed with this proposal?');
+    // navigation.navigate('Home');
+  };
 
   return (
     <ScrollViewContailner>
-      {TopImage()}
+      {ShoePhoto()}
       <Container>
         <Text>You've recieved cleaning quotes!</Text>
         <SwitchTextContainer>
@@ -25,34 +36,55 @@ const OrderFinalScreen = ({ navigation }) => {
         </SwitchContainer>
 
         <BidsContainer>
-          <PriceTicketContainer>
+          <PriceTicketContainer
+            onPress={() => {
+              handleSubmit();
+            }}
+          >
             <PriceTicket
-              source={require('../../../assets/images/price-ticket.png')}
+              source={require('../../../assets/images/price-ticket-black.png')}
             />
-            <PriceContianer>{PriceWhite(35, 99)}</PriceContianer>
-            <DueText>RETURNED BY THURSDAY</DueText>
+            <PriceContianer>
+              {PriceWhite(34, 99)}
+              <DueText>RETURNED BY THURSDAY</DueText>
+            </PriceContianer>
+            <ExpireText>Expires in 12HR</ExpireText>
           </PriceTicketContainer>
 
-          <PriceTicketContainer>
+          <PriceTicketContainer
+            onPress={() => {
+              handleSubmit();
+            }}
+          >
             <PriceTicket
-              source={require('../../../assets/images/price-ticket.png')}
+              source={require('../../../assets/images/price-ticket-black.png')}
             />
-            <PriceContianer>{PriceWhite(35, 99)}</PriceContianer>
-            <DueText>RETURNED BY THURSDAY</DueText>
+            <PriceContianer>
+              {PriceWhite(41, 99)}
+              <DueText>RETURNED BY TOMORROW</DueText>
+            </PriceContianer>
+            <ExpireText>Expires in 3HR</ExpireText>
           </PriceTicketContainer>
 
-          <PriceTicketContainer>
+          <PriceTicketContainer
+            onPress={() => {
+              handleSubmit();
+            }}
+          >
             <PriceTicket
-              source={require('../../../assets/images/price-ticket.png')}
+              source={require('../../../assets/images/price-ticket-black.png')}
             />
-            <PriceContianer>{PriceWhite(35, 99)}</PriceContianer>
-            <DueText>RETURNED BY THURSDAY</DueText>
+            <PriceContianer>
+              {PriceWhite(47, 99)}
+              <DueText>RETURNED TODAY</DueText>
+            </PriceContianer>
+            <ExpireText>Expires in 3MIN</ExpireText>
           </PriceTicketContainer>
         </BidsContainer>
 
         <Button
           title="CANCEL SERVICE"
-          containerStyle={{ paddingVertical: 10, width: 350 }}
+          containerStyle={{ paddingVertical: 40, width: 350 }}
           buttonStyle={{
             color: 'black',
             backgroundColor: '#939393',
@@ -60,7 +92,7 @@ const OrderFinalScreen = ({ navigation }) => {
             borderRadius: 7,
           }}
           onPress={() => {
-            navigation.navigate('OrdersList');
+            navigation.navigate('Home');
           }}
         />
       </Container>
@@ -111,25 +143,44 @@ const PriceTicketContainer = styled.TouchableOpacity`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin: 100px;
-  border: 1px solid yellow;
+  padding-bottom: 20px;
 `;
 
 const PriceTicket = styled.Image`
   margin: 30px;
-  position: absolute;
+  flex-wrap: wrap;
 `;
 
 const PriceContianer = styled.View`
   flex-wrap: wrap;
   width: 200px;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
 `;
 
 const DueText = styled.Text`
-  flex-wrap: wrap;
   color: #e6e6e6;
   font-size: 14px;
   font-weight: 700;
+  text-align: center;
 `;
 
-export default OrderFinalScreen;
+const ExpireText = styled.Text`
+  color: #939393;
+  font-size: 18px;
+  font-family: Marison-Sans-Round;
+  text-align: center;
+`;
+
+OrderFinalScreen.propTypes = {
+  navigation: PropTypes.object,
+  requestComplete: PropTypes.func,
+  orders: PropTypes.array,
+};
+
+const mapStateToProps = (state) => {
+  return { orders: state.orders };
+};
+
+export default connect(mapStateToProps, actions)(OrderFinalScreen);

@@ -46,7 +46,7 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
         title="UPLOAD PHOTO"
         containerStyle={{ paddingTop: 20, width: 350 }}
         buttonStyle={{
-          backgroundColor: '#939393',
+          backgroundColor: '#2C2C2C',
           height: 50,
           borderRadius: 7,
         }}
@@ -71,7 +71,7 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
           title="CHANGE PHOTO"
           containerStyle={{ paddingTop: 20, width: 350 }}
           buttonStyle={{
-            backgroundColor: '#939393',
+            backgroundColor: '#2C2C2C',
             height: 50,
             borderRadius: 7,
           }}
@@ -81,7 +81,7 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
           title="CONTINUE"
           containerStyle={{ paddingTop: 20, width: 350 }}
           buttonStyle={{
-            backgroundColor: 'black',
+            backgroundColor: '#2C2C2C',
             height: 50,
             borderRadius: 7,
           }}

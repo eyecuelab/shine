@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { TabView } from 'react-native-tab-view';
+import { TabView, TabBar } from 'react-native-tab-view';
 import OrderSpecs from '../../components/order/OrderSpecs';
 import OrderNotes from '../../components/order/OrderNotes';
 import SetupOrAdd from '../../components/order/SetupOrAdd';
@@ -13,7 +13,7 @@ const initialLayout = { width: Dimensions.get('window').width };
 
 const NewOrderScreen = ({ addOrder, navigation, orders }) => {
   // ALL HOOKS FOR ORDERFORM VALUES
-  console.log('ORDERS: ', orders);
+  // console.log('New-ORDERS: ', orders);
   const [image, setImage] = useState('empty.img');
   const [index, setIndex] = useState(0);
   const [sliderValue, setSliderValue] = useState('Within Two Days');
@@ -29,10 +29,10 @@ const NewOrderScreen = ({ addOrder, navigation, orders }) => {
 
   // ROUTE STATE
   const [routes] = useState([
-    { key: 'first' },
-    { key: 'second' },
-    { key: 'third' },
-    { key: 'fourth' },
+    { key: 'first', title: 'Step 1' },
+    { key: 'second', title: 'Step 2' },
+    { key: 'third', title: 'Step 3' },
+    { key: 'fourth', title: 'Step 4' },
   ]);
 
   const orderInfo = {
@@ -73,6 +73,7 @@ const NewOrderScreen = ({ addOrder, navigation, orders }) => {
         return (
           <SetupOrAdd
             submit={() => addOrder({ orderInfo })}
+            setImage={setImage}
             jumpTo={jumpTo}
             image={image}
             navigation={navigation}
@@ -85,6 +86,13 @@ const NewOrderScreen = ({ addOrder, navigation, orders }) => {
 
   return (
     <TabView
+      renderTabBar={(props) => (
+        <TabBar
+          {...props}
+          indicatorStyle={{ backgroundColor: '#2c2c2c', height: 3 }}
+          style={{ backgroundColor: '#CBB387' }}
+        />
+      )}
       swipeEnabled={index === 1 || image === 'empty.img' ? false : true}
       navigationState={{ index, routes }}
       renderScene={renderScene}
