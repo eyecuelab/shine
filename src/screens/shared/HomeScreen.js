@@ -10,12 +10,16 @@ import OrderItem from '../../components/order/OrderItem';
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
 const HoemScreen = ({ orders }) => {
-  // const route = useRoute();
-  // const { image } = route.params;
-  console.log('ORDERS: ', orders);
+  console.log('Home ORDERS: ', orders);
+
   const navigation = useNavigation();
-  const goToDetail = (item) => {
-    navigation.navigate('OrderFinal', item);
+
+  const handleClick = (item) => {
+    if (orders.map((item) => item.requestCompleted)[0]) {
+      navigation.navigate('OrderStatus', item);
+    } else {
+      navigation.navigate('OrderFinal', item);
+    }
   };
 
   if (orders.length !== 0) {
@@ -36,13 +40,14 @@ const HoemScreen = ({ orders }) => {
             margin: 10,
           }}
         >
+          {/* {orders.map((item) => item.requestCompleted === true)} ? ( */}
           {orders &&
             orders.map((item) => {
               // console.log(item);
               return (
                 <TouchableOpacity
                   key={item.id}
-                  onPress={() => goToDetail(item)}
+                  onPress={() => handleClick(item)}
                 >
                   <ItemsContainer>
                     <OrderItem order={item} />

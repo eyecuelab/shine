@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Dimensions, TextInput, StyleSheet } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+// import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
-// import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
 import Price from '../../components/shared/Price';
 import DashedLine from '../../components/shared/Dash';
 import ShoePhoto from '../../components/shared/ShoePhoto';
@@ -18,41 +17,51 @@ const { width } = Dimensions.get('window');
 const OrderDetailScreen = ({
   navigation,
   addAddOns,
+  requestComplete,
   orders,
   addOrderAddress,
 }) => {
-  // console.log('ORDERS: ', orders);
-  const route = useRoute();
-  const item = route.params;
+  // const route = useRoute();
+  // const item = route.params;
 
-  const [polish, setPolish] = useState(item.addOns.polish);
+  const [polish, setPolish] = useState(orders[0].addOns.polish);
   const [rainProtection, setRainProtection] = useState(
-    item.addOns.rainProtection,
+    orders[0].addOns.rainProtection,
   );
-  const [replaceLaces, setReplaceLaces] = useState(item.addOns.replaceLaces);
+  const [replaceLaces, setReplaceLaces] = useState(
+    orders[0].addOns.replaceLaces,
+  );
 
-  const [street, onChangeStreet] = useState(item.orderAddress.streetAddress);
-  const [unitNum, onChangeUnitNum] = useState(item.orderAddress.aptNumber);
-  const [zipcode, onChangeZipcode] = useState(item.orderAddress.zipcode);
+  const [street, onChangeStreet] = useState(
+    orders[0].orderAddress.streetAddress,
+  );
+  const [unitNum, onChangeUnitNum] = useState(orders[0].orderAddress.aptNumber);
+  const [zipcode, onChangeZipcode] = useState(orders[0].orderAddress.zipcode);
+
+  // const [requestCompleted, setRequestCompleted] = useState(
+  //   orders[0].requestCompleted,
+  // );
+
   // const [addOns, setAddOns] = useState();
 
   const handleSubmit = () => {
-    addAddOns(item.id, {
+    addAddOns(orders[0].id, {
       polish: polish,
       rainProtection: rainProtection,
       replaceLaces: replaceLaces,
     });
-    addOrderAddress(item.id, {
+    addOrderAddress(orders[0].id, {
       streetAddress: street,
       aptNumber: unitNum,
       zipcode: zipcode,
     });
+    // requestComplete(orders[0].id, true);
     navigation.navigate('Home');
   };
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto(item.image)}
+      {ShoePhoto(orders[0].image)}
       <Container>
         <Text>Nice! The shoe cleaners are ready to work!</Text>
         <SwitchTextContainer>
@@ -70,7 +79,6 @@ const OrderDetailScreen = ({
             switchState={replaceLaces}
             setSwitchState={setReplaceLaces}
           />
-          {/* <AdditionalServiceSwitch /> */}
         </SwitchContainer>
         <PriceContianer>
           <PriceTextContainer>
@@ -188,6 +196,7 @@ OrderDetailScreen.propTypes = {
   navigation: PropTypes.object,
   addAddOns: PropTypes.func,
   addOrderAddress: PropTypes.func,
+  requestComplete: PropTypes.func,
   orders: PropTypes.array,
 };
 

@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceWhite from '../../components/shared/PriceWhite';
 import { Button } from 'react-native-elements';
+import PropTypes from 'prop-types';
+import * as actions from '../../actions';
 
-const OrderFinalScreen = ({ navigation }) => {
+const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
+  const [requestCompleted, setRequestCompleted] = useState(
+    orders[0].requestCompleted,
+  );
+
   const handleSubmit = () => {
-    navigation.navigate('OrderStatus');
+    requestComplete(orders[0].id, true);
+    //ADD MODAL TO CONFIRM, THEN NAVIGATE TO HOME
+    alert('Would you like to proceed with this proposal?');
+    // navigation.navigate('Home');
   };
 
   return (
@@ -163,4 +173,14 @@ const ExpireText = styled.Text`
   text-align: center;
 `;
 
-export default OrderFinalScreen;
+OrderFinalScreen.propTypes = {
+  navigation: PropTypes.object,
+  requestComplete: PropTypes.func,
+  orders: PropTypes.array,
+};
+
+const mapStateToProps = (state) => {
+  return { orders: state.orders };
+};
+
+export default connect(mapStateToProps, actions)(OrderFinalScreen);

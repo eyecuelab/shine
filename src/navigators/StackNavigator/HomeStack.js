@@ -32,11 +32,11 @@ const HomeStackNavigator = () => (
       component={NewOrderScreen}
       options={{ title: 'NEW ORDER' }}
     />
-    {/* <HomeStack.Screen
+    <HomeStack.Screen
       name="SelectPhoto"
       component={SelectPhotoScreen}
       options={{ title: 'Add another Order' }}
-    /> */}
+    />
     <HomeStack.Screen
       name="OrdersList"
       component={OrdersListScreen}
@@ -50,7 +50,7 @@ const HomeStackNavigator = () => (
     <HomeStack.Screen
       name="OrderFinal"
       component={OrderFinalScreen}
-      options={{ title: 'Order Final' }}
+      options={{ title: 'Cleaner Proposals' }}
     />
     <HomeStack.Screen
       name="OrderStatus"

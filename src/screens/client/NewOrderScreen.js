@@ -13,7 +13,7 @@ const initialLayout = { width: Dimensions.get('window').width };
 
 const NewOrderScreen = ({ addOrder, navigation, orders }) => {
   // ALL HOOKS FOR ORDERFORM VALUES
-  console.log('ORDERS: ', orders);
+  // console.log('New-ORDERS: ', orders);
   const [image, setImage] = useState('empty.img');
   const [index, setIndex] = useState(0);
   const [sliderValue, setSliderValue] = useState('Within Two Days');
@@ -73,6 +73,7 @@ const NewOrderScreen = ({ addOrder, navigation, orders }) => {
         return (
           <SetupOrAdd
             submit={() => addOrder({ orderInfo })}
+            setImage={setImage}
             jumpTo={jumpTo}
             image={image}
             navigation={navigation}
