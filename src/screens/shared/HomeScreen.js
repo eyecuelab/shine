@@ -46,7 +46,7 @@ const HoemScreen = ({ orders }) => {
               // console.log(item);
               return (
                 <TouchableOpacity
-                  key={item.id}
+                  key={item.uuid}
                   onPress={() => handleClick(item)}
                 >
                   <ItemsContainer>

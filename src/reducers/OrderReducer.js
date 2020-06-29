@@ -7,11 +7,11 @@ const orders = (state = [], action) => {
         ...state,
         {
           uuid: action.id,
-          image: action.payload.orderInfo.image,
-          shoeTypes: action.payload.orderInfo.shoeTypes,
-          timeFrame: action.payload.orderInfo.timeFrame,
-          note: action.payload.orderInfo.note,
-          estimatedPrice: action.payload.orderInfo.price,
+          image: action.payload.image,
+          shoeTypes: action.payload.shoeTypes,
+          timeFrame: action.payload.timeFrame,
+          note: action.payload.note,
+          estimatedPrice: action.payload.price,
           addOns: {
             polish: false,
             rainProtection: false,

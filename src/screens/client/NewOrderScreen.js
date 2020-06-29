@@ -26,6 +26,13 @@ const NewOrderScreen = ({ addOrder, navigation, orders }) => {
     SOCIAL: false,
   });
   const [note, setNote] = useState('');
+  const [orderInfo, setOrderInfo] = useState({
+    image: image,
+    shoeTypes: 'indoor',
+    timeFrame: sliderValue,
+    note: note,
+    price: 7,
+  });
 
   // ROUTE STATE
   const [routes] = useState([
@@ -35,12 +42,23 @@ const NewOrderScreen = ({ addOrder, navigation, orders }) => {
     { key: 'fourth', title: 'Step 4' },
   ]);
 
-  const orderInfo = {
-    image: image,
-    shoeTypes: 'indoor',
-    timeFrame: sliderValue,
-    note: note,
-    price: 7,
+  // const orderInfo = {
+  //   image: image,
+  //   shoeTypes: 'indoor',
+  //   timeFrame: sliderValue,
+  //   note: note,
+  //   price: 7,
+  // };
+
+  const onSubmit = () => {
+    setOrderInfo({
+      image: image,
+      shoeTypes: 'indoor',
+      timeFrame: sliderValue,
+      note: note,
+      price: 7,
+    });
+    addOrder(setOrderInfo);
   };
 
   const renderScene = ({ route, jumpTo }) => {
@@ -72,7 +90,7 @@ const NewOrderScreen = ({ addOrder, navigation, orders }) => {
       case 'fourth':
         return (
           <SetupOrAdd
-            submit={() => addOrder({ orderInfo })}
+            submit={() => onSubmit()}
             setImage={setImage}
             jumpTo={jumpTo}
             image={image}
