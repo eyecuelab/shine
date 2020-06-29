@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
+import { Switch } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
-import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
+// import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
 import ShoePhoto from '../../components/shared/ShoePhoto';
+import SelectedSwitch from '../../components/shared/SelectedSwitch';
+import UnselectedSwitch from '../../components/shared/UnselectedSwitch';
 import PriceWhite from '../../components/shared/PriceWhite';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../actions';
 
 const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
-  const [requestCompleted, setRequestCompleted] = useState(
-    orders[0].requestCompleted,
-  );
+  console.log('Final ORDERS: ', orders[0].addOns.polish);
+
+  // const [requestCompleted, setRequestCompleted] = useState(
+  //   orders[0].requestCompleted,
+  // );
 
   const handleSubmit = () => {
     requestComplete(orders[0].id, true);
@@ -32,7 +37,17 @@ const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
           <SwitchText>REPLACE SHOELACES</SwitchText>
         </SwitchTextContainer>
         <SwitchContainer>
-          <AdditionalServiceSwitch />
+          {orders[0].addOns.polish ? <SelectedSwitch /> : <UnselectedSwitch />}
+          {orders[0].addOns.rainProtection ? (
+            <SelectedSwitch />
+          ) : (
+            <UnselectedSwitch />
+          )}
+          {orders[0].addOns.replaceLaces ? (
+            <SelectedSwitch />
+          ) : (
+            <UnselectedSwitch />
+          )}
         </SwitchContainer>
 
         <BidsContainer>

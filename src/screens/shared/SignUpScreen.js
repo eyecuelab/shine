@@ -5,6 +5,9 @@ import { Button } from 'react-native-elements';
 const SignUpScreen = ({ navigation }) => {
   return (
     <Container>
+      <ImageArea>
+        <Image source={require('../../../assets/images/logo-outline.png')} />
+      </ImageArea>
       <Button
         title="Sign up with Email"
         containerStyle={{ paddingTop: 20, width: 350, marginVertical: 20 }}
@@ -26,6 +29,17 @@ const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
+  background-color: white;
+`;
+
+const ImageArea = styled.View`
+  width: 200px;
+  height: 200px;
+`;
+
+const Image = styled.Image`
+  width: 100%;
+  height: 100%;
 `;
 
 const Text = styled.Text`

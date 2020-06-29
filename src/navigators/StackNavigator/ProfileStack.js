@@ -13,7 +13,17 @@ const ProfileStackNavigator = () => {
   // console.log("state", state);
 
   return (
-    <ProfileStack.Navigator>
+    <ProfileStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: 'white',
+          borderBottomColor: 'white',
+          shadowColor: 'white',
+        },
+        headerTintColor: 'black',
+        headerBackTitleVisible: false,
+      }}
+    >
       {authState.userToken == null ? (
         <>
           <ProfileStack.Screen name="Sign up" component={SignUpScreen} />
