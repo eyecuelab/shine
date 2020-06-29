@@ -1,35 +1,34 @@
 import * as types from './types';
-
-let nextOrderId = 0;
+import uuid from 'react-native-uuid';
 
 export const addOrder = (order) => {
   return {
     type: types.ADD_ORDER,
-    id: nextOrderId++,
+    uuid: uuid.v4(),
     payload: order,
   };
 };
 
-export const addAddOns = (id, addOns) => {
+export const addAddOns = (uuid, addOns) => {
   return {
     type: types.ADD_ADD_ONS,
-    id: id,
+    uuid: uuid,
     payload: addOns,
   };
 };
 
-export const addOrderAddress = (id, orderAddress) => {
+export const addOrderAddress = (uuid, orderAddress) => {
   return {
     type: types.ADD_ORDER_ADDRESS,
-    id: id,
+    uuid: uuid,
     payload: orderAddress,
   };
 };
 
-export const requestComplete = (id, requestCompleted) => {
+export const requestComplete = (uuid, requestCompleted) => {
   return {
     type: types.REQUEST_COMPLETE,
-    id: id,
+    uuid: uuid,
     payload: requestCompleted,
   };
 };

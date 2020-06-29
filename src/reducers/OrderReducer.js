@@ -6,7 +6,7 @@ const orders = (state = [], action) => {
       return [
         ...state,
         {
-          id: action.id,
+          uuid: action.id,
           image: action.payload.orderInfo.image,
           shoeTypes: action.payload.orderInfo.shoeTypes,
           timeFrame: action.payload.orderInfo.timeFrame,
@@ -27,7 +27,7 @@ const orders = (state = [], action) => {
       ];
     case types.ADD_ADD_ONS:
       return state.map((item, index) => {
-        if (item.id === action.id) {
+        if (item.uuid === action.uuid) {
           return {
             ...item,
             addOns: action.payload,
@@ -37,7 +37,7 @@ const orders = (state = [], action) => {
       });
     case types.ADD_ORDER_ADDRESS:
       return state.map((item, index) => {
-        if (item.id === action.id) {
+        if (item.uuid === action.uuid) {
           return {
             ...item,
             orderAddress: action.payload,
@@ -46,7 +46,7 @@ const orders = (state = [], action) => {
       });
     case types.REQUEST_COMPLETE:
       return state.map((item, index) => {
-        if (item.id === action.id) {
+        if (item.uuid === action.uuid) {
           return {
             ...item,
             requestCompleted: action.payload,

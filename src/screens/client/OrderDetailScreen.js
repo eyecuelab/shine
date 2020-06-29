@@ -45,12 +45,12 @@ const OrderDetailScreen = ({
   // const [addOns, setAddOns] = useState();
 
   const handleSubmit = () => {
-    addAddOns(orders[0].id, {
+    addAddOns(orders[0].uuid, {
       polish: polish,
       rainProtection: rainProtection,
       replaceLaces: replaceLaces,
     });
-    addOrderAddress(orders[0].id, {
+    addOrderAddress(orders[0].uuid, {
       streetAddress: street,
       aptNumber: unitNum,
       zipcode: zipcode,
