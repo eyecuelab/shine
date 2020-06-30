@@ -192,7 +192,7 @@ OrderDetailScreen.propTypes = {
   addAddOns: PropTypes.func,
   addOrderAddress: PropTypes.func,
   requestComplete: PropTypes.func,
-  orders: PropTypes.object,
+  orders: PropTypes.array,
 };
 
 const mapStateToProps = (state) => {
