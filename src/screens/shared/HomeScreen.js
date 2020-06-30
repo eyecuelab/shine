@@ -13,17 +13,12 @@ const { height: HEIGHT } = Dimensions.get('window');
 const HomeScreen = ({ orders }) => {
   const navigation = useNavigation();
 
-  // const handleClick = (item) => {
-  //   if (orders.map((item) => item.requestCompleted)[0]) {
-  //     console.log('NAVIGATION: ', item);
-  //     navigation.navigate('OrderStatus', item);
-  //   } else {
-  //     navigation.navigate('OrderFinal', item);
-  //   }
-  // };
-
   const handleClick = (item) => {
-    navigation.navigate('OrderFinal', item);
+    if (item.requestCompleted === false) {
+      navigation.navigate('OrderFinal', item);
+    } else {
+      navigation.navigate('OrderStatus', item);
+    }
   };
 
   if (orders.length !== 0) {

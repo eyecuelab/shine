@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable no-undef */
+import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
@@ -10,17 +12,12 @@ import PropTypes from 'prop-types';
 import * as actions from '../../actions';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
 
-const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
+const OrderFinalScreen = ({ navigation, requestComplete }) => {
   const route = useRoute();
   const item = route.params;
 
-  const [requestCompleted, setRequestCompleted] = useState(
-    orders.requestCompleted,
-  );
-  console.log(item.addOns.polish);
-
   const handleSubmit = () => {
-    requestComplete(orders.uuid, true);
+    requestComplete(item.uuid, true);
     //ADD MODAL TO CONFIRM, THEN NAVIGATE TO HOME
     alert('Would you like to proceed with this proposal?');
     // navigation.navigate('Home');
