@@ -8,7 +8,7 @@ const SetupOrAdd = ({ image, navigation, submit, orderInfo }) => {
   // onPress Function
   const handleSubmit = () => {
     submit();
-    console.log('SET UP: ', orderInfo);
+    // console.log('SET UP: ', orderInfo);
     navigation.navigate('OrderDetail', orderInfo);
   };
 

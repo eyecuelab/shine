@@ -51,7 +51,7 @@ const NewOrderScreen = ({ addOrder, navigation, orders }) => {
     addOrder({
       orderInfo,
     });
-    console.log('ORDER INFO:', orderInfo);
+    // console.log('ORDER INFO:', orderInfo);
     navigation.navigate('OrderDetail', orderInfo);
   };
 

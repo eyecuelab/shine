@@ -22,7 +22,7 @@ const OrderDetailScreen = ({
 }) => {
   const route = useRoute();
   const item = route.params;
-  console.log('ROUTE: ', route);
+  // console.log('ROUTE: ', route);
 
   const [polish, setPolish] = useState(false);
   const [rainProtection, setRainProtection] = useState(false);

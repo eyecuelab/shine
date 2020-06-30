@@ -3,7 +3,7 @@ import * as types from '../actions/types';
 const orders = (state = [], action) => {
   switch (action.type) {
     case types.ADD_ORDER:
-      console.log('REDUCER: ', action.payload.image);
+      // console.log('REDUCER: ', action.payload.image);
       return [
         ...state,
         {
