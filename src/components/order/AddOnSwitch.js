@@ -2,9 +2,10 @@ import React from 'react';
 import { Switch } from 'react-native';
 import PropTypes from 'prop-types';
 
-const AddOnSwitch = ({ switchState, setSwitchState }) => {
+const AddOnSwitch = ({ switchState, setSwitchState, disabled }) => {
   return (
     <Switch
+      disabled={disabled}
       value={switchState}
       onValueChange={setSwitchState}
       style={{
@@ -21,6 +22,7 @@ const AddOnSwitch = ({ switchState, setSwitchState }) => {
 AddOnSwitch.propTypes = {
   switchState: PropTypes.bool,
   setSwitchState: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 export default AddOnSwitch;
