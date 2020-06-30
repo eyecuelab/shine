@@ -12,7 +12,7 @@ import * as actions from '../../actions';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
-const NewOrderScreen = ({ addOrder, navigation, orders }) => {
+const NewOrderScreen = ({ addOrder, navigation }) => {
   // ALL HOOKS FOR ORDERFORM VALUES
   // console.log('New-ORDERS: ', orders);
   const [image, setImage] = useState('empty.img');

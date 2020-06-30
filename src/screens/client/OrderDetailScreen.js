@@ -14,13 +14,7 @@ import * as actions from '../../actions';
 
 const { width } = Dimensions.get('window');
 
-const OrderDetailScreen = ({
-  navigation,
-  addAddOns,
-  requestComplete,
-  orders,
-  addOrderAddress,
-}) => {
+const OrderDetailScreen = ({ navigation, addAddOns, addOrderAddress }) => {
   const route = useRoute();
   const item = route.params;
   console.log('ROUTE: ', route);
