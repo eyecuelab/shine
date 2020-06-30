@@ -2,9 +2,9 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import { connect } from 'react-redux';
+import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
-import { useRoute } from '@react-navigation/native';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceWhite from '../../components/shared/PriceWhite';
 import { Button } from 'react-native-elements';

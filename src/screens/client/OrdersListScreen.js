@@ -20,12 +20,6 @@ const OrdersList = ({ orders }) => {
 
   return (
     <>
-      {/* <ListContainer>
-        <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-          <Image source={require('../../../assets/images/logo.png')} />
-        </ImageArea>
-      </ListContainer> */}
-
       <ScrollView
         contentContainerStyle={{
           flexDirection: 'row',

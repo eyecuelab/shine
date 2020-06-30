@@ -27,12 +27,6 @@ const OrderDetailScreen = ({ navigation, addAddOns, addOrderAddress }) => {
   const [unitNum, onChangeUnitNum] = useState('');
   const [zipcode, onChangeZipcode] = useState('');
 
-  // const [requestCompleted, setRequestCompleted] = useState(
-  //   orders[0].requestCompleted,
-  // );
-
-  // const [addOns, setAddOns] = useState();
-
   const handleSubmit = () => {
     addAddOns(item.uuid, {
       polish: polish,
@@ -44,8 +38,7 @@ const OrderDetailScreen = ({ navigation, addAddOns, addOrderAddress }) => {
       aptNumber: unitNum,
       zipcode: zipcode,
     });
-    // requestComplete(orders[0].id, true);
-    navigation.navigate('Home');
+    navigation.navigate('Home', orders);
   };
 
   return (
@@ -200,5 +193,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, actions)(OrderDetailScreen);
-
-// border: 1px solid black;

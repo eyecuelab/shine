@@ -72,13 +72,14 @@ const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
+  background-color: white;
 `;
 
 const ImageBackground = styled.View`
   background-color: #e6e6e6;
   width: 100%;
   height: ${HEIGHT / 4}px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   position: relative;
 `;
 
@@ -108,6 +109,7 @@ const ListItem = styled.TouchableOpacity`
   padding-horizontal: 25px;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
 `;
 
 const ListItemCenter = styled.TouchableOpacity`
@@ -119,6 +121,7 @@ const ListItemCenter = styled.TouchableOpacity`
   padding-horizontal: 25px;
   align-items: center;
   justify-content: center;
+  background-color: white;
 `;
 
 const Seperator = styled.View`

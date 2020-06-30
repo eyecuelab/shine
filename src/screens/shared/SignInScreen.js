@@ -26,7 +26,6 @@ const SignInScreen = () => {
   return (
     <>
       <Container>
-        {/* Shine logo will be in here! */}
         <TextInput
           placeholder="Email"
           returnKeyType="next"
@@ -89,6 +88,7 @@ const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
+  background-color: white;
 `;
 
 const InputContainer = styled.View`

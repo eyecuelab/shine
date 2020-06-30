@@ -13,6 +13,14 @@ const { height: HEIGHT } = Dimensions.get('window');
 const HomeScreen = ({ orders }) => {
   const navigation = useNavigation();
 
+  // const handleClick = (item) => {
+  //   if (orders.map((item) => item.requestCompleted)[0]) {
+  //     navigation.navigate('OrderStatus', item);
+  //   } else {
+  //     navigation.navigate('OrderFinal', item);
+  //   }
+  // };
+
   const handleClick = (item) => {
     if (item.requestCompleted === false) {
       navigation.navigate('OrderFinal', item);
@@ -39,7 +47,6 @@ const HomeScreen = ({ orders }) => {
             margin: 10,
           }}
         >
-          {/* {orders.map((item) => item.requestCompleted === true)} ? ( */}
           {orders &&
             orders.map((item) => {
               // console.log(item);
