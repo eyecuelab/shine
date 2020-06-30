@@ -11,16 +11,19 @@ import OrderItem from '../../components/order/OrderItem';
 const { height: HEIGHT } = Dimensions.get('window');
 
 const HomeScreen = ({ orders }) => {
-  console.log('Home ORDERS: ', orders);
-
   const navigation = useNavigation();
 
+  // const handleClick = (item) => {
+  //   if (orders.map((item) => item.requestCompleted)[0]) {
+  //     console.log('NAVIGATION: ', item);
+  //     navigation.navigate('OrderStatus', item);
+  //   } else {
+  //     navigation.navigate('OrderFinal', item);
+  //   }
+  // };
+
   const handleClick = (item) => {
-    if (orders.map((item) => item.requestCompleted)[0]) {
-      navigation.navigate('OrderStatus', item);
-    } else {
-      navigation.navigate('OrderFinal', item);
-    }
+    navigation.navigate('OrderFinal', item);
   };
 
   if (orders.length !== 0) {
@@ -49,7 +52,7 @@ const HomeScreen = ({ orders }) => {
               return (
                 <TouchableOpacity
                   key={item.uuid}
-                  onPress={(item) => handleClick(item)}
+                  onPress={() => handleClick(item)}
                 >
                   <ItemsContainer>
                     <OrderItem order={item} />

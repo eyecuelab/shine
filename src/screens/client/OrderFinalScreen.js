@@ -2,20 +2,25 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
-import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
+import { useRoute } from '@react-navigation/native';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceWhite from '../../components/shared/PriceWhite';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../actions';
+import AddOnSwitch from '../../components/order/AddOnSwitch';
 
 const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
+  const route = useRoute();
+  const item = route.params;
+
   const [requestCompleted, setRequestCompleted] = useState(
-    orders[0].requestCompleted,
+    orders.requestCompleted,
   );
+  console.log(item.addOns.polish);
 
   const handleSubmit = () => {
-    requestComplete(orders[0].uuid, true);
+    requestComplete(orders.uuid, true);
     //ADD MODAL TO CONFIRM, THEN NAVIGATE TO HOME
     alert('Would you like to proceed with this proposal?');
     // navigation.navigate('Home');
@@ -23,7 +28,7 @@ const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto()}
+      {ShoePhoto(item.image)}
       <Container>
         <Text>You've recieved cleaning quotes!</Text>
         <SwitchTextContainer>
@@ -32,7 +37,9 @@ const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
           <SwitchText>REPLACE SHOELACES</SwitchText>
         </SwitchTextContainer>
         <SwitchContainer>
-          <AdditionalServiceSwitch />
+          <AddOnSwitch switchState={item.addOns.polish} />
+          <AddOnSwitch switchState={item.addOns.rainProtection} />
+          <AddOnSwitch switchState={item.addOns.replaceLaces} />
         </SwitchContainer>
 
         <BidsContainer>
