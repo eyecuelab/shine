@@ -1,7 +1,7 @@
 import * as types from './types';
 
 export const addOrder = (order) => {
-  console.log('Action: ', order);
+  // console.log('Action: ', order);
   return {
     type: types.ADD_ORDER,
     payload: order.orderInfo,
@@ -29,5 +29,11 @@ export const requestComplete = (uuid, requestCompleted) => {
     type: types.REQUEST_COMPLETE,
     uuid: uuid,
     payload: requestCompleted,
+  };
+};
+
+export const signIn = () => {
+  return {
+    type: types.LOGIN_SUCCESS,
   };
 };

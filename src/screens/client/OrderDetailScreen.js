@@ -10,7 +10,7 @@ import DashedLine from '../../components/shared/Dash';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
-import * as actions from '../../actions';
+import * as actions from '../../rdx/actions';
 
 const { width } = Dimensions.get('window');
 
@@ -38,7 +38,7 @@ const OrderDetailScreen = ({ navigation, addAddOns, addOrderAddress }) => {
       aptNumber: unitNum,
       zipcode: zipcode,
     });
-    navigation.navigate('Home', orders);
+    navigation.navigate('Home');
   };
 
   return (
