@@ -3,12 +3,15 @@ import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import ShoePhoto from '../shared/ShoePhoto';
 import PropTypes from 'prop-types';
+import { addOrder } from '../../actions';
 
 const SetupOrAdd = ({ image, navigation, submit }) => {
   // onPress Function
+  console.log('ORDERINFO');
+
   const handleSubmit = () => {
     submit();
-    navigation.navigate('OrderDetail');
+    navigation.navigate('OrdersList');
   };
 
   // const handleAddAnother = () => {

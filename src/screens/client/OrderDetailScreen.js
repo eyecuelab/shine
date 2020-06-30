@@ -20,33 +20,30 @@ const OrderDetailScreen = ({
   orders,
   addOrderAddress,
 }) => {
-  // const route = useRoute();
-  // const item = route.params;
-  // console.log('ITEM:', item);
+  console.log('DETAIL', orders);
+  const route = useRoute();
+  const item = route.params;
+  console.log('ITEM:', item);
 
-  const [polish, setPolish] = useState(orders[0].addOns.polish);
+  const [polish, setPolish] = useState(item.addOns.polish);
   const [rainProtection, setRainProtection] = useState(
-    orders[0].addOns.rainProtection,
+    item.addOns.rainProtection,
   );
-  const [replaceLaces, setReplaceLaces] = useState(
-    orders[0].addOns.replaceLaces,
-  );
+  const [replaceLaces, setReplaceLaces] = useState(item.addOns.replaceLaces);
 
-  const [street, onChangeStreet] = useState(
-    orders[0].orderAddress.streetAddress,
-  );
-  const [unitNum, onChangeUnitNum] = useState(orders[0].orderAddress.aptNumber);
-  const [zipcode, onChangeZipcode] = useState(orders[0].orderAddress.zipcode);
+  const [street, onChangeStreet] = useState(item.orderAddress.streetAddress);
+  const [unitNum, onChangeUnitNum] = useState(item.orderAddress.aptNumber);
+  const [zipcode, onChangeZipcode] = useState(item.orderAddress.zipcode);
 
   // const [addOns, setAddOns] = useState();
 
   const handleSubmit = () => {
-    addAddOns(orders[0].id, {
+    addAddOns(item.id, {
       polish: polish,
       rainProtection: rainProtection,
       replaceLaces: replaceLaces,
     });
-    addOrderAddress(orders[0].id, {
+    addOrderAddress(item.id, {
       streetAddress: street,
       aptNumber: unitNum,
       zipcode: zipcode,
@@ -56,7 +53,7 @@ const OrderDetailScreen = ({
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto(orders[0].image)}
+      {ShoePhoto(item.image)}
       <Container>
         <Text>Nice! The shoe cleaners are ready to work!</Text>
         <SwitchTextContainer>

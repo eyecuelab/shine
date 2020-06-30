@@ -15,7 +15,7 @@ const HomeScreen = ({ orders }) => {
   const navigation = useNavigation();
 
   const handleClick = (item) => {
-    if (orders.map((item) => item.requestCompleted)[0]) {
+    if (orders.map((item) => item.requestCompleted)) {
       navigation.navigate('OrderStatus', item);
     } else {
       navigation.navigate('OrderFinal', item);
