@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
-import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
 import ShoePhoto from '../../components/shared/ShoePhoto';
+import SelectedSwitch from '../../components/shared/SelectedSwitch';
+import UnselectedSwitch from '../../components/shared/UnselectedSwitch';
 import PriceWhite from '../../components/shared/PriceWhite';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../actions';
 
 const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
-  const [requestCompleted, setRequestCompleted] = useState(
-    orders[0].requestCompleted,
-  );
+  const route = useRoute();
+  const item = route.params;
+  // console.log('FINAL ROUTE: ', route);
+
+  // const [requestCompleted, setRequestCompleted] = useState(
+  //   item.requestCompleted,
+  // );
 
   const handleSubmit = () => {
-    requestComplete(orders[0].uuid, true);
+    requestComplete(item.uuid, true);
     //ADD MODAL TO CONFIRM, THEN NAVIGATE TO HOME
     alert('Would you like to proceed with this proposal?');
     // navigation.navigate('Home');
@@ -32,7 +38,13 @@ const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
           <SwitchText>REPLACE SHOELACES</SwitchText>
         </SwitchTextContainer>
         <SwitchContainer>
-          <AdditionalServiceSwitch />
+          {item.addOns.polish ? <SelectedSwitch /> : <UnselectedSwitch />}
+          {item.addOns.rainProtection ? (
+            <SelectedSwitch />
+          ) : (
+            <UnselectedSwitch />
+          )}
+          {item.addOns.replaceLaces ? <SelectedSwitch /> : <UnselectedSwitch />}
         </SwitchContainer>
 
         <BidsContainer>

@@ -14,12 +14,16 @@ const HomeScreen = ({ orders }) => {
 
   const navigation = useNavigation();
 
+  // const handleClick = (item) => {
+  //   if (orders.map((item) => item.requestCompleted)[0]) {
+  //     navigation.navigate('OrderStatus', item);
+  //   } else {
+  //     navigation.navigate('OrderFinal', item);
+  //   }
+  // };
+
   const handleClick = (item) => {
-    if (orders.map((item) => item.requestCompleted)[0]) {
-      navigation.navigate('OrderStatus', item);
-    } else {
-      navigation.navigate('OrderFinal', item);
-    }
+    navigation.navigate('OrderFinal', item);
   };
 
   if (orders.length !== 0) {
@@ -40,7 +44,6 @@ const HomeScreen = ({ orders }) => {
             margin: 10,
           }}
         >
-          {/* {orders.map((item) => item.requestCompleted === true)} ? ( */}
           {orders &&
             orders.map((item) => {
               // console.log(item);
@@ -48,7 +51,7 @@ const HomeScreen = ({ orders }) => {
               return (
                 <TouchableOpacity
                   key={item.uuid}
-                  onPress={(item) => handleClick(item)}
+                  onPress={() => handleClick(item)}
                 >
                   <ItemsContainer>
                     <OrderItem order={item} />
