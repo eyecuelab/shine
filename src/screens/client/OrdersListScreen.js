@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { useNavigation } from '@react-navigation/native';
@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import OrderItem from '../../components/order/OrderItem';
 
-const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
+// const { height: HEIGHT } = Dimensions.get('window');
 
 const OrdersList = ({ orders }) => {
   // const route = useRoute();

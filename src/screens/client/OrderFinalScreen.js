@@ -1,24 +1,20 @@
-import React, { useState } from 'react';
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable no-undef */
+import React from 'react';
 import { connect } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
-import SelectedSwitch from '../../components/shared/SelectedSwitch';
-import UnselectedSwitch from '../../components/shared/UnselectedSwitch';
 import PriceWhite from '../../components/shared/PriceWhite';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../actions';
+import AddOnSwitch from '../../components/order/AddOnSwitch';
 
-const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
+const OrderFinalScreen = ({ navigation, requestComplete }) => {
   const route = useRoute();
   const item = route.params;
-  // console.log('FINAL ROUTE: ', route);
-
-  // const [requestCompleted, setRequestCompleted] = useState(
-  //   item.requestCompleted,
-  // );
 
   const handleSubmit = () => {
     requestComplete(item.uuid, true);
@@ -29,7 +25,7 @@ const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto()}
+      {ShoePhoto(item.image)}
       <Container>
         <Text>You've recieved cleaning quotes!</Text>
         <SwitchTextContainer>
@@ -38,13 +34,12 @@ const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
           <SwitchText>REPLACE SHOELACES</SwitchText>
         </SwitchTextContainer>
         <SwitchContainer>
-          {item.addOns.polish ? <SelectedSwitch /> : <UnselectedSwitch />}
-          {item.addOns.rainProtection ? (
-            <SelectedSwitch />
-          ) : (
-            <UnselectedSwitch />
-          )}
-          {item.addOns.replaceLaces ? <SelectedSwitch /> : <UnselectedSwitch />}
+          <AddOnSwitch disabled={true} switchState={item.addOns.polish} />
+          <AddOnSwitch
+            disabled={true}
+            switchState={item.addOns.rainProtection}
+          />
+          <AddOnSwitch disabled={true} switchState={item.addOns.replaceLaces} />
         </SwitchContainer>
 
         <BidsContainer>

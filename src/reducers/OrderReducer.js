@@ -55,6 +55,7 @@ const orders = (state = [], action) => {
             requestCompleted: action.payload,
           };
         }
+        return item;
       });
     default:
       return state;
