@@ -1,11 +1,10 @@
 import * as types from './types';
-import uuid from 'react-native-uuid';
 
 export const addOrder = (order) => {
+  console.log('Action: ', order);
   return {
     type: types.ADD_ORDER,
-    uuid: uuid.v4(),
-    payload: order,
+    payload: order.orderInfo,
   };
 };
 

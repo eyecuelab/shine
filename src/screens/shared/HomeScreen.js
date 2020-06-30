@@ -9,13 +9,13 @@ import OrderItem from '../../components/order/OrderItem';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
-const HoemScreen = ({ orders }) => {
+const HomeScreen = ({ orders }) => {
   console.log('Home ORDERS: ', orders);
 
   const navigation = useNavigation();
 
   const handleClick = (item) => {
-    if (orders.map((item) => item.requestCompleted)[0]) {
+    if (orders.map((item) => item.requestCompleted)) {
       navigation.navigate('OrderStatus', item);
     } else {
       navigation.navigate('OrderFinal', item);
@@ -44,10 +44,11 @@ const HoemScreen = ({ orders }) => {
           {orders &&
             orders.map((item) => {
               // console.log(item);
+              console.log('ITEM', item.uuid);
               return (
                 <TouchableOpacity
                   key={item.uuid}
-                  onPress={() => handleClick(item)}
+                  onPress={(item) => handleClick(item)}
                 >
                   <ItemsContainer>
                     <OrderItem order={item} />
@@ -103,7 +104,7 @@ const ItemsContainer = styled.View`
   flex-wrap: wrap;
 `;
 
-HoemScreen.propTypes = {
+HomeScreen.propTypes = {
   orders: PropTypes.array,
 };
 
@@ -111,7 +112,7 @@ const mapStateToProps = (state) => {
   return { orders: state.orders };
 };
 
-export default connect(mapStateToProps, actions)(HoemScreen);
+export default connect(mapStateToProps, actions)(HomeScreen);
 
 // import React from 'react';
 // // import { Image } from 'react-native';

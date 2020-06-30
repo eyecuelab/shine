@@ -3,10 +3,11 @@ import * as types from '../actions/types';
 const orders = (state = [], action) => {
   switch (action.type) {
     case types.ADD_ORDER:
+      console.log('REDUCER: ', action.payload.image);
       return [
         ...state,
         {
-          uuid: action.id,
+          uuid: action.payload.uuid,
           image: action.payload.image,
           shoeTypes: action.payload.shoeTypes,
           timeFrame: action.payload.timeFrame,
@@ -33,6 +34,7 @@ const orders = (state = [], action) => {
             addOns: action.payload,
           };
         }
+        // console.log('ADDONS: ', item);
         return item;
       });
     case types.ADD_ORDER_ADDRESS:
@@ -43,6 +45,7 @@ const orders = (state = [], action) => {
             orderAddress: action.payload,
           };
         }
+        return item;
       });
     case types.REQUEST_COMPLETE:
       return state.map((item, index) => {

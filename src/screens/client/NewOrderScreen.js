@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import uuid from 'uuid';
 import { Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { TabView, TabBar } from 'react-native-tab-view';
@@ -26,13 +27,8 @@ const NewOrderScreen = ({ addOrder, navigation, orders }) => {
     SOCIAL: false,
   });
   const [note, setNote] = useState('');
-  const [orderInfo, setOrderInfo] = useState({
-    image: image,
-    shoeTypes: 'indoor',
-    timeFrame: sliderValue,
-    note: note,
-    price: 7,
-  });
+  // const [orderInfo, setOrderInfo] = useState();
+  console.log('HOOK: ', orderInfo);
 
   // ROUTE STATE
   const [routes] = useState([
@@ -42,23 +38,21 @@ const NewOrderScreen = ({ addOrder, navigation, orders }) => {
     { key: 'fourth', title: 'Step 4' },
   ]);
 
-  // const orderInfo = {
-  //   image: image,
-  //   shoeTypes: 'indoor',
-  //   timeFrame: sliderValue,
-  //   note: note,
-  //   price: 7,
-  // };
+  const orderInfo = {
+    uuid: uuid.v4(),
+    image: image,
+    shoeTypes: 'indoor',
+    timeFrame: sliderValue,
+    note: note,
+    price: 7,
+  };
 
   const onSubmit = () => {
-    setOrderInfo({
-      image: image,
-      shoeTypes: 'indoor',
-      timeFrame: sliderValue,
-      note: note,
-      price: 7,
+    addOrder({
+      orderInfo,
     });
-    addOrder(setOrderInfo);
+    console.log('ORDER INFO:', orderInfo);
+    navigation.navigate('OrderDetail', orderInfo);
   };
 
   const renderScene = ({ route, jumpTo }) => {
@@ -94,6 +88,7 @@ const NewOrderScreen = ({ addOrder, navigation, orders }) => {
             setImage={setImage}
             jumpTo={jumpTo}
             image={image}
+            orderInfo={orderInfo}
             navigation={navigation}
           />
         );
