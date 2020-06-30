@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Dimensions, TextInput, StyleSheet } from 'react-native';
-// import { useRoute } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
@@ -17,12 +17,12 @@ const { width } = Dimensions.get('window');
 const OrderDetailScreen = ({
   navigation,
   addAddOns,
-  requestComplete,
   orders,
   addOrderAddress,
 }) => {
   // const route = useRoute();
   // const item = route.params;
+  // console.log('ITEM:', item);
 
   const [polish, setPolish] = useState(orders[0].addOns.polish);
   const [rainProtection, setRainProtection] = useState(
@@ -38,10 +38,6 @@ const OrderDetailScreen = ({
   const [unitNum, onChangeUnitNum] = useState(orders[0].orderAddress.aptNumber);
   const [zipcode, onChangeZipcode] = useState(orders[0].orderAddress.zipcode);
 
-  // const [requestCompleted, setRequestCompleted] = useState(
-  //   orders[0].requestCompleted,
-  // );
-
   // const [addOns, setAddOns] = useState();
 
   const handleSubmit = () => {
@@ -55,7 +51,6 @@ const OrderDetailScreen = ({
       aptNumber: unitNum,
       zipcode: zipcode,
     });
-    // requestComplete(orders[0].id, true);
     navigation.navigate('Home');
   };
 

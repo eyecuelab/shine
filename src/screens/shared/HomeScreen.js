@@ -9,7 +9,7 @@ import OrderItem from '../../components/order/OrderItem';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
-const HoemScreen = ({ orders }) => {
+const HomeScreen = ({ orders }) => {
   console.log('Home ORDERS: ', orders);
 
   const navigation = useNavigation();
@@ -40,7 +40,6 @@ const HoemScreen = ({ orders }) => {
             margin: 10,
           }}
         >
-          {/* {orders.map((item) => item.requestCompleted === true)} ? ( */}
           {orders &&
             orders.map((item) => {
               // console.log(item);
@@ -103,7 +102,7 @@ const ItemsContainer = styled.View`
   flex-wrap: wrap;
 `;
 
-HoemScreen.propTypes = {
+HomeScreen.propTypes = {
   orders: PropTypes.array,
 };
 
@@ -111,7 +110,7 @@ const mapStateToProps = (state) => {
   return { orders: state.orders };
 };
 
-export default connect(mapStateToProps, actions)(HoemScreen);
+export default connect(mapStateToProps, actions)(HomeScreen);
 
 // import React from 'react';
 // // import { Image } from 'react-native';

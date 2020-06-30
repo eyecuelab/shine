@@ -20,12 +20,6 @@ const OrdersList = ({ orders }) => {
 
   return (
     <>
-      {/* <ListContainer>
-        <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-          <Image source={require('../../../assets/images/logo.png')} />
-        </ImageArea>
-      </ListContainer> */}
-
       <ScrollView
         contentContainerStyle={{
           flexDirection: 'row',
@@ -50,32 +44,6 @@ const OrdersList = ({ orders }) => {
     </>
   );
 };
-
-const HomeContainer = styled.View`
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  background-color: #cbb387;
-`;
-
-const ListContainer = styled.View`
-  width: 100%;
-  height: ${HEIGHT / 3.2}px;
-  align-items: center;
-  justify-content: center;
-  background-color: #cbb387;
-`;
-
-const ImageArea = styled.TouchableOpacity`
-  width: 200px;
-  height: 200px;
-`;
-
-const Image = styled.Image`
-  width: 100%;
-  height: 100%;
-`;
 
 const ItemsContainer = styled.View`
   margin: 10px;

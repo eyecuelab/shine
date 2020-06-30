@@ -5,8 +5,8 @@ import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceWhite from '../../components/shared/PriceWhite';
 import DashedLine from '../../components/shared/Dash';
-import AddOnSwitch from '../../components/order/AddOnSwitch';
-// import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
+import SelectedSwitch from '../../components/shared/SelectedSwitch';
+import UnselectedSwitch from '../../components/shared/UnselectedSwitch';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
@@ -50,11 +50,11 @@ const OrderStatusScreen = () => {
           <SwitchText>SHOES DROPPED OFF</SwitchText>
         </SwitchTextContainer>
         <SwitchContainer>
-          <AddOnSwitch />
-          <AddOnSwitch />
-          <AddOnSwitch />
-          <AddOnSwitch />
-          <AddOnSwitch />
+          <UnselectedSwitch />
+          <UnselectedSwitch />
+          <UnselectedSwitch />
+          <UnselectedSwitch />
+          <UnselectedSwitch />
         </SwitchContainer>
 
         <DashedLine />

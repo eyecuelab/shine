@@ -13,11 +13,9 @@ import PropTypes from 'prop-types';
 import * as actions from '../../actions';
 
 const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
-  console.log('Final ORDERS: ', orders[0].addOns.polish);
-
-  // const [requestCompleted, setRequestCompleted] = useState(
-  //   orders[0].requestCompleted,
-  // );
+  const [requestCompleted, setRequestCompleted] = useState(
+    orders[0].requestCompleted,
+  );
 
   const handleSubmit = () => {
     requestComplete(orders[0].id, true);
