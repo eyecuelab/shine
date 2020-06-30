@@ -1,35 +1,33 @@
 import * as types from './types';
 
-let nextOrderId = 0;
-
 export const addOrder = (order) => {
+  console.log('Action: ', order);
   return {
     type: types.ADD_ORDER,
-    id: nextOrderId++,
-    payload: order,
+    payload: order.orderInfo,
   };
 };
 
-export const addAddOns = (id, addOns) => {
+export const addAddOns = (uuid, addOns) => {
   return {
     type: types.ADD_ADD_ONS,
-    id: id,
+    uuid: uuid,
     payload: addOns,
   };
 };
 
-export const addOrderAddress = (id, orderAddress) => {
+export const addOrderAddress = (uuid, orderAddress) => {
   return {
     type: types.ADD_ORDER_ADDRESS,
-    id: id,
+    uuid: uuid,
     payload: orderAddress,
   };
 };
 
-export const requestComplete = (id, requestCompleted) => {
+export const requestComplete = (uuid, requestCompleted) => {
   return {
     type: types.REQUEST_COMPLETE,
-    id: id,
+    uuid: uuid,
     payload: requestCompleted,
   };
 };

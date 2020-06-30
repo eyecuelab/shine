@@ -18,7 +18,7 @@ const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
   );
 
   const handleSubmit = () => {
-    requestComplete(orders[0].id, true);
+    requestComplete(orders[0].uuid, true);
     //ADD MODAL TO CONFIRM, THEN NAVIGATE TO HOME
     alert('Would you like to proceed with this proposal?');
     // navigation.navigate('Home');

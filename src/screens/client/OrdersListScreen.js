@@ -33,7 +33,10 @@ const OrdersList = ({ orders }) => {
           orders.map((item) => {
             // console.log(item);
             return (
-              <TouchableOpacity key={item.id} onPress={() => goToDetail(item)}>
+              <TouchableOpacity
+                key={item.uuid}
+                onPress={() => goToDetail(item)}
+              >
                 <ItemsContainer>
                   <OrderItem order={item} />
                 </ItemsContainer>

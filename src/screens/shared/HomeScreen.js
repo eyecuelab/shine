@@ -43,10 +43,11 @@ const HomeScreen = ({ orders }) => {
           {orders &&
             orders.map((item) => {
               // console.log(item);
+              console.log('ITEM', item.uuid);
               return (
                 <TouchableOpacity
-                  key={item.id}
-                  onPress={() => handleClick(item)}
+                  key={item.uuid}
+                  onPress={(item) => handleClick(item)}
                 >
                   <ItemsContainer>
                     <OrderItem order={item} />

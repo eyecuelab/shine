@@ -17,37 +17,40 @@ const { width } = Dimensions.get('window');
 const OrderDetailScreen = ({
   navigation,
   addAddOns,
+  requestComplete,
   orders,
   addOrderAddress,
 }) => {
-  console.log('DETAIL', orders);
   const route = useRoute();
   const item = route.params;
-  console.log('ITEM:', item);
+  console.log('ROUTE: ', route);
 
-  const [polish, setPolish] = useState(item.addOns.polish);
-  const [rainProtection, setRainProtection] = useState(
-    item.addOns.rainProtection,
-  );
-  const [replaceLaces, setReplaceLaces] = useState(item.addOns.replaceLaces);
+  const [polish, setPolish] = useState(false);
+  const [rainProtection, setRainProtection] = useState(false);
+  const [replaceLaces, setReplaceLaces] = useState(false);
 
-  const [street, onChangeStreet] = useState(item.orderAddress.streetAddress);
-  const [unitNum, onChangeUnitNum] = useState(item.orderAddress.aptNumber);
-  const [zipcode, onChangeZipcode] = useState(item.orderAddress.zipcode);
+  const [street, onChangeStreet] = useState('');
+  const [unitNum, onChangeUnitNum] = useState('');
+  const [zipcode, onChangeZipcode] = useState('');
+
+  // const [requestCompleted, setRequestCompleted] = useState(
+  //   orders[0].requestCompleted,
+  // );
 
   // const [addOns, setAddOns] = useState();
 
   const handleSubmit = () => {
-    addAddOns(item.id, {
+    addAddOns(item.uuid, {
       polish: polish,
       rainProtection: rainProtection,
       replaceLaces: replaceLaces,
     });
-    addOrderAddress(item.id, {
+    addOrderAddress(item.uuid, {
       streetAddress: street,
       aptNumber: unitNum,
       zipcode: zipcode,
     });
+    // requestComplete(orders[0].id, true);
     navigation.navigate('Home');
   };
 
