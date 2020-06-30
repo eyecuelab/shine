@@ -9,7 +9,7 @@ import OrderItem from '../../components/order/OrderItem';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
-const HoemScreen = ({ orders }) => {
+const HomeScreen = ({ orders }) => {
   console.log('Home ORDERS: ', orders);
 
   const navigation = useNavigation();
@@ -44,10 +44,11 @@ const HoemScreen = ({ orders }) => {
           {orders &&
             orders.map((item) => {
               // console.log(item);
+              console.log('ITEM', item.uuid);
               return (
                 <TouchableOpacity
-                  key={item.id}
-                  onPress={() => handleClick(item)}
+                  key={item.uuid}
+                  onPress={(item) => handleClick(item)}
                 >
                   <ItemsContainer>
                     <OrderItem order={item} />
@@ -103,7 +104,7 @@ const ItemsContainer = styled.View`
   flex-wrap: wrap;
 `;
 
-HoemScreen.propTypes = {
+HomeScreen.propTypes = {
   orders: PropTypes.array,
 };
 
@@ -111,7 +112,7 @@ const mapStateToProps = (state) => {
   return { orders: state.orders };
 };
 
-export default connect(mapStateToProps, actions)(HoemScreen);
+export default connect(mapStateToProps, actions)(HomeScreen);
 
 // import React from 'react';
 // // import { Image } from 'react-native';
