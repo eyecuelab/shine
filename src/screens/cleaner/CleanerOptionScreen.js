@@ -1,12 +1,12 @@
+/* eslint-disable no-undef */
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
-import Header from '../../components/shared/Header';
 import { Button } from 'react-native-elements';
 
 const CleanerOptionScreen = ({ navigation }) => {
   return (
     <>
-      <Header title="SHINE" navigation={navigation} />
       <Container>
         <ImageArea>
           <Image source={require('../../../assets/images/logo-outline.png')} />
@@ -60,5 +60,9 @@ const TextLink = styled.Text`
   font-size: 18px;
   font-weight: 600;
 `;
+
+CleanerOptionScreen.propTypes = {
+  navigation: PropTypes.object,
+};
 
 export default CleanerOptionScreen;

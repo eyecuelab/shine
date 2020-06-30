@@ -1,8 +1,10 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/display-name */
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeStack from '../StackNavigator/HomeStack';
 import ProfileStack from '../StackNavigator/ProfileStack';
-import CleanersDrawer from '../DrawerNavigator/CleanersDrawer';
+import CleanerStack from '../StackNavigator/CleanerStack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
@@ -40,7 +42,7 @@ const RootNavigator = () => {
           ),
         }}
       >
-        {() => <CleanersDrawer />}
+        {() => <CleanerStack />}
       </Tab.Screen>
       <Tab.Screen
         name="Profile"
