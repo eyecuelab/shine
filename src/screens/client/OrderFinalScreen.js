@@ -34,9 +34,12 @@ const OrderFinalScreen = ({ navigation, requestComplete }) => {
           <SwitchText>REPLACE SHOELACES</SwitchText>
         </SwitchTextContainer>
         <SwitchContainer>
-          <AddOnSwitch switchState={item.addOns.polish} />
-          <AddOnSwitch switchState={item.addOns.rainProtection} />
-          <AddOnSwitch switchState={item.addOns.replaceLaces} />
+          <AddOnSwitch disabled={true} switchState={item.addOns.polish} />
+          <AddOnSwitch
+            disabled={true}
+            switchState={item.addOns.rainProtection}
+          />
+          <AddOnSwitch disabled={true} switchState={item.addOns.replaceLaces} />
         </SwitchContainer>
 
         <BidsContainer>

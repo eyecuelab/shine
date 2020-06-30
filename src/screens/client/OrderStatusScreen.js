@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
@@ -7,7 +8,7 @@ import PriceWhite from '../../components/shared/PriceWhite';
 import DashedLine from '../../components/shared/Dash';
 import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
 
-const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
+const { height: HEIGHT } = Dimensions.get('window');
 
 const OrderStatusScreen = () => {
   return (

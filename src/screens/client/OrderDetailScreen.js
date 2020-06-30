@@ -59,12 +59,18 @@ const OrderDetailScreen = ({ navigation, addAddOns, addOrderAddress }) => {
           <SwitchText>REPLACE SHOELACES</SwitchText>
         </SwitchTextContainer>
         <SwitchContainer>
-          <AddOnSwitch switchState={polish} setSwitchState={setPolish} />
           <AddOnSwitch
+            disabled={false}
+            switchState={polish}
+            setSwitchState={setPolish}
+          />
+          <AddOnSwitch
+            disabled={false}
             switchState={rainProtection}
             setSwitchState={setRainProtection}
           />
           <AddOnSwitch
+            disabled={false}
             switchState={replaceLaces}
             setSwitchState={setReplaceLaces}
           />
