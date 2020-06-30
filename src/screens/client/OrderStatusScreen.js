@@ -6,7 +6,6 @@ import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceWhite from '../../components/shared/PriceWhite';
 import DashedLine from '../../components/shared/Dash';
-import SelectedSwitch from '../../components/shared/SelectedSwitch';
 import UnselectedSwitch from '../../components/shared/UnselectedSwitch';
 
 const { height: HEIGHT } = Dimensions.get('window');

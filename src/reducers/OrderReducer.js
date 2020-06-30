@@ -27,7 +27,7 @@ const orders = (state = [], action) => {
         },
       ];
     case types.ADD_ADD_ONS:
-      return state.map((item, index) => {
+      return state.map((item) => {
         if (item.uuid === action.uuid) {
           return {
             ...item,
@@ -38,7 +38,7 @@ const orders = (state = [], action) => {
         return item;
       });
     case types.ADD_ORDER_ADDRESS:
-      return state.map((item, index) => {
+      return state.map((item) => {
         if (item.uuid === action.uuid) {
           return {
             ...item,
@@ -48,7 +48,7 @@ const orders = (state = [], action) => {
         return item;
       });
     case types.REQUEST_COMPLETE:
-      return state.map((item, index) => {
+      return state.map((item) => {
         if (item.uuid === action.uuid) {
           return {
             ...item,

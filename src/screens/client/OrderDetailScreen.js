@@ -38,7 +38,7 @@ const OrderDetailScreen = ({ navigation, addAddOns, addOrderAddress }) => {
       aptNumber: unitNum,
       zipcode: zipcode,
     });
-    navigation.navigate('Home', orders);
+    navigation.navigate('Home');
   };
 
   return (
