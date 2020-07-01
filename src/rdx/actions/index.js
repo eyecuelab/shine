@@ -1,7 +1,7 @@
 import * as types from './types';
 
+// ORDERS actionCreators
 export const addOrder = (order) => {
-  // console.log('Action: ', order);
   return {
     type: types.ADD_ORDER,
     payload: order.orderInfo,
@@ -32,6 +32,7 @@ export const requestComplete = (uuid, requestCompleted) => {
   };
 };
 
+// USERS actionCreators
 export const loginWatcher = (authParams) => {
   return {
     type: types.LOGIN_WATCHER,
@@ -39,14 +40,20 @@ export const loginWatcher = (authParams) => {
   };
 };
 
-export const updateProfile = (profile) => {
+export const logIn = (profile) => {
   return {
-    type: types.UPDATE_PROFILE,
+    type: types.LOGIN_SUCCESS,
     payload: profile,
   };
 };
 
-export const logout = () => {
+// export const logoutWatcher = () => {
+//   return {
+//     type: types.LOGOUT_WATCHER,
+//   };
+// };
+
+export const logOut = () => {
   return {
     type: types.LOGOUT_SUCCESS,
   };

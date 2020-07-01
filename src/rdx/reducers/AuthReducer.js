@@ -16,7 +16,7 @@ const initialAuthState = {
 
 const authReducer = (state = initialAuthState, action) => {
   switch (action.type) {
-    case types.UPDATE_PROFILE:
+    case types.LOGIN_SUCCESS:
       return {
         ...state,
         auth: action.payload,

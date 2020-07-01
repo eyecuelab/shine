@@ -31,20 +31,20 @@ function* loginEffectSaga(action) {
     const profile = data.included[0].attributes;
 
     // store data to localStorage
-    // Object.keys(data.session).forEach(key, => {
+    // Object.keys(data.session).forEach(key => {
     //   localStorage.setItem(key, data[key]);
     // });
 
     // dispatch action to change redux state
     yield put(
-      actions.updateProfile({
+      actions.logIn({
         token: token,
         profile: profile,
       }),
     );
   } catch (error) {
     // yield put({ type: 'LOGIN_ERROR', error: error.message });
-    // alert(e.response.data.message);
+    // alert(error.response.data.message);
   }
   // finally {
   //   if (yield cancelled()) {
@@ -53,15 +53,15 @@ function* loginEffectSaga(action) {
   // }
 }
 
-function logoutApi() {
-  return axios.post(`https://shoeshine.herokuapp.com/logout`);
-}
+// function logoutApi() {
+//   return axios.post(`https://shoeshine.herokuapp.com/logout`);
+// }
 
-export function* logout() {
+function* logoutEffectSaga() {
   try {
-    const response = yield call(logoutApi);
-    yield put(actions.logoutSuccess);
-    return response;
+    // const response = yield call(logoutApi);
+    yield put(actions.logOut);
+    // return response;
   } catch (error) {
     console.log(error);
   }
@@ -71,13 +71,14 @@ export function* logout() {
  * saga watcher that is triggered when dispatching action of type
  * 'LOGIN_WATCHER'
  */
-export function* loginWatcherSaga() {
+function* loginWatcherSaga() {
   yield takeLatest(actions.loginWatcher, loginEffectSaga);
 }
 
 export default function* rootSaga() {
   yield all([
     loginWatcherSaga(),
+    logoutEffectSaga(),
     // add other watchers to the array
   ]);
 }

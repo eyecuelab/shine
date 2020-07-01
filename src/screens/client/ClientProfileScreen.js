@@ -3,17 +3,14 @@ import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
-// import AuthContext from '../../components/AuthContext';
 import { Feather } from '@expo/vector-icons';
-import * as actions from '../../rdx/actions';
+import { logOut } from '../../rdx/actions';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
-const ClientProfileScreen = ({ users, navigation, logout }) => {
-  // const { authState, authContext } = React.useContext(AuthContext);
-  // console.log('USER', users);
+const ClientProfileScreen = ({ users, navigation, logOut }) => {
   const onSubmit = () => {
-    logout();
+    logOut();
     navigation.navigate('Log in');
   };
 
@@ -156,10 +153,20 @@ const CenterText = styled.Text`
 ClientProfileScreen.propTypes = {
   navigation: PropTypes.object,
   users: PropTypes.object,
+  logOut: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
   return { users: state.users };
 };
 
-export default connect(mapStateToProps, actions)(ClientProfileScreen);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logOut: () => dispatch(logOut()),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ClientProfileScreen);
