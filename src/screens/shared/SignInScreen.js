@@ -1,26 +1,28 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components/native';
+import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-elements';
-import {
-  Dimensions,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
-import AuthContext from '../../components/AuthContext';
+import { Dimensions, TextInput, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { loginWatcher } from '../../rdx/actions';
+import PropTypes from 'prop-types';
 
 const { width, height } = Dimensions.get('window');
 
-const SignInScreen = () => {
-  const { authContext } = React.useContext(AuthContext);
-
+const SignInScreen = ({ loginWatcher }) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
 
   const toggleSecureTextEntry = () => {
     setSecureTextEntry((previousState) => !previousState);
+  };
+
+  const navigation = useNavigation();
+  const onSubmit = () => {
+    loginWatcher({ email, password });
+    navigation.navigate('Profile');
   };
 
   return (
@@ -64,7 +66,7 @@ const SignInScreen = () => {
             height: 50,
             borderRadius: 7,
           }}
-          onPress={() => authContext.signIn({ email, password })}
+          onPress={() => onSubmit()}
         />
       </Container>
     </>
@@ -108,4 +110,19 @@ const Text = styled.Text`
   text-align: center;
 `;
 
-export default SignInScreen;
+SignInScreen.propTypes = {
+  loginWatcher: PropTypes.func,
+  users: PropTypes.object,
+};
+
+const mapStateToProps = (state) => {
+  return { users: state.users };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginWatcher: (authParams) => dispatch(loginWatcher(authParams)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);

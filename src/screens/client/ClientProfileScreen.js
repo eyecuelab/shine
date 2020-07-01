@@ -1,14 +1,18 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
-import AuthContext from '../../components/AuthContext';
 import { Feather } from '@expo/vector-icons';
+import { logOut } from '../../rdx/actions';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
-const ClientProfileScreen = ({ navigation }) => {
-  const { authState, authContext } = React.useContext(AuthContext);
+const ClientProfileScreen = ({ users, navigation, logOut }) => {
+  const onSubmit = () => {
+    logOut();
+    navigation.navigate('Log in');
+  };
 
   return (
     <>
@@ -20,13 +24,15 @@ const ClientProfileScreen = ({ navigation }) => {
             <Profile
               source={require('../../../assets/images/profile-pic.png')}
             />
-            <Name>{authState.userName}</Name>
+            <Name>
+              {users.auth.profile.first_name} {users.auth.profile.last_name}
+            </Name>
           </Container>
         </ImageBackground>
 
         <ListItem>
           <Text>Account</Text>
-          <Text>{authState.userEmail}</Text>
+          <Text>{users.auth.profile.email}</Text>
         </ListItem>
 
         <ListItem>
@@ -55,7 +61,7 @@ const ClientProfileScreen = ({ navigation }) => {
           <CenterText>Become a Cleaner</CenterText>
         </ListItemCenter>
 
-        <ListItemCenter onPress={() => authContext.signOut()}>
+        <ListItemCenter onPress={() => onSubmit()}>
           <CenterText>Log Out</CenterText>
         </ListItemCenter>
       </ProfileContainer>
@@ -146,8 +152,21 @@ const CenterText = styled.Text`
 
 ClientProfileScreen.propTypes = {
   navigation: PropTypes.object,
+  users: PropTypes.object,
+  logOut: PropTypes.func,
 };
 
-export default ClientProfileScreen;
+const mapStateToProps = (state) => {
+  return { users: state.users };
+};
 
-// border: 1px solid black;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logOut: () => dispatch(logOut()),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ClientProfileScreen);

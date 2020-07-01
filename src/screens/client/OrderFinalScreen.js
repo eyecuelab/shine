@@ -9,7 +9,7 @@ import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceWhite from '../../components/shared/PriceWhite';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
-import * as actions from '../../actions';
+import * as actions from '../../rdx/actions';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
 
 const OrderFinalScreen = ({ navigation, requestComplete }) => {

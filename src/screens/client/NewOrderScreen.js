@@ -8,7 +8,7 @@ import OrderNotes from '../../components/order/OrderNotes';
 import SetupOrAdd from '../../components/order/SetupOrAdd';
 import PropTypes from 'prop-types';
 import SelectPhoto from '../../components/order/SelectPhoto';
-import * as actions from '../../actions';
+import * as actions from '../../rdx/actions';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -28,7 +28,6 @@ const NewOrderScreen = ({ addOrder, navigation }) => {
   });
   const [note, setNote] = useState('');
   // const [orderInfo, setOrderInfo] = useState();
-  console.log('HOOK: ', orderInfo);
 
   // ROUTE STATE
   const [routes] = useState([
@@ -46,12 +45,13 @@ const NewOrderScreen = ({ addOrder, navigation }) => {
     note: note,
     price: 7,
   };
+  // console.log('HOOK: ', orderInfo);
 
   const onSubmit = () => {
     addOrder({
       orderInfo,
     });
-    console.log('ORDER INFO:', orderInfo);
+    // console.log('ORDER INFO:', orderInfo);
     navigation.navigate('OrderDetail', orderInfo);
   };
 

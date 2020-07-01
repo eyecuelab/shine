@@ -1,7 +1,7 @@
 import * as types from './types';
 
+// ORDERS actionCreators
 export const addOrder = (order) => {
-  console.log('Action: ', order);
   return {
     type: types.ADD_ORDER,
     payload: order.orderInfo,
@@ -29,5 +29,26 @@ export const requestComplete = (uuid, requestCompleted) => {
     type: types.REQUEST_COMPLETE,
     uuid: uuid,
     payload: requestCompleted,
+  };
+};
+
+// USERS actionCreators
+export const loginWatcher = (authParams) => {
+  return {
+    type: types.LOGIN_WATCHER,
+    payload: authParams,
+  };
+};
+
+export const logIn = (profile) => {
+  return {
+    type: types.LOGIN_SUCCESS,
+    payload: profile,
+  };
+};
+
+export const logOut = () => {
+  return {
+    type: types.LOGOUT_SUCCESS,
   };
 };
