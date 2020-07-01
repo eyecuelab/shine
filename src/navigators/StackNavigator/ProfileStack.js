@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SignInScreen from '../../screens/shared/SignInScreen';
 import SignUpScreen from '../../screens/shared/SignUpScreen';
 import ClientProfileScreen from '../../screens/client/ClientProfileScreen';
-import CleanerApplicationScreen from '../../screens/client/CleanerApplicationScreen';
+// import CleanerApplicationScreen from '../../screens/client/CleanerApplicationScreen';
 // import AuthContext from '../../components/AuthContext';
 import PropTypes from 'prop-types';
 
@@ -30,10 +30,10 @@ const ProfileStackNavigator = ({ users }) => {
         <ProfileStack.Screen name="Sign up" component={SignUpScreen} />
         <ProfileStack.Screen name="Log in" component={SignInScreen} />
         <ProfileStack.Screen name="Profile" component={ClientProfileScreen} />
-        <ProfileStack.Screen
+        {/* <ProfileStack.Screen
           name="CleanerApplication"
           component={CleanerApplicationScreen}
-        />
+        /> */}
       </>
 
       {/* {
