@@ -19,7 +19,7 @@ const CleanerOptionScreen = ({ navigation }) => {
             height: 50,
             borderRadius: 7,
           }}
-          onPress={() => navigation.navigate('Sign up')}
+          onPress={() => navigation.navigate('Cleaner Application')}
         />
         <Text>
           Already have a cleaner account?{' '}
