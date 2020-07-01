@@ -33,6 +33,20 @@ const CleanerApplicationScreen = () => {
       [key]: value,
     }));
   };
+  // FUNCTION FOR CORRECTING PHONE NUMBER:
+  const onTextChange = (text) => {
+    var cleaned = ('' + text).replace(/\D/g, '');
+    var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+    if (match) {
+      var intlCode = match[1] ? '+1 ' : '',
+        number = [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join(
+          '',
+        );
+      handleInfoChange('phoneNumber', number);
+      return;
+    }
+    handleInfoChange('phoneNumber', text);
+  };
 
   const handleSubmit = () => {
     console.log(appInfo);
@@ -48,6 +62,7 @@ const CleanerApplicationScreen = () => {
           label="Business"
           labelStyle={{ fontSize: 20 }}
           placeholder="Name"
+          autoCorrect={false}
           onChangeText={(text) => handleInfoChange('businessName', text)}
         />
         <MultiLineInputs>
@@ -56,6 +71,7 @@ const CleanerApplicationScreen = () => {
             label="Contact Name"
             labelStyle={{ fontSize: 20 }}
             placeholder="First Name"
+            autoCompleteType={'name'}
             onChangeText={(text) => handleInfoChange('firstName', text)}
           />
           <Input
@@ -67,16 +83,23 @@ const CleanerApplicationScreen = () => {
           />
         </MultiLineInputs>
         <Input
+          autoCorrect={false}
           label="Email"
           labelStyle={{ fontSize: 20 }}
           placeholder="Email"
+          keyboardType={'email-address'}
           onChangeText={(text) => handleInfoChange('email', text)}
         />
         <Input
           label="Phone Number"
           labelStyle={{ fontSize: 20 }}
           placeholder="Phone Number"
-          onChangeText={(text) => handleInfoChange('phoneNumber', text)}
+          value={appInfo.phoneNumber}
+          textContentType="telephoneNumber"
+          dataDetactorTypes="phoneNunmber"
+          keyboardType="phone-pad"
+          maxLength={14}
+          onChangeText={(text) => onTextChange(text)}
         />
         <Input
           label="Address"
