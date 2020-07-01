@@ -34,15 +34,13 @@ function* loginEffectSaga(action) {
       }),
     );
   } catch (error) {
-    console.log('ERROR: ', error.message);
-    // yield put({ type: 'LOGIN_ERROR', error: error.message });
-    // alert(error.response.data.message);
+    // console.log('ERROR: ', error.message);
+    yield put({ type: 'LOGIN_ERROR', error: error.response.data.message });
+  } finally {
+    if (yield cancelled()) {
+      yield put({ type: 'LOGIN_CANCELLED' });
+    }
   }
-  // finally {
-  //   if (yield cancelled()) {
-  //     yield put({ type: 'LOGIN_CANCELLED' });
-  //   }
-  // }
 }
 
 // function logoutApi() {

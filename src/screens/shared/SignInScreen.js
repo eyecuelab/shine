@@ -10,15 +10,15 @@ import PropTypes from 'prop-types';
 
 const { width, height } = Dimensions.get('window');
 
-const SignInScreen = ({ loginWatcher }) => {
+const SignInScreen = ({ loginWatcher, users }) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
-
   const toggleSecureTextEntry = () => {
     setSecureTextEntry((previousState) => !previousState);
   };
-
+  const errorMessage = users.authError;
+  // console.log('USESRS', errorMessage);
   const navigation = useNavigation();
   const onSubmit = () => {
     loginWatcher({ email, password });
@@ -58,6 +58,12 @@ const SignInScreen = ({ loginWatcher }) => {
             )}
           </SecureButton>
         </InputContainer>
+        {errorMessage !== null ? (
+          <ErrorTextContainer>
+            <Text>{errorMessage}</Text>
+          </ErrorTextContainer>
+        ) : null}
+
         <Button
           title="Log in"
           containerStyle={{ paddingTop: 20, width: 350 }}
@@ -103,9 +109,16 @@ const SecureButton = styled.TouchableOpacity`
   margin-top: 15px;
 `;
 
+const ErrorTextContainer = styled.View`
+  margin-horizontal: 20px;
+  padding: 25px;
+  align-items: center;
+  justify-content: center;
+`;
+
 const Text = styled.Text`
-  color: black;
-  font-size: 20px;
+  color: #8e1818;
+  font-size: 16px;
   font-weight: 500;
   text-align: center;
 `;

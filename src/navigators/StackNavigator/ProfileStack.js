@@ -12,7 +12,7 @@ const ProfileStack = createStackNavigator();
 
 const ProfileStackNavigator = ({ users }) => {
   // const { authState } = React.useContext(AuthContext);
-  // console.log('state', users.auth.token);
+  console.log('TOKEN:', users.auth.token);
 
   return (
     <ProfileStack.Navigator
@@ -26,7 +26,7 @@ const ProfileStackNavigator = ({ users }) => {
         headerBackTitleVisible: false,
       }}
     >
-      <>
+      {/* <>
         <ProfileStack.Screen name="Sign up" component={SignUpScreen} />
         <ProfileStack.Screen name="Log in" component={SignInScreen} />
         <ProfileStack.Screen name="Profile" component={ClientProfileScreen} />
@@ -34,27 +34,23 @@ const ProfileStackNavigator = ({ users }) => {
           name="CleanerApplication"
           component={CleanerApplicationScreen}
         />
-      </>
+      </> */}
 
-      {/* {
-        (users.auth.token = null ? (
-          <>
-            <ProfileStack.Screen name="Sign up" component={SignUpScreen} />
-            <ProfileStack.Screen name="Log in" component={SignInScreen} />
-          </>
-        ) : (
-          <>
-            <ProfileStack.Screen
-              name="Profile"
-              component={ClientProfileScreen}
-            />
-            <ProfileStack.Screen
-              name="CleanerApplication"
-              component={CleanerApplicationScreen}
-            />
-          </>
-        ))
-      } */}
+      {users.auth.token === null ? (
+        <>
+          <ProfileStack.Screen name="Sign up" component={SignUpScreen} />
+          <ProfileStack.Screen name="Log in" component={SignInScreen} />
+        </>
+      ) : (
+        <>
+          <ProfileStack.Screen name="Profile" component={ClientProfileScreen} />
+          <ProfileStack.Screen name="Log in" component={SignInScreen} />
+          <ProfileStack.Screen
+            name="CleanerApplication"
+            component={CleanerApplicationScreen}
+          />
+        </>
+      )}
     </ProfileStack.Navigator>
   );
 };
