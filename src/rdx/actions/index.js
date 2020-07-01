@@ -34,21 +34,21 @@ export const requestComplete = (uuid, requestCompleted) => {
 
 export const loginWatcher = (authParams) => {
   return {
-    type: 'LOGIN_WATCHER',
+    type: types.LOGIN_WATCHER,
     payload: authParams,
   };
 };
 
-export const saveToken = (token) => {
-  return {
-    type: types.SAVE_TOKEN,
-    payload: token,
-  };
-};
+// export const saveToken = (token) => {
+//   return {
+//     type: types.SAVE_TOKEN,
+//     payload: token,
+//   };
+// };
 
 export const updateProfile = (profile) => {
   return {
-    type: 'UPDATE_PROFILE',
+    type: types.UPDATE_PROFILE,
     payload: profile,
   };
 };

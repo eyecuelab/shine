@@ -80,17 +80,23 @@ function* loginEffectSaga(action) {
   try {
     // data is obtained after axios call is resolved
     let { data } = yield call(loginApi, action.payload);
-    console.log('DATA: ', data);
+    const token = data.data.attributes.token;
+    const profile = data.included[0].attributes;
+    // console.log('DATA: ', token);
     // store data to localStorage
     // Object.keys(data.session).forEach(key, => {
     //   localStorage.setItem(key, data[key]);
     // });
+
     // dispatch action to change redux state
-    yield put(actions.updateProfile(data));
-    // redirect to home route after successful login
+    yield put(
+      actions.updateProfile({
+        token: token,
+        profile: profile,
+      }),
+    );
   } catch (e) {
-    // catch error on a bad axios call
-    // alert using an alert library
+    // alert(e.response.data.message);
   }
 }
 
@@ -103,5 +109,8 @@ export function* loginWatcherSaga() {
 }
 
 export default function* rootSaga() {
-  yield all([loginWatcherSaga()]);
+  yield all([
+    loginWatcherSaga(),
+    // add other watchers to the array
+  ]);
 }

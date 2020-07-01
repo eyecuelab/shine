@@ -1,28 +1,25 @@
 import * as types from '../actions/types';
 import { AsyncStorage } from 'react-native';
 
+// const initialAuthState = {
+//   token: null,
+//   profile: {},
+// };
 const initialAuthState = {
-  token: null,
-  profile: {},
+  auth: {
+    token: null,
+    profile: {},
+  },
 };
 
-const authReducer = (prevState = [initialAuthState], action) => {
+const authReducer = (prevState = initialAuthState, action) => {
   switch (action.type) {
-    // case 'LOGIN_WATCHER':
-    //   return {
-    //     ...prevState,
-    //     authParams: action.payload,
-    //   };
-    case 'UPDATE_PROFILE':
+    case types.UPDATE_PROFILE:
       return {
-        profile: action.payload,
+        ...prevState,
+        auth: action.payload,
       };
 
-    // case types.SAVE_TOKEN:
-    //   return {
-    //     ...prevState,
-    //     token: action.payload,
-    //   };
     // case types.LOGIN_ERROR:
     //   return {
     //     ...prevState,
