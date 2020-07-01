@@ -39,6 +39,13 @@ export const loginWatcher = (authParams) => {
   };
 };
 
+export const saveToken = (token) => {
+  return {
+    type: types.SAVE_TOKEN,
+    payload: token,
+  };
+};
+
 export const updateProfile = (profile) => {
   return {
     type: 'UPDATE_PROFILE',

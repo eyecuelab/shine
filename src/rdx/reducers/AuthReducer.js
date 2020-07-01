@@ -8,18 +8,20 @@ const initialAuthState = {
 
 const authReducer = (prevState = [initialAuthState], action) => {
   switch (action.type) {
+    // case 'LOGIN_WATCHER':
+    //   return {
+    //     ...prevState,
+    //     authParams: action.payload,
+    //   };
     case 'UPDATE_PROFILE':
       return {
-        ...state,
         profile: action.payload,
       };
+
     // case types.SAVE_TOKEN:
     //   return {
     //     ...prevState,
-    //     userName: action.name,
-    //     userToken: action.token,
-    //     userEmail: action.email,
-    //     isLoading: false,
+    //     token: action.payload,
     //   };
     // case types.LOGIN_ERROR:
     //   return {

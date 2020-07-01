@@ -18,7 +18,7 @@ import PropTypes from 'prop-types';
 const { width, height } = Dimensions.get('window');
 
 const SignInScreen = ({ loginWatcher }) => {
-  const { authContext } = React.useContext(AuthContext);
+  // const { authContext } = React.useContext(AuthContext);
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -137,7 +137,7 @@ const mapDispatchToProps = (dispatch) => {
 
 SignInScreen.propTypes = {
   loginWatcher: PropTypes.func,
-  users: PropTypes.array,
+  users: PropTypes.object,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);
