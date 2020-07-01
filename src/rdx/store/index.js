@@ -1,6 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import reducer from '../reducers';
+import { persistStore, persistReducer } from 'redux-persist';
+// import storage from 'redux-persist/lib/storage';
+// import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import rootReducer from '../reducers';
 import rootSaga from '../sagas';
 
 // Saga Middleware
@@ -10,18 +14,26 @@ const sagaMiddleware = createSagaMiddleware();
 let middleware = applyMiddleware(sagaMiddleware);
 const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-// Create redux store
-const store = createStore(reducer, reduxDevTools(middleware));
-// const store = createStore(
-//   reducer,
-//   compose(
-//     middleware,
-//     window.__REDUX_DEVTOOLS_EXTENSION__ &&
-//       window.__REDUX_DEVTOOLS_EXTENSION__(),
-//   ),
-// );
+// Persist and rehydrate a redux store
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+};
+const persistedReducer = persistReducer(
+  persistConfig,
+  rootReducer,
+  reduxDevTools(middleware),
+);
+
+// // Create redux store
+// const store = createStore(rootreducer, reduxDevTools(middleware));
+export default () => {
+  let store = createStore(persistedReducer);
+  let persistor = persistStore(store);
+  return { store, persistor };
+};
 
 // Run saga watchers
 sagaMiddleware.run(rootSaga);
 
-export default store;
+// export default store;

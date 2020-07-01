@@ -4,7 +4,7 @@ import { useFonts } from '@use-expo/font';
 import { AppLoading } from 'expo';
 import { NavigationContainer } from '@react-navigation/native';
 import RootNavigator from './src/navigators/RootNavigator/index';
-// import { AuthProvider } from './src/components/AuthContext';
+import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import store from './src/rdx/store';
 
@@ -16,13 +16,11 @@ const App = () => {
 
   return fontsLoaded ? (
     <Provider store={store}>
-      <>
-        {/* <AuthProvider> */}
+      <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <RootNavigator />
         </NavigationContainer>
-        {/* </AuthProvider> */}
-      </>
+      </PersistGate>
     </Provider>
   ) : (
     <AppLoading />
