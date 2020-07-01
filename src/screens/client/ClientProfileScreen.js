@@ -11,7 +11,6 @@ const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 const ClientProfileScreen = ({ users, navigation, logOut }) => {
   const onSubmit = () => {
     logOut();
-    navigation.navigate('Log in');
   };
 
   return (
@@ -35,12 +34,12 @@ const ClientProfileScreen = ({ users, navigation, logOut }) => {
           <Text>{users.auth.profile.email}</Text>
         </ListItem>
 
-        <ListItem>
+        <ListItem onPress={() => navigation.navigate('ChangePassword')}>
           <Text>Change Password</Text>
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>
 
-        <ListItem>
+        <ListItem onPress={() => navigation.navigate('EditProfile')}>
           <Text>Edit Profile</Text>
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>

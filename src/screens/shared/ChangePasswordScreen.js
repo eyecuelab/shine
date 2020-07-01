@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-const SignUpScreen = () => {
+const ChangePasswordScreen = () => {
   return (
     <Container>
       <Text>Change Password</Text>
@@ -19,4 +19,4 @@ const Text = styled.Text`
   font-size: 16px;
 `;
 
-export default SignUpScreen;
+export default ChangePasswordScreen;

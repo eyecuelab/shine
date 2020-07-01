@@ -1,18 +1,19 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
+import WelcomeScreen from '../../screens/shared/WelcomeScreen';
 import SignInScreen from '../../screens/shared/SignInScreen';
 import SignUpScreen from '../../screens/shared/SignUpScreen';
 import ClientProfileScreen from '../../screens/client/ClientProfileScreen';
+import ChangePasswordScreen from '../../screens/shared/ChangePasswordScreen';
+import EditProfileScreen from '../../screens/shared/EditProfileScreen';
 import CleanerApplicationScreen from '../../screens/client/CleanerApplicationScreen';
-// import AuthContext from '../../components/AuthContext';
 import PropTypes from 'prop-types';
 
 const ProfileStack = createStackNavigator();
 
 const ProfileStackNavigator = ({ users }) => {
-  // const { authState } = React.useContext(AuthContext);
-  console.log('TOKEN:', users.auth.token);
+  const authentication = users.auth.token;
 
   return (
     <ProfileStack.Navigator
@@ -26,25 +27,23 @@ const ProfileStackNavigator = ({ users }) => {
         headerBackTitleVisible: false,
       }}
     >
-      {/* <>
-        <ProfileStack.Screen name="Sign up" component={SignUpScreen} />
-        <ProfileStack.Screen name="Log in" component={SignInScreen} />
-        <ProfileStack.Screen name="Profile" component={ClientProfileScreen} />
-        <ProfileStack.Screen
-          name="CleanerApplication"
-          component={CleanerApplicationScreen}
-        />
-      </> */}
-
-      {users.auth.token === null ? (
+      {authentication === null ? (
         <>
-          <ProfileStack.Screen name="Sign up" component={SignUpScreen} />
-          <ProfileStack.Screen name="Log in" component={SignInScreen} />
+          <ProfileStack.Screen name="Welcome" component={WelcomeScreen} />
+          <ProfileStack.Screen name="SignUp" component={SignUpScreen} />
+          <ProfileStack.Screen name="LogIn" component={SignInScreen} />
         </>
       ) : (
         <>
           <ProfileStack.Screen name="Profile" component={ClientProfileScreen} />
-          <ProfileStack.Screen name="Log in" component={SignInScreen} />
+          <ProfileStack.Screen
+            name="ChangePassword"
+            component={ChangePasswordScreen}
+          />
+          <ProfileStack.Screen
+            name="EditProfile"
+            component={EditProfileScreen}
+          />
           <ProfileStack.Screen
             name="CleanerApplication"
             component={CleanerApplicationScreen}

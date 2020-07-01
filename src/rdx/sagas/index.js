@@ -21,9 +21,9 @@ function loginApi(authParams) {
 }
 
 function* loginEffectSaga(action) {
-  // console.log('ACTION: ', action);
   try {
     let { data } = yield call(loginApi, action.payload);
+    console.log('DATA: ', data);
     const token = data.data.attributes.token;
     const profile = data.included[0].attributes;
 
@@ -43,15 +43,9 @@ function* loginEffectSaga(action) {
   }
 }
 
-// function logoutApi() {
-//   return axios.post(`https://shoeshine.herokuapp.com/logout`);
-// }
-
 export function* logoutEffectSaga() {
   try {
-    // const response = yield call(logoutApi);
     yield put(actions.logOut);
-    // return response;
   } catch (error) {
     console.log(error);
   }
