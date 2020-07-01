@@ -21,9 +21,9 @@ function loginApi(authParams) {
 }
 
 function* loginEffectSaga(action) {
-  // console.log('ACTION: ', action);
   try {
     let { data } = yield call(loginApi, action.payload);
+    console.log('DATA: ', data);
     const token = data.data.attributes.token;
     const profile = data.included[0].attributes;
 
@@ -34,26 +34,18 @@ function* loginEffectSaga(action) {
       }),
     );
   } catch (error) {
-    console.log('ERROR: ', error.message);
-    // yield put({ type: 'LOGIN_ERROR', error: error.message });
-    // alert(error.response.data.message);
+    // console.log('ERROR: ', error.message);
+    yield put({ type: 'LOGIN_ERROR', error: error.response.data.message });
+  } finally {
+    if (yield cancelled()) {
+      yield put({ type: 'LOGIN_CANCELLED' });
+    }
   }
-  // finally {
-  //   if (yield cancelled()) {
-  //     yield put({ type: 'LOGIN_CANCELLED' });
-  //   }
-  // }
 }
-
-// function logoutApi() {
-//   return axios.post(`https://shoeshine.herokuapp.com/logout`);
-// }
 
 export function* logoutEffectSaga() {
   try {
-    // const response = yield call(logoutApi);
     yield put(actions.logOut);
-    // return response;
   } catch (error) {
     console.log(error);
   }

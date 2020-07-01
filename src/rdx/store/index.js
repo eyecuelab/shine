@@ -8,16 +8,18 @@ const sagaMiddleware = createSagaMiddleware();
 
 // Create middleware for redux
 let middleware = applyMiddleware(sagaMiddleware);
+const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // Create redux store
-const store = createStore(
-  reducer,
-  compose(
-    middleware,
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
-      window.__REDUX_DEVTOOLS_EXTENSION__(),
-  ),
-);
+const store = createStore(reducer, reduxDevTools(middleware));
+// const store = createStore(
+//   reducer,
+//   compose(
+//     middleware,
+//     window.__REDUX_DEVTOOLS_EXTENSION__ &&
+//       window.__REDUX_DEVTOOLS_EXTENSION__(),
+//   ),
+// );
 
 // Run saga watchers
 sagaMiddleware.run(rootSaga);
