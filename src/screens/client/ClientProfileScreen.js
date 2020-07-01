@@ -1,14 +1,17 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
-import AuthContext from '../../components/AuthContext';
+// import AuthContext from '../../components/AuthContext';
 import { Feather } from '@expo/vector-icons';
+import * as actions from '../../rdx/actions';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
-const ClientProfileScreen = ({ navigation }) => {
-  const { authState, authContext } = React.useContext(AuthContext);
+const ClientProfileScreen = ({ users, navigation }) => {
+  // const { authState, authContext } = React.useContext(AuthContext);
+  // console.log('USER', users);
 
   return (
     <>
@@ -20,13 +23,15 @@ const ClientProfileScreen = ({ navigation }) => {
             <Profile
               source={require('../../../assets/images/profile-pic.png')}
             />
-            <Name>{authState.userName}</Name>
+            <Name>
+              {users.auth.profile.first_name} {users.auth.profile.last_name}
+            </Name>
           </Container>
         </ImageBackground>
 
         <ListItem>
           <Text>Account</Text>
-          <Text>{authState.userEmail}</Text>
+          <Text>{users.auth.profile.email}</Text>
         </ListItem>
 
         <ListItem>
@@ -146,8 +151,11 @@ const CenterText = styled.Text`
 
 ClientProfileScreen.propTypes = {
   navigation: PropTypes.object,
+  users: PropTypes.object,
 };
 
-export default ClientProfileScreen;
+const mapStateToProps = (state) => {
+  return { users: state.users };
+};
 
-// border: 1px solid black;
+export default connect(mapStateToProps, actions)(ClientProfileScreen);
