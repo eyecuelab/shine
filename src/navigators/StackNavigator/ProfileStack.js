@@ -12,7 +12,7 @@ const ProfileStack = createStackNavigator();
 
 const ProfileStackNavigator = ({ users }) => {
   // const { authState } = React.useContext(AuthContext);
-  console.log('state', users.auth.token);
+  // console.log('state', users.auth.token);
 
   return (
     <ProfileStack.Navigator

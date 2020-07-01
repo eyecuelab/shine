@@ -10,56 +10,41 @@ const initialAuthState = {
     token: null,
     profile: {},
   },
+  authError: null,
+  status: 'Logged out',
 };
 
-const authReducer = (prevState = initialAuthState, action) => {
+const authReducer = (state = initialAuthState, action) => {
   switch (action.type) {
     case types.UPDATE_PROFILE:
       return {
-        ...prevState,
+        ...state,
         auth: action.payload,
+        status: 'Logged in',
       };
-
-    // case types.LOGIN_ERROR:
-    //   return {
-    //     ...prevState,
-    //     authError: action.err.message,
-    //   };
-    // case types.LOGIN_SUCCESS:
-    //   console.log('Login success');
-    //   return {
-    //     ...prevState,
-    //     userName: action.name,
-    //     userToken: action.token,
-    //     userEmail: action.email,
-    //     isSignout: false,
-    //     isLoading: false,
-    //     authError: null,
-    //   };
-    // case types.LOGOUT_SUCCESS:
-    //   console.log('Signout success');
-    //   return {
-    //     ...prevState,
-    //     userName: null,
-    //     userToken: null,
-    //     userEmail: null,
-    //     isSignout: true,
-    //     isLoading: false,
-    //   };
-    // case types.SIGNUP_SUCCESS:
-    //   console.log('Signup success');
-    //   return {
-    //     ...prevState,
-    //     authError: null,
-    //   };
-    // case types.SIGNUP_ERROR:
-    //   console.log('Signup error');
-    //   return {
-    //     ...prevState,
-    //     authError: action.err.message,
-    //   };
+    case types.LOGIN_ERROR:
+      return {
+        ...state,
+        status: 'Login error',
+        authError: action.error,
+      };
+    case types.LOGIN_CANCELLED:
+      return {
+        ...state,
+        authError: null,
+        status: 'Login cancelled',
+      };
+    case types.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        status: 'Logged out',
+        auth: {
+          token: null,
+          profile: {},
+        },
+      };
     default:
-      return prevState;
+      return state;
   }
 };
 

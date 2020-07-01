@@ -30,7 +30,6 @@ const SignInScreen = ({ loginWatcher }) => {
 
   const navigation = useNavigation();
   const onSubmit = () => {
-    // console.log('authParams:', email);
     loginWatcher({ email, password });
     navigation.navigate('Profile');
   };

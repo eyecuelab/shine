@@ -6,7 +6,6 @@ export const REQUEST_COMPLETE = 'REQUEST_COMPLETE';
 
 // auth
 export const LOGIN_WATCHER = 'LOGIN_WATCHER';
-// export const SAVE_TOKEN = 'SAVE_TOKEN';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 
 export const DELETE_TOKEN = 'DELETE_TOKEN';

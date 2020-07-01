@@ -39,16 +39,22 @@ export const loginWatcher = (authParams) => {
   };
 };
 
-// export const saveToken = (token) => {
-//   return {
-//     type: types.SAVE_TOKEN,
-//     payload: token,
-//   };
-// };
-
 export const updateProfile = (profile) => {
   return {
     type: types.UPDATE_PROFILE,
     payload: profile,
   };
 };
+
+export const logout = () => {
+  return {
+    type: types.LOGOUT_SUCCESS,
+  };
+};
+
+// export const loginError = (error) => {
+//   return {
+//     type: types.LOGIN_ERROR,
+//     payload: error,
+//   };
+// };

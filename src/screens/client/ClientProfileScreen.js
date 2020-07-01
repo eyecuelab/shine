@@ -9,9 +9,13 @@ import * as actions from '../../rdx/actions';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
-const ClientProfileScreen = ({ users, navigation }) => {
+const ClientProfileScreen = ({ users, navigation, logout }) => {
   // const { authState, authContext } = React.useContext(AuthContext);
   // console.log('USER', users);
+  const onSubmit = () => {
+    logout();
+    navigation.navigate('Log in');
+  };
 
   return (
     <>
@@ -60,7 +64,7 @@ const ClientProfileScreen = ({ users, navigation }) => {
           <CenterText>Become a Cleaner</CenterText>
         </ListItemCenter>
 
-        <ListItemCenter onPress={() => authContext.signOut()}>
+        <ListItemCenter onPress={() => onSubmit()}>
           <CenterText>Log Out</CenterText>
         </ListItemCenter>
       </ProfileContainer>
