@@ -32,8 +32,16 @@ export const requestComplete = (uuid, requestCompleted) => {
   };
 };
 
-export const signIn = () => {
+export const loginWatcher = (authParams) => {
   return {
-    type: types.LOGIN_SUCCESS,
+    type: 'LOGIN_WATCHER',
+    payload: authParams,
+  };
+};
+
+export const updateProfile = (profile) => {
+  return {
+    type: 'UPDATE_PROFILE',
+    payload: profile,
   };
 };
