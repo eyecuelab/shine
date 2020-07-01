@@ -1,6 +1,5 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import AuthContext from '../../components/AuthContext';
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -8,17 +7,8 @@ import {
 } from '@react-navigation/drawer';
 
 const SideBar = (props) => {
-  const { authState } = React.useContext(AuthContext);
-
   return (
     <DrawerContentScrollView {...props}>
-      {/* <ImageBackground
-        source={require('../../../assets/images/profile-bg.png')}
-      >
-        <Profile source={require('../../../assets/images/profile-pic.png')} />
-        <Name>{authState.userName}</Name>
-      </ImageBackground> */}
-
       <Container forceInset={{ top: 'always', horizontal: 'never' }}>
         <DrawerItemList {...props} />
       </Container>
