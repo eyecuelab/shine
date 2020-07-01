@@ -13,7 +13,6 @@ import {
   all,
 } from 'redux-saga/effects';
 
-// function that returns an axios call
 function loginApi(authParams) {
   return axios.post(`https://shoeshine.herokuapp.com/login`, {
     email: authParams['email'],
@@ -21,21 +20,13 @@ function loginApi(authParams) {
   });
 }
 
-// saga worker that is responsible for the side effects
 function* loginEffectSaga(action) {
+  // console.log('ACTION: ', action);
   try {
-    // data is obtained after axios call is resolved
     let { data } = yield call(loginApi, action.payload);
-    // console.log(data);
     const token = data.data.attributes.token;
     const profile = data.included[0].attributes;
 
-    // store data to localStorage
-    // Object.keys(data.session).forEach(key => {
-    //   localStorage.setItem(key, data[key]);
-    // });
-
-    // dispatch action to change redux state
     yield put(
       actions.logIn({
         token: token,
@@ -43,6 +34,7 @@ function* loginEffectSaga(action) {
       }),
     );
   } catch (error) {
+    console.log('ERROR: ', error.message);
     // yield put({ type: 'LOGIN_ERROR', error: error.message });
     // alert(error.response.data.message);
   }
@@ -57,7 +49,7 @@ function* loginEffectSaga(action) {
 //   return axios.post(`https://shoeshine.herokuapp.com/logout`);
 // }
 
-function* logoutEffectSaga() {
+export function* logoutEffectSaga() {
   try {
     // const response = yield call(logoutApi);
     yield put(actions.logOut);
@@ -67,18 +59,10 @@ function* logoutEffectSaga() {
   }
 }
 
-/**
- * saga watcher that is triggered when dispatching action of type
- * 'LOGIN_WATCHER'
- */
 function* loginWatcherSaga() {
-  yield takeLatest(actions.loginWatcher, loginEffectSaga);
+  yield takeLatest('LOGIN_WATCHER', loginEffectSaga);
 }
 
 export default function* rootSaga() {
-  yield all([
-    loginWatcherSaga(),
-    logoutEffectSaga(),
-    // add other watchers to the array
-  ]);
+  yield all([loginWatcherSaga()]);
 }

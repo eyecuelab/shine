@@ -47,21 +47,8 @@ export const logIn = (profile) => {
   };
 };
 
-// export const logoutWatcher = () => {
-//   return {
-//     type: types.LOGOUT_WATCHER,
-//   };
-// };
-
 export const logOut = () => {
   return {
     type: types.LOGOUT_SUCCESS,
   };
 };
-
-// export const loginError = (error) => {
-//   return {
-//     type: types.LOGIN_ERROR,
-//     payload: error,
-//   };
-// };
