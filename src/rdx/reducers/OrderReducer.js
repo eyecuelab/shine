@@ -1,9 +1,9 @@
 import * as types from '../actions/types';
 
-const orders = (state = [], action) => {
+const orderReducer = (state = [], action) => {
   switch (action.type) {
     case types.ADD_ORDER:
-      console.log('REDUCER: ', action.payload.image);
+      // console.log('REDUCER: ', action.payload.image);
       return [
         ...state,
         {
@@ -62,4 +62,4 @@ const orders = (state = [], action) => {
   }
 };
 
-export default orders;
+export default orderReducer;

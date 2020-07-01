@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import * as actions from '../../rdx/actions';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
