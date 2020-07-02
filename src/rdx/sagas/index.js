@@ -23,7 +23,7 @@ function loginApi(authParams) {
 function* loginEffectSaga(action) {
   try {
     let { data } = yield call(loginApi, action.payload);
-    console.log('DATA: ', data);
+    // console.log('DATA: ', data);
     const token = data.data.attributes.token;
     const profile = data.included[0].attributes;
 
