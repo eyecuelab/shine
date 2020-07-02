@@ -12,15 +12,12 @@ import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
 
-const OrderFinalScreen = ({ navigation, requestComplete }) => {
+const OrderFinalScreen = ({ navigation }) => {
   const route = useRoute();
   const item = route.params;
 
   const handleSubmit = () => {
-    requestComplete(item.uuid, true);
-    //ADD MODAL TO CONFIRM, THEN NAVIGATE TO HOME
-    alert('Would you like to proceed with this proposal?');
-    // navigation.navigate('Home');
+    navigation.navigate('OrderConfrim', item);
   };
 
   return (
@@ -43,11 +40,7 @@ const OrderFinalScreen = ({ navigation, requestComplete }) => {
         </SwitchContainer>
 
         <BidsContainer>
-          <PriceTicketContainer
-            onPress={() => {
-              handleSubmit();
-            }}
-          >
+          <PriceTicketContainer onPress={handleSubmit}>
             <PriceTicket
               source={require('../../../assets/images/price-ticket-black.png')}
             />
@@ -58,11 +51,7 @@ const OrderFinalScreen = ({ navigation, requestComplete }) => {
             <ExpireText>Expires in 12HR</ExpireText>
           </PriceTicketContainer>
 
-          <PriceTicketContainer
-            onPress={() => {
-              handleSubmit();
-            }}
-          >
+          <PriceTicketContainer onPress={handleSubmit}>
             <PriceTicket
               source={require('../../../assets/images/price-ticket-black.png')}
             />
@@ -72,12 +61,7 @@ const OrderFinalScreen = ({ navigation, requestComplete }) => {
             </PriceContianer>
             <ExpireText>Expires in 3HR</ExpireText>
           </PriceTicketContainer>
-
-          <PriceTicketContainer
-            onPress={() => {
-              handleSubmit();
-            }}
-          >
+          <PriceTicketContainer onPress={handleSubmit}>
             <PriceTicket
               source={require('../../../assets/images/price-ticket-black.png')}
             />
@@ -93,7 +77,6 @@ const OrderFinalScreen = ({ navigation, requestComplete }) => {
           title="CANCEL SERVICE"
           containerStyle={{ paddingVertical: 40, width: 350 }}
           buttonStyle={{
-            color: 'black',
             backgroundColor: '#939393',
             height: 50,
             borderRadius: 7,
