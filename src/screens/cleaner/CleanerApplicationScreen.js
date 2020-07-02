@@ -1,10 +1,10 @@
+/* eslint-disable no-undef */
 import React, { useState } from 'react';
 import { Input, Button } from 'react-native-elements';
 import { StyleSheet, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
 import { MaterialIcons } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
 import styled from 'styled-components/native';
 // import PropTypes from 'prop-types';
 
@@ -64,6 +64,9 @@ const CleanerApplicationScreen = () => {
         contentContainerStyle={styles.container}
         scrollEnabled={true}
       >
+        {/* <ImageArea>
+          <Image source={require('../../../assets/images/logo-outline.png')} />
+        </ImageArea> */}
         <Input
           value={appInfo.businessName}
           label="Business"
@@ -211,6 +214,16 @@ const CleanerApplicationScreen = () => {
     </ScrollViewContainer>
   );
 };
+
+const ImageArea = styled.View`
+  width: 100px;
+  height: 100px;
+`;
+
+const Image = styled.Image`
+  width: 100%;
+  height: 100%;
+`;
 
 const styles = StyleSheet.create({
   container: {
