@@ -3,6 +3,7 @@ import { Input, Button } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 import styled from 'styled-components/native';
 // import PropTypes from 'prop-types';
 
@@ -141,8 +142,8 @@ const CleanerApplicationScreen = () => {
         labelStyle={{ fontSize: 20 }}
         placeholder="Street"
         leftIcon={
-          <MaterialIcons
-            name="home"
+          <Entypo
+            name="address"
             size={18}
             color="black"
             style={{ marginRight: 5 }}
