@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Button } from 'react-native-elements';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -64,6 +64,7 @@ const CleanerApplicationScreen = () => {
         scrollEnabled={true}
       >
         <Input
+          value={appInfo.businessName}
           label="Business"
           labelStyle={{ fontSize: 20 }}
           placeholder="Title"
@@ -76,10 +77,12 @@ const CleanerApplicationScreen = () => {
             />
           }
           autoCorrect={false}
+          returnKeyType={'next'}
           onChangeText={(text) => handleInfoChange('businessName', text)}
         />
         <MultiLineInputs>
           <Input
+            value={appInfo.firstName}
             containerStyle={{ flex: 1 }}
             label="Contact Name"
             labelStyle={{ fontSize: 20 }}
@@ -93,17 +96,21 @@ const CleanerApplicationScreen = () => {
                 style={{ marginRight: 5 }}
               />
             }
+            returnKeyType={'next'}
             onChangeText={(text) => handleInfoChange('firstName', text)}
           />
           <Input
+            value={appInfo.lastName}
             containerStyle={{ flex: 1 }}
             label=""
             labelStyle={{ fontSize: 20 }}
             placeholder="Last"
+            returnKeyType={'next'}
             onChangeText={(text) => handleInfoChange('lastName', text)}
           />
         </MultiLineInputs>
         <Input
+          value={appInfo.email}
           autoCorrect={false}
           label="Email"
           labelStyle={{ fontSize: 20 }}
@@ -117,13 +124,14 @@ const CleanerApplicationScreen = () => {
               style={{ marginRight: 5 }}
             />
           }
+          returnKeyType={'next'}
           onChangeText={(text) => handleInfoChange('email', text)}
         />
         <Input
+          value={appInfo.phoneNumber}
           label="Phone Number"
           labelStyle={{ fontSize: 20 }}
           placeholder="(xxx)-xxx-xxxx"
-          value={appInfo.phoneNumber}
           textContentType="telephoneNumber"
           dataDetactorTypes="phoneNunmber"
           keyboardType="phone-pad"
@@ -139,6 +147,7 @@ const CleanerApplicationScreen = () => {
           onChangeText={(text) => onTextChange(text)}
         />
         <Input
+          value={cleanerAddress.street}
           label="Address"
           labelStyle={{ fontSize: 20 }}
           placeholder="Street"
@@ -150,27 +159,38 @@ const CleanerApplicationScreen = () => {
               style={{ marginRight: 5 }}
             />
           }
+          returnKeyType={'next'}
           onChangeText={(text) => handleAddressChange('street', text)}
         />
         <MultiLineInputs>
           <Input
+            value={cleanerAddress.city}
             placeholder="City"
             containerStyle={{ flex: 2 }}
             onChangeText={(text) => handleAddressChange('city', text)}
+            returnKeyType={'next'}
           />
           <Input
+            value={cleanerAddress.state}
             placeholder="State"
             containerStyle={{ flex: 1 }}
             onChangeText={(text) => handleAddressChange('state', text)}
+            returnKeyType={'next'}
           />
         </MultiLineInputs>
         <Input
+          value={cleanerAddress.postalCode}
           placeholder="Zip"
           onChangeText={(text) => handleAddressChange('postalCode', text)}
+          returnKeyType={'next'}
         />
 
         <Input
+          value={appInfo.bio}
           label="Bio"
+          multiline={true}
+          scrollEnabled={false}
+          // containerStyle={{ height: 200, width: 350 }}
           labelStyle={{ fontSize: 20 }}
           placeholder="Skills and Experience"
           leftIcon={
@@ -181,8 +201,28 @@ const CleanerApplicationScreen = () => {
               style={{ marginRight: 5 }}
             />
           }
+          returnKeyType={'done'}
+          onSubmitEditing={Keyboard.dismiss}
           onChangeText={(text) => handleInfoChange('bio', text)}
         />
+        {/* <TextInput
+          value={appInfo.bio}
+          placeholder="This step is optional. You will also have the opportunity to speak to the cleaner of choice directly after order is placed"
+          style={{
+            height: 200,
+            width: 350,
+            borderColor: 'gray',
+            borderWidth: 1,
+            borderRadius: 5,
+            padding: 15,
+            paddingTop: 10,
+            fontSize: 20,
+          }}
+          multiline={true}
+          editable={true}
+          // onSubmitEditing={Keyboard.dismiss}
+          returnKeyType="next"
+        /> */}
         <Button
           title="APPLY"
           containerStyle={{ paddingTop: 20, width: 350 }}
