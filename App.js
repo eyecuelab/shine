@@ -4,9 +4,12 @@ import { useFonts } from '@use-expo/font';
 import { AppLoading } from 'expo';
 import { NavigationContainer } from '@react-navigation/native';
 import RootNavigator from './src/navigators/RootNavigator/index';
-import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
-import store from './src/rdx/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor, sagaMiddleware } from './src/rdx/store';
+// import rootSaga from './src/rdx/sagas';
+
+// sagaMiddleware.run(rootSaga);
 
 const App = () => {
   let [fontsLoaded] = useFonts({

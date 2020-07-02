@@ -1,10 +1,6 @@
 import * as types from '../actions/types';
-import { AsyncStorage } from 'react-native';
+// import { REHYDRATE } from 'redux-persist/lib/constants';
 
-// const initialAuthState = {
-//   token: null,
-//   profile: {},
-// };
 const initialAuthState = {
   auth: {
     token: null,
@@ -16,6 +12,8 @@ const initialAuthState = {
 
 const authReducer = (state = initialAuthState, action) => {
   switch (action.type) {
+    // case REHYDRATE:
+    //   return { ...state, persistedState: action.payload };
     case types.LOGIN_SUCCESS:
       return {
         ...state,
