@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import orderReducer from './orderReducer';
-import authReducer from './authReducer';
+import orderReducer from './OrderReducer';
+import authReducer from './AuthReducer';
 
 const rootReducer = combineReducers({
   orders: orderReducer,

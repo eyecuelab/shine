@@ -4,6 +4,7 @@ import { useWindowDimensions } from 'react-native';
 import SideBar from '../../components/shared/SideBar';
 import { Feather } from '@expo/vector-icons';
 import SettingsScreen from '../../screens/shared/SettingsScreen';
+import CleanerOptionScreen from '../../screens/cleaner/CleanerOptionScreen';
 import WelcomeScreen from '../../screens/shared/WelcomeScreen';
 import CleanerProfileScreen from '../../screens/cleaner/CleanerProfileScreen';
 import CompletedOrdersScreen from '../../screens/cleaner/CompletedOrdersScreen';
@@ -53,6 +54,10 @@ const CleanersDrawerNavigator = () => {
         },
       })}
     >
+      <Drawer.Screen
+        name="CleanerOptionScreen"
+        component={CleanerOptionScreen}
+      />
       <Drawer.Screen name="OrderStatus" component={OrderStatusScreen} />
       <Drawer.Screen name="OrderFinal" component={OrderFinalScreen} />
       <Drawer.Screen name="Welcome" component={WelcomeScreen} />
