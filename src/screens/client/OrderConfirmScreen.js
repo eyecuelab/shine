@@ -16,11 +16,11 @@ const OrderConfirmScreen = ({ navigation, requestComplete }) => {
   console.log(item);
 
   const handleSubmit = () => {
-    requestComplete(item.uuid, true);
+    // requestComplete(item.uuid, true);
     navigation.navigate('Home');
   };
 
-  const handleClickCancel = () => {
+  const handleCancelClick = () => {
     navigation.navigate('OrderFinal');
   };
 
@@ -49,7 +49,7 @@ const OrderConfirmScreen = ({ navigation, requestComplete }) => {
             height: 50,
             borderRadius: 7,
           }}
-          onPress={handleClickCancel}
+          onPress={handleCancelClick}
         />
       </Container>
     </ScrollViewContailner>

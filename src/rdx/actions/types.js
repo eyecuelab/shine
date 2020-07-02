@@ -3,6 +3,7 @@ export const ADD_ORDER = 'ADD_ORDER';
 export const ADD_ADD_ONS = 'ADD_ADD_ONS';
 export const ADD_ORDER_ADDRESS = 'ADD_ORDER_ADDRESS';
 export const REQUEST_COMPLETE = 'REQUEST_COMPLETE';
+export const DELETE_ORDER = 'DELETE_ORDER';
 
 // USERS Action Constants
 export const LOGIN_WATCHER = 'LOGIN_WATCHER';

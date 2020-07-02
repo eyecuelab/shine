@@ -3,8 +3,8 @@ import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const orderReducer = (state = [], action) => {
   switch (action.type) {
-    // case REHYDRATE:
-    //   return [];
+    case REHYDRATE:
+      return [];
     case types.ADD_ORDER:
       // console.log('REDUCER: ', action.payload.image);
       return [
@@ -59,6 +59,16 @@ const orderReducer = (state = [], action) => {
           };
         }
         return item;
+      });
+    case types.DELETE_ORDER:
+      return state.map((item) => {
+        if (item.uuid === action.uuid) {
+          const removeIndex = state
+            .map((item) => item.uuid)
+            .indexOf(action.uuid);
+          state.slice(removeIndex, 1);
+          return state;
+        }
       });
     default:
       return state;

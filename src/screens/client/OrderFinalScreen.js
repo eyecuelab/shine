@@ -12,12 +12,17 @@ import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
 
-const OrderFinalScreen = ({ navigation }) => {
+const OrderFinalScreen = ({ deleteOrder, navigation }) => {
   const route = useRoute();
   const item = route.params;
-
+  // console.log(item);
   const handleSubmit = () => {
     navigation.navigate('OrderConfrim', item);
+  };
+
+  const handleCancelClick = () => {
+    deleteOrder(item.uuid);
+    navigation.navigate('Home');
   };
 
   return (
@@ -39,6 +44,8 @@ const OrderFinalScreen = ({ navigation }) => {
           <AddOnSwitch disabled={true} switchState={item.addOns.replaceLaces} />
         </SwitchContainer>
 
+        {/* ========== NEED TO REFACTOR BELOW THIS CODE
+                 ADD CLEANER'S STATE INTO PRICE TICKET ============ */}
         <BidsContainer>
           <PriceTicketContainer onPress={handleSubmit}>
             <PriceTicket
@@ -72,7 +79,7 @@ const OrderFinalScreen = ({ navigation }) => {
             <ExpireText>Expires in 3MIN</ExpireText>
           </PriceTicketContainer>
         </BidsContainer>
-
+        {/* ============================================================= */}
         <Button
           title="CANCEL SERVICE"
           containerStyle={{ paddingVertical: 40, width: 350 }}
@@ -81,9 +88,7 @@ const OrderFinalScreen = ({ navigation }) => {
             height: 50,
             borderRadius: 7,
           }}
-          onPress={() => {
-            navigation.navigate('Home');
-          }}
+          onPress={handleCancelClick}
         />
       </Container>
     </ScrollViewContailner>
@@ -166,6 +171,7 @@ const ExpireText = styled.Text`
 OrderFinalScreen.propTypes = {
   navigation: PropTypes.object,
   requestComplete: PropTypes.func,
+  deleteOrder: PropTypes.func,
   orders: PropTypes.array,
 };
 
