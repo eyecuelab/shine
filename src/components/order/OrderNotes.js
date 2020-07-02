@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Keyboard, KeyboardAvoidingView } from 'react-native';
+import { View, Keyboard, StyleSheet } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import { TextInput } from 'react-native';
@@ -10,7 +11,11 @@ import ScrollViewContainer from '../shared/ScrollViewContainer';
 const OrderNotes = ({ image, jumpTo, note, setNote }) => {
   return (
     <ScrollViewContainer>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+      <KeyboardAwareScrollView
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        contentContainerStyle={styles.container}
+        scrollEnabled={true}
+      >
         {ShoePhoto(image)}
         <Container>
           <BodyText>Notes for Cleaner</BodyText>
@@ -27,6 +32,7 @@ const OrderNotes = ({ image, jumpTo, note, setNote }) => {
                 paddingTop: 10,
                 fontSize: 20,
               }}
+              scrollEnabled={false}
               onChangeText={(text) => setNote(text)}
               value={note}
               multiline={true}
@@ -49,10 +55,18 @@ const OrderNotes = ({ image, jumpTo, note, setNote }) => {
             }}
           />
         </Container>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     </ScrollViewContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    margin: 10,
+    alignItems: 'center',
+  },
+});
 
 const Container = styled.View`
   align-items: center;
