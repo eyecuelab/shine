@@ -11,8 +11,8 @@ import OrderItem from '../../components/order/OrderItem';
 const { height: HEIGHT } = Dimensions.get('window');
 
 const HomeScreen = ({ orders }) => {
-  const currentOrder = orders.length !== 0;
   const navigation = useNavigation();
+
   const handleClick = (item) => {
     if (item.requestCompleted === false) {
       navigation.navigate('OrderFinal', item);
@@ -21,48 +21,51 @@ const HomeScreen = ({ orders }) => {
     }
   };
 
-  return currentOrder ? (
-    <>
-      <ListContainer>
-        <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-          <Image source={require('../../../assets/images/logo.png')} />
-        </ImageArea>
-      </ListContainer>
+  if (orders.length !== 0) {
+    return (
+      <>
+        <ListContainer>
+          <ImageArea onPress={() => navigation.navigate('NewOrder')}>
+            <Image source={require('../../../assets/images/logo.png')} />
+          </ImageArea>
+        </ListContainer>
 
-      <ScrollView
-        contentContainerStyle={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-          margin: 10,
-        }}
-      >
-        {orders &&
-          orders.map((item) => {
-            // console.log('ITEM', item.uuid);
-            return (
-              <TouchableOpacity
-                key={item.uuid}
-                onPress={() => handleClick(item)}
-              >
-                <ItemsContainer>
-                  <OrderItem order={item} />
-                </ItemsContainer>
-              </TouchableOpacity>
-            );
-          })}
-      </ScrollView>
-    </>
-  ) : (
-    <>
-      <HomeContainer>
-        <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-          <Image source={require('../../../assets/images/logo.png')} />
-        </ImageArea>
-      </HomeContainer>
-    </>
-  );
+        <ScrollView
+          contentContainerStyle={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            margin: 10,
+          }}
+        >
+          {orders &&
+            orders.map((item) => {
+              return (
+                <TouchableOpacity
+                  key={item.uuid}
+                  onPress={() => handleClick(item)}
+                >
+                  <ItemsContainer>
+                    <OrderItem order={item} />
+                  </ItemsContainer>
+                </TouchableOpacity>
+              );
+            })}
+        </ScrollView>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <HomeContainer>
+          <ImageArea onPress={() => navigation.navigate('NewOrder')}>
+            <Image source={require('../../../assets/images/logo.png')} />
+          </ImageArea>
+        </HomeContainer>
+      </>
+    );
+  }
 };
 
 const HomeContainer = styled.View`
