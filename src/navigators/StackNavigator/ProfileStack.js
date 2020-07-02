@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
+// SCREEN IMPORTS:
 import WelcomeScreen from '../../screens/shared/WelcomeScreen';
 import SignInScreen from '../../screens/shared/SignInScreen';
 import SignUpScreen from '../../screens/shared/SignUpScreen';
 import ClientProfileScreen from '../../screens/client/ClientProfileScreen';
 import ChangePasswordScreen from '../../screens/shared/ChangePasswordScreen';
 import EditProfileScreen from '../../screens/shared/EditProfileScreen';
-// import CleanerApplicationScreen from '../../screens/client/CleanerApplicationScreen';
+import CleanerApplicationScreen from '../../screens/cleaner/CleanerApplicationScreen';
 import PropTypes from 'prop-types';
 
 const ProfileStack = createStackNavigator();
@@ -44,10 +45,10 @@ const ProfileStackNavigator = ({ users }) => {
             name="EditProfile"
             component={EditProfileScreen}
           />
-          {/* <ProfileStack.Screen
-            name="CleanerApplication"
+          <ProfileStack.Screen
+            name="Cleaner Application"
             component={CleanerApplicationScreen}
-          /> */}
+          />
         </>
       )}
     </ProfileStack.Navigator>

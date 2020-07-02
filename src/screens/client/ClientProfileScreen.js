@@ -55,7 +55,7 @@ const ClientProfileScreen = ({ users, navigation, logOut }) => {
         </ListItem>
         <Seperator />
         <ListItemCenter
-          onPress={() => navigation.navigate('CleanerApplication')}
+          onPress={() => navigation.navigate('Cleaner Application')}
         >
           <CenterText>Become a Cleaner</CenterText>
         </ListItemCenter>

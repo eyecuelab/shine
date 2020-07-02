@@ -26,6 +26,7 @@ const ImgContainer = styled.View`
   width: 100%;
   height: ${HEIGHT / 3.1}px;
   margin-bottom: 30px;
+  position: relative;
 `;
 
 const ImageArea = styled.Image`
