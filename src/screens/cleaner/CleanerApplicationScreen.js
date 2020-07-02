@@ -190,39 +190,12 @@ const CleanerApplicationScreen = () => {
           label="Bio"
           multiline={true}
           scrollEnabled={false}
-          // containerStyle={{ height: 200, width: 350 }}
           labelStyle={{ fontSize: 20 }}
           placeholder="Skills and Experience"
-          leftIcon={
-            <MaterialIcons
-              name="description"
-              size={18}
-              color="black"
-              style={{ marginRight: 5 }}
-            />
-          }
           returnKeyType={'done'}
           onSubmitEditing={Keyboard.dismiss}
           onChangeText={(text) => handleInfoChange('bio', text)}
         />
-        {/* <TextInput
-          value={appInfo.bio}
-          placeholder="This step is optional. You will also have the opportunity to speak to the cleaner of choice directly after order is placed"
-          style={{
-            height: 200,
-            width: 350,
-            borderColor: 'gray',
-            borderWidth: 1,
-            borderRadius: 5,
-            padding: 15,
-            paddingTop: 10,
-            fontSize: 20,
-          }}
-          multiline={true}
-          editable={true}
-          // onSubmitEditing={Keyboard.dismiss}
-          returnKeyType="next"
-        /> */}
         <Button
           title="APPLY"
           containerStyle={{ paddingTop: 20, width: 350 }}
@@ -251,12 +224,5 @@ const MultiLineInputs = styled.View`
   flex-wrap: wrap;
   align-items: flex-end;
 `;
-
-// const Container = styled.View`
-//   margin: 10px;
-//   flex: 1;
-//   align-items: center;
-//   justify-content: center;
-// `;
 
 export default CleanerApplicationScreen;
