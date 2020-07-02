@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Dimensions, TextInput, StyleSheet } from 'react-native';
-// import { useRoute } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
@@ -10,58 +10,40 @@ import DashedLine from '../../components/shared/Dash';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
-import * as actions from '../../actions';
+import * as actions from '../../rdx/actions';
 
 const { width } = Dimensions.get('window');
 
-const OrderDetailScreen = ({
-  navigation,
-  addAddOns,
-  requestComplete,
-  orders,
-  addOrderAddress,
-}) => {
-  // const route = useRoute();
-  // const item = route.params;
+const OrderDetailScreen = ({ navigation, addAddOns, addOrderAddress }) => {
+  const route = useRoute();
+  const item = route.params;
+  // console.log('ROUTE: ', route);
 
-  const [polish, setPolish] = useState(orders[0].addOns.polish);
-  const [rainProtection, setRainProtection] = useState(
-    orders[0].addOns.rainProtection,
-  );
-  const [replaceLaces, setReplaceLaces] = useState(
-    orders[0].addOns.replaceLaces,
-  );
+  const [polish, setPolish] = useState(false);
+  const [rainProtection, setRainProtection] = useState(false);
+  const [replaceLaces, setReplaceLaces] = useState(false);
 
-  const [street, onChangeStreet] = useState(
-    orders[0].orderAddress.streetAddress,
-  );
-  const [unitNum, onChangeUnitNum] = useState(orders[0].orderAddress.aptNumber);
-  const [zipcode, onChangeZipcode] = useState(orders[0].orderAddress.zipcode);
-
-  // const [requestCompleted, setRequestCompleted] = useState(
-  //   orders[0].requestCompleted,
-  // );
-
-  // const [addOns, setAddOns] = useState();
+  const [street, onChangeStreet] = useState('');
+  const [unitNum, onChangeUnitNum] = useState('');
+  const [zipcode, onChangeZipcode] = useState('');
 
   const handleSubmit = () => {
-    addAddOns(orders[0].id, {
+    addAddOns(item.uuid, {
       polish: polish,
       rainProtection: rainProtection,
       replaceLaces: replaceLaces,
     });
-    addOrderAddress(orders[0].id, {
+    addOrderAddress(item.uuid, {
       streetAddress: street,
       aptNumber: unitNum,
       zipcode: zipcode,
     });
-    // requestComplete(orders[0].id, true);
     navigation.navigate('Home');
   };
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto(orders[0].image)}
+      {ShoePhoto(item.image)}
       <Container>
         <Text>Nice! The shoe cleaners are ready to work!</Text>
         <SwitchTextContainer>
@@ -70,12 +52,18 @@ const OrderDetailScreen = ({
           <SwitchText>REPLACE SHOELACES</SwitchText>
         </SwitchTextContainer>
         <SwitchContainer>
-          <AddOnSwitch switchState={polish} setSwitchState={setPolish} />
           <AddOnSwitch
+            disabled={false}
+            switchState={polish}
+            setSwitchState={setPolish}
+          />
+          <AddOnSwitch
+            disabled={false}
             switchState={rainProtection}
             setSwitchState={setRainProtection}
           />
           <AddOnSwitch
+            disabled={false}
             switchState={replaceLaces}
             setSwitchState={setReplaceLaces}
           />
@@ -205,5 +193,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, actions)(OrderDetailScreen);
-
-// border: 1px solid black;

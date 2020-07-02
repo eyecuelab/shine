@@ -1,24 +1,23 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import * as actions from '../../rdx/actions';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import OrderItem from '../../components/order/OrderItem';
 
-const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
+const { height: HEIGHT } = Dimensions.get('window');
 
-const HoemScreen = ({ orders }) => {
-  console.log('Home ORDERS: ', orders);
-
+const HomeScreen = ({ orders }) => {
   const navigation = useNavigation();
 
   const handleClick = (item) => {
-    if (orders.map((item) => item.requestCompleted)[0]) {
-      navigation.navigate('OrderStatus', item);
-    } else {
+    if (item.requestCompleted === false) {
       navigation.navigate('OrderFinal', item);
+    } else {
+      navigation.navigate('OrderStatus', item);
     }
   };
 
@@ -40,13 +39,12 @@ const HoemScreen = ({ orders }) => {
             margin: 10,
           }}
         >
-          {/* {orders.map((item) => item.requestCompleted === true)} ? ( */}
           {orders &&
             orders.map((item) => {
-              // console.log(item);
+              // console.log('ITEM', item.uuid);
               return (
                 <TouchableOpacity
-                  key={item.id}
+                  key={item.uuid}
                   onPress={() => handleClick(item)}
                 >
                   <ItemsContainer>
@@ -103,7 +101,7 @@ const ItemsContainer = styled.View`
   flex-wrap: wrap;
 `;
 
-HoemScreen.propTypes = {
+HomeScreen.propTypes = {
   orders: PropTypes.array,
 };
 
@@ -111,61 +109,4 @@ const mapStateToProps = (state) => {
   return { orders: state.orders };
 };
 
-export default connect(mapStateToProps, actions)(HoemScreen);
-
-// import React from 'react';
-// // import { Image } from 'react-native';
-// import styled from 'styled-components/native';
-// import { Button } from 'react-native-elements';
-// // import OrdersList from "../client/OrdersListScreen";
-// // import { useRoute, useNavigation } from '@react-navigation/native';
-// // import NewOrder from "../client/NewOrderScreen";
-
-// const HomeScreen = ({ navigation }) => {
-//   return (
-//     <Container>
-//       <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-//         <Image source={require('../../../assets/images/logo.png')} />
-//       </ImageArea>
-//       <Button
-//         title="NEW ORDER"
-//         containerStyle={{ paddingTop: 20, width: 350 }}
-//         buttonStyle={{ backgroundColor: 'black', height: 50, borderRadius: 7 }}
-//         onPress={() => navigation.navigate('NewOrder')}
-//       />
-//       <Button
-//         title="MY ORDERS"
-//         containerStyle={{ paddingTop: 20, width: 350 }}
-//         buttonStyle={{ backgroundColor: 'black', height: 50, borderRadius: 7 }}
-//         onPress={() => navigation.navigate('OrdersList')}
-//       />
-//     </Container>
-//   );
-// };
-
-// const Container = styled.View`
-//   flex: 1;
-//   align-items: center;
-//   justify-content: center;
-//   background-color: #cbb387;
-// `;
-
-// const ImageArea = styled.TouchableOpacity`
-//   width: 200px;
-//   height: 200px;
-//   margin-bottom: 30px;
-// `;
-
-// const Image = styled.Image`
-//   width: 100%;
-//   height: 100%;
-// `;
-
-// const Text = styled.Text`
-//   color: black;
-//   font-size: 50px;
-//   font-weight: 500;
-//   font-family: Marison-Script-Vintage;
-// `;
-
-// export default HomeScreen;
+export default connect(mapStateToProps, actions)(HomeScreen);

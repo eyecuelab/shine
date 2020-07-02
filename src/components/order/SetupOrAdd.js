@@ -4,11 +4,12 @@ import { Button } from 'react-native-elements';
 import ShoePhoto from '../shared/ShoePhoto';
 import PropTypes from 'prop-types';
 
-const SetupOrAdd = ({ image, navigation, submit }) => {
+const SetupOrAdd = ({ image, navigation, submit, orderInfo }) => {
   // onPress Function
   const handleSubmit = () => {
     submit();
-    navigation.navigate('OrderDetail');
+    // console.log('SET UP: ', orderInfo);
+    navigation.navigate('OrderDetail', orderInfo);
   };
 
   // const handleAddAnother = () => {
@@ -64,6 +65,7 @@ SetupOrAdd.propTypes = {
   navigation: PropTypes.object,
   image: PropTypes.any,
   submit: PropTypes.func,
+  orderInfo: PropTypes.object,
 };
 
 export default SetupOrAdd;

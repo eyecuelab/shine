@@ -12,6 +12,7 @@ const ScrollViewContainer = ({ contentContainerStyle, children }) => {
         justifyContent: 'flex-start',
         ...contentContainerStyle,
       }}
+      showsVerticalScrollIndicator={false}
     >
       {children}
     </ScrollView>

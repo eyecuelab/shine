@@ -1,13 +1,13 @@
 import React from 'react';
-import { ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import * as actions from '../../rdx/actions';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import OrderItem from '../../components/order/OrderItem';
 
-const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
+// const { height: HEIGHT } = Dimensions.get('window');
 
 const OrdersList = ({ orders }) => {
   // const route = useRoute();
@@ -20,12 +20,6 @@ const OrdersList = ({ orders }) => {
 
   return (
     <>
-      {/* <ListContainer>
-        <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-          <Image source={require('../../../assets/images/logo.png')} />
-        </ImageArea>
-      </ListContainer> */}
-
       <ScrollView
         contentContainerStyle={{
           flexDirection: 'row',
@@ -39,7 +33,10 @@ const OrdersList = ({ orders }) => {
           orders.map((item) => {
             // console.log(item);
             return (
-              <TouchableOpacity key={item.id} onPress={() => goToDetail(item)}>
+              <TouchableOpacity
+                key={item.uuid}
+                onPress={() => goToDetail(item)}
+              >
                 <ItemsContainer>
                   <OrderItem order={item} />
                 </ItemsContainer>
@@ -50,32 +47,6 @@ const OrdersList = ({ orders }) => {
     </>
   );
 };
-
-const HomeContainer = styled.View`
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  background-color: #cbb387;
-`;
-
-const ListContainer = styled.View`
-  width: 100%;
-  height: ${HEIGHT / 3.2}px;
-  align-items: center;
-  justify-content: center;
-  background-color: #cbb387;
-`;
-
-const ImageArea = styled.TouchableOpacity`
-  width: 200px;
-  height: 200px;
-`;
-
-const Image = styled.Image`
-  width: 100%;
-  height: 100%;
-`;
 
 const ItemsContainer = styled.View`
   margin: 10px;

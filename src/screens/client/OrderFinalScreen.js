@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable no-undef */
+import React from 'react';
 import { connect } from 'react-redux';
+import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
-import AdditionalServiceSwitch from '../../components/order/AdditionalServiceSwitch';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceWhite from '../../components/shared/PriceWhite';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
-import * as actions from '../../actions';
+import * as actions from '../../rdx/actions';
+import AddOnSwitch from '../../components/order/AddOnSwitch';
 
-const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
-  const [requestCompleted, setRequestCompleted] = useState(
-    orders[0].requestCompleted,
-  );
+const OrderFinalScreen = ({ navigation, requestComplete }) => {
+  const route = useRoute();
+  const item = route.params;
 
   const handleSubmit = () => {
-    requestComplete(orders[0].id, true);
+    requestComplete(item.uuid, true);
     //ADD MODAL TO CONFIRM, THEN NAVIGATE TO HOME
     alert('Would you like to proceed with this proposal?');
     // navigation.navigate('Home');
@@ -23,7 +25,7 @@ const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto()}
+      {ShoePhoto(item.image)}
       <Container>
         <Text>You've recieved cleaning quotes!</Text>
         <SwitchTextContainer>
@@ -32,7 +34,12 @@ const OrderFinalScreen = ({ navigation, orders, requestComplete }) => {
           <SwitchText>REPLACE SHOELACES</SwitchText>
         </SwitchTextContainer>
         <SwitchContainer>
-          <AdditionalServiceSwitch />
+          <AddOnSwitch disabled={true} switchState={item.addOns.polish} />
+          <AddOnSwitch
+            disabled={true}
+            switchState={item.addOns.rainProtection}
+          />
+          <AddOnSwitch disabled={true} switchState={item.addOns.replaceLaces} />
         </SwitchContainer>
 
         <BidsContainer>
