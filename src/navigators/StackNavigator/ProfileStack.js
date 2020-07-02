@@ -7,7 +7,7 @@ import SignUpScreen from '../../screens/shared/SignUpScreen';
 import ClientProfileScreen from '../../screens/client/ClientProfileScreen';
 import ChangePasswordScreen from '../../screens/shared/ChangePasswordScreen';
 import EditProfileScreen from '../../screens/shared/EditProfileScreen';
-import CleanerApplicationScreen from '../../screens/client/CleanerApplicationScreen';
+// import CleanerApplicationScreen from '../../screens/client/CleanerApplicationScreen';
 import PropTypes from 'prop-types';
 
 const ProfileStack = createStackNavigator();
@@ -44,10 +44,10 @@ const ProfileStackNavigator = ({ users }) => {
             name="EditProfile"
             component={EditProfileScreen}
           />
-          <ProfileStack.Screen
+          {/* <ProfileStack.Screen
             name="CleanerApplication"
             component={CleanerApplicationScreen}
-          />
+          /> */}
         </>
       )}
     </ProfileStack.Navigator>
