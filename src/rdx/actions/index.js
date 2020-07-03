@@ -52,3 +52,11 @@ export const logOut = () => {
     type: types.LOGOUT_SUCCESS,
   };
 };
+
+export const addCleanerProfile = (address, profile) => {
+  return {
+    type: types.ADD_CLEANER_PROFILE,
+    address: address,
+    payload: profile,
+  };
+};
