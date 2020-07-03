@@ -9,6 +9,7 @@ import styled from 'styled-components/native';
 // import PropTypes from 'prop-types';
 
 const CleanerApplicationScreen = () => {
+  // TODO: bring in the USERID from the AUTHREDUCER, meaning the user will have to be logged in to see this page.
   const [appInfo, setAppInfo] = useState({
     businessName: '',
     firstName: '',
@@ -16,6 +17,7 @@ const CleanerApplicationScreen = () => {
     email: '',
     phoneNumber: '',
     bio: '',
+    userId: null,
   });
   const [cleanerAddress, setCleanerAddress] = useState({
     street: '',
@@ -64,9 +66,9 @@ const CleanerApplicationScreen = () => {
         contentContainerStyle={styles.container}
         scrollEnabled={true}
       >
-        {/* <ImageArea>
+        <ImageArea>
           <Image source={require('../../../assets/images/logo-outline.png')} />
-        </ImageArea> */}
+        </ImageArea>
         <Input
           value={appInfo.businessName}
           label="Business"
