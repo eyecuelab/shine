@@ -27,6 +27,14 @@ const orderReducer = (state = [], action) => {
             zipCode: '',
           },
           requestCompleted: false,
+          createdAt: null,
+          updatedAt: null,
+          publishedAt: null,
+          quoteAcceptedAt: null,
+          cleanerId: null,
+          userId: null,
+          completedAt: null,
+          deletedAt: null,
         },
       ];
     case types.ADD_ADD_ONS:
