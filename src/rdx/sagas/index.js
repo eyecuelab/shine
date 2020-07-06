@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as actions from '../actions';
 import * as types from '../actions/types';
-import { AsyncStorage } from 'react-native';
+import { loginService } from '../services/authService';
 import {
   takeLatest,
   call,
@@ -13,16 +13,16 @@ import {
   all,
 } from 'redux-saga/effects';
 
-function loginApi(authParams) {
-  return axios.post(`https://shoeshine.herokuapp.com/login`, {
-    email: authParams['email'],
-    password: authParams['password'],
-  });
-}
+// function loginApi(authParams) {
+//   return axios.post(`https://shoeshine.herokuapp.com/login`, {
+//     email: authParams.email,
+//     password: authParams.password,
+//   });
+// }
 
-function* loginEffectSaga(action) {
+function* loginSaga(action) {
   try {
-    let { data } = yield call(loginApi, action.payload);
+    let data = yield call(loginService, action.payload);
     // console.log('DATA: ', data);
     const token = data.data.attributes.token;
     const profile = data.included[0].attributes;
@@ -34,16 +34,15 @@ function* loginEffectSaga(action) {
       }),
     );
   } catch (error) {
-    // console.log('ERROR: ', error.message);
-    yield put({ type: 'LOGIN_ERROR', error: error.response.data.message });
+    yield put({ type: types.LOGIN_ERROR, error });
   } finally {
     if (yield cancelled()) {
-      yield put({ type: 'LOGIN_CANCELLED' });
+      yield put({ type: types.LOGIN_CANCELLED });
     }
   }
 }
 
-export function* logoutEffectSaga() {
+export function* logoutSaga() {
   try {
     yield put(actions.logOut);
   } catch (error) {
@@ -52,9 +51,10 @@ export function* logoutEffectSaga() {
 }
 
 function* loginWatcherSaga() {
-  yield takeLatest('LOGIN_WATCHER', loginEffectSaga);
+  yield takeLatest(types.LOGIN_WATCHER, loginSaga);
 }
 
 export default function* rootSaga() {
-  yield all([loginWatcherSaga()]);
+  // yield all([loginWatcherSaga()]);
+  yield fork(loginWatcherSaga);
 }
