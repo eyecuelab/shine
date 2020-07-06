@@ -41,7 +41,6 @@ const HomeScreen = ({ orders }) => {
         >
           {orders &&
             orders.map((item) => {
-              // console.log('ITEM', item.uuid);
               return (
                 <TouchableOpacity
                   key={item.uuid}

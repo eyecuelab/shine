@@ -27,8 +27,7 @@ const NewOrderScreen = ({ addOrder, navigation }) => {
     SOCIAL: false,
   });
   const [note, setNote] = useState('');
-  // const [orderInfo, setOrderInfo] = useState();
-
+  const [price, setPrice] = useState(30);
   // ROUTE STATE
   const [routes] = useState([
     { key: 'first', title: 'Step 1' },
@@ -40,18 +39,16 @@ const NewOrderScreen = ({ addOrder, navigation }) => {
   const orderInfo = {
     uuid: uuid.v4(),
     image: image,
-    shoeTypes: 'indoor',
+    shoeTypes: shoeTypes,
     timeFrame: sliderValue,
     note: note,
-    price: 7,
+    price: price,
   };
-  // console.log('HOOK: ', orderInfo);
 
   const onSubmit = () => {
     addOrder({
       orderInfo,
     });
-    // console.log('ORDER INFO:', orderInfo);
     navigation.navigate('OrderDetail', orderInfo);
   };
 

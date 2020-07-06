@@ -68,6 +68,8 @@ const orderReducer = (state = [], action) => {
         }
         return item;
       });
+    case types.DELETE_ORDER:
+      return state.filter((item) => item.uuid !== action.uuid);
     default:
       return state;
   }
