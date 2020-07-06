@@ -12,23 +12,23 @@ const CleanerStackNavigator = () => {
     <CleanerStack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: 'white',
-          borderBottomColor: 'white',
-          shadowColor: 'white',
+          backgroundColor: '#CBB387',
+          borderBottomColor: '#CBB387',
+          shadowColor: '#CBB387',
         },
-        headerTintColor: 'black',
+        headerTintColor: '#FFFFFF',
         headerBackTitleVisible: false,
       }}
     >
       <CleanerStack.Screen
         name="Cleaner Option Screen"
         component={CleanerOptionScreen}
-        options={{ title: '' }}
+        options={{ title: 'SHINE' }}
       />
       <CleanerStack.Screen
         name="Cleaner Application"
         component={CleanerApplicationScreen}
-        options={{ title: 'Application' }}
+        options={{ title: 'BECOME A CLEANER' }}
       />
       <CleanerStack.Screen name="Log in" component={SignInScreen} />
     </CleanerStack.Navigator>
