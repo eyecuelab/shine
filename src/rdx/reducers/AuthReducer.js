@@ -12,21 +12,22 @@ const initialAuthState = {
 
 const authReducer = (state = initialAuthState, action) => {
   switch (action.type) {
-    // case REHYDRATE:
-    //   return {
-    //     ...state,
-    //   };
+    case REHYDRATE:
+      return {
+        ...state,
+      };
     case types.LOGIN_SUCCESS:
       return {
         ...state,
         auth: action.payload,
+        authError: null,
         status: 'Logged in',
       };
     case types.LOGIN_ERROR:
       return {
         ...state,
-        status: 'Login error',
         authError: action.error,
+        status: 'Login error',
       };
     case types.LOGIN_CANCELLED:
       return {
@@ -43,6 +44,7 @@ const authReducer = (state = initialAuthState, action) => {
           profile: {},
         },
       };
+
     default:
       return state;
   }
