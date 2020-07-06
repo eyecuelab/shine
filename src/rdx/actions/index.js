@@ -1,4 +1,5 @@
 import * as types from './types';
+import uuid from 'uuid';
 
 // ORDERS actionCreators
 export const addOrder = (order) => {
@@ -32,6 +33,13 @@ export const requestComplete = (uuid, requestCompleted) => {
   };
 };
 
+export const deleteOrder = (uuid) => {
+  return {
+    type: types.DELETE_ORDER,
+    uuid: uuid,
+  };
+};
+
 // USERS actionCreators
 export const loginWatcher = (authParams) => {
   return {
@@ -50,5 +58,14 @@ export const logIn = (profile) => {
 export const logOut = () => {
   return {
     type: types.LOGOUT_SUCCESS,
+  };
+};
+
+export const addCleanerProfile = (address, profile) => {
+  return {
+    type: types.ADD_CLEANER_PROFILE,
+    id: uuid.v4(),
+    address: address,
+    payload: profile,
   };
 };

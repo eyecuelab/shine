@@ -1,5 +1,5 @@
 import * as types from '../actions/types';
-import { REHYDRATE } from 'redux-persist/lib/constants';
+// import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const orderReducer = (state = [], action) => {
   switch (action.type) {
@@ -60,6 +60,8 @@ const orderReducer = (state = [], action) => {
         }
         return item;
       });
+    case types.DELETE_ORDER:
+      return state.filter((item) => item.uuid !== action.uuid);
     default:
       return state;
   }

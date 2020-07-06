@@ -18,7 +18,6 @@ const SignInScreen = ({ loginWatcher, users }) => {
     setSecureTextEntry((previousState) => !previousState);
   };
   const errorMessage = users.authError;
-  // console.log('USESRS', errorMessage);
   const navigation = useNavigation();
   const onSubmit = () => {
     loginWatcher({ email, password });

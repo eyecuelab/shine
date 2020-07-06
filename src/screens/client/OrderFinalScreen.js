@@ -6,21 +6,22 @@ import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
-import PriceWhite from '../../components/shared/PriceWhite';
+import PriceTagWhite from '../../components/shared/PriceTagWhite';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
 
-const OrderFinalScreen = ({ navigation, requestComplete }) => {
+const OrderFinalScreen = ({ deleteOrder, navigation }) => {
   const route = useRoute();
   const item = route.params;
-
   const handleSubmit = () => {
-    requestComplete(item.uuid, true);
-    //ADD MODAL TO CONFIRM, THEN NAVIGATE TO HOME
-    alert('Would you like to proceed with this proposal?');
-    // navigation.navigate('Home');
+    navigation.navigate('OrderConfrim', item);
+  };
+
+  const handleCancelClick = () => {
+    deleteOrder(item.uuid);
+    navigation.navigate('Home');
   };
 
   return (
@@ -42,65 +43,51 @@ const OrderFinalScreen = ({ navigation, requestComplete }) => {
           <AddOnSwitch disabled={true} switchState={item.addOns.replaceLaces} />
         </SwitchContainer>
 
+        {/* ========== NEED TO REFACTOR BELOW THIS CODE
+                 ADD CLEANER'S STATE INTO PRICE TICKET ============ */}
         <BidsContainer>
-          <PriceTicketContainer
-            onPress={() => {
-              handleSubmit();
-            }}
-          >
+          <PriceTicketContainer onPress={handleSubmit}>
             <PriceTicket
               source={require('../../../assets/images/price-ticket-black.png')}
             />
             <PriceContianer>
-              {PriceWhite(34, 99)}
+              {PriceTagWhite(34, 99)}
               <DueText>RETURNED BY THURSDAY</DueText>
             </PriceContianer>
             <ExpireText>Expires in 12HR</ExpireText>
           </PriceTicketContainer>
 
-          <PriceTicketContainer
-            onPress={() => {
-              handleSubmit();
-            }}
-          >
+          <PriceTicketContainer onPress={handleSubmit}>
             <PriceTicket
               source={require('../../../assets/images/price-ticket-black.png')}
             />
             <PriceContianer>
-              {PriceWhite(41, 99)}
+              {PriceTagWhite(41, 99)}
               <DueText>RETURNED BY TOMORROW</DueText>
             </PriceContianer>
             <ExpireText>Expires in 3HR</ExpireText>
           </PriceTicketContainer>
-
-          <PriceTicketContainer
-            onPress={() => {
-              handleSubmit();
-            }}
-          >
+          <PriceTicketContainer onPress={handleSubmit}>
             <PriceTicket
               source={require('../../../assets/images/price-ticket-black.png')}
             />
             <PriceContianer>
-              {PriceWhite(47, 99)}
+              {PriceTagWhite(47, 99)}
               <DueText>RETURNED TODAY</DueText>
             </PriceContianer>
             <ExpireText>Expires in 3MIN</ExpireText>
           </PriceTicketContainer>
         </BidsContainer>
-
+        {/* ============================================================= */}
         <Button
           title="CANCEL SERVICE"
           containerStyle={{ paddingVertical: 40, width: 350 }}
           buttonStyle={{
-            color: 'black',
             backgroundColor: '#939393',
             height: 50,
             borderRadius: 7,
           }}
-          onPress={() => {
-            navigation.navigate('Home');
-          }}
+          onPress={handleCancelClick}
         />
       </Container>
     </ScrollViewContailner>
@@ -183,6 +170,7 @@ const ExpireText = styled.Text`
 OrderFinalScreen.propTypes = {
   navigation: PropTypes.object,
   requestComplete: PropTypes.func,
+  deleteOrder: PropTypes.func,
   orders: PropTypes.array,
 };
 

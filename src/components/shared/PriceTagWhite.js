@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-const PriceWhite = (dollars, cents) => {
+const PriceTagWhite = (dollars, cents) => {
   return (
     <>
       <PriceContianer>
@@ -51,4 +51,4 @@ const CentsText = styled.Text`
   text-decoration-line: underline;
 `;
 
-export default PriceWhite;
+export default PriceTagWhite;

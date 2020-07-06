@@ -5,7 +5,7 @@ import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
-import Price from '../../components/shared/Price';
+import PriceTagBlack from '../../components/shared/PriceTagBlack';
 import DashedLine from '../../components/shared/Dash';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import { Button } from 'react-native-elements';
@@ -72,7 +72,7 @@ const OrderDetailScreen = ({ navigation, addAddOns, addOrderAddress }) => {
           <PriceTextContainer>
             <PriceText>ROUGH EST.</PriceText>
           </PriceTextContainer>
-          {Price(35, 99)}
+          {PriceTagBlack(35, 99)}
         </PriceContianer>
 
         <DashedLine />
