@@ -21,6 +21,7 @@ const ScrollViewContainer = ({ contentContainerStyle, children }) => {
 
 ScrollViewContainer.propTypes = {
   contentContainerStyle: PropTypes.object,
+  children: PropTypes.any,
 };
 
 export default ScrollViewContainer;
