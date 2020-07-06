@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-const Price = (dollars, cents) => {
+const PriceTag = (dollars, cents) => {
   return (
     <>
       <PriceContianer>
@@ -70,4 +70,4 @@ const CentsText = styled.Text`
   text-decoration-line: underline;
 `;
 
-export default Price;
+export default PriceTag;

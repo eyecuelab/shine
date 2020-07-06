@@ -6,7 +6,7 @@ import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
-import PriceWhite from '../../components/shared/PriceWhite';
+import PriceTagWhite from '../../components/shared/PriceTagWhite';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
@@ -15,7 +15,6 @@ import AddOnSwitch from '../../components/order/AddOnSwitch';
 const OrderFinalScreen = ({ deleteOrder, navigation }) => {
   const route = useRoute();
   const item = route.params;
-  console.log(item);
   const handleSubmit = () => {
     navigation.navigate('OrderConfrim', item);
   };
@@ -52,7 +51,7 @@ const OrderFinalScreen = ({ deleteOrder, navigation }) => {
               source={require('../../../assets/images/price-ticket-black.png')}
             />
             <PriceContianer>
-              {PriceWhite(34, 99)}
+              {PriceTagWhite(34, 99)}
               <DueText>RETURNED BY THURSDAY</DueText>
             </PriceContianer>
             <ExpireText>Expires in 12HR</ExpireText>
@@ -63,7 +62,7 @@ const OrderFinalScreen = ({ deleteOrder, navigation }) => {
               source={require('../../../assets/images/price-ticket-black.png')}
             />
             <PriceContianer>
-              {PriceWhite(41, 99)}
+              {PriceTagWhite(41, 99)}
               <DueText>RETURNED BY TOMORROW</DueText>
             </PriceContianer>
             <ExpireText>Expires in 3HR</ExpireText>
@@ -73,7 +72,7 @@ const OrderFinalScreen = ({ deleteOrder, navigation }) => {
               source={require('../../../assets/images/price-ticket-black.png')}
             />
             <PriceContianer>
-              {PriceWhite(47, 99)}
+              {PriceTagWhite(47, 99)}
               <DueText>RETURNED TODAY</DueText>
             </PriceContianer>
             <ExpireText>Expires in 3MIN</ExpireText>
