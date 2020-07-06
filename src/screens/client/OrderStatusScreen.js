@@ -4,7 +4,7 @@ import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
-import PriceWhite from '../../components/shared/PriceWhite';
+import PriceTagWhite from '../../components/shared/PriceTagWhite';
 import DashedLine from '../../components/shared/Dash';
 import UnselectedSwitch from '../../components/shared/UnselectedSwitch';
 
@@ -20,7 +20,7 @@ const OrderStatusScreen = () => {
             source={require('../../../assets/images/price-ticket-beige.png')}
           />
           <PriceContianer>
-            {PriceWhite(34, 99)}
+            {PriceTagWhite(34, 99)}
             <DueText>RETURNED BY THURSDAY</DueText>
           </PriceContianer>
           <ServiceText>ADD POLISH, ADD RAIN PROTECTION</ServiceText>

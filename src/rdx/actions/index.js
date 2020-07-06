@@ -33,6 +33,13 @@ export const requestComplete = (uuid, requestCompleted) => {
   };
 };
 
+export const deleteOrder = (uuid) => {
+  return {
+    type: types.DELETE_ORDER,
+    uuid: uuid,
+  };
+};
+
 // USERS actionCreators
 export const loginWatcher = (authParams) => {
   return {
