@@ -11,13 +11,13 @@ export const loginService = (request) => {
 
   return fetch(LOGIN_API_ENDPOINT, parameters)
     .then((response) => {
-      console.log('R::', response);
+      // console.log('R::', response);
       if (response.ok && response.status === 200) {
         return response.json();
       }
     })
     .then((json) => {
-      console.log('J::', json);
+      // console.log('J::', json);
       return json;
     });
 };

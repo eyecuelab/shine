@@ -47,12 +47,6 @@ export const loginWatcher = (authParams) => {
     payload: authParams,
   };
 };
-// export const loginWatcher = (authParams) => {
-//   return {
-//     type: types.LOGIN_WATCHER,
-//     authParams,
-//   };
-// };
 
 export const logIn = (profile) => {
   return {
