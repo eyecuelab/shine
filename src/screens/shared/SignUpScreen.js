@@ -1,9 +1,16 @@
 import * as React from 'react';
+import {
+  Dimensions,
+  TextInput,
+  StyleSheet,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-elements';
-import { Dimensions, TextInput, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
@@ -36,77 +43,87 @@ const SignUpScreen = ({ signupWatcher, users }) => {
 
   return (
     <>
-      <Container>
-        <TextInput
-          placeholder="Email"
-          returnKeyType="next"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={false}
-          style={styles.input}
-          value={email}
-          onChangeText={setEmail}
-        />
-        <TextInput
-          placeholder="First Name"
-          returnKeyType="next"
-          autoCapitalize="words"
-          autoCorrect={false}
-          style={styles.input}
-          value={firstName}
-          onChangeText={setFirstName}
-        />
-        <TextInput
-          placeholder="Last Name"
-          returnKeyType="next"
-          autoCapitalize="words"
-          autoCorrect={false}
-          style={styles.input}
-          value={lastName}
-          onChangeText={setLastName}
-        />
-        <InputContainer>
-          <TextInput
-            placeholder="Password"
-            returnKeyType="done"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-            style={styles.input}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={secureTextEntry}
-          />
-          <SecureButton onPress={toggleSecureTextEntry}>
-            {secureTextEntry ? (
-              <Feather name="eye-off" color="grey" size={20} />
-            ) : (
-              <Feather name="eye" color="grey" size={20} />
-            )}
-          </SecureButton>
-        </InputContainer>
-        {statusMessage !== null ? (
-          <ErrorTextContainer>
-            <Text>{statusMessage}</Text>
-          </ErrorTextContainer>
-        ) : null}
+      <KeyboardAvoidingView
+        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <Container>
+            <TextInput
+              placeholder="Email"
+              returnKeyType="next"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
+              style={styles.input}
+              value={email}
+              onChangeText={setEmail}
+            />
+            <TextInput
+              placeholder="First Name"
+              returnKeyType="next"
+              autoCapitalize="words"
+              autoCorrect={false}
+              style={styles.input}
+              value={firstName}
+              onChangeText={setFirstName}
+            />
+            <TextInput
+              placeholder="Last Name"
+              returnKeyType="next"
+              autoCapitalize="words"
+              autoCorrect={false}
+              style={styles.input}
+              value={lastName}
+              onChangeText={setLastName}
+            />
+            <InputContainer>
+              <TextInput
+                placeholder="Password"
+                returnKeyType="done"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+                style={styles.input}
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={secureTextEntry}
+              />
+              <SecureButton onPress={toggleSecureTextEntry}>
+                {secureTextEntry ? (
+                  <Feather name="eye-off" color="grey" size={20} />
+                ) : (
+                  <Feather name="eye" color="grey" size={20} />
+                )}
+              </SecureButton>
+            </InputContainer>
+            {statusMessage !== null ? (
+              <ErrorTextContainer>
+                <Text>{statusMessage}</Text>
+              </ErrorTextContainer>
+            ) : null}
 
-        <Button
-          title="Sign up"
-          containerStyle={{ paddingTop: 20, width: 350 }}
-          buttonStyle={{
-            backgroundColor: 'black',
-            height: 50,
-            borderRadius: 7,
-          }}
-          onPress={onSubmit}
-        />
-      </Container>
+            <Button
+              title="Sign up"
+              containerStyle={{ paddingTop: 20, width: 350 }}
+              buttonStyle={{
+                backgroundColor: 'black',
+                height: 50,
+                borderRadius: 7,
+              }}
+              onPress={onSubmit}
+            />
+          </Container>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   input: {
     borderBottomColor: '#8A8F9E',
     borderBottomWidth: StyleSheet.hairlineWidth,
