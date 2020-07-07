@@ -5,10 +5,10 @@ import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-elements';
 import { Dimensions, TextInput, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { loginWatcher } from '../../rdx/actions';
+import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const SignInScreen = ({ loginWatcher, users }) => {
   const [email, setEmail] = React.useState('');
@@ -19,8 +19,9 @@ const SignInScreen = ({ loginWatcher, users }) => {
   };
   const errorMessage = users.authMessage;
   const navigation = useNavigation();
+
   const onSubmit = () => {
-    loginWatcher({ email, password });
+    loginWatcher({ email: email, password: password });
     navigation.navigate('Profile');
   };
 
@@ -71,7 +72,7 @@ const SignInScreen = ({ loginWatcher, users }) => {
             height: 50,
             borderRadius: 7,
           }}
-          onPress={() => onSubmit()}
+          onPress={onSubmit}
         />
       </Container>
     </>
@@ -131,10 +132,10 @@ const mapStateToProps = (state) => {
   return { users: state.users };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loginWatcher: (user) => dispatch(loginWatcher(user)),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     loginWatcher: (user) => dispatch(loginWatcher(user)),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);
+export default connect(mapStateToProps, actions)(SignInScreen);

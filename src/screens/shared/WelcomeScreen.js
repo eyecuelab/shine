@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
-import { signupWatcher } from '../../rdx/actions';
+import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
 
 const WelcomeScreen = ({ navigation, signupWatcher }) => {
@@ -73,10 +73,10 @@ const mapStateToProps = (state) => {
   return { users: state.users };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signupWatcher: (user) => dispatch(signupWatcher(user)),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     signupWatcher: (user) => dispatch(signupWatcher(user)),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WelcomeScreen);
+export default connect(mapStateToProps, actions)(WelcomeScreen);
