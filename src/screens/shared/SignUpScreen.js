@@ -19,22 +19,18 @@ const SignUpScreen = ({ signupWatcher, users }) => {
   const toggleSecureTextEntry = () => {
     setSecureTextEntry((previousState) => !previousState);
   };
-  const statusMessage = users.authMessage;
+
+  const statusMessage = users.signupMessage;
   const navigation = useNavigation();
 
   const onSubmit = () => {
-    // console.log({
-    //   email: email,
-    //   first_name: firstName,
-    //   last_name: lastName,
-    //   password: password,
-    // });
     signupWatcher({
       email: email,
       first_name: firstName,
       last_name: lastName,
       password: password,
     });
+    // TODO: add modal to confrim signed up status and route to login page
     // navigation.navigate('LogIn');
   };
 

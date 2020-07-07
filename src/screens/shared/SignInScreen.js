@@ -17,7 +17,7 @@ const SignInScreen = ({ loginWatcher, users }) => {
   const toggleSecureTextEntry = () => {
     setSecureTextEntry((previousState) => !previousState);
   };
-  const errorMessage = users.authMessage;
+  const errorMessage = users.errorMessage;
   const navigation = useNavigation();
 
   const onSubmit = () => {
