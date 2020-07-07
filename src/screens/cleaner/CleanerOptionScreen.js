@@ -6,8 +6,7 @@ import { Button } from 'react-native-elements';
 import * as actions from '../../rdx/actions';
 import { connect } from 'react-redux';
 
-const CleanerOptionScreen = ({ orders, loadOrders, navigation }) => {
-  console.log(orders);
+const CleanerOptionScreen = ({ loadOrders, navigation }) => {
   return (
     <>
       <Container>
@@ -75,11 +74,15 @@ const TextLink = styled.Text`
 `;
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders };
+  return {
+    users: state.users,
+    orders: state.orders,
+  };
 };
 
 CleanerOptionScreen.propTypes = {
   navigation: PropTypes.object,
+  loadOrders: PropTypes.func,
 };
 
 export default connect(mapStateToProps, actions)(CleanerOptionScreen);

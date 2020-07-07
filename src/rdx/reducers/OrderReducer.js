@@ -2,13 +2,14 @@ import * as types from '../actions/types';
 // import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const orderReducer = (state = [], action) => {
+  // console.log(action);
   switch (action.type) {
     // case REHYDRATE:
     //   return [];
     case types.LOAD_SUCCESS:
+      // console.log(action.payload);
       return [...state, action.payload];
     case types.ADD_ORDER:
-      // console.log('REDUCER: ', action.payload.image);
       return [
         ...state,
         {

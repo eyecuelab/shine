@@ -1,4 +1,4 @@
-import types from '../actions/types';
+import * as types from '../actions/types';
 
 const errorReducer = (state = null, action) => {
   switch (action.type) {
