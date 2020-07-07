@@ -6,7 +6,8 @@ import { Button } from 'react-native-elements';
 import * as actions from '../../rdx/actions';
 import { connect } from 'react-redux';
 
-const CleanerOptionScreen = ({ loadOrders, navigation }) => {
+const CleanerOptionScreen = ({ orders, loadOrders, navigation }) => {
+  console.log('ORDERS: ', orders);
   return (
     <>
       <Container>

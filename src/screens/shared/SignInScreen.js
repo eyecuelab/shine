@@ -131,10 +131,4 @@ const mapStateToProps = (state) => {
   return { users: state.users };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     loginWatcher: (user) => dispatch(loginWatcher(user)),
-//   };
-// };
-
 export default connect(mapStateToProps, actions)(SignInScreen);
