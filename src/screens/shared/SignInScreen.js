@@ -42,7 +42,6 @@ const SignInScreen = ({ loginWatcher, users }) => {
           <TextInput
             placeholder="Password"
             returnKeyType="done"
-            keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
             style={styles.input}
