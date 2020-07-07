@@ -5,6 +5,8 @@ const orderReducer = (state = [], action) => {
   switch (action.type) {
     // case REHYDRATE:
     //   return [];
+    case types.SET_ORDERS:
+      return [...state, action.payload];
     case types.ADD_ORDER:
       // console.log('REDUCER: ', action.payload.image);
       return [

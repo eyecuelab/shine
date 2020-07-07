@@ -2,6 +2,15 @@ import * as types from './types';
 import uuid from 'uuid';
 
 // ORDERS actionCreators
+
+export const setOrders = (orders) => {
+  console.log('SET ORDERS: ', orders);
+  return {
+    type: types.SET_ORDERS,
+    payload: orders,
+  };
+};
+
 export const addOrder = (order) => {
   return {
     type: types.ADD_ORDER,
@@ -67,5 +76,11 @@ export const addCleanerProfile = (address, profile) => {
     id: uuid.v4(),
     address: address,
     payload: profile,
+  };
+};
+
+export const getOrders = () => {
+  return {
+    type: types.GET_ORDERS,
   };
 };

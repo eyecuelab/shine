@@ -1,4 +1,5 @@
 import axios from 'axios';
+import ordersSaga from './ordersSaga';
 import * as actions from '../actions';
 import * as types from '../actions/types';
 import { AsyncStorage } from 'react-native';
@@ -56,5 +57,5 @@ function* loginWatcherSaga() {
 }
 
 export default function* rootSaga() {
-  yield all([loginWatcherSaga()]);
+  yield all([loginWatcherSaga(), ordersSaga()]);
 }

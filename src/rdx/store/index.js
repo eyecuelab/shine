@@ -18,5 +18,6 @@ let store = createStore(persistedReducer, reduxDevTools(middleware));
 let persistor = persistStore(store);
 
 sagaMiddleware.run(rootSaga);
+store.dispatch({ type: 'GET_ORDERS' });
 
 export { store, persistor };
