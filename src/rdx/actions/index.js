@@ -68,6 +68,20 @@ export const logOut = () => {
   };
 };
 
+export const signupWatcher = (user) => {
+  // console.log('SIGNUP USER: ', user);
+  return {
+    type: types.SIGNUP_WATCHER,
+    payload: user,
+  };
+};
+
+export const signUp = () => {
+  return {
+    type: types.SIGNUP_SUCCESS,
+  };
+};
+
 export const addCleanerProfile = (address, profile) => {
   return {
     type: types.ADD_CLEANER_PROFILE,

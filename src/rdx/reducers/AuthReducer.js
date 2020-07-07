@@ -44,7 +44,8 @@ const authReducer = (state = initialAuthState, action) => {
           profile: {},
         },
       };
-
+    case types.SIGNUP_SUCCESS:
+      console.log('Signup success');
     default:
       return state;
   }

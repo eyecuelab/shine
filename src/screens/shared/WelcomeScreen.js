@@ -1,8 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
+import { signupWatcher } from '../../rdx/actions';
+import PropTypes from 'prop-types';
 
-const WelcomeScreen = ({ navigation }) => {
+const WelcomeScreen = ({ navigation, signupWatcher }) => {
+  const user = {
+    first_name: 'Jieun',
+    last_name: 'Kang',
+    email: 'example5@example.com',
+    password: 'theshoe',
+  };
+
   return (
     <Container>
       <ImageArea>
@@ -12,7 +22,8 @@ const WelcomeScreen = ({ navigation }) => {
         title="Sign up with Email"
         containerStyle={{ paddingTop: 20, width: 350, marginVertical: 20 }}
         buttonStyle={{ backgroundColor: 'black', height: 50, borderRadius: 7 }}
-        onPress={() => navigation.navigate('SignUp')}
+        // onPress={() => navigation.navigate('SignUp')}
+        onPress={() => signupWatcher(user)}
       />
       <Text>
         Already have an account?{' '}
@@ -53,4 +64,19 @@ const TextLink = styled.Text`
   font-weight: 600;
 `;
 
-export default WelcomeScreen;
+WelcomeScreen.propTypes = {
+  signupWatcher: PropTypes.func,
+  users: PropTypes.object,
+};
+
+const mapStateToProps = (state) => {
+  return { users: state.users };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signupWatcher: (user) => dispatch(signupWatcher(user)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WelcomeScreen);
