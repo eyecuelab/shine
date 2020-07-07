@@ -31,13 +31,14 @@ export const logoutUserService = (request) => {
 };
 
 export const signUpUserService = (request) => {
-  // console.log('REQUEST: ', request);
   const SIGNUP_API_ENDPOINT = 'https://shoeshine.herokuapp.com/signup';
 
   const parameters = {
     method: 'POST',
     headers: {
+      Accept: 'application/json',
       'Content-Type': 'application/json',
+      mode: 'no-cors',
     },
     body: JSON.stringify(request),
   };

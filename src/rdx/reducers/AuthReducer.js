@@ -6,7 +6,7 @@ const initialAuthState = {
     token: null,
     profile: {},
   },
-  authError: null,
+  authMessage: null,
   status: 'Logged out',
 };
 
@@ -20,19 +20,19 @@ const authReducer = (state = initialAuthState, action) => {
       return {
         ...state,
         auth: action.payload,
-        authError: null,
+        authMessage: null,
         status: 'Logged in',
       };
     case types.LOGIN_ERROR:
       return {
         ...state,
-        authError: action.error,
+        authMessage: action.error,
         status: 'Login error',
       };
     case types.LOGIN_CANCELLED:
       return {
         ...state,
-        authError: null,
+        authMessage: null,
         status: 'Login cancelled',
       };
     case types.LOGOUT_SUCCESS:
@@ -45,7 +45,15 @@ const authReducer = (state = initialAuthState, action) => {
         },
       };
     case types.SIGNUP_SUCCESS:
-      console.log('Signup success');
+      return {
+        ...state,
+        status: 'Signed up',
+        auth: {
+          token: null,
+          profile: {},
+        },
+        authMessage: 'You have seccessfully signed up',
+      };
     default:
       return state;
   }

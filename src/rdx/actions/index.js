@@ -69,7 +69,6 @@ export const logOut = () => {
 };
 
 export const signupWatcher = (user) => {
-  // console.log('SIGNUP USER: ', user);
   return {
     type: types.SIGNUP_WATCHER,
     payload: user,

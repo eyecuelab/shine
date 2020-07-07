@@ -27,7 +27,7 @@ export function* loginSaga(action) {
     }
   } catch (error) {
     console.log('Login Error: ', error);
-    yield put({ type: types.LOGIN_ERROR, error: error });
+    yield put({ type: types.LOGIN_ERROR, error: error.status });
   } finally {
     if (yield cancelled()) {
       yield put({ type: types.LOGIN_CANCELLED });
@@ -51,15 +51,15 @@ export function* logoutSaga(action) {
 export function* signupSaga(action) {
   try {
     let response = yield call(signUpUserService, action.payload);
-    console.log('SIGNUP RESPONSE: ', response);
+    // console.log('SIGNUP RESPONSE: ', response);
     if (response.ok && response.status === 204) {
       yield put(actions.signUp());
     } else {
       throw response;
     }
   } catch (error) {
-    console.log('SIGNUP ERROR: ', error.response.body.message);
-    yield put({ type: types.SIGNUP_ERROR, error: error.status });
+    console.log('SIGNUP ERROR: ', error);
+    yield put({ type: types.SIGNUP_ERROR, error });
   } finally {
     if (yield cancelled()) {
       yield put({ type: types.SIGNUP_CANCELLED });
