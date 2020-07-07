@@ -7,6 +7,7 @@ export const getToken = (state) => state.users.token;
 
 export function* handleOrdersLoad() {
   try {
+    console.log('SAGA! ');
     const token = yield select(getToken);
     const orders = yield call(fetchOrders, token);
     yield put(setOrders(orders));

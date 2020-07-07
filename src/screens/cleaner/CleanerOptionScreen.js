@@ -3,8 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
+import * as actions from '../../rdx/actions';
+import { connect } from 'react-redux';
 
-const CleanerOptionScreen = ({ navigation }) => {
+const CleanerOptionScreen = ({ orders, loadOrders, navigation }) => {
+  console.log(orders);
   return (
     <>
       <Container>
@@ -20,6 +23,16 @@ const CleanerOptionScreen = ({ navigation }) => {
             borderRadius: 7,
           }}
           onPress={() => navigation.navigate('Cleaner Application')}
+        />
+        <Button
+          title="TEST SAGA"
+          containerStyle={{ paddingTop: 20, width: 350, marginVertical: 20 }}
+          buttonStyle={{
+            backgroundColor: 'black',
+            height: 50,
+            borderRadius: 7,
+          }}
+          onPress={() => loadOrders()}
         />
         <Text>
           Already have a cleaner account?{' '}
@@ -61,8 +74,12 @@ const TextLink = styled.Text`
   font-weight: 600;
 `;
 
+const mapStateToProps = (state) => {
+  return { orders: state.orders };
+};
+
 CleanerOptionScreen.propTypes = {
   navigation: PropTypes.object,
 };
 
-export default CleanerOptionScreen;
+export default connect(mapStateToProps, actions)(CleanerOptionScreen);
