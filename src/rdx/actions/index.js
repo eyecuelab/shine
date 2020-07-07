@@ -1,8 +1,6 @@
 import * as types from './types';
 import uuid from 'uuid';
 
-// ORDERS actionCreators
-
 export const loadOrders = () => {
   return {
     type: types.LOAD_ORDERS,

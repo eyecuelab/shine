@@ -1,6 +1,6 @@
 export const loginUserService = (request) => {
-  const LOGIN_API_ENDPOINT = 'https://shoeshine.herokuapp.com/login';
-  // const LOGIN_API_ENDPOINT = 'http://localhost:8080/login';
+  // const LOGIN_API_ENDPOINT = 'https://shoeshine.herokuapp.com/login';
+  const LOGIN_API_ENDPOINT = 'http://localhost:8080/login';
 
   const parameters = {
     method: 'POST',

@@ -1,16 +1,19 @@
 const fetchOrders = async (token) => {
-  const response = await fetch('http://localhost:8080/orders', {
+  console.log(token);
+  const response = await fetch('http://127.0.0.1:8080/orders', {
     method: 'GET',
     headers: {
       Authorization: token,
     },
   });
-  const data = await response.json();
-  // console.log('DATA: ', data);
-  if (response.status >= 400) {
-    throw new Error(data.errors);
+  const result = await response.json();
+  console.log('API CALL: ', result.data);
+
+  if (response.statusCode > 400) {
+    throw new Error(result.data.errors);
+  } else {
+    return result.data;
   }
-  return data;
 };
 
 export { fetchOrders };
