@@ -17,7 +17,6 @@ const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 let store = createStore(persistedReducer, reduxDevTools(middleware));
 let persistor = persistStore(store);
 
-sagaMiddleware.run(rootSaga);
-store.dispatch({ type: 'GET_ORDERS' });
+// sagaMiddleware.run(rootSaga);
 
-export { store, persistor };
+export { store, persistor, sagaMiddleware };

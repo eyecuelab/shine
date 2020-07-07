@@ -6,7 +6,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import RootNavigator from './src/navigators/RootNavigator/index';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './src/rdx/store';
+import { store, persistor, sagaMiddleware } from './src/rdx/store';
+import rootSaga from './src/rdx/sagas';
+
+sagaMiddleware.run(rootSaga);
 
 const App = () => {
   let [fontsLoaded] = useFonts({
