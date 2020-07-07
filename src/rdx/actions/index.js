@@ -41,10 +41,10 @@ export const deleteOrder = (uuid) => {
 };
 
 // USERS actionCreators
-export const loginWatcher = (authParams) => {
+export const loginWatcher = (user) => {
   return {
     type: types.LOGIN_WATCHER,
-    payload: authParams,
+    payload: user,
   };
 };
 
@@ -52,6 +52,13 @@ export const logIn = (profile) => {
   return {
     type: types.LOGIN_SUCCESS,
     payload: profile,
+  };
+};
+
+export const logoutWatcher = (token) => {
+  return {
+    type: types.LOGOUT_WATCHER,
+    payload: token,
   };
 };
 

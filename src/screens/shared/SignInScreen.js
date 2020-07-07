@@ -133,7 +133,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loginWatcher: (authParams) => dispatch(loginWatcher(authParams)),
+    loginWatcher: (user) => dispatch(loginWatcher(user)),
   };
 };
 

@@ -1,4 +1,5 @@
 export const loginService = (request) => {
+  // console.log('LOGIN REQUEST', request);
   const LOGIN_API_ENDPOINT = 'https://shoeshine.herokuapp.com/login';
 
   const parameters = {
@@ -14,18 +15,20 @@ export const loginService = (request) => {
   });
 };
 
-// return fetch(LOGIN_API_ENDPOINT, parameters)
-// .then((response) => {
-//   console.log('RESPONSE::', response);
-//   return response.json();
-//   // if (response.ok && response.status === 200) {
-//   //   return response.json();
-//   // } else {
-//   //   return false;
-//   // }
-// })
-// .then((json) => {
-//   console.log('JSON::', json);
-//   return json;
-// });
-// };
+export const logoutService = (request) => {
+  // console.log('LOGOUT REQUEST', request);
+  const LOGOUT_API_ENDPOINT = 'https://shoeshine.herokuapp.com/logout';
+
+  const parameters = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'WWW-Authenticate': request,
+    },
+  };
+  console.log('PARAMS::', parameters);
+
+  return fetch(LOGOUT_API_ENDPOINT, parameters).then((response) => {
+    return response;
+  });
+};
