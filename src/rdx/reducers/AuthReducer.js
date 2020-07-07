@@ -17,6 +17,7 @@ const authReducer = (state = initialAuthState, action) => {
         ...state,
       };
     case types.LOGIN_SUCCESS:
+      console.log('REDUCER', action.payload.token);
       return {
         ...state,
         auth: action.payload,

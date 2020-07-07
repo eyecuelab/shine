@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import { ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as actions from '../../rdx/actions';
 import { useNavigation } from '@react-navigation/native';

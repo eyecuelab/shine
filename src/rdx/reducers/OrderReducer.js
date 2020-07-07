@@ -5,6 +5,8 @@ const orderReducer = (state = [], action) => {
   switch (action.type) {
     // case REHYDRATE:
     //   return [];
+    case types.LOAD_SUCCESS:
+      return [...state, action.payload];
     case types.ADD_ORDER:
       // console.log('REDUCER: ', action.payload.image);
       return [
@@ -27,6 +29,14 @@ const orderReducer = (state = [], action) => {
             zipCode: '',
           },
           requestCompleted: false,
+          createdAt: null,
+          updatedAt: null,
+          publishedAt: null,
+          quoteAcceptedAt: null,
+          cleanerId: null,
+          userId: null,
+          completedAt: null,
+          deletedAt: null,
         },
       ];
     case types.ADD_ADD_ONS:
