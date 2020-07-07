@@ -10,7 +10,6 @@ export const loadOrders = () => {
 };
 
 export const setOrders = (orders) => {
-  console.log('SET ORDERS: ', orders);
   return {
     type: types.LOAD_ORDERS_SUCCESS,
     payload: orders,
