@@ -3,11 +3,11 @@ import * as types from '../actions/types';
 import { fetchOrders } from '../api';
 import { setOrders } from '../actions';
 
-export const getToken = (state) => state.users.token;
+// export const getToken = (state) => state.users.token;
 
-export function* handleOrdersLoad() {
-  const token = yield select(getToken);
-  console.log(token);
+export function* handleOrdersLoad(token) {
+  // const token = yield select(getToken);
+  console.log('TOKEN:', token);
   const orders = yield call(fetchOrders, token);
   yield put(setOrders(orders));
 }

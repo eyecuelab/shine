@@ -3,6 +3,7 @@ import * as actions from '../actions';
 import * as types from '../actions/types';
 import { loginService } from '../services/authService';
 import { call, put, cancelled } from 'redux-saga/effects';
+import { handleOrdersLoad } from './ordersSaga';
 
 // function loginApi(authParams) {
 //   return axios.post(`https://shoeshine.herokuapp.com/login`, {
@@ -24,6 +25,7 @@ export function* loginSaga(action) {
         profile: profile,
       }),
     );
+    yield call(handleOrdersLoad, token);
   } catch (error) {
     yield put({ type: types.LOGIN_ERROR, error });
   } finally {
