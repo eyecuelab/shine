@@ -6,7 +6,8 @@ const initialAuthState = {
     token: null,
     profile: {},
   },
-  authError: null,
+  errorMessage: null,
+  signupMessage: null,
   status: 'Logged out',
 };
 
@@ -20,31 +21,52 @@ const authReducer = (state = initialAuthState, action) => {
       return {
         ...state,
         auth: action.payload,
-        authError: null,
+        errorMessage: null,
+        signupMessage: null,
         status: 'Logged in',
       };
     case types.LOGIN_ERROR:
       return {
         ...state,
-        authError: action.error,
+        errorMessage: action.error,
+        signupMessage: null,
         status: 'Login error',
       };
     case types.LOGIN_CANCELLED:
       return {
         ...state,
-        authError: null,
+        errorMessage: null,
+        signupMessage: null,
         status: 'Login cancelled',
       };
     case types.LOGOUT_SUCCESS:
       return {
         ...state,
-        status: 'Logged out',
         auth: {
           token: null,
           profile: {},
         },
+        errorMessage: null,
+        signupMessage: null,
+        status: 'Logged out',
       };
-
+    case types.SIGNUP_SUCCESS:
+      return {
+        ...state,
+        auth: {
+          token: null,
+          profile: {},
+        },
+        errorMessage: null,
+        signupMessage: 'You have seccessfully signed up',
+        status: 'Signed up',
+      };
+    case types.SIGNUP_ERROR:
+      return {
+        ...state,
+        signupMessage: action.error,
+        status: 'Signup error',
+      };
     default:
       return state;
   }

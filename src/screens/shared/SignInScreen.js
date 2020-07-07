@@ -17,7 +17,7 @@ const SignInScreen = ({ loginWatcher, users }) => {
   const toggleSecureTextEntry = () => {
     setSecureTextEntry((previousState) => !previousState);
   };
-  const errorMessage = users.authError;
+  const errorMessage = users.errorMessage;
   const navigation = useNavigation();
 
   const onSubmit = () => {
@@ -42,7 +42,6 @@ const SignInScreen = ({ loginWatcher, users }) => {
           <TextInput
             placeholder="Password"
             returnKeyType="done"
-            keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
             style={styles.input}
@@ -72,7 +71,7 @@ const SignInScreen = ({ loginWatcher, users }) => {
             height: 50,
             borderRadius: 7,
           }}
-          onPress={() => onSubmit()}
+          onPress={onSubmit}
         />
       </Container>
     </>
@@ -134,7 +133,7 @@ const mapStateToProps = (state) => {
 
 // const mapDispatchToProps = (dispatch) => {
 //   return {
-//     loginWatcher: (authParams) => dispatch(loginWatcher(authParams)),
+//     loginWatcher: (user) => dispatch(loginWatcher(user)),
 //   };
 // };
 
