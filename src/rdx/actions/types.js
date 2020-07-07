@@ -1,6 +1,7 @@
 // ORDERS Action Constants
-export const GET_ORDERS = 'GET_ORDERS';
-export const SET_ORDERS = 'SET_ORDERS';
+export const LOAD_ORDERS = 'LOAD_ORDERS';
+export const LOAD_ORDERS_SUCCESS = 'LOAD_ORDERS_SUCCESS';
+export const LOAD_ORDERS_FAIL = 'LOAD_ORDERS_FAIL';
 export const ADD_ORDER = 'ADD_ORDER';
 export const ADD_ADD_ONS = 'ADD_ADD_ONS';
 export const ADD_ORDER_ADDRESS = 'ADD_ORDER_ADDRESS';

@@ -3,11 +3,24 @@ import uuid from 'uuid';
 
 // ORDERS actionCreators
 
+export const loadOrders = () => {
+  return {
+    type: types.LOAD_ORDERS,
+  };
+};
+
 export const setOrders = (orders) => {
   console.log('SET ORDERS: ', orders);
   return {
-    type: types.SET_ORDERS,
+    type: types.LOAD_ORDERS_SUCCESS,
     payload: orders,
+  };
+};
+
+export const setError = (error) => {
+  return {
+    type: types.LOAD_ORDERS_FAIL,
+    error,
   };
 };
 
@@ -76,11 +89,5 @@ export const addCleanerProfile = (address, profile) => {
     id: uuid.v4(),
     address: address,
     payload: profile,
-  };
-};
-
-export const getOrders = () => {
-  return {
-    type: types.GET_ORDERS,
   };
 };

@@ -6,9 +6,9 @@ const fetchOrders = async (token) => {
     },
   });
   const data = await response.json();
-  // if (response.status > 400) {
-  //   throw new Error('something went wrong');
-  // }
+  if (response.status >= 400) {
+    throw new Error(data.errors);
+  }
   return data;
 };
 
