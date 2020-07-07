@@ -12,10 +12,10 @@ const initialAuthState = {
 
 const authReducer = (state = initialAuthState, action) => {
   switch (action.type) {
-    case REHYDRATE:
-      return {
-        ...state,
-      };
+    // case REHYDRATE:
+    //   return {
+    //     ...state,
+    //   };
     case types.LOGIN_SUCCESS:
       return {
         ...state,
@@ -53,6 +53,12 @@ const authReducer = (state = initialAuthState, action) => {
           profile: {},
         },
         authMessage: 'You have seccessfully signed up',
+      };
+    case types.SIGNUP_ERROR:
+      return {
+        ...state,
+        authMessage: action.error,
+        status: 'Signup error',
       };
     default:
       return state;

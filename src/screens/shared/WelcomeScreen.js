@@ -7,9 +7,9 @@ import PropTypes from 'prop-types';
 
 const WelcomeScreen = ({ navigation, signupWatcher }) => {
   const user = {
-    first_name: 'Sofia',
-    last_name: 'First',
-    email: 'example6@example.com',
+    first_name: 'Jieun',
+    last_name: 'Kang',
+    email: 'example5@example.com',
     password: 'theshoe',
   };
 
