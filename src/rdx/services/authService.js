@@ -9,15 +9,23 @@ export const loginService = (request) => {
     body: JSON.stringify(request),
   };
 
-  return fetch(LOGIN_API_ENDPOINT, parameters)
-    .then((response) => {
-      // console.log('R::', response);
-      if (response.ok && response.status === 200) {
-        return response.json();
-      }
-    })
-    .then((json) => {
-      // console.log('J::', json);
-      return json;
-    });
+  return fetch(LOGIN_API_ENDPOINT, parameters).then((response) => {
+    return response;
+  });
 };
+
+// return fetch(LOGIN_API_ENDPOINT, parameters)
+// .then((response) => {
+//   console.log('RESPONSE::', response);
+//   return response.json();
+//   // if (response.ok && response.status === 200) {
+//   //   return response.json();
+//   // } else {
+//   //   return false;
+//   // }
+// })
+// .then((json) => {
+//   console.log('JSON::', json);
+//   return json;
+// });
+// };

@@ -11,21 +11,49 @@ import { call, put, cancelled } from 'redux-saga/effects';
 //   });
 // }
 
+// export function* loginSaga(action) {
+//   try {
+//     let data = yield call(loginService, action.payload);
+//     // console.log('DATA: ', data);
+//     const token = data.data.attributes.token;
+//     const profile = data.included[0].attributes;
+
+//     yield put(
+//       actions.logIn({
+//         token: token,
+//         profile: profile,
+//       }),
+//     );
+//   } catch (error) {
+//     yield put({ type: types.LOGIN_ERROR, error: error.message });
+//   } finally {
+//     if (yield cancelled()) {
+//       yield put({ type: types.LOGIN_CANCELLED });
+//     }
+//   }
+// }
+
 export function* loginSaga(action) {
   try {
-    let data = yield call(loginService, action.payload);
-    // console.log('DATA: ', data);
-    const token = data.data.attributes.token;
-    const profile = data.included[0].attributes;
+    let response = yield call(loginService, action.payload);
 
-    yield put(
-      actions.logIn({
-        token: token,
-        profile: profile,
-      }),
-    );
+    if (response.ok && response.status === 200) {
+      const data = yield response.json();
+      const token = data.data.attributes.token;
+      const profile = data.included[0].attributes;
+
+      yield put(
+        actions.logIn({
+          token: token,
+          profile: profile,
+        }),
+      );
+    } else {
+      throw response;
+    }
   } catch (error) {
-    yield put({ type: types.LOGIN_ERROR, error });
+    console.log('E', error);
+    yield put({ type: types.LOGIN_ERROR, error: error.status });
   } finally {
     if (yield cancelled()) {
       yield put({ type: types.LOGIN_CANCELLED });
