@@ -18,8 +18,9 @@ const fetchOrders = async (token) => {
 };
 
 function* postOrder(order, token) {
-  // console.log(order);
-  // console.log(JSON.stringify(order));
+  console.log(order);
+  console.log(order.add_ons);
+  console.log(JSON.stringify(order));
   const urlLink = 'http://127.0.0.1:8080/orders';
   const response = yield fetch(urlLink, {
     method: 'POST',
