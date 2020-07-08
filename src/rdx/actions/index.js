@@ -21,6 +21,19 @@ export const setError = (error) => {
   };
 };
 
+export const postOrders = (order) => {
+  return {
+    type: types.POST_ORDER,
+    payload: order.orderInfo,
+  };
+};
+export const setPostError = (error) => {
+  return {
+    type: types.POST_ORDER_FAIL,
+    error,
+  };
+};
+
 export const addOrder = (order) => {
   return {
     type: types.ADD_ORDER,
