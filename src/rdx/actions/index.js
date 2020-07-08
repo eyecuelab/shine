@@ -21,10 +21,11 @@ export const setError = (error) => {
   };
 };
 
-export const postOrders = (order) => {
+export const postOrder = (order) => {
+  // console.log('ACTION:', order);
   return {
     type: types.POST_ORDER,
-    payload: order.orderInfo,
+    payload: order,
   };
 };
 export const setPostError = (error) => {
