@@ -58,8 +58,9 @@ const SignInScreen = ({ loginWatcher, users }) => {
                 autoCorrect={false}
                 style={styles.input}
                 value={password}
-                onChangeText={setPassword}
                 secureTextEntry={secureTextEntry}
+                onChangeText={setPassword}
+                onSubmitEditing={onSubmit}
               />
               <SecureButton onPress={toggleSecureTextEntry}>
                 {secureTextEntry ? (
@@ -147,11 +148,5 @@ SignInScreen.propTypes = {
 const mapStateToProps = (state) => {
   return { users: state.users };
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     loginWatcher: (user) => dispatch(loginWatcher(user)),
-//   };
-// };
 
 export default connect(mapStateToProps, actions)(SignInScreen);

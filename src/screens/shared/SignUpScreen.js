@@ -86,8 +86,9 @@ const SignUpScreen = ({ signupWatcher, users }) => {
                 autoCorrect={false}
                 style={styles.input}
                 value={password}
-                onChangeText={setPassword}
                 secureTextEntry={secureTextEntry}
+                onChangeText={setPassword}
+                onSubmitEditing={onSubmit}
               />
               <SecureButton onPress={toggleSecureTextEntry}>
                 {secureTextEntry ? (
@@ -98,9 +99,9 @@ const SignUpScreen = ({ signupWatcher, users }) => {
               </SecureButton>
             </InputContainer>
             {statusMessage !== null ? (
-              <ErrorTextContainer>
+              <MessageContainer>
                 <Text>{statusMessage}</Text>
-              </ErrorTextContainer>
+              </MessageContainer>
             ) : null}
 
             <Button
@@ -153,7 +154,7 @@ const SecureButton = styled.TouchableOpacity`
   margin-top: 15px;
 `;
 
-const ErrorTextContainer = styled.View`
+const MessageContainer = styled.View`
   margin-horizontal: 20px;
   padding: 25px;
   align-items: center;
