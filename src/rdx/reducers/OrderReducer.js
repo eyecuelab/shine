@@ -2,13 +2,11 @@ import * as types from '../actions/types';
 // import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const orderReducer = (state = [], action) => {
-  // console.log(action);
   switch (action.type) {
     // case REHYDRATE:
     //   return [];
-    case types.LOAD_SUCCESS:
-      // console.log(action.payload);
-      return [...state, action.payload];
+    case types.LOAD_ORDERS_SUCCESS:
+      return [...state, ...action.payload];
     case types.ADD_ORDER:
       return [
         ...state,
@@ -48,7 +46,7 @@ const orderReducer = (state = [], action) => {
             addOns: action.payload,
           };
         }
-        // console.log('ADDONS: ', item);
+
         return item;
       });
     case types.ADD_ORDER_ADDRESS:

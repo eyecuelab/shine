@@ -1,8 +1,6 @@
 import * as types from './types';
 import uuid from 'uuid';
 
-// ORDERS actionCreators
-
 export const loadOrders = () => {
   return {
     type: types.LOAD_ORDERS,
@@ -10,7 +8,6 @@ export const loadOrders = () => {
 };
 
 export const setOrders = (orders) => {
-  console.log('SET ORDERS: ', orders);
   return {
     type: types.LOAD_ORDERS_SUCCESS,
     payload: orders,
