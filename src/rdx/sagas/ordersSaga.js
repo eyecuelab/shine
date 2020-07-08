@@ -1,11 +1,12 @@
 import { takeEvery, put, call, select } from 'redux-saga/effects';
 import * as types from '../actions/types';
-import { fetchOrders } from '../api';
-import { setOrders, setError } from '../actions';
+import { fetchOrders, postOrder } from '../api';
+import { setOrders, setError, loadOrders, setPostError } from '../actions';
 
 export const getToken = (state) => state.users.auth.token;
 
 export function* handleOrdersLoad() {
+  console.log('HIT ORDERLOAD');
   try {
     const token = yield select(getToken);
     const orders = yield call(fetchOrders, token);
@@ -16,6 +17,20 @@ export function* handleOrdersLoad() {
   }
 }
 
+export function* postOrderSaga(action) {
+  try {
+    const token = yield select(getToken);
+    yield call(postOrder, action.payload, token);
+  } catch (error) {
+    yield put(setPostError(error.toString()));
+  }
+  yield call(loadOrders);
+}
+
 export default function* watchOrdersLoad() {
   yield takeEvery(types.LOAD_ORDERS, handleOrdersLoad);
+}
+
+export function* watchPostOrder() {
+  yield takeEvery(types.POST_ORDER, postOrderSaga);
 }

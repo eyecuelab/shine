@@ -7,7 +7,7 @@ import * as actions from '../../rdx/actions';
 import { connect } from 'react-redux';
 
 const CleanerOptionScreen = ({ loadOrders, navigation }) => {
-  console.log('ORDERS: ', orders);
+  // console.log('ORDERS: ', orders);
   return (
     <>
       <Container>

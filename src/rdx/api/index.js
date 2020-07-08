@@ -1,7 +1,6 @@
 // import { put } from 'redux-saga/effects';
 
 const fetchOrders = async (token) => {
-  console.log(token);
   const response = await fetch('http://127.0.0.1:8080/orders', {
     method: 'GET',
     headers: {
@@ -18,22 +17,24 @@ const fetchOrders = async (token) => {
   }
 };
 
-const postOrder = (token) => {
-  const POST_ORDER_ENDPOINT = 'http://127.0.0.1:8080/orders';
-  const parameters = {
+function* postOrder(order, token) {
+  // console.log(order);
+  // console.log(JSON.stringify(order));
+  const urlLink = 'http://127.0.0.1:8080/orders';
+  const response = yield fetch(urlLink, {
     method: 'POST',
     headers: {
       Authorization: token,
     },
-  };
-
-  return fetch(POST_ORDER_ENDPOINT, parameters).then((response) => {
-    if (response.ok && response.status === 200) {
-      return response;
-    } else {
-      throw new Error(response.json());
-    }
+    body: JSON.stringify(order),
   });
-};
+  // console.log({response});
+  console.log(response.status);
+  if (response.ok && response.status === 200) {
+    return response;
+  } else {
+    throw new Error(response.json());
+  }
+}
 
 export { fetchOrders, postOrder };
