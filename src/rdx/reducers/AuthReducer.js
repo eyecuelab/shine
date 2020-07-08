@@ -67,6 +67,10 @@ const authReducer = (state = initialAuthState, action) => {
         signupMessage: action.error,
         status: 'Signup error',
       };
+    case types.UPDATE_PROFILE:
+      return {
+        auth: action.payload,
+      };
     default:
       return state;
   }

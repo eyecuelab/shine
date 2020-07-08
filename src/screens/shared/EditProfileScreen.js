@@ -49,9 +49,10 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
   };
 
   const navigation = useNavigation();
+  const token = users.auth.token;
   const onSubmit = () => {
-    console.log(userProfile);
-    // editProfileWatcher(userAddress);
+    // console.log(userProfile);
+    editProfileWatcher({ token: token, profile: userProfile });
     navigation.navigate('Profile');
   };
 
@@ -115,7 +116,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
             />
 
             <Button
-              title="Log in"
+              title="Submit"
               containerStyle={{ paddingTop: 20, width: 350 }}
               buttonStyle={{
                 backgroundColor: 'black',
