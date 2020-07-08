@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
+import PropTypes from 'prop-types';
 
 const WelcomeScreen = ({ navigation }) => {
   return (
@@ -53,4 +55,12 @@ const TextLink = styled.Text`
   font-weight: 600;
 `;
 
-export default WelcomeScreen;
+WelcomeScreen.propTypes = {
+  users: PropTypes.object,
+};
+
+const mapStateToProps = (state) => {
+  return { users: state.users };
+};
+
+export default connect(mapStateToProps)(WelcomeScreen);

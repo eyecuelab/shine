@@ -4,13 +4,14 @@ import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import { Feather } from '@expo/vector-icons';
-import { logOut } from '../../rdx/actions';
+import { logoutWatcher } from '../../rdx/actions';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
-const ClientProfileScreen = ({ users, navigation, logOut }) => {
+const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
+  const token = users.auth.token;
   const onSubmit = () => {
-    logOut();
+    logoutWatcher(token);
   };
 
   return (
@@ -60,7 +61,7 @@ const ClientProfileScreen = ({ users, navigation, logOut }) => {
           <CenterText>Become a Cleaner</CenterText>
         </ListItemCenter>
 
-        <ListItemCenter onPress={() => onSubmit()}>
+        <ListItemCenter onPress={onSubmit}>
           <CenterText>Log Out</CenterText>
         </ListItemCenter>
       </ProfileContainer>
@@ -152,7 +153,7 @@ const CenterText = styled.Text`
 ClientProfileScreen.propTypes = {
   navigation: PropTypes.object,
   users: PropTypes.object,
-  logOut: PropTypes.func,
+  logoutWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
@@ -161,7 +162,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logOut: () => dispatch(logOut()),
+    logoutWatcher: (token) => dispatch(logoutWatcher(token)),
   };
 };
 
