@@ -4,6 +4,7 @@ import {
   loginUserService,
   logoutUserService,
   signUpUserService,
+  editProfileService,
 } from '../services/authService';
 import { call, put, cancelled } from 'redux-saga/effects';
 
@@ -62,5 +63,18 @@ export function* signupSaga(action) {
     if (yield cancelled()) {
       yield put({ type: types.SIGNUP_CANCELLED });
     }
+  }
+}
+
+export function* editProfileSaga(action) {
+  try {
+    let response = yield call(editProfileService, action.payload);
+    if (response.status >= 200 && response.status < 300) {
+      yield put(actions.updateProfile());
+    } else {
+      throw yield response.json();
+    }
+  } catch (error) {
+    console.log('EDIT PROFILE ERROR: ', error);
   }
 }

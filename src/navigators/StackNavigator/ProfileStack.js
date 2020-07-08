@@ -38,11 +38,11 @@ const ProfileStackNavigator = ({ users }) => {
         <>
           <ProfileStack.Screen name="Profile" component={ClientProfileScreen} />
           <ProfileStack.Screen
-            name="ChangePassword"
+            name="Change Password"
             component={ChangePasswordScreen}
           />
           <ProfileStack.Screen
-            name="EditProfile"
+            name="Edit Profile"
             component={EditProfileScreen}
           />
           <ProfileStack.Screen
