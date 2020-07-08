@@ -33,6 +33,21 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
     }));
   };
 
+  // FUNCTION FOR CORRECTING PHONE NUMBER:
+  const onTextChange = (text) => {
+    var cleaned = ('' + text).replace(/\D/g, '');
+    var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+    if (match) {
+      var intlCode = match[1] ? '+1 ' : '',
+        number = [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join(
+          '',
+        );
+      handleProfileChange('phone', number);
+      return;
+    }
+    handleProfileChange('phone', text);
+  };
+
   const navigation = useNavigation();
   const onSubmit = () => {
     console.log(userProfile);
@@ -87,12 +102,15 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               onSubmitEditing={onSubmit}
             />
             <TextInput
-              placeholder="Phone"
+              placeholder="Phone (xxx)-xxx-xxxx"
               returnKeyType="done"
+              textContentType="telephoneNumber"
+              dataDetactorTypes="phoneNunmber"
               keyboardType="number-pad"
+              maxLength={14}
               style={styles.input}
               value={userProfile.phone}
-              onChangeText={(text) => handleProfileChange('phone', text)}
+              onChangeText={(text) => onTextChange(text)}
               onSubmitEditing={onSubmit}
             />
 
