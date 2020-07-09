@@ -35,12 +35,12 @@ const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
           <Text>{users.auth.profile.email}</Text>
         </ListItem>
 
-        <ListItem onPress={() => navigation.navigate('ChangePassword')}>
+        <ListItem onPress={() => navigation.navigate('Change Password')}>
           <Text>Change Password</Text>
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>
 
-        <ListItem onPress={() => navigation.navigate('EditProfile')}>
+        <ListItem onPress={() => navigation.navigate('Edit Profile')}>
           <Text>Edit Profile</Text>
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>

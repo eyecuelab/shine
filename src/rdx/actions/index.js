@@ -121,6 +121,20 @@ export const signUp = () => {
   };
 };
 
+export const editProfileWatcher = ({ token, profile }) => {
+  return {
+    type: types.EDIT_PROFILE_WATCHER,
+    payload: { token, profile },
+  };
+};
+
+export const updateProfile = (profile) => {
+  return {
+    type: types.UPDATE_PROFILE,
+    payload: profile,
+  };
+};
+
 export const addCleanerProfile = (address, profile) => {
   return {
     type: types.ADD_CLEANER_PROFILE,
