@@ -11,15 +11,17 @@ import { call, put, cancelled } from 'redux-saga/effects';
 export function* loginSaga(action) {
   try {
     let response = yield call(loginUserService, action.payload);
-
     if (response.ok && response.status === 200) {
       const data = yield response.json();
       const token = data.data.attributes.token;
       const profile = data.included[0].attributes;
+      const userId = data.data.attributes.user_id;
+      console.log('R', userId);
 
       yield put(
         actions.logIn({
           token: token,
+          userId: userId,
           profile: profile,
         }),
       );

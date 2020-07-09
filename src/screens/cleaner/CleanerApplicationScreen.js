@@ -6,10 +6,13 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
 import { MaterialIcons } from '@expo/vector-icons';
 import styled from 'styled-components/native';
-// import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import * as actions from '../../rdx/actions';
 
-const CleanerApplicationScreen = () => {
+const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
   // TODO: bring in the USERID from the AUTHREDUCER, meaning the user will have to be logged in to see this page.
+  const userId = users.auth.userId;
   const [appInfo, setAppInfo] = useState({
     businessName: '',
     firstName: '',
@@ -17,7 +20,6 @@ const CleanerApplicationScreen = () => {
     email: '',
     phoneNumber: '',
     bio: '',
-    userId: null,
   });
   const [cleanerAddress, setCleanerAddress] = useState({
     street: '',
@@ -55,6 +57,7 @@ const CleanerApplicationScreen = () => {
   };
 
   const handleSubmit = () => {
+    applyCleanerWatcher({ userId, appInfo, cleanerAddress });
     console.log(appInfo);
     console.log(cleanerAddress);
   };
@@ -241,4 +244,13 @@ const MultiLineInputs = styled.View`
   align-items: flex-end;
 `;
 
-export default CleanerApplicationScreen;
+CleanerApplicationScreen.propTypes = {
+  applyCleanerWatcher: PropTypes.func,
+  users: PropTypes.object,
+};
+
+const mapStateToProps = (state) => {
+  return { users: state.users };
+};
+
+export default connect(mapStateToProps, actions)(CleanerApplicationScreen);

@@ -140,18 +140,18 @@ export const updateProfile = (profile) => {
 
 // ====== CLEANERS ACTION CREATORS ======= //
 
-export const applyCleanerWatcher = (userId) => {
+export const applyCleanerWatcher = ({ userId, appInfo, cleanerAddress }) => {
   return {
     type: types.APPLY_CLEANER_WATCHER,
-    payload: userId,
+    payload: { userId, appInfo, cleanerAddress },
   };
 };
 
-export const addCleanerProfile = (address, profile) => {
-  return {
-    type: types.ADD_CLEANER_PROFILE,
-    id: uuid.v4(),
-    address: address,
-    payload: profile,
-  };
-};
+// export const addCleanerProfile = (address, profile) => {
+//   return {
+//     type: types.ADD_CLEANER_PROFILE,
+//     id: uuid.v4(),
+//     address: address,
+//     payload: profile,
+//   };
+// };
