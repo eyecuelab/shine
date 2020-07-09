@@ -56,6 +56,11 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
     navigation.navigate('Profile');
   };
 
+  const inputEl2 = React.useRef(null);
+  const inputEl3 = React.useRef(null);
+  const inputEl4 = React.useRef(null);
+  const inputEl5 = React.useRef(null);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -74,8 +79,11 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               onChangeText={(text) =>
                 handleProfileChange('street_address', text)
               }
+              onSubmitEditing={() => inputEl2.current.focus()}
+              // blurOnSubmit={false}
             />
             <TextInput
+              ref={inputEl2}
               placeholder="City"
               returnKeyType="next"
               autoCapitalize="words"
@@ -83,8 +91,10 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               style={styles.input}
               value={userProfile.city}
               onChangeText={(text) => handleProfileChange('city', text)}
+              onSubmitEditing={() => inputEl3.current.focus()}
             />
             <TextInput
+              ref={inputEl3}
               placeholder="State"
               returnKeyType="next"
               autoCapitalize="characters"
@@ -92,23 +102,27 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               style={styles.input}
               value={userProfile.state}
               onChangeText={(text) => handleProfileChange('state', text)}
+              onSubmitEditing={() => inputEl4.current.focus()}
             />
             <TextInput
+              ref={inputEl4}
               placeholder="Zip"
-              returnKeyType="next"
+              returnKeyType="done"
               keyboardType="number-pad"
+              maxLength={5}
               style={styles.input}
               value={userProfile.postal_code}
               onChangeText={(text) => handleProfileChange('postal_code', text)}
-              onSubmitEditing={onSubmit}
+              onSubmitEditing={() => inputEl5.current.focus()}
             />
             <TextInput
+              ref={inputEl5}
               placeholder="Phone (xxx)-xxx-xxxx"
               returnKeyType="done"
               textContentType="telephoneNumber"
               dataDetactorTypes="phoneNunmber"
-              keyboardType="number-pad"
-              maxLength={14}
+              keyboardType="phone-pad"
+              maxLength={10}
               style={styles.input}
               value={userProfile.phone}
               onChangeText={(text) => onTextChange(text)}

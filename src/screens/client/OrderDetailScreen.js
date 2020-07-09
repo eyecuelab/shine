@@ -100,6 +100,7 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
         <TextInput
           style={styles.input}
           placeholder="STATE"
+          autoCapitalize="characters"
           returnKeyType="next"
           onChangeText={(text) => setLocState(text)}
           value={locState}

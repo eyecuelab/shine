@@ -67,6 +67,7 @@ export function* signupSaga(action) {
 }
 
 export function* editProfileSaga(action) {
+  console.log(action.payload);
   try {
     let response = yield call(editProfileService, action.payload);
     if (response.status >= 200 && response.status < 300) {
