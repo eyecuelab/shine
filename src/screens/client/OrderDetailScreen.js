@@ -17,7 +17,6 @@ const { width } = Dimensions.get('window');
 const OrderDetailScreen = ({ navigation, postOrder }) => {
   const route = useRoute();
   const item = route.params;
-  console.log(item.note);
 
   const [polish, setPolish] = useState(false);
   const [rainProtection, setRainProtection] = useState(false);
@@ -196,8 +195,6 @@ const PriceText = styled.Text`
 OrderDetailScreen.propTypes = {
   navigation: PropTypes.object,
   postOrder: PropTypes.func,
-  // addAddOns: PropTypes.func,
-  // addOrderAddress: PropTypes.func,
   requestComplete: PropTypes.func,
   orders: PropTypes.array,
 };

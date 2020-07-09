@@ -6,7 +6,7 @@ import { Button } from 'react-native-elements';
 import * as actions from '../../rdx/actions';
 import { connect } from 'react-redux';
 
-const CleanerOptionScreen = ({ loadOrders, navigation }) => {
+const CleanerOptionScreen = ({ navigation }) => {
   // console.log('ORDERS: ', orders);
   return (
     <>
@@ -24,16 +24,7 @@ const CleanerOptionScreen = ({ loadOrders, navigation }) => {
           }}
           onPress={() => navigation.navigate('Cleaner Application')}
         />
-        <Button
-          title="TEST SAGA"
-          containerStyle={{ paddingTop: 20, width: 350, marginVertical: 20 }}
-          buttonStyle={{
-            backgroundColor: 'black',
-            height: 50,
-            borderRadius: 7,
-          }}
-          onPress={() => loadOrders()}
-        />
+
         <Text>
           Already have a cleaner account?{' '}
           <TextLink onPress={() => navigation.navigate('Log in')}>

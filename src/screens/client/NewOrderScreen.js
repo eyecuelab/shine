@@ -12,9 +12,8 @@ import * as actions from '../../rdx/actions';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
-const NewOrderScreen = ({ addOrder, navigation }) => {
+const NewOrderScreen = ({ navigation }) => {
   // ALL HOOKS FOR ORDERFORM VALUES
-  // console.log('New-ORDERS: ', orders);
   const [image, setImage] = useState('empty.img');
   const [index, setIndex] = useState(0);
   const [sliderValue, setSliderValue] = useState('Within Two Days');
@@ -46,9 +45,9 @@ const NewOrderScreen = ({ addOrder, navigation }) => {
   };
 
   const onSubmit = () => {
-    addOrder({
-      orderInfo,
-    });
+    // addOrder({
+    //   orderInfo,
+    // });
     navigation.navigate('OrderDetail', orderInfo);
   };
 
@@ -120,7 +119,7 @@ NewOrderScreen.propTypes = {
   navigation: PropTypes.object,
   jumpTo: PropTypes.func,
   route: PropTypes.object,
-  addOrder: PropTypes.func,
+  // addOrder: PropTypes.func,
   orders: PropTypes.array,
 };
 
