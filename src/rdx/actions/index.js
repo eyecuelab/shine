@@ -1,6 +1,8 @@
 import * as types from './types';
 import uuid from 'uuid';
 
+// ====== ORDERS ACTION CREATORS ======= //
+
 export const loadOrders = () => {
   return {
     type: types.LOAD_ORDERS,
@@ -22,12 +24,12 @@ export const setError = (error) => {
 };
 
 export const postOrder = (order) => {
-  // console.log('ACTION:', order);
   return {
     type: types.POST_ORDER,
     payload: order,
   };
 };
+
 export const setPostError = (error) => {
   return {
     type: types.POST_ORDER_FAIL,
@@ -80,7 +82,8 @@ export const deleteOrder = (uuid) => {
   };
 };
 
-// USERS actionCreators
+// ====== USERS ACTION CREATORS ======= //
+
 export const loginWatcher = (user) => {
   return {
     type: types.LOGIN_WATCHER,
@@ -135,11 +138,20 @@ export const updateProfile = (profile) => {
   };
 };
 
-export const addCleanerProfile = (address, profile) => {
+// ====== CLEANERS ACTION CREATORS ======= //
+
+export const applyCleanerWatcher = ({ userId, profile, address }) => {
   return {
-    type: types.ADD_CLEANER_PROFILE,
-    id: uuid.v4(),
-    address: address,
-    payload: profile,
+    type: types.APPLY_CLEANER_WATCHER,
+    payload: { userId, profile, address },
   };
 };
+
+// export const addCleanerProfile = (address, profile) => {
+//   return {
+//     type: types.ADD_CLEANER_PROFILE,
+//     id: uuid.v4(),
+//     address: address,
+//     payload: profile,
+//   };
+// };
