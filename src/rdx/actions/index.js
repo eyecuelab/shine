@@ -35,6 +35,13 @@ export const setPostError = (error) => {
   };
 };
 
+export const reloadOrders = (result) => {
+  return {
+    type: types.POST_ORDER_SUCCESS,
+    result,
+  };
+};
+
 export const addOrder = (order) => {
   return {
     type: types.ADD_ORDER,
