@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Input, Button } from 'react-native-elements';
 import { StyleSheet, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
@@ -27,6 +27,16 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
     state: '',
     postalCode: '',
   });
+
+  const inputEl2 = useRef(null);
+  const inputEl3 = useRef(null);
+  const inputEl4 = useRef(null);
+  const inputEl5 = useRef(null);
+  const inputEl6 = useRef(null);
+  const inputEl7 = useRef(null);
+  const inputEl8 = useRef(null);
+  const inputEl9 = useRef(null);
+  const inputEl10 = useRef(null);
 
   const handleInfoChange = (key, value) => {
     setAppInfo((current) => ({
@@ -57,9 +67,11 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
   };
 
   const handleSubmit = () => {
-    applyCleanerWatcher({ userId, appInfo, cleanerAddress });
-    console.log(appInfo);
-    console.log(cleanerAddress);
+    applyCleanerWatcher({
+      userId: userId,
+      profile: appInfo,
+      address: cleanerAddress,
+    });
   };
 
   return (
@@ -86,11 +98,13 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
             />
           }
           autoCorrect={false}
-          returnKeyType={'next'}
+          returnKeyType="next"
           onChangeText={(text) => handleInfoChange('businessName', text)}
+          onSubmitEditing={() => inputEl2.current.focus()}
         />
         <MultiLineInputs>
           <Input
+            ref={inputEl2}
             value={appInfo.firstName}
             containerStyle={{ flex: 1 }}
             label="Contact Name"
@@ -105,20 +119,24 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
                 style={{ marginRight: 5 }}
               />
             }
-            returnKeyType={'next'}
+            returnKeyType="next"
             onChangeText={(text) => handleInfoChange('firstName', text)}
+            onSubmitEditing={() => inputEl3.current.focus()}
           />
           <Input
+            ref={inputEl3}
             value={appInfo.lastName}
             containerStyle={{ flex: 1 }}
             label=""
             labelStyle={{ fontSize: 20 }}
             placeholder="Last"
-            returnKeyType={'next'}
+            returnKeyType="next"
             onChangeText={(text) => handleInfoChange('lastName', text)}
+            onSubmitEditing={() => inputEl4.current.focus()}
           />
         </MultiLineInputs>
         <Input
+          ref={inputEl4}
           value={appInfo.email}
           autoCorrect={false}
           label="Email"
@@ -133,10 +151,12 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
               style={{ marginRight: 5 }}
             />
           }
-          returnKeyType={'next'}
+          returnKeyType="next"
           onChangeText={(text) => handleInfoChange('email', text)}
+          onSubmitEditing={() => inputEl5.current.focus()}
         />
         <Input
+          ref={inputEl5}
           value={appInfo.phoneNumber}
           label="Phone Number"
           labelStyle={{ fontSize: 20 }}
@@ -144,7 +164,8 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
           textContentType="telephoneNumber"
           dataDetactorTypes="phoneNunmber"
           keyboardType="phone-pad"
-          maxLength={14}
+          returnKeyType="done"
+          maxLength={10}
           leftIcon={
             <MaterialIcons
               name="phone"
@@ -154,8 +175,10 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
             />
           }
           onChangeText={(text) => onTextChange(text)}
+          onSubmitEditing={() => inputEl6.current.focus()}
         />
         <Input
+          ref={inputEl6}
           value={cleanerAddress.street}
           label="Address"
           labelStyle={{ fontSize: 20 }}
@@ -168,33 +191,44 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
               style={{ marginRight: 5 }}
             />
           }
-          returnKeyType={'next'}
+          returnKeyType="next"
           onChangeText={(text) => handleAddressChange('street', text)}
+          onSubmitEditing={() => inputEl7.current.focus()}
         />
         <MultiLineInputs>
           <Input
+            ref={inputEl7}
             value={cleanerAddress.city}
             placeholder="City"
             containerStyle={{ flex: 2 }}
             onChangeText={(text) => handleAddressChange('city', text)}
-            returnKeyType={'next'}
+            returnKeyType="next"
+            onSubmitEditing={() => inputEl8.current.focus()}
           />
           <Input
+            ref={inputEl8}
             value={cleanerAddress.state}
             placeholder="State"
             containerStyle={{ flex: 1 }}
+            autoCapitalize="characters"
+            maxLength={2}
             onChangeText={(text) => handleAddressChange('state', text)}
-            returnKeyType={'next'}
+            returnKeyType="next"
+            onSubmitEditing={() => inputEl9.current.focus()}
           />
         </MultiLineInputs>
         <Input
+          ref={inputEl9}
           value={cleanerAddress.postalCode}
           placeholder="Zip"
+          keyboardType="number-pad"
+          maxLength={5}
           onChangeText={(text) => handleAddressChange('postalCode', text)}
-          returnKeyType={'next'}
+          returnKeyType="done"
+          onSubmitEditing={() => inputEl10.current.focus()}
         />
-
         <Input
+          ref={inputEl10}
           value={appInfo.bio}
           label="Bio"
           multiline={true}
@@ -205,6 +239,7 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
           onSubmitEditing={Keyboard.dismiss}
           onChangeText={(text) => handleInfoChange('bio', text)}
         />
+
         <Button
           title="APPLY"
           containerStyle={{ paddingTop: 20, width: 350 }}

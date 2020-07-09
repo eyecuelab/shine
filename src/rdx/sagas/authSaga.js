@@ -16,7 +16,7 @@ export function* loginSaga(action) {
       const token = data.data.attributes.token;
       const profile = data.included[0].attributes;
       const userId = data.data.attributes.user_id;
-      console.log('R', userId);
+      console.log('DATA', data);
 
       yield put(
         actions.logIn({

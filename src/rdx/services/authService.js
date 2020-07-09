@@ -51,6 +51,7 @@ export const signUpUserService = (request) => {
 };
 
 export const editProfileService = (request) => {
+  console.log('REQUEST', request);
   // const EDIP_PROFILE_API_ENDPOINT = 'https://shoeshine.herokuapp.com/profile';
   const EDIP_PROFILE_API_ENDPOINT = 'http://192.168.1.14:8080/profile';
 

@@ -52,11 +52,11 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
   const inputEl3 = React.useRef(null);
   const inputEl4 = React.useRef(null);
   const inputEl5 = React.useRef(null);
+  const inputEl6 = React.useRef(null);
 
   const navigation = useNavigation();
   const token = users.auth.token;
   const onSubmit = () => {
-    // console.log(userProfile);
     editProfileWatcher({ token: token, profile: userProfile });
     navigation.navigate('Profile');
   };
@@ -99,6 +99,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               returnKeyType="next"
               autoCapitalize="characters"
               autoCorrect={false}
+              maxLength={2}
               style={styles.input}
               value={userProfile.state}
               onChangeText={(text) => handleProfileChange('state', text)}
@@ -126,6 +127,18 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               style={styles.input}
               value={userProfile.phone}
               onChangeText={(text) => onTextChange(text)}
+              onSubmitEditing={() => inputEl6.current.focus()}
+            />
+            <TextInput
+              ref={inputEl6}
+              placeholder="Upload Iamge"
+              returnKeyType="done"
+              autoCapitalize="none"
+              autoCorrect={false}
+              style={styles.input}
+              value={userProfile.image_file}
+              onChangeText={(text) => handleProfileChange('image_file', text)}
+              onSubmitEditing={() => inputEl3.current.focus()}
             />
 
             <Button

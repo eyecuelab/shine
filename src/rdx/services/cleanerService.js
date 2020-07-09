@@ -3,6 +3,7 @@ export const applyCleanerService = (request) => {
   //const APPLY_CLEANER_ENDPOINT = 'http://127.0.0.1:8080/cleaners';
   const APPLY_CLEANER_ENDPOINT = 'http://192.168.1.14:8080/cleaners';
 
+  // console.log('REQUEST', request);
   const parameters = {
     method: 'POST',
     headers: {
