@@ -48,6 +48,11 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
     handleProfileChange('phone', text);
   };
 
+  const inputEl2 = React.useRef(null);
+  const inputEl3 = React.useRef(null);
+  const inputEl4 = React.useRef(null);
+  const inputEl5 = React.useRef(null);
+
   const navigation = useNavigation();
   const token = users.auth.token;
   const onSubmit = () => {
@@ -55,11 +60,6 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
     editProfileWatcher({ token: token, profile: userProfile });
     navigation.navigate('Profile');
   };
-
-  const inputEl2 = React.useRef(null);
-  const inputEl3 = React.useRef(null);
-  const inputEl4 = React.useRef(null);
-  const inputEl5 = React.useRef(null);
 
   return (
     <>
@@ -126,7 +126,6 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               style={styles.input}
               value={userProfile.phone}
               onChangeText={(text) => onTextChange(text)}
-              onSubmitEditing={onSubmit}
             />
 
             <Button

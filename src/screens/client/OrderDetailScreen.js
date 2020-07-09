@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { Dimensions, TextInput, StyleSheet } from 'react-native';
+import {
+  Dimensions,
+  TextInput,
+  StyleSheet,
+  KeyboardAvoidingView,
+} from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
@@ -27,6 +32,11 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
   const [locState, setLocState] = useState('');
   const [postalCode, setPostalCode] = useState('');
 
+  const inputEl2 = useRef(null);
+  const inputEl3 = useRef(null);
+  const inputEl4 = useRef(null);
+  const inputEl5 = useRef(null);
+
   const handleSubmit = () => {
     postOrder({
       shoe_types: ['Indoor', 'Outdoor'],
@@ -48,86 +58,98 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto(item.image)}
-      <Container>
-        <Text>Nice! The shoe cleaners are ready to work!</Text>
-        <SwitchTextContainer>
-          <SwitchText>ADD POLISH</SwitchText>
-          <SwitchText>ADD RAIN PROTECTION</SwitchText>
-          <SwitchText>REPLACE SHOELACES</SwitchText>
-        </SwitchTextContainer>
-        <SwitchContainer>
-          <AddOnSwitch
-            disabled={false}
-            switchState={polish}
-            setSwitchState={setPolish}
+      <KeyboardAvoidingView
+        behavior={Platform.OS == 'ios' ? 'position' : 'height'}
+      >
+        {ShoePhoto(item.image)}
+        <Container>
+          <Text>Nice! The shoe cleaners are ready to work!</Text>
+          <SwitchTextContainer>
+            <SwitchText>ADD POLISH</SwitchText>
+            <SwitchText>ADD RAIN PROTECTION</SwitchText>
+            <SwitchText>REPLACE SHOELACES</SwitchText>
+          </SwitchTextContainer>
+          <SwitchContainer>
+            <AddOnSwitch
+              disabled={false}
+              switchState={polish}
+              setSwitchState={setPolish}
+            />
+            <AddOnSwitch
+              disabled={false}
+              switchState={rainProtection}
+              setSwitchState={setRainProtection}
+            />
+            <AddOnSwitch
+              disabled={false}
+              switchState={replaceLaces}
+              setSwitchState={setReplaceLaces}
+            />
+          </SwitchContainer>
+          <PriceContianer>
+            <PriceTextContainer>
+              <PriceText>ROUGH EST.</PriceText>
+            </PriceTextContainer>
+            {PriceTagBlack(35, 99)}
+          </PriceContianer>
+
+          <DashedLine />
+
+          <Text>Pickup & drop-off location for the cleaner</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="STREET ADDRESS"
+            keyboardType="ascii-capable"
+            returnKeyType="next"
+            onChangeText={(text) => setStreet(text)}
+            value={street}
+            onSubmitEditing={() => inputEl2.current.focus()}
           />
-          <AddOnSwitch
-            disabled={false}
-            switchState={rainProtection}
-            setSwitchState={setRainProtection}
+          <TextInput
+            ref={inputEl2}
+            style={styles.input}
+            placeholder="CITY"
+            returnKeyType="next"
+            onChangeText={(text) => setCity(text)}
+            value={city}
+            onSubmitEditing={() => inputEl3.current.focus()}
           />
-          <AddOnSwitch
-            disabled={false}
-            switchState={replaceLaces}
-            setSwitchState={setReplaceLaces}
+          <TextInput
+            ref={inputEl3}
+            style={styles.input}
+            placeholder="STATE"
+            autoCapitalize="characters"
+            returnKeyType="next"
+            onChangeText={(text) => setLocState(text)}
+            value={locState}
+            onSubmitEditing={() => inputEl4.current.focus()}
           />
-        </SwitchContainer>
-        <PriceContianer>
-          <PriceTextContainer>
-            <PriceText>ROUGH EST.</PriceText>
-          </PriceTextContainer>
-          {PriceTagBlack(35, 99)}
-        </PriceContianer>
+          <TextInput
+            ref={inputEl4}
+            style={styles.input}
+            placeholder="ZIP CODE"
+            keyboardType="number-pad"
+            returnKeyType="done"
+            onChangeText={(text) => setPostalCode(text)}
+            value={postalCode}
+          />
 
-        <DashedLine />
+          <DashedLine />
 
-        <Text>Pickup & drop-off location for the cleaner</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="STREET ADDRESS"
-          returnKeyType="next"
-          onChangeText={(text) => setStreet(text)}
-          value={street}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="CITY"
-          returnKeyType="next"
-          onChangeText={(text) => setCity(text)}
-          value={city}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="STATE"
-          autoCapitalize="characters"
-          returnKeyType="next"
-          onChangeText={(text) => setLocState(text)}
-          value={locState}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="ZIP CODE"
-          returnKeyType="done"
-          onChangeText={(text) => setPostalCode(text)}
-          value={postalCode}
-        />
-
-        <DashedLine />
-
-        <Button
-          title="START A CLEANING REQUEST"
-          containerStyle={{ paddingVertical: 10, width: 350 }}
-          buttonStyle={{
-            backgroundColor: 'black',
-            height: 50,
-            borderRadius: 7,
-          }}
-          onPress={() => {
-            handleSubmit();
-          }}
-        />
-      </Container>
+          <Button
+            title="START A CLEANING REQUEST"
+            containerStyle={{ paddingVertical: 10, width: 350 }}
+            buttonStyle={{
+              backgroundColor: 'black',
+              height: 50,
+              borderRadius: 7,
+            }}
+            onPress={() => {
+              handleSubmit();
+            }}
+          />
+        </Container>
+      </KeyboardAvoidingView>
     </ScrollViewContailner>
   );
 };
@@ -145,8 +167,6 @@ const styles = StyleSheet.create({
 });
 
 const Container = styled.View`
-  width: 100%;
-  height: 100%;
   align-items: center;
   justify-content: center;
   flex-direction: row;
