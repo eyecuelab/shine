@@ -17,14 +17,15 @@ const NewOrderScreen = ({ navigation }) => {
   const [image, setImage] = useState('empty.img');
   const [index, setIndex] = useState(0);
   const [sliderValue, setSliderValue] = useState('Within Two Days');
-  const [shoeTypes, setShoeTypes] = useState({
-    INDOOR: false,
-    OUTDOOR: false,
-    EXERCISE: false,
-    LEISURE: false,
-    FORMAL: false,
-    SOCIAL: false,
-  });
+  const [shoeTypes, setShoeTypes] = useState([
+    { INDOOR: false },
+    { OUTDOOR: false },
+    { EXERCISE: false },
+    { LEISURE: false },
+    { FORMAL: false },
+    { SOCIAL: false },
+  ]);
+  // const [selectedShoeTypes, setSelectedShoeTypes] = useState([]);
   const [note, setNote] = useState('');
   const [price, setPrice] = useState(30);
   // ROUTE STATE
@@ -34,6 +35,8 @@ const NewOrderScreen = ({ navigation }) => {
     { key: 'third', title: 'Step 3' },
     { key: 'fourth', title: 'Step 4' },
   ]);
+  console.log(shoeTypes);
+  // console.log(testFunction());
 
   const orderInfo = {
     uuid: uuid.v4(),
