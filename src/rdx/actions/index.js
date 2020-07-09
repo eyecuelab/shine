@@ -21,6 +21,27 @@ export const setError = (error) => {
   };
 };
 
+export const postOrder = (order) => {
+  // console.log('ACTION:', order);
+  return {
+    type: types.POST_ORDER,
+    payload: order,
+  };
+};
+export const setPostError = (error) => {
+  return {
+    type: types.POST_ORDER_FAIL,
+    error,
+  };
+};
+
+export const reloadOrders = (result) => {
+  return {
+    type: types.POST_ORDER_SUCCESS,
+    result,
+  };
+};
+
 export const addOrder = (order) => {
   return {
     type: types.ADD_ORDER,
