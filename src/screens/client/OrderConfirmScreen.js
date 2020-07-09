@@ -29,7 +29,7 @@ const OrderConfirmScreen = ({ navigation, requestComplete }) => {
       {ShoePhoto(item.image)}
       <Container>
         <Text>Price : $ 34.99</Text>
-        <Text>Service Due: returend by Thursday</Text>
+        <Text>Service Due: returned by Thursday</Text>
         <Text>Cleaner's Info</Text>
         <Button
           title="PLACE MY ORDER"

@@ -1,5 +1,5 @@
 import { all } from 'redux-saga/effects';
-import watchUserAuthentication from './watchers';
+import { watchUserAuthentication, watchCleanerActions } from './watchers';
 import watchOrdersLoad, {
   watchPostOrder,
   watchOrdersReload,
@@ -8,6 +8,7 @@ import watchOrdersLoad, {
 export default function* rootSaga() {
   yield all([
     watchUserAuthentication(),
+    watchCleanerActions(),
     watchOrdersLoad(),
     watchPostOrder(),
     watchOrdersReload(),

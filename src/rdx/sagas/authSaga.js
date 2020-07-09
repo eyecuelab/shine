@@ -11,15 +11,17 @@ import { call, put, cancelled } from 'redux-saga/effects';
 export function* loginSaga(action) {
   try {
     let response = yield call(loginUserService, action.payload);
-
     if (response.ok && response.status === 200) {
       const data = yield response.json();
       const token = data.data.attributes.token;
       const profile = data.included[0].attributes;
+      const userId = data.data.attributes.user_id;
+      console.log('DATA', data);
 
       yield put(
         actions.logIn({
           token: token,
+          userId: userId,
           profile: profile,
         }),
       );
@@ -41,7 +43,7 @@ export function* logoutSaga(action) {
     if (response.ok && response.status === 200) {
       yield put(actions.logOut());
     } else {
-      throw yield response;
+      throw yield response.json();
     }
   } catch (error) {
     console.log('LOGOUT ERROR:', error);
@@ -67,6 +69,7 @@ export function* signupSaga(action) {
 }
 
 export function* editProfileSaga(action) {
+  console.log(action.payload);
   try {
     let response = yield call(editProfileService, action.payload);
     if (response.status >= 200 && response.status < 300) {

@@ -30,6 +30,10 @@ const SignUpScreen = ({ signupWatcher, users }) => {
   const statusMessage = users.signupMessage;
   const navigation = useNavigation();
 
+  const inputEl2 = React.useRef(null);
+  const inputEl3 = React.useRef(null);
+  const inputEl4 = React.useRef(null);
+
   const onSubmit = () => {
     signupWatcher({
       email: email,
@@ -58,8 +62,10 @@ const SignUpScreen = ({ signupWatcher, users }) => {
               style={styles.input}
               value={email}
               onChangeText={setEmail}
+              onSubmitEditing={() => inputEl2.current.focus()}
             />
             <TextInput
+              ref={inputEl2}
               placeholder="First Name"
               returnKeyType="next"
               autoCapitalize="words"
@@ -67,8 +73,10 @@ const SignUpScreen = ({ signupWatcher, users }) => {
               style={styles.input}
               value={firstName}
               onChangeText={setFirstName}
+              onSubmitEditing={() => inputEl3.current.focus()}
             />
             <TextInput
+              ref={inputEl3}
               placeholder="Last Name"
               returnKeyType="next"
               autoCapitalize="words"
@@ -76,9 +84,11 @@ const SignUpScreen = ({ signupWatcher, users }) => {
               style={styles.input}
               value={lastName}
               onChangeText={setLastName}
+              onSubmitEditing={() => inputEl4.current.focus()}
             />
             <InputContainer>
               <TextInput
+                ref={inputEl4}
                 placeholder="Password"
                 returnKeyType="done"
                 keyboardType="email-address"
