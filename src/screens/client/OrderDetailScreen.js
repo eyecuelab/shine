@@ -14,29 +14,34 @@ import * as actions from '../../rdx/actions';
 
 const { width } = Dimensions.get('window');
 
-const OrderDetailScreen = ({ navigation, addAddOns, addOrderAddress }) => {
+const OrderDetailScreen = ({ navigation, postOrder }) => {
   const route = useRoute();
   const item = route.params;
-  // console.log('ROUTE: ', route);
 
   const [polish, setPolish] = useState(false);
   const [rainProtection, setRainProtection] = useState(false);
   const [replaceLaces, setReplaceLaces] = useState(false);
 
-  const [street, onChangeStreet] = useState('');
-  const [unitNum, onChangeUnitNum] = useState('');
-  const [zipcode, onChangeZipcode] = useState('');
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
+  const [locState, setLocState] = useState('');
+  const [postalCode, setPostalCode] = useState('');
 
   const handleSubmit = () => {
-    addAddOns(item.uuid, {
-      polish: polish,
-      rainProtection: rainProtection,
-      replaceLaces: replaceLaces,
-    });
-    addOrderAddress(item.uuid, {
-      streetAddress: street,
-      aptNumber: unitNum,
-      zipcode: zipcode,
+    postOrder({
+      shoe_types: ['Indoor', 'Outdoor'],
+      time_frame: item.timeFrame,
+      add_ons: {
+        polish: polish,
+        replaceLaces: replaceLaces,
+        rainProtection: rainProtection,
+      },
+      estimated_price: 7,
+      note: item.note,
+      street_address: street,
+      city: city,
+      state: locState,
+      postal_code: postalCode,
     });
     navigation.navigate('Home');
   };
@@ -82,22 +87,29 @@ const OrderDetailScreen = ({ navigation, addAddOns, addOrderAddress }) => {
           style={styles.input}
           placeholder="STREET ADDRESS"
           returnKeyType="next"
-          onChangeText={(text) => onChangeStreet(text)}
+          onChangeText={(text) => setStreet(text)}
           value={street}
         />
         <TextInput
           style={styles.input}
-          placeholder="APT/ UNIT #/BUILDING"
+          placeholder="CITY"
           returnKeyType="next"
-          onChangeText={(text) => onChangeUnitNum(text)}
-          value={unitNum}
+          onChangeText={(text) => setCity(text)}
+          value={city}
         />
         <TextInput
           style={styles.input}
-          placeholder="STREET ADDRESS"
+          placeholder="STATE"
+          returnKeyType="next"
+          onChangeText={(text) => setLocState(text)}
+          value={locState}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="ZIP CODE"
           returnKeyType="done"
-          onChangeText={(text) => onChangeZipcode(text)}
-          value={zipcode}
+          onChangeText={(text) => setPostalCode(text)}
+          value={postalCode}
         />
 
         <DashedLine />
@@ -182,8 +194,7 @@ const PriceText = styled.Text`
 
 OrderDetailScreen.propTypes = {
   navigation: PropTypes.object,
-  addAddOns: PropTypes.func,
-  addOrderAddress: PropTypes.func,
+  postOrder: PropTypes.func,
   requestComplete: PropTypes.func,
   orders: PropTypes.array,
 };
