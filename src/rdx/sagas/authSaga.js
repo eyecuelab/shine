@@ -41,7 +41,7 @@ export function* logoutSaga(action) {
     if (response.ok && response.status === 200) {
       yield put(actions.logOut());
     } else {
-      throw yield response;
+      throw yield response.json();
     }
   } catch (error) {
     console.log('LOGOUT ERROR:', error);
