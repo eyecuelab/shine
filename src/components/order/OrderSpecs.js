@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
@@ -21,10 +21,14 @@ const OrderSpecs = ({
       shoeTypes.map((item) => {
         console.log('TYPE', type);
         console.log(item.style === type);
-        console.log('ITEM', item);
-        item.style === type
-          ? { ...item, chosen: true, style: item.style }
-          : { item };
+        if (item.style === type) {
+          return {
+            ...item,
+            style: item.style,
+            chosen: !item.chosen,
+          };
+        }
+        return item;
       }),
     );
   };
@@ -54,16 +58,19 @@ const OrderSpecs = ({
               type="INDOOR"
               select={shoeTypes['INDOOR']}
               handleTypeChange={handleTypeChange}
+              shoeTypes={shoeTypes}
             />
             <ShoeTypeButton
               type="OUTDOOR"
               select={shoeTypes['OUTDOOR']}
               handleTypeChange={handleTypeChange}
+              shoeTypes={shoeTypes}
             />
             <ShoeTypeButton
               type="EXERCISE"
               select={shoeTypes['EXERCISE']}
               handleTypeChange={handleTypeChange}
+              shoeTypes={shoeTypes}
             />
           </Row>
           <Row>
@@ -71,16 +78,19 @@ const OrderSpecs = ({
               type="LEISURE"
               select={shoeTypes['LEISURE']}
               handleTypeChange={handleTypeChange}
+              shoeTypes={shoeTypes}
             />
             <ShoeTypeButton
               type="FORMAL"
               select={shoeTypes['FORMAL']}
               handleTypeChange={handleTypeChange}
+              shoeTypes={shoeTypes}
             />
             <ShoeTypeButton
               type="SOCIAL"
               select={shoeTypes['SOCIAL']}
               handleTypeChange={handleTypeChange}
+              shoeTypes={shoeTypes}
             />
           </Row>
         </TypeContainer>

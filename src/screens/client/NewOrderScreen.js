@@ -28,6 +28,15 @@ const NewOrderScreen = ({ navigation }) => {
     { style: 'SOCIAL', chosen: false },
   ]);
 
+  // const shoeTypes = [
+  //   { style: 'INDOOR', chosen: false },
+  //   { style: 'OUTDOOR', chosen: false },
+  //   { style: 'EXERCISE', chosen: false },
+  //   { style: 'LEISURE', chosen: false },
+  //   { style: 'FORMAL', chosen: false },
+  //   { style: 'SOCIAL', chosen: false },
+  // ];
+
   const [note, setNote] = useState('');
   const [price, setPrice] = useState(30);
   // ROUTE STATE
