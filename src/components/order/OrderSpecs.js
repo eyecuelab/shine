@@ -173,7 +173,7 @@ OrderSpecs.propTypes = {
   jumpTo: PropTypes.func,
   sliderValue: PropTypes.string,
   setSliderValue: PropTypes.func,
-  shoeTypes: PropTypes.array,
+  shoeTypes: PropTypes.any,
   setShoeTypes: PropTypes.func,
 };
 

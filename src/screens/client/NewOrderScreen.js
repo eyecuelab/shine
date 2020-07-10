@@ -9,6 +9,7 @@ import SetupOrAdd from '../../components/order/SetupOrAdd';
 import PropTypes from 'prop-types';
 import SelectPhoto from '../../components/order/SelectPhoto';
 import * as actions from '../../rdx/actions';
+import _ from 'lodash';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -17,15 +18,16 @@ const NewOrderScreen = ({ navigation }) => {
   const [image, setImage] = useState('empty.img');
   const [index, setIndex] = useState(0);
   const [sliderValue, setSliderValue] = useState('Within Two Days');
+
   const [shoeTypes, setShoeTypes] = useState([
-    { INDOOR: false },
-    { OUTDOOR: false },
-    { EXERCISE: false },
-    { LEISURE: false },
-    { FORMAL: false },
-    { SOCIAL: false },
+    { style: 'INDOOR', chosen: true },
+    { style: 'OUTDOOR', chosen: false },
+    { style: 'EXERCISE', chosen: false },
+    { style: 'LEISURE', chosen: false },
+    { style: 'FORMAL', chosen: true },
+    { style: 'SOCIAL', chosen: false },
   ]);
-  // const [selectedShoeTypes, setSelectedShoeTypes] = useState([]);
+
   const [note, setNote] = useState('');
   const [price, setPrice] = useState(30);
   // ROUTE STATE
@@ -35,8 +37,6 @@ const NewOrderScreen = ({ navigation }) => {
     { key: 'third', title: 'Step 3' },
     { key: 'fourth', title: 'Step 4' },
   ]);
-  console.log(shoeTypes);
-  // console.log(testFunction());
 
   const orderInfo = {
     uuid: uuid.v4(),
@@ -46,12 +46,19 @@ const NewOrderScreen = ({ navigation }) => {
     note: note,
     price: price,
   };
-
+  const [selected, setSelected] = useState([]);
   const onSubmit = () => {
-    // addOrder({
-    //   orderInfo,
-    // });
+    filterShoeTypes();
     navigation.navigate('OrderDetail', orderInfo);
+  };
+  console.log('SELECTED:', selected);
+
+  const filterShoeTypes = () => {
+    shoeTypes.map((item) => {
+      if (item.chosen === true) {
+        setSelected((selected) => [...selected, item.style]);
+      }
+    });
   };
 
   const renderScene = ({ route, jumpTo }) => {
