@@ -1,11 +1,11 @@
 export const loginUserService = (request) => {
   // const LOGIN_API_ENDPOINT = 'https://shoeshine.herokuapp.com/login';
-  //const LOGIN_API_ENDPOINT = 'http://127.0.0.1:8080/login';
-  const LOGIN_API_ENDPOINT = 'http://192.168.1.14:8080/login';
+  const LOGIN_API_ENDPOINT = 'http://127.0.0.1:8080/login';
 
   const parameters = {
     method: 'POST',
     headers: {
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(request),
@@ -18,11 +18,12 @@ export const loginUserService = (request) => {
 
 export const logoutUserService = (request) => {
   // const LOGOUT_API_ENDPOINT = 'https://shoeshine.herokuapp.com/logout';
-  const LOGOUT_API_ENDPOINT = 'http://192.168.1.14:8080/logout';
+  const LOGOUT_API_ENDPOINT = 'http://127.0.0.1:8080/logout';
 
   const parameters = {
     method: 'POST',
     headers: {
+      Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: request,
     },
@@ -35,11 +36,12 @@ export const logoutUserService = (request) => {
 
 export const signUpUserService = (request) => {
   // const SIGNUP_API_ENDPOINT = 'https://shoeshine.herokuapp.com/signup';
-  const SIGNUP_API_ENDPOINT = 'http://192.168.1.14:8080/signup';
+  const SIGNUP_API_ENDPOINT = 'http://127.0.0.1:8080/signup';
 
   const parameters = {
     method: 'POST',
     headers: {
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(request),
@@ -51,13 +53,12 @@ export const signUpUserService = (request) => {
 };
 
 export const editProfileService = (request) => {
-  // console.log('PATCH REQUEST', request);
-  // const PROFILE_API_ENDPOINT = 'https://shoeshine.herokuapp.com/profile';
-  const PROFILE_API_ENDPOINT = 'http://192.168.1.14:8080/profile';
+  const PROFILE_API_ENDPOINT = 'http://127.0.0.1:8080/profile';
 
   const parameters = {
     method: 'PATCH',
     headers: {
+      Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: request.token,
     },
@@ -69,19 +70,20 @@ export const editProfileService = (request) => {
   });
 };
 
-export const getProfileService = (request) => {
-  console.log('GET REQUEST', request);
-  const PROFILE_API_ENDPOINT = 'http://192.168.1.14:8080/profile';
+// export const getProfileService = (request) => {
+//   console.log('GET REQUEST', request);
+//   const PROFILE_API_ENDPOINT = 'http://127.0.0.1:8080/profile';
 
-  const parameters = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: request,
-    },
-  };
+//   const parameters = {
+//     method: 'GET',
+//     headers: {
+//       Accept: 'application/json',
+//       'Content-Type': 'application/json',
+//       Authorization: request,
+//     },
+//   };
 
-  return fetch(PROFILE_API_ENDPOINT, parameters).then((response) => {
-    return response;
-  });
-};
+//   return fetch(PROFILE_API_ENDPOINT, parameters).then((response) => {
+//     return response;
+//   });
+// };

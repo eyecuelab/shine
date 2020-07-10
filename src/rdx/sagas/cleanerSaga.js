@@ -6,18 +6,18 @@ import { call, put, cancelled, select } from 'redux-saga/effects';
 export const getToken = (state) => state.users.auth.token;
 
 export function* cleanerApplySaga(action) {
-  console.log(action);
   try {
     const token = yield select(getToken);
     let response = yield call(applyCleanerService, action.payload, token);
     const data = yield response.json();
-    console.log(data);
+    console.log('CLEANER RESPONSE', data);
     if (response.status >= 200 && response.status < 300) {
+      yield put(actions.postCleanerProfile(data));
       console.log('DATA', data);
     } else {
       throw yield response.json();
     }
   } catch (error) {
-    console.log('EDIT PROFILE ERROR: ', error);
+    console.log('CLEANER PROFILE ERROR: ', error);
   }
 }

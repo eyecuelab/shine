@@ -12,7 +12,7 @@ import * as actions from '../../rdx/actions';
 
 const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
   // TODO: bring in the USERID from the AUTHREDUCER, meaning the user will have to be logged in to see this page.
-  const userId = users.auth.userId;
+
   const [cleanerProfile, setCleanerProfile] = useState({
     first_name: '',
     last_name: '',
@@ -25,21 +25,6 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
     bio: '',
     business_name: '',
   });
-
-  // const [cleanerProfile, setAppInfo] = useState({
-  //   businessName: '',
-  //   firstName: '',
-  //   lastName: '',
-  //   email: '',
-  //   phoneNumber: '',
-  //   bio: '',
-  // });
-  // const [cleanerAddress, setCleanerAddress] = useState({
-  //   street: '',
-  //   city: '',
-  //   state: '',
-  //   postalCode: '',
-  // });
 
   const inputEl2 = useRef(null);
   const inputEl3 = useRef(null);
@@ -58,12 +43,6 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
     }));
   };
 
-  // const handleChange = (key, value) => {
-  //   setCleanerAddress((current) => ({
-  //     ...current,
-  //     [key]: value,
-  //   }));
-  // };
   // FUNCTION FOR CORRECTING PHONE NUMBER:
   const onTextChange = (text) => {
     var cleaned = ('' + text).replace(/\D/g, '');
@@ -80,7 +59,19 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
   };
 
   const handleSubmit = () => {
-    applyCleanerWatcher({ profile: cleanerProfile });
+    applyCleanerWatcher(cleanerProfile);
+    // applyCleanerWatcher({
+    //   bio: '',
+    //   business_name: 'TEST',
+    //   city: 'Portland',
+    //   email: 'jieun2@test.com',
+    //   first_name: 'Jieun',
+    //   last_name: 'Kang',
+    //   phone: '(000) 000-0000',
+    //   postal_code: '90000',
+    //   state: 'OR',
+    //   street_address: '123',
+    // });
   };
 
   return (
@@ -151,7 +142,8 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
           label="Email"
           labelStyle={{ fontSize: 20 }}
           placeholder="example@email.com"
-          keyboardType={'email-address'}
+          keyboardType="email-address"
+          autoCapitalize="none"
           leftIcon={
             <MaterialIcons
               name="email"

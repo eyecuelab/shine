@@ -5,7 +5,6 @@ import {
   logoutUserService,
   signUpUserService,
   editProfileService,
-  getProfileService,
 } from '../services/authService';
 import { call, put, cancelled, select } from 'redux-saga/effects';
 
@@ -17,7 +16,6 @@ export function* loginSaga(action) {
       const token = data.data.attributes.token;
       const profile = data.included[0].attributes;
       const userId = data.data.attributes.user_id;
-      // console.log('DATA', data);
 
       yield put(
         actions.logIn({

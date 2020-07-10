@@ -153,11 +153,9 @@ export const applyCleanerWatcher = (payload) => {
   };
 };
 
-// export const addCleanerProfile = (address, profile) => {
-//   return {
-//     type: types.ADD_CLEANER_PROFILE,
-//     id: uuid.v4(),
-//     address: address,
-//     payload: profile,
-//   };
-// };
+export const postCleanerProfile = (payload) => {
+  return {
+    type: types.ADD_CLEANER_PROFILE,
+    payload,
+  };
+};

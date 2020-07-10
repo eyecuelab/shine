@@ -7,6 +7,7 @@ const initialAuthState = {
     userId: null,
     profile: {},
   },
+  cleaner: {},
   errorMessage: null,
   signupMessage: null,
   status: 'Logged out',
@@ -76,7 +77,7 @@ const authReducer = (state = initialAuthState, action) => {
         auth: action.payload,
         errorMessage: null,
         signupMessage: null,
-        status: 'Profile updated',
+        status: 'User Profile updated',
       };
     default:
       return state;
