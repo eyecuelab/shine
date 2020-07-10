@@ -37,28 +37,28 @@ const NewOrderScreen = ({ navigation }) => {
     { key: 'third', title: 'Step 3' },
     { key: 'fourth', title: 'Step 4' },
   ]);
-  const [selected, setSelected] = useState([]);
+  // PLEASE KEEP FOR REFERENCE
+  // const [selected, setSelected] = useState([]);
+
+  // const filterShoeTypes = () => {
+  //   shoeTypes.map((item) => {
+  //     if (item.chosen === true) {
+  //       setSelected((selected) => [...selected, item.style]);
+  //     }
+  //   });
+  // };
 
   const orderInfo = {
     uuid: uuid.v4(),
     image: image,
-    shoeTypes: selected,
+    shoeTypes: shoeTypes,
     timeFrame: sliderValue,
     note: note,
     price: price,
   };
 
   const onSubmit = () => {
-    filterShoeTypes();
     navigation.navigate('OrderDetail', orderInfo);
-  };
-
-  const filterShoeTypes = () => {
-    shoeTypes.map((item) => {
-      if (item.chosen === true) {
-        setSelected((selected) => [...selected, item.style]);
-      }
-    });
   };
 
   const renderScene = ({ route, jumpTo }) => {
