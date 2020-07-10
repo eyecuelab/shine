@@ -28,15 +28,6 @@ const NewOrderScreen = ({ navigation }) => {
     { style: 'SOCIAL', chosen: false },
   ]);
 
-  // const shoeTypes = [
-  //   { style: 'INDOOR', chosen: false },
-  //   { style: 'OUTDOOR', chosen: false },
-  //   { style: 'EXERCISE', chosen: false },
-  //   { style: 'LEISURE', chosen: false },
-  //   { style: 'FORMAL', chosen: false },
-  //   { style: 'SOCIAL', chosen: false },
-  // ];
-
   const [note, setNote] = useState('');
   const [price, setPrice] = useState(30);
   // ROUTE STATE
@@ -46,21 +37,21 @@ const NewOrderScreen = ({ navigation }) => {
     { key: 'third', title: 'Step 3' },
     { key: 'fourth', title: 'Step 4' },
   ]);
+  const [selected, setSelected] = useState([]);
 
   const orderInfo = {
     uuid: uuid.v4(),
     image: image,
-    shoeTypes: shoeTypes,
+    shoeTypes: selected,
     timeFrame: sliderValue,
     note: note,
     price: price,
   };
-  const [selected, setSelected] = useState([]);
+
   const onSubmit = () => {
     filterShoeTypes();
     navigation.navigate('OrderDetail', orderInfo);
   };
-  console.log('SHOE TYPES: ', shoeTypes);
 
   const filterShoeTypes = () => {
     shoeTypes.map((item) => {
