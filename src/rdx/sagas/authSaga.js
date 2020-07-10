@@ -16,7 +16,7 @@ export function* loginSaga(action) {
       const token = data.data.attributes.token;
       const profile = data.included[0].attributes;
       const userId = data.data.attributes.user_id;
-      console.log('DATA', data);
+      // console.log('DATA', data);
 
       yield put(
         actions.logIn({
@@ -65,19 +65,5 @@ export function* signupSaga(action) {
     if (yield cancelled()) {
       yield put({ type: types.SIGNUP_CANCELLED });
     }
-  }
-}
-
-export function* editProfileSaga(action) {
-  console.log(action.payload);
-  try {
-    let response = yield call(editProfileService, action.payload);
-    if (response.status >= 200 && response.status < 300) {
-      yield put(actions.updateProfile());
-    } else {
-      throw yield response.json();
-    }
-  } catch (error) {
-    console.log('EDIT PROFILE ERROR: ', error);
   }
 }

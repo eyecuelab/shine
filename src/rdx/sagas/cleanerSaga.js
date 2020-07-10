@@ -4,7 +4,7 @@ import { applyCleanerService } from '../services/cleanerService';
 import { call, put, cancelled } from 'redux-saga/effects';
 
 export function* cleanerApplySaga(action) {
-  // console.log(action);
+  console.log(action);
   let response = yield call(applyCleanerService, action.payload);
-  // console.log('RESPONSE', response.json());
+  console.log('RESPONSE', response.json());
 }

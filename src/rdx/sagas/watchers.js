@@ -1,5 +1,6 @@
 import { takeLatest } from 'redux-saga/effects';
-import { loginSaga, logoutSaga, signupSaga, editProfileSaga } from './authSaga';
+import { loginSaga, logoutSaga, signupSaga } from './authSaga';
+import { editProfileSaga } from './clientSaga';
 import { cleanerApplySaga } from './cleanerSaga';
 import * as types from '../actions/types';
 
