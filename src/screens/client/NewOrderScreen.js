@@ -20,11 +20,11 @@ const NewOrderScreen = ({ navigation }) => {
   const [sliderValue, setSliderValue] = useState('Within Two Days');
 
   const [shoeTypes, setShoeTypes] = useState([
-    { style: 'INDOOR', chosen: true },
+    { style: 'INDOOR', chosen: false },
     { style: 'OUTDOOR', chosen: false },
     { style: 'EXERCISE', chosen: false },
     { style: 'LEISURE', chosen: false },
-    { style: 'FORMAL', chosen: true },
+    { style: 'FORMAL', chosen: false },
     { style: 'SOCIAL', chosen: false },
   ]);
 
@@ -51,7 +51,7 @@ const NewOrderScreen = ({ navigation }) => {
     filterShoeTypes();
     navigation.navigate('OrderDetail', orderInfo);
   };
-  console.log('SELECTED:', selected);
+  console.log('SHOE TYPES: ', shoeTypes);
 
   const filterShoeTypes = () => {
     shoeTypes.map((item) => {

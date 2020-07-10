@@ -17,11 +17,16 @@ const OrderSpecs = ({
   setShoeTypes,
 }) => {
   const handleTypeChange = (type) => {
-    console.log(type);
-    setShoeTypes((current) => ({
-      ...current,
-      [type]: !shoeTypes[type],
-    }));
+    setShoeTypes(
+      shoeTypes.map((item) => {
+        console.log('TYPE', type);
+        console.log(item.style === type);
+        console.log('ITEM', item);
+        item.style === type
+          ? { ...item, chosen: true, style: item.style }
+          : { item };
+      }),
+    );
   };
 
   const handleValueChange = (value) => {
