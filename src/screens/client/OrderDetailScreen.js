@@ -16,12 +16,22 @@ import ShoePhoto from '../../components/shared/ShoePhoto';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
+import _ from 'lodash';
 
 const { width } = Dimensions.get('window');
 
 const OrderDetailScreen = ({ navigation, postOrder }) => {
   const route = useRoute();
   const item = route.params;
+
+  function filter(item) {
+    let newArray = [];
+    if (item.chosen === true) {
+      newArray.push(item.style);
+    }
+    return newArray;
+  }
+  const chosenShoeTypes = _.flatMap(item.shoeTypes, filter);
 
   const [polish, setPolish] = useState(false);
   const [rainProtection, setRainProtection] = useState(false);
@@ -39,7 +49,7 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
 
   const handleSubmit = () => {
     postOrder({
-      shoe_types: ['Indoor', 'Outdoor'],
+      shoe_types: chosenShoeTypes,
       time_frame: item.timeFrame,
       add_ons: {
         polish: polish,
