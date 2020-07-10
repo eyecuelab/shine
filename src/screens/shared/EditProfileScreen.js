@@ -16,7 +16,11 @@ import PropTypes from 'prop-types';
 
 const { width } = Dimensions.get('window');
 
-const EditProfileScreen = ({ editProfileWatcher, users }) => {
+const EditProfileScreen = ({
+  editProfileWatcher,
+  getProfileWatcher,
+  users,
+}) => {
   const [userProfile, setUserProfile] = React.useState({
     street_address: '',
     city: '',
@@ -56,8 +60,8 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
   const navigation = useNavigation();
   const token = users.auth.token;
   const onSubmit = () => {
-    editProfileWatcher({ token: token, profile: userProfile });
-    // navigation.navigate('Profile');
+    editProfileWatcher({ token: token, profile: { first_name: 'Shine' } });
+    navigation.navigate('Profile');
   };
 
   return (

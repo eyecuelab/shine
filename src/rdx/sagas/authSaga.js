@@ -5,8 +5,9 @@ import {
   logoutUserService,
   signUpUserService,
   editProfileService,
+  getProfileService,
 } from '../services/authService';
-import { call, put, cancelled } from 'redux-saga/effects';
+import { call, put, cancelled, select } from 'redux-saga/effects';
 
 export function* loginSaga(action) {
   try {
@@ -41,7 +42,7 @@ export function* logoutSaga(action) {
   try {
     let response = yield call(logoutUserService, action.payload);
     if (response.ok && response.status === 200) {
-      yield put(actions.logOut());
+      yield put({ type: types.LOGOUT_SUCCESS });
     } else {
       throw yield response.json();
     }
@@ -54,7 +55,7 @@ export function* signupSaga(action) {
   try {
     let response = yield call(signUpUserService, action.payload);
     if (response.ok && response.status === 204) {
-      yield put(actions.signUp());
+      yield put({ type: types.SIGNUP_SUCCESS });
     } else {
       throw yield response.json();
     }
@@ -67,3 +68,36 @@ export function* signupSaga(action) {
     }
   }
 }
+export const getToken = (state) => state.users.auth.token;
+export function* editProfileSaga(action) {
+  try {
+    const token = yield select(getToken);
+    let response = yield call(editProfileService, action.payload);
+    const data = yield response.json();
+    const profile = data.data.attributes;
+    const userId = data.data.id;
+    console.log('PATCH RESPONSE', userId);
+    if (response.status >= 200 && response.status < 300) {
+      // yield put({ type: types.EDIT_PROFILE_SUCCESS });
+      yield put(
+        actions.updateProfile({
+          token: token,
+          userId: userId,
+          profile: profile,
+        }),
+      );
+    } else {
+      throw yield response.json();
+    }
+  } catch (error) {
+    console.log('EDIT PROFILE ERROR: ', error);
+  }
+}
+
+// export function* getProfileSaga(action) {
+//   console.log('A', action);
+//   const token = yield select(getToken);
+//   let response = yield call(getProfileService, token);
+//   const data = yield response.json();
+//   console.log('GET RESPONSE', data);
+// }

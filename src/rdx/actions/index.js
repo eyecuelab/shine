@@ -105,11 +105,11 @@ export const logoutWatcher = (token) => {
   };
 };
 
-export const logOut = () => {
-  return {
-    type: types.LOGOUT_SUCCESS,
-  };
-};
+// export const logOut = () => {
+//   return {
+//     type: types.LOGOUT_SUCCESS,
+//   };
+// };
 
 export const signupWatcher = (user) => {
   return {
@@ -118,16 +118,22 @@ export const signupWatcher = (user) => {
   };
 };
 
-export const signUp = () => {
-  return {
-    type: types.SIGNUP_SUCCESS,
-  };
-};
+// export const signUp = () => {
+//   return {
+//     type: types.SIGNUP_SUCCESS,
+//   };
+// };
 
 export const editProfileWatcher = ({ token, profile }) => {
   return {
     type: types.EDIT_PROFILE_WATCHER,
     payload: { token, profile },
+  };
+};
+
+export const getProfileWatcher = () => {
+  return {
+    type: types.GET_PROFILE_WATCHER,
   };
 };
 

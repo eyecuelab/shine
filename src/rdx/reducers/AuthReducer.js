@@ -70,14 +70,17 @@ const authReducer = (state = initialAuthState, action) => {
         signupMessage: action.error,
         status: 'Signup error',
       };
+    case types.EDIT_PROFILE_SUCCESS:
+      return {
+        ...state,
+        errorMessage: null,
+        signupMessage: null,
+        status: 'Edit profile success',
+      };
     case types.UPDATE_PROFILE:
       return {
         ...state,
-        auth: {
-          profile: {
-            phone: action.payload.phone,
-          },
-        },
+        auth: action.payload,
         errorMessage: null,
         signupMessage: null,
         status: 'Profile updated',
