@@ -24,14 +24,37 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
   const route = useRoute();
   const item = route.params;
 
-  function filter(item) {
+  function filter(object) {
     let newArray = [];
-    if (item.chosen === true) {
-      newArray.push(item.style);
+    if (object.chosen === true) {
+      newArray.push(object.style);
     }
     return newArray;
   }
   const chosenShoeTypes = _.flatMap(item.shoeTypes, filter);
+
+  function timePrice(time) {
+    if (time === 'Within 24 Hours') {
+      return 7.5;
+    } else if (time === 'Within 2 Days') {
+      return 5.5;
+    } else {
+      return 3.5;
+    }
+  }
+  function typePrice(chosen) {
+    if (chosen.includes('OUTDOOR' || 'FORMAL' || 'SOCIAL')) {
+      return 10;
+    } else if (chosen.includes('INDOOR' || 'LEISURE' || 'EXERCISE')) {
+      return 5;
+    }
+  }
+
+  const deliveryFee = 5;
+  const priceByTime = timePrice(item.timeFrame);
+  const priceByStyle = typePrice(chosenShoeTypes);
+  const addPrice = _.sum([priceByTime, priceByStyle, deliveryFee]);
+  const estPrice = _.floor(addPrice);
 
   const [polish, setPolish] = useState(false);
   const [rainProtection, setRainProtection] = useState(false);
@@ -100,7 +123,7 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
             <PriceTextContainer>
               <PriceText>ROUGH EST.</PriceText>
             </PriceTextContainer>
-            {PriceTagBlack(35, 99)}
+            {PriceTagBlack(estPrice, 99)}
           </PriceContianer>
 
           <DashedLine />
