@@ -146,10 +146,10 @@ export const updateProfile = (profile) => {
 
 // ====== CLEANERS ACTION CREATORS ======= //
 
-export const applyCleanerWatcher = ({ userId, profile, address }) => {
+export const applyCleanerWatcher = (payload) => {
   return {
     type: types.APPLY_CLEANER_WATCHER,
-    payload: { userId, profile, address },
+    payload,
   };
 };
 

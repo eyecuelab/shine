@@ -16,11 +16,7 @@ import PropTypes from 'prop-types';
 
 const { width } = Dimensions.get('window');
 
-const EditProfileScreen = ({
-  editProfileWatcher,
-  getProfileWatcher,
-  users,
-}) => {
+const EditProfileScreen = ({ editProfileWatcher, users }) => {
   const [userProfile, setUserProfile] = React.useState({
     street_address: '',
     city: '',
@@ -73,7 +69,7 @@ const EditProfileScreen = ({
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Container>
             <TextInput
-              placeholder="Street"
+              placeholder="Street Address"
               returnKeyType="next"
               autoCapitalize="words"
               autoCorrect={false}

@@ -6,6 +6,7 @@ import { call, put, cancelled, select } from 'redux-saga/effects';
 export const getToken = (state) => state.users.auth.token;
 
 export function* cleanerApplySaga(action) {
+  console.log(action);
   try {
     const token = yield select(getToken);
     let response = yield call(applyCleanerService, action.payload, token);
