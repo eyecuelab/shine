@@ -7,7 +7,6 @@ const ShoeTypeButton = ({ type, shoeTypes, handleTypeChange }) => {
   const findSelected = _.find(shoeTypes, { style: type });
   const select = findSelected.chosen;
 
-  console.log('SHOETYPEBUTTON:', select);
   return (
     <ShoeType
       select={select}
@@ -37,6 +36,7 @@ ShoeTypeButton.propTypes = {
   type: PropTypes.string,
   select: PropTypes.bool,
   handleTypeChange: PropTypes.func,
+  shoeTypes: PropTypes.array,
 };
 
 export default ShoeTypeButton;
