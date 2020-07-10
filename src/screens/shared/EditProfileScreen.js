@@ -60,7 +60,7 @@ const EditProfileScreen = ({
   const navigation = useNavigation();
   const token = users.auth.token;
   const onSubmit = () => {
-    editProfileWatcher({ token: token, profile: { first_name: 'Shine' } });
+    editProfileWatcher({ token: token, profile: { first_name: 'Shoe' } });
     navigation.navigate('Profile');
   };
 

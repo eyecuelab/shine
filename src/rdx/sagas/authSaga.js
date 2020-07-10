@@ -68,7 +68,9 @@ export function* signupSaga(action) {
     }
   }
 }
+
 export const getToken = (state) => state.users.auth.token;
+
 export function* editProfileSaga(action) {
   try {
     const token = yield select(getToken);
@@ -76,9 +78,7 @@ export function* editProfileSaga(action) {
     const data = yield response.json();
     const profile = data.data.attributes;
     const userId = data.data.id;
-    console.log('PATCH RESPONSE', userId);
     if (response.status >= 200 && response.status < 300) {
-      // yield put({ type: types.EDIT_PROFILE_SUCCESS });
       yield put(
         actions.updateProfile({
           token: token,
@@ -93,11 +93,3 @@ export function* editProfileSaga(action) {
     console.log('EDIT PROFILE ERROR: ', error);
   }
 }
-
-// export function* getProfileSaga(action) {
-//   console.log('A', action);
-//   const token = yield select(getToken);
-//   let response = yield call(getProfileService, token);
-//   const data = yield response.json();
-//   console.log('GET RESPONSE', data);
-// }
