@@ -16,48 +16,20 @@ const OrderSpecs = ({
   shoeTypes,
   setShoeTypes,
 }) => {
-  // console.log(sliderValue);
-
-  // const [shoeTypes, setShoeTypes] = useState([
-  //   { type: 'OUTDOOR', select: false },
-  //   { type: 'INDOOR', select: false },
-  //   { type: 'EXERCISE', select: false },
-  //   { type: 'LEISURE', select: false },
-  //   { type: 'FORMAL', select: false },
-  //   { type: 'SOCIAL', select: false },
-  // ]);
-
-  // const handleTypeChange = (type) => {
-  //   setShoeTypes(
-  //     shoeTypes.map((data) => {
-  //       if (type === data.type) {
-  //         data.select = !data.select;
-  //       }
-  //       return data;
-  //     }),
-  //   );
-  // };
-
   const handleTypeChange = (type) => {
-    setShoeTypes((current) => ({
-      ...current,
-      [type]: !shoeTypes[type],
-    }));
+    setShoeTypes(
+      shoeTypes.map((item) => {
+        if (item.style === type) {
+          return {
+            ...item,
+            style: item.style,
+            chosen: !item.chosen,
+          };
+        }
+        return item;
+      }),
+    );
   };
-
-  // experiment to make price local state
-  // const setPrice = (shoeTypes) => {
-  //   let price = 10;
-  //   if (shoeTypes['LEISURE'] === true) {
-  //     price += 5;
-  //   }
-  //   if (shoeTypes['FORMAL'] === true) {
-  //     price += 7;
-  //   }
-  //   return price;
-  // };
-
-  // const [price = setPrice(shoeTypes)] = useState();
 
   const handleValueChange = (value) => {
     let valueName = '';
@@ -84,16 +56,19 @@ const OrderSpecs = ({
               type="INDOOR"
               select={shoeTypes['INDOOR']}
               handleTypeChange={handleTypeChange}
+              shoeTypes={shoeTypes}
             />
             <ShoeTypeButton
               type="OUTDOOR"
               select={shoeTypes['OUTDOOR']}
               handleTypeChange={handleTypeChange}
+              shoeTypes={shoeTypes}
             />
             <ShoeTypeButton
               type="EXERCISE"
               select={shoeTypes['EXERCISE']}
               handleTypeChange={handleTypeChange}
+              shoeTypes={shoeTypes}
             />
           </Row>
           <Row>
@@ -101,33 +76,22 @@ const OrderSpecs = ({
               type="LEISURE"
               select={shoeTypes['LEISURE']}
               handleTypeChange={handleTypeChange}
+              shoeTypes={shoeTypes}
             />
             <ShoeTypeButton
               type="FORMAL"
               select={shoeTypes['FORMAL']}
               handleTypeChange={handleTypeChange}
+              shoeTypes={shoeTypes}
             />
             <ShoeTypeButton
               type="SOCIAL"
               select={shoeTypes['SOCIAL']}
               handleTypeChange={handleTypeChange}
+              shoeTypes={shoeTypes}
             />
           </Row>
         </TypeContainer>
-
-        {/* <FlatList
-          scrollEnabled={false}
-          numColumns={3}
-          data={shoeTypes}
-          renderItem={({ item }) => (
-            <ShoeTypeButton
-              type={item.type}
-              select={item.select}
-              handleTypeChange={handleTypeChange}
-            />
-          )}
-          keyExtractor={(item) => item.type}
-        /> */}
         <DashedLine />
         <SliderContainer>
           <BodyText>How soon do you need them cleaned?</BodyText>
@@ -141,7 +105,6 @@ const OrderSpecs = ({
             value={4}
             thumbTintColor="#ffffff"
             thumbStyle={customStyles.thumb}
-            // onValueChange={(value) => handleValueChange({ value })}
             onValueChange={(value) => setSliderValue(handleValueChange(value))}
           />
         </SliderContainer>
@@ -223,7 +186,7 @@ OrderSpecs.propTypes = {
   jumpTo: PropTypes.func,
   sliderValue: PropTypes.string,
   setSliderValue: PropTypes.func,
-  shoeTypes: PropTypes.object,
+  shoeTypes: PropTypes.any,
   setShoeTypes: PropTypes.func,
 };
 

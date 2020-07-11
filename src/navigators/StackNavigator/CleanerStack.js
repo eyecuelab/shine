@@ -45,11 +45,11 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
             component={CleanerProfileScreen}
             options={{ title: 'CLEANER PROFILE' }}
           />
-          <CleanerStack.Screen
+          {/* <CleanerStack.Screen
             name="CleanerOptionScreen"
             component={CleanerOptionScreen}
             options={{ title: 'SHINE' }}
-          />
+          /> */}
         </>
       )}
     </CleanerStack.Navigator>
