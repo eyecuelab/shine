@@ -10,7 +10,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
+const CleanerApplicationScreen = ({
+  users,
+  cleaner,
+  applyCleanerWatcher,
+  navigation,
+}) => {
   // TODO: bring in the USERID from the AUTHREDUCER, meaning the user will have to be logged in to see this page.
 
   const [cleanerProfile, setCleanerProfile] = useState({
@@ -58,20 +63,12 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
     handleChange('phone', text);
   };
 
+  console.log(cleaner.errorMessage);
+  const errorMessage = cleaner.errorMessage;
+
   const handleSubmit = () => {
     applyCleanerWatcher(cleanerProfile);
-    // applyCleanerWatcher({
-    //   bio: '',
-    //   business_name: 'TEST',
-    //   city: 'Portland',
-    //   email: 'jieun2@test.com',
-    //   first_name: 'Jieun',
-    //   last_name: 'Kang',
-    //   phone: '(000) 000-0000',
-    //   postal_code: '90000',
-    //   state: 'OR',
-    //   street_address: '123',
-    // });
+    // navigation.navigate('Cleaner Profile');
   };
 
   return (
@@ -241,6 +238,11 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
           onSubmitEditing={Keyboard.dismiss}
           onChangeText={(text) => handleChange('bio', text)}
         />
+        {errorMessage !== null ? (
+          <ErrorTextContainer>
+            <Text>{errorMessage}</Text>
+          </ErrorTextContainer>
+        ) : null}
 
         <Button
           title="APPLY"
@@ -281,13 +283,29 @@ const MultiLineInputs = styled.View`
   align-items: flex-end;
 `;
 
+const ErrorTextContainer = styled.View`
+  margin-horizontal: 20px;
+  padding: 25px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Text = styled.Text`
+  color: #8e1818;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+`;
+
 CleanerApplicationScreen.propTypes = {
+  navigation: PropTypes.object,
   applyCleanerWatcher: PropTypes.func,
   users: PropTypes.object,
+  cleaner: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
-  return { users: state.users };
+  return { users: state.users, cleaner: state.cleaner };
 };
 
 export default connect(mapStateToProps, actions)(CleanerApplicationScreen);

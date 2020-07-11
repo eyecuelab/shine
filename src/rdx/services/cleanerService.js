@@ -34,8 +34,8 @@ export const editCleanerService = (request, token) => {
 };
 
 export const deleteCleanerService = (url, token) => {
-  // console.log('s', url);
-  // console.log('s', token);
+  console.log('s', url);
+  console.log('s', token);
 
   const parameters = {
     method: 'DELETE',

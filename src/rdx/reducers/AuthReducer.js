@@ -7,7 +7,6 @@ const initialAuthState = {
     userId: null,
     profile: {},
   },
-  cleaner: {},
   errorMessage: null,
   signupMessage: null,
   status: 'Logged out',

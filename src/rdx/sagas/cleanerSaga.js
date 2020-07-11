@@ -8,26 +8,25 @@ import {
 import { call, put, cancelled, select } from 'redux-saga/effects';
 
 export const getToken = (state) => state.users.auth.token;
-export const getUrl = (state) => state.cleaner.links.self;
+export const getUrl = (state) => state.cleaner.cleaner.links.self;
 
 export function* cleanerApplySaga(action) {
   try {
     const token = yield select(getToken);
     let response = yield call(applyCleanerService, action.payload, token);
-    const data = yield response.json();
-    console.log('CLEANER RESPONSE', data);
-    if (response.status >= 200 && response.status < 300) {
+    if (response.ok && response.status === 200) {
+      const data = yield response.json();
       yield put(actions.postCleanerProfile(data));
-      console.log('DATA', data);
     } else {
       throw yield response.json();
     }
   } catch (error) {
     console.log('CLEANER PROFILE ERROR: ', error);
+    yield put({ type: types.ADD_CLEANER_ERROR, error: error.message });
   }
 }
 
-// export function* editCleanerSaga(action) {
+// export function* editCleanerSaga(action)
 //   console.log(action);
 // }
 
@@ -36,7 +35,8 @@ export function* deleteCleanerSaga() {
     const url = yield select(getUrl);
     const token = yield select(getToken);
     let response = yield call(deleteCleanerService, url, token);
-    if (response.ok && response.status === 200) {
+    console.log(response);
+    if (response.ok && response.status === 204) {
       yield put({ type: types.DELETE_CLEANER_SUCCESS });
     } else {
       throw yield response.json();

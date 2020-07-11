@@ -20,6 +20,7 @@ const CleanerProfileScreen = ({
 
   const onDelete = () => {
     deleteCleanerWatcher();
+    navigation.navigate('Cleaner Option Screen');
   };
 
   return (

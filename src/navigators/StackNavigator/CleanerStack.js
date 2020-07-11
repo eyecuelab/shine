@@ -24,7 +24,20 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
         headerBackTitleVisible: false,
       }}
     >
-      {cleaner === null || users.status === 'Logged out' ? (
+      {cleaner !== null && users.status === 'Logged in' ? (
+        <>
+          <CleanerStack.Screen
+            name="Cleaner Profile"
+            component={CleanerProfileScreen}
+            options={{ title: 'CLEANER PROFILE' }}
+          />
+          <CleanerStack.Screen
+            name="Cleaner Option Screen"
+            component={CleanerOptionScreen}
+            options={{ title: 'SHINE' }}
+          />
+        </>
+      ) : (
         <>
           <CleanerStack.Screen
             name="Cleaner Option Screen"
@@ -38,12 +51,6 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
           />
           <CleanerStack.Screen name="Log in" component={SignInScreen} />
         </>
-      ) : (
-        <CleanerStack.Screen
-          name="Cleaner Profile"
-          component={CleanerProfileScreen}
-          options={{ title: 'CLEANER PROFILE' }}
-        />
       )}
     </CleanerStack.Navigator>
   );
