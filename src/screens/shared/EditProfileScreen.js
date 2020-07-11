@@ -54,9 +54,9 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
   const inputEl6 = React.useRef(null);
 
   const navigation = useNavigation();
-  const token = users.auth.token;
+
   const onSubmit = () => {
-    editProfileWatcher({ token: token, profile: { first_name: 'Shoe' } });
+    editProfileWatcher(userProfile);
     navigation.navigate('Profile');
   };
 

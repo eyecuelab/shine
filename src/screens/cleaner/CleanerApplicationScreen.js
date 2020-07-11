@@ -193,6 +193,7 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
             />
           }
           returnKeyType="next"
+          autoCapitalize="words"
           onChangeText={(text) => handleChange('street_address', text)}
           onSubmitEditing={() => inputEl7.current.focus()}
         />

@@ -8,6 +8,8 @@ import {
 } from '../services/authService';
 import { call, put, cancelled, select } from 'redux-saga/effects';
 
+export const getToken = (state) => state.users.auth.token;
+
 export function* loginSaga(action) {
   try {
     let response = yield call(loginUserService, action.payload);
@@ -36,9 +38,10 @@ export function* loginSaga(action) {
   }
 }
 
-export function* logoutSaga(action) {
+export function* logoutSaga() {
   try {
-    let response = yield call(logoutUserService, action.payload);
+    const token = yield select(getToken);
+    let response = yield call(logoutUserService, token);
     if (response.ok && response.status === 200) {
       yield put({ type: types.LOGOUT_SUCCESS });
     } else {
@@ -67,12 +70,10 @@ export function* signupSaga(action) {
   }
 }
 
-export const getToken = (state) => state.users.auth.token;
-
 export function* editProfileSaga(action) {
   try {
     const token = yield select(getToken);
-    let response = yield call(editProfileService, action.payload);
+    let response = yield call(editProfileService, action.payload, token);
     const data = yield response.json();
     const profile = data.data.attributes;
     const userId = data.data.id;

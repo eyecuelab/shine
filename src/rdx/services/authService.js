@@ -52,7 +52,8 @@ export const signUpUserService = (request) => {
   });
 };
 
-export const editProfileService = (request) => {
+export const editProfileService = (request, token) => {
+  console.log('R', request);
   const PROFILE_API_ENDPOINT = 'http://127.0.0.1:8080/profile';
 
   const parameters = {
@@ -60,30 +61,12 @@ export const editProfileService = (request) => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: request.token,
+      Authorization: token,
     },
-    body: JSON.stringify(request.profile),
+    body: JSON.stringify(request),
   };
 
   return fetch(PROFILE_API_ENDPOINT, parameters).then((response) => {
     return response;
   });
 };
-
-// export const getProfileService = (request) => {
-//   console.log('GET REQUEST', request);
-//   const PROFILE_API_ENDPOINT = 'http://127.0.0.1:8080/profile';
-
-//   const parameters = {
-//     method: 'GET',
-//     headers: {
-//       Accept: 'application/json',
-//       'Content-Type': 'application/json',
-//       Authorization: request,
-//     },
-//   };
-
-//   return fetch(PROFILE_API_ENDPOINT, parameters).then((response) => {
-//     return response;
-//   });
-// };

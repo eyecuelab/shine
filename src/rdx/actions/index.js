@@ -98,18 +98,11 @@ export const logIn = (profile) => {
   };
 };
 
-export const logoutWatcher = (token) => {
+export const logoutWatcher = () => {
   return {
     type: types.LOGOUT_WATCHER,
-    payload: token,
   };
 };
-
-// export const logOut = () => {
-//   return {
-//     type: types.LOGOUT_SUCCESS,
-//   };
-// };
 
 export const signupWatcher = (user) => {
   return {
@@ -118,16 +111,10 @@ export const signupWatcher = (user) => {
   };
 };
 
-// export const signUp = () => {
-//   return {
-//     type: types.SIGNUP_SUCCESS,
-//   };
-// };
-
-export const editProfileWatcher = ({ token, profile }) => {
+export const editProfileWatcher = (payload) => {
   return {
     type: types.EDIT_PROFILE_WATCHER,
-    payload: { token, profile },
+    payload,
   };
 };
 
@@ -157,5 +144,11 @@ export const postCleanerProfile = (payload) => {
   return {
     type: types.ADD_CLEANER_PROFILE,
     payload,
+  };
+};
+
+export const deleteCleanerWatcher = () => {
+  return {
+    type: types.DELETE_CLEANER_PROFILE,
   };
 };
