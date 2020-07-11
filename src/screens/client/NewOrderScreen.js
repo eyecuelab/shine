@@ -29,7 +29,7 @@ const NewOrderScreen = ({ navigation }) => {
   ]);
 
   const [note, setNote] = useState('');
-  const [price, setPrice] = useState(30);
+
   // ROUTE STATE
   const [routes] = useState([
     { key: 'first', title: 'Step 1' },
@@ -54,7 +54,6 @@ const NewOrderScreen = ({ navigation }) => {
     shoeTypes: shoeTypes,
     timeFrame: sliderValue,
     note: note,
-    price: price,
   };
 
   const onSubmit = () => {
