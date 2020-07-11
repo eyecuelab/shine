@@ -98,16 +98,9 @@ export const logIn = (profile) => {
   };
 };
 
-export const logoutWatcher = (token) => {
+export const logoutWatcher = () => {
   return {
     type: types.LOGOUT_WATCHER,
-    payload: token,
-  };
-};
-
-export const logOut = () => {
-  return {
-    type: types.LOGOUT_SUCCESS,
   };
 };
 
@@ -118,16 +111,16 @@ export const signupWatcher = (user) => {
   };
 };
 
-export const signUp = () => {
+export const editProfileWatcher = (payload) => {
   return {
-    type: types.SIGNUP_SUCCESS,
+    type: types.EDIT_PROFILE_WATCHER,
+    payload,
   };
 };
 
-export const editProfileWatcher = ({ token, profile }) => {
+export const getProfileWatcher = () => {
   return {
-    type: types.EDIT_PROFILE_WATCHER,
-    payload: { token, profile },
+    type: types.GET_PROFILE_WATCHER,
   };
 };
 
@@ -140,18 +133,28 @@ export const updateProfile = (profile) => {
 
 // ====== CLEANERS ACTION CREATORS ======= //
 
-export const applyCleanerWatcher = ({ userId, profile, address }) => {
+export const applyCleanerWatcher = (payload) => {
   return {
     type: types.APPLY_CLEANER_WATCHER,
-    payload: { userId, profile, address },
+    payload,
   };
 };
 
-// export const addCleanerProfile = (address, profile) => {
-//   return {
-//     type: types.ADD_CLEANER_PROFILE,
-//     id: uuid.v4(),
-//     address: address,
-//     payload: profile,
-//   };
-// };
+export const postCleanerProfile = (payload) => {
+  return {
+    type: types.ADD_CLEANER_PROFILE,
+    payload,
+  };
+};
+
+export const updateCleanerWatcher = () => {
+  return {
+    type: types.UPDATE_CLEANER_WATCHER,
+  };
+};
+
+export const deleteCleanerWatcher = () => {
+  return {
+    type: types.DELETE_CLEANER_WATCHER,
+  };
+};

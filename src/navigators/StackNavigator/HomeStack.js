@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 // SCREEN IMPORTS:
 import HomeScreen from '../../screens/shared/HomeScreen';
 import NewOrderScreen from '../../screens/client/NewOrderScreen';
-// import OrdersListScreen from '../../screens/client/OrdersListScreen';
 import OrderDetailScreen from '../../screens/client/OrderDetailScreen';
 import OrderFinalScreen from '../../screens/client/OrderFinalScreen';
 import OrderStatusScreen from '../../screens/client/OrderStatusScreen';
@@ -31,13 +30,8 @@ const HomeStackNavigator = () => (
     <HomeStack.Screen
       name="NewOrder"
       component={NewOrderScreen}
-      options={{ title: 'New Order' }}
+      options={{ title: 'NEW ORDER' }}
     />
-    {/* <HomeStack.Screen
-      name="OrdersList"
-      component={OrdersListScreen}
-      options={{ title: 'Set up job' }}
-    /> */}
     <HomeStack.Screen
       name="OrderDetail"
       component={OrderDetailScreen}
@@ -46,17 +40,17 @@ const HomeStackNavigator = () => (
     <HomeStack.Screen
       name="OrderFinal"
       component={OrderFinalScreen}
-      options={{ title: 'Cleaner Proposals' }}
+      options={{ title: "CLEANSER'S PROPOSALS" }}
     />
     <HomeStack.Screen
       name="OrderConfrim"
       component={OrderConfrimScreen}
-      options={{ title: 'Order Summary' }}
+      options={{ title: 'ORDER SUMMARY' }}
     />
     <HomeStack.Screen
       name="OrderStatus"
       component={OrderStatusScreen}
-      options={{ title: 'Order Status' }}
+      options={{ title: 'ORDER STATUS' }}
     />
   </HomeStack.Navigator>
 );

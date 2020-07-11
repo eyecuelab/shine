@@ -10,22 +10,25 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
+const CleanerApplicationScreen = ({
+  users,
+  cleaner,
+  applyCleanerWatcher,
+  navigation,
+}) => {
   // TODO: bring in the USERID from the AUTHREDUCER, meaning the user will have to be logged in to see this page.
-  const userId = users.auth.userId;
-  const [appInfo, setAppInfo] = useState({
-    businessName: '',
-    firstName: '',
-    lastName: '',
+
+  const [cleanerProfile, setCleanerProfile] = useState({
+    first_name: '',
+    last_name: '',
     email: '',
-    phoneNumber: '',
-    bio: '',
-  });
-  const [cleanerAddress, setCleanerAddress] = useState({
-    street: '',
+    street_address: '',
     city: '',
     state: '',
-    postalCode: '',
+    postal_code: '',
+    phone: '',
+    bio: '',
+    business_name: '',
   });
 
   const inputEl2 = useRef(null);
@@ -38,19 +41,13 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
   const inputEl9 = useRef(null);
   const inputEl10 = useRef(null);
 
-  const handleInfoChange = (key, value) => {
-    setAppInfo((current) => ({
+  const handleChange = (key, value) => {
+    setCleanerProfile((current) => ({
       ...current,
       [key]: value,
     }));
   };
 
-  const handleAddressChange = (key, value) => {
-    setCleanerAddress((current) => ({
-      ...current,
-      [key]: value,
-    }));
-  };
   // FUNCTION FOR CORRECTING PHONE NUMBER:
   const onTextChange = (text) => {
     var cleaned = ('' + text).replace(/\D/g, '');
@@ -60,18 +57,17 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
         number = [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join(
           '',
         );
-      handleInfoChange('phoneNumber', number);
+      handleChange('phone', number);
       return;
     }
-    handleInfoChange('phoneNumber', text);
+    handleChange('phone', text);
   };
 
+  const errorMessage = cleaner.errorMessage;
+
   const handleSubmit = () => {
-    applyCleanerWatcher({
-      userId: userId,
-      profile: appInfo,
-      address: cleanerAddress,
-    });
+    applyCleanerWatcher(cleanerProfile);
+    // navigation.navigate('Cleaner Profile');
   };
 
   return (
@@ -85,7 +81,7 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
           <Image source={require('../../../assets/images/logo-outline.png')} />
         </ImageArea>
         <Input
-          value={appInfo.businessName}
+          value={cleanerProfile.business_name}
           label="Business"
           labelStyle={{ fontSize: 20 }}
           placeholder="Title"
@@ -99,13 +95,13 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
           }
           autoCorrect={false}
           returnKeyType="next"
-          onChangeText={(text) => handleInfoChange('businessName', text)}
+          onChangeText={(text) => handleChange('business_name', text)}
           onSubmitEditing={() => inputEl2.current.focus()}
         />
         <MultiLineInputs>
           <Input
             ref={inputEl2}
-            value={appInfo.firstName}
+            value={cleanerProfile.first_name}
             containerStyle={{ flex: 1 }}
             label="Contact Name"
             labelStyle={{ fontSize: 20 }}
@@ -120,29 +116,30 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
               />
             }
             returnKeyType="next"
-            onChangeText={(text) => handleInfoChange('firstName', text)}
+            onChangeText={(text) => handleChange('first_name', text)}
             onSubmitEditing={() => inputEl3.current.focus()}
           />
           <Input
             ref={inputEl3}
-            value={appInfo.lastName}
+            value={cleanerProfile.last_name}
             containerStyle={{ flex: 1 }}
             label=""
             labelStyle={{ fontSize: 20 }}
             placeholder="Last"
             returnKeyType="next"
-            onChangeText={(text) => handleInfoChange('lastName', text)}
+            onChangeText={(text) => handleChange('last_name', text)}
             onSubmitEditing={() => inputEl4.current.focus()}
           />
         </MultiLineInputs>
         <Input
           ref={inputEl4}
-          value={appInfo.email}
+          value={cleanerProfile.email}
           autoCorrect={false}
           label="Email"
           labelStyle={{ fontSize: 20 }}
           placeholder="example@email.com"
-          keyboardType={'email-address'}
+          keyboardType="email-address"
+          autoCapitalize="none"
           leftIcon={
             <MaterialIcons
               name="email"
@@ -152,12 +149,12 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
             />
           }
           returnKeyType="next"
-          onChangeText={(text) => handleInfoChange('email', text)}
+          onChangeText={(text) => handleChange('email', text)}
           onSubmitEditing={() => inputEl5.current.focus()}
         />
         <Input
           ref={inputEl5}
-          value={appInfo.phoneNumber}
+          value={cleanerProfile.phone}
           label="Phone Number"
           labelStyle={{ fontSize: 20 }}
           placeholder="(xxx)-xxx-xxxx"
@@ -179,7 +176,7 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
         />
         <Input
           ref={inputEl6}
-          value={cleanerAddress.street}
+          value={cleanerProfile.street_address}
           label="Address"
           labelStyle={{ fontSize: 20 }}
           placeholder="Street"
@@ -192,44 +189,45 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
             />
           }
           returnKeyType="next"
-          onChangeText={(text) => handleAddressChange('street', text)}
+          autoCapitalize="words"
+          onChangeText={(text) => handleChange('street_address', text)}
           onSubmitEditing={() => inputEl7.current.focus()}
         />
         <MultiLineInputs>
           <Input
             ref={inputEl7}
-            value={cleanerAddress.city}
+            value={cleanerProfile.city}
             placeholder="City"
             containerStyle={{ flex: 2 }}
-            onChangeText={(text) => handleAddressChange('city', text)}
+            onChangeText={(text) => handleChange('city', text)}
             returnKeyType="next"
             onSubmitEditing={() => inputEl8.current.focus()}
           />
           <Input
             ref={inputEl8}
-            value={cleanerAddress.state}
+            value={cleanerProfile.state}
             placeholder="State"
             containerStyle={{ flex: 1 }}
             autoCapitalize="characters"
             maxLength={2}
-            onChangeText={(text) => handleAddressChange('state', text)}
+            onChangeText={(text) => handleChange('state', text)}
             returnKeyType="next"
             onSubmitEditing={() => inputEl9.current.focus()}
           />
         </MultiLineInputs>
         <Input
           ref={inputEl9}
-          value={cleanerAddress.postalCode}
+          value={cleanerProfile.postal_code}
           placeholder="Zip"
           keyboardType="number-pad"
           maxLength={5}
-          onChangeText={(text) => handleAddressChange('postalCode', text)}
+          onChangeText={(text) => handleChange('postal_code', text)}
           returnKeyType="done"
           onSubmitEditing={() => inputEl10.current.focus()}
         />
         <Input
           ref={inputEl10}
-          value={appInfo.bio}
+          value={cleanerProfile.bio}
           label="Bio"
           multiline={true}
           scrollEnabled={false}
@@ -237,8 +235,13 @@ const CleanerApplicationScreen = ({ users, applyCleanerWatcher }) => {
           placeholder="Skills and Experience"
           returnKeyType={'done'}
           onSubmitEditing={Keyboard.dismiss}
-          onChangeText={(text) => handleInfoChange('bio', text)}
+          onChangeText={(text) => handleChange('bio', text)}
         />
+        {errorMessage !== null ? (
+          <ErrorTextContainer>
+            <Text>{errorMessage}</Text>
+          </ErrorTextContainer>
+        ) : null}
 
         <Button
           title="APPLY"
@@ -279,13 +282,29 @@ const MultiLineInputs = styled.View`
   align-items: flex-end;
 `;
 
+const ErrorTextContainer = styled.View`
+  margin-horizontal: 20px;
+  padding: 25px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Text = styled.Text`
+  color: #8e1818;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+`;
+
 CleanerApplicationScreen.propTypes = {
+  navigation: PropTypes.object,
   applyCleanerWatcher: PropTypes.func,
   users: PropTypes.object,
+  cleaner: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
-  return { users: state.users };
+  return { users: state.users, cleaner: state.cleaner };
 };
 
 export default connect(mapStateToProps, actions)(CleanerApplicationScreen);

@@ -1,13 +1,17 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
 // SCREEN IMPORTS:
 import CleanerOptionScreen from '../../screens/cleaner/CleanerOptionScreen';
 import SignInScreen from '../../screens/shared/SignInScreen';
 import CleanerApplicationScreen from '../../screens/cleaner/CleanerApplicationScreen';
+import CleanerProfileScreen from '../../screens/cleaner/CleanerProfileScreen';
+import PropTypes from 'prop-types';
 
 const CleanerStack = createStackNavigator();
 
-const CleanerStackNavigator = () => {
+const CleanerStackNavigator = ({ cleaner, users }) => {
+  console.log('STATE', cleaner.cleaner === null);
   return (
     <CleanerStack.Navigator
       screenOptions={{
@@ -20,19 +24,45 @@ const CleanerStackNavigator = () => {
         headerBackTitleVisible: false,
       }}
     >
-      <CleanerStack.Screen
-        name="Cleaner Option Screen"
-        component={CleanerOptionScreen}
-        options={{ title: 'SHINE' }}
-      />
-      <CleanerStack.Screen
-        name="Cleaner Application"
-        component={CleanerApplicationScreen}
-        options={{ title: 'BECOME A CLEANER' }}
-      />
-      <CleanerStack.Screen name="Log in" component={SignInScreen} />
+      {cleaner.cleaner === null || users.status === 'Logged out' ? (
+        <>
+          <CleanerStack.Screen
+            name="Cleaner Option Screen"
+            component={CleanerOptionScreen}
+            options={{ title: 'SHINE' }}
+          />
+          <CleanerStack.Screen
+            name="Cleaner Application"
+            component={CleanerApplicationScreen}
+            options={{ title: 'BECOME A CLEANER' }}
+          />
+          <CleanerStack.Screen name="Log in" component={SignInScreen} />
+        </>
+      ) : (
+        <>
+          <CleanerStack.Screen
+            name="Cleaner Profile"
+            component={CleanerProfileScreen}
+            options={{ title: 'CLEANER PROFILE' }}
+          />
+          {/* <CleanerStack.Screen
+            name="CleanerOptionScreen"
+            component={CleanerOptionScreen}
+            options={{ title: 'SHINE' }}
+          /> */}
+        </>
+      )}
     </CleanerStack.Navigator>
   );
 };
 
-export default CleanerStackNavigator;
+CleanerStackNavigator.propTypes = {
+  cleaner: PropTypes.object,
+  users: PropTypes.object,
+};
+
+const mapStateToProps = (state) => {
+  return { cleaner: state.cleaner, users: state.users };
+};
+
+export default connect(mapStateToProps)(CleanerStackNavigator);

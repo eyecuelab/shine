@@ -23,7 +23,6 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
     state: '',
     postal_code: '',
     phone: '',
-    image_file: '',
   });
 
   const handleProfileChange = (key, value) => {
@@ -55,9 +54,9 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
   const inputEl6 = React.useRef(null);
 
   const navigation = useNavigation();
-  const token = users.auth.token;
+
   const onSubmit = () => {
-    editProfileWatcher({ token: token, profile: userProfile });
+    editProfileWatcher(userProfile);
     navigation.navigate('Profile');
   };
 
@@ -70,7 +69,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Container>
             <TextInput
-              placeholder="Street"
+              placeholder="Street Address"
               returnKeyType="next"
               autoCapitalize="words"
               autoCorrect={false}
@@ -127,9 +126,9 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               style={styles.input}
               value={userProfile.phone}
               onChangeText={(text) => onTextChange(text)}
-              onSubmitEditing={() => inputEl6.current.focus()}
+              // onSubmitEditing={() => inputEl6.current.focus()}
             />
-            <TextInput
+            {/* <TextInput
               ref={inputEl6}
               placeholder="Upload Iamge"
               returnKeyType="done"
@@ -139,7 +138,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               value={userProfile.image_file}
               onChangeText={(text) => handleProfileChange('image_file', text)}
               onSubmitEditing={() => inputEl3.current.focus()}
-            />
+            /> */}
 
             <Button
               title="Submit"
