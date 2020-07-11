@@ -7,22 +7,22 @@ import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceTagWhite from '../../components/shared/PriceTagWhite';
-import { Button } from 'react-native-elements';
+// import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
 
-const OrderFinalScreen = ({ deleteOrder, navigation }) => {
+const OrderFinalScreen = ({ navigation }) => {
   const route = useRoute();
   const item = route.params;
   const handleSubmit = () => {
     navigation.navigate('OrderConfrim', item);
   };
 
-  const handleCancelClick = () => {
-    deleteOrder(item.uuid);
-    navigation.navigate('Home');
-  };
+  // const handleCancelClick = () => {
+  //   deleteOrder(item.uuid);
+  //   navigation.navigate('Home');
+  // };
 
   return (
     <ScrollViewContailner>
@@ -79,7 +79,7 @@ const OrderFinalScreen = ({ deleteOrder, navigation }) => {
           </PriceTicketContainer>
         </BidsContainer>
         {/* ============================================================= */}
-        <Button
+        {/* <Button
           title="CANCEL SERVICE"
           containerStyle={{ paddingVertical: 40, width: 350 }}
           buttonStyle={{
@@ -88,7 +88,7 @@ const OrderFinalScreen = ({ deleteOrder, navigation }) => {
             borderRadius: 7,
           }}
           onPress={handleCancelClick}
-        />
+        /> */}
       </Container>
     </ScrollViewContailner>
   );
