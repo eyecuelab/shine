@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 const CleanerStack = createStackNavigator();
 
 const CleanerStackNavigator = ({ cleaner, users }) => {
-  console.log('STATE', users.status);
+  console.log('STATE', cleaner);
   return (
     <CleanerStack.Navigator
       screenOptions={{

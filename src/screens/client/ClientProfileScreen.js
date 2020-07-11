@@ -16,9 +16,7 @@ const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
   return (
     <>
       <ProfileContainer>
-        <ImageBackground
-          source={require('../../../assets/images/profile-bg.png')}
-        >
+        <ProfileBackground>
           <Container>
             <Profile
               source={require('../../../assets/images/profile-pic.png')}
@@ -27,7 +25,7 @@ const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
               {users.auth.profile.first_name} {users.auth.profile.last_name}
             </Name>
           </Container>
-        </ImageBackground>
+        </ProfileBackground>
 
         <ListItem>
           <Text>Account</Text>
@@ -81,8 +79,7 @@ const Container = styled.View`
   background-color: white;
 `;
 
-const ImageBackground = styled.View`
-  background-color: #e6e6e6;
+const ProfileBackground = styled.View`
   width: 100%;
   height: ${HEIGHT / 4}px;
   margin-bottom: 20px;

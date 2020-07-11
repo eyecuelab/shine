@@ -147,8 +147,14 @@ export const postCleanerProfile = (payload) => {
   };
 };
 
+export const updateCleanerWatcher = () => {
+  return {
+    type: types.UPDATE_CLEANER_WATCHER,
+  };
+};
+
 export const deleteCleanerWatcher = () => {
   return {
-    type: types.DELETE_CLEANER_PROFILE,
+    type: types.DELETE_CLEANER_WATCHER,
   };
 };

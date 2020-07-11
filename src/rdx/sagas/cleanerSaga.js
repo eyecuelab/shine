@@ -1,9 +1,14 @@
 import * as actions from '../actions';
 import * as types from '../actions/types';
-import { applyCleanerService } from '../services/cleanerService';
+import {
+  applyCleanerService,
+  editCleanerService,
+  deleteCleanerService,
+} from '../services/cleanerService';
 import { call, put, cancelled, select } from 'redux-saga/effects';
 
 export const getToken = (state) => state.users.auth.token;
+export const getUrl = (state) => state.cleaner.links.self;
 
 export function* cleanerApplySaga(action) {
   try {
@@ -19,5 +24,24 @@ export function* cleanerApplySaga(action) {
     }
   } catch (error) {
     console.log('CLEANER PROFILE ERROR: ', error);
+  }
+}
+
+// export function* editCleanerSaga(action) {
+//   console.log(action);
+// }
+
+export function* deleteCleanerSaga() {
+  try {
+    const url = yield select(getUrl);
+    const token = yield select(getToken);
+    let response = yield call(deleteCleanerService, url, token);
+    if (response.ok && response.status === 200) {
+      yield put({ type: types.DELETE_CLEANER_SUCCESS });
+    } else {
+      throw yield response.json();
+    }
+  } catch (error) {
+    console.log('DELETE CLEANER ERROR:', error);
   }
 }
