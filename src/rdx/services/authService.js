@@ -1,7 +1,7 @@
 export const loginUserService = (request) => {
   // const LOGIN_API_ENDPOINT = 'https://shoeshine.herokuapp.com/login';
   //const LOGIN_API_ENDPOINT = 'http://127.0.0.1:8080/login';
-  const LOGIN_API_ENDPOINT = 'http://192.168.1.14:8080/login';
+  const LOGIN_API_ENDPOINT = 'http://127.0.0.1:8080/login';
 
   const parameters = {
     method: 'POST',
@@ -18,7 +18,7 @@ export const loginUserService = (request) => {
 
 export const logoutUserService = (request) => {
   // const LOGOUT_API_ENDPOINT = 'https://shoeshine.herokuapp.com/logout';
-  const LOGOUT_API_ENDPOINT = 'http://192.168.1.14:8080/logout';
+  const LOGOUT_API_ENDPOINT = 'http://127.0.0.1:8080/logout';
 
   const parameters = {
     method: 'POST',
@@ -35,7 +35,7 @@ export const logoutUserService = (request) => {
 
 export const signUpUserService = (request) => {
   // const SIGNUP_API_ENDPOINT = 'https://shoeshine.herokuapp.com/signup';
-  const SIGNUP_API_ENDPOINT = 'http://192.168.1.14:8080/signup';
+  const SIGNUP_API_ENDPOINT = 'http://127.0.0.1:8080/signup';
 
   const parameters = {
     method: 'POST',
@@ -53,7 +53,7 @@ export const signUpUserService = (request) => {
 export const editProfileService = (request) => {
   console.log('REQUEST', request);
   // const EDIP_PROFILE_API_ENDPOINT = 'https://shoeshine.herokuapp.com/profile';
-  const EDIP_PROFILE_API_ENDPOINT = 'http://192.168.1.14:8080/profile';
+  const EDIP_PROFILE_API_ENDPOINT = 'http://127.0.0.1:8080/profile';
 
   const parameters = {
     method: 'PATCH',
