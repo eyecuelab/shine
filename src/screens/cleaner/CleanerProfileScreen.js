@@ -14,13 +14,13 @@ const CleanerProfileScreen = ({
   navigation,
   deleteCleanerWatcher,
 }) => {
-  const profile = cleaner.data.attributes;
+  const profile = cleaner.cleaner.data.attributes;
   // console.log('C', profile);
   // console.log('U', users);
 
   const onDelete = () => {
     deleteCleanerWatcher();
-    navigation.navigate('Cleaner Option Screen');
+    navigation.navigate('CleanerOptionScreen');
   };
 
   return (

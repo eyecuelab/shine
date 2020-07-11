@@ -2,7 +2,7 @@ import * as types from '../actions/types';
 import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialCleanerState = {
-  cleaner: {},
+  cleaner: null,
   errorMessage: null,
 };
 
@@ -21,7 +21,10 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         errorMessage: action.error,
       };
     case types.DELETE_CLEANER_SUCCESS:
-      return initialCleanerState;
+      return {
+        cleaner: null,
+        errorMessage: null,
+      };
     default:
       return state;
   }

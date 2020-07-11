@@ -63,7 +63,6 @@ const CleanerApplicationScreen = ({
     handleChange('phone', text);
   };
 
-  console.log(cleaner.errorMessage);
   const errorMessage = cleaner.errorMessage;
 
   const handleSubmit = () => {
