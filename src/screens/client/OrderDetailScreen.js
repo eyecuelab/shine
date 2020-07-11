@@ -79,7 +79,7 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
         replaceLaces: replaceLaces,
         rainProtection: rainProtection,
       },
-      estimated_price: 7,
+      estimated_price: estPrice,
       note: item.note,
       street_address: street,
       city: city,
