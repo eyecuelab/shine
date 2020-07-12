@@ -22,6 +22,8 @@ function* postOrder(order, token) {
   // console.log(token);
   // console.log(JSON.stringify(order));
   const urlLink = 'http://127.0.0.1:8080/orders';
+  // const urlLink = 'https://shoeshine.herokuapp.com/orders';
+
   const response = yield fetch(urlLink, {
     method: 'POST',
     headers: {

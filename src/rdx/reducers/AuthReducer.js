@@ -4,6 +4,7 @@ import { REHYDRATE } from 'redux-persist/lib/constants';
 const initialAuthState = {
   auth: {
     token: null,
+    userId: null,
     profile: {},
   },
   errorMessage: null,
@@ -13,10 +14,10 @@ const initialAuthState = {
 
 const authReducer = (state = initialAuthState, action) => {
   switch (action.type) {
-    case REHYDRATE:
-      return {
-        ...state,
-      };
+    // case REHYDRATE:
+    //   return {
+    //     ...state,
+    //   };
     case types.LOGIN_SUCCESS:
       return {
         ...state,
@@ -44,6 +45,7 @@ const authReducer = (state = initialAuthState, action) => {
         ...state,
         auth: {
           token: null,
+          userId: null,
           profile: {},
         },
         errorMessage: null,
@@ -55,6 +57,7 @@ const authReducer = (state = initialAuthState, action) => {
         ...state,
         auth: {
           token: null,
+          userId: null,
           profile: {},
         },
         errorMessage: null,
@@ -69,7 +72,11 @@ const authReducer = (state = initialAuthState, action) => {
       };
     case types.UPDATE_PROFILE:
       return {
+        ...state,
         auth: action.payload,
+        errorMessage: null,
+        signupMessage: null,
+        status: 'User Profile updated',
       };
     default:
       return state;

@@ -2,24 +2,21 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
-import PropTypes from 'prop-types';
 import { Feather } from '@expo/vector-icons';
-import { logoutWatcher } from '../../rdx/actions';
+import PropTypes from 'prop-types';
+import * as actions from '../../rdx/actions';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
 const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
-  const token = users.auth.token;
   const onSubmit = () => {
-    logoutWatcher(token);
+    logoutWatcher();
   };
 
   return (
     <>
       <ProfileContainer>
-        <ImageBackground
-          source={require('../../../assets/images/profile-bg.png')}
-        >
+        <ProfileBackground>
           <Container>
             <Profile
               source={require('../../../assets/images/profile-pic.png')}
@@ -28,7 +25,7 @@ const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
               {users.auth.profile.first_name} {users.auth.profile.last_name}
             </Name>
           </Container>
-        </ImageBackground>
+        </ProfileBackground>
 
         <ListItem>
           <Text>Account</Text>
@@ -55,11 +52,11 @@ const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>
         <Seperator />
-        <ListItemCenter
+        {/* <ListItemCenter
           onPress={() => navigation.navigate('Cleaner Application')}
         >
           <CenterText>Become a Cleaner</CenterText>
-        </ListItemCenter>
+        </ListItemCenter> */}
 
         <ListItemCenter onPress={onSubmit}>
           <CenterText>Log Out</CenterText>
@@ -72,6 +69,7 @@ const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
 const ProfileContainer = styled.View`
   flex: 1;
   align-items: center;
+  background-color: white;
 `;
 
 const Container = styled.View`
@@ -81,8 +79,7 @@ const Container = styled.View`
   background-color: white;
 `;
 
-const ImageBackground = styled.View`
-  background-color: #e6e6e6;
+const ProfileBackground = styled.View`
   width: 100%;
   height: ${HEIGHT / 4}px;
   margin-bottom: 20px;
@@ -132,7 +129,7 @@ const ListItemCenter = styled.TouchableOpacity`
 
 const Seperator = styled.View`
   width: 100%;
-  height: 20px;
+  height: 15px;
   background-color: #e6e6e6;
   border-bottom-width: 1px;
   border-bottom-color: #e3e3e3;
@@ -160,13 +157,4 @@ const mapStateToProps = (state) => {
   return { users: state.users };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    logoutWatcher: (token) => dispatch(logoutWatcher(token)),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ClientProfileScreen);
+export default connect(mapStateToProps, actions)(ClientProfileScreen);

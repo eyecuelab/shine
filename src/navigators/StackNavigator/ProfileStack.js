@@ -20,34 +20,53 @@ const ProfileStackNavigator = ({ users }) => {
     <ProfileStack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: 'white',
-          borderBottomColor: 'white',
-          shadowColor: 'white',
+          backgroundColor: '#CBB387',
+          borderBottomColor: '#CBB387',
+          shadowColor: '#CBB387',
         },
-        headerTintColor: 'black',
+        headerTintColor: '#FFFFFF',
         headerBackTitleVisible: false,
       }}
     >
       {authentication === null ? (
         <>
-          <ProfileStack.Screen name="Welcome" component={WelcomeScreen} />
-          <ProfileStack.Screen name="SignUp" component={SignUpScreen} />
-          <ProfileStack.Screen name="LogIn" component={SignInScreen} />
+          <ProfileStack.Screen
+            name="Welcome"
+            component={WelcomeScreen}
+            options={{ title: 'SHINE' }}
+          />
+          <ProfileStack.Screen
+            name="SignUp"
+            component={SignUpScreen}
+            options={{ title: 'SIGN UP' }}
+          />
+          <ProfileStack.Screen
+            name="LogIn"
+            component={SignInScreen}
+            options={{ title: 'LOG IN' }}
+          />
         </>
       ) : (
         <>
-          <ProfileStack.Screen name="Profile" component={ClientProfileScreen} />
+          <ProfileStack.Screen
+            name="Profile"
+            component={ClientProfileScreen}
+            options={{ title: 'PROFILE' }}
+          />
           <ProfileStack.Screen
             name="Change Password"
             component={ChangePasswordScreen}
+            options={{ title: '' }}
           />
           <ProfileStack.Screen
             name="Edit Profile"
             component={EditProfileScreen}
+            options={{ title: '' }}
           />
           <ProfileStack.Screen
             name="Cleaner Application"
             component={CleanerApplicationScreen}
+            options={{ title: 'BECOME A CLEANER' }}
           />
         </>
       )}

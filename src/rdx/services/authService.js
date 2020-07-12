@@ -1,11 +1,11 @@
 export const loginUserService = (request) => {
   // const LOGIN_API_ENDPOINT = 'https://shoeshine.herokuapp.com/login';
-  //const LOGIN_API_ENDPOINT = 'http://127.0.0.1:8080/login';
   const LOGIN_API_ENDPOINT = 'http://127.0.0.1:8080/login';
 
   const parameters = {
     method: 'POST',
     headers: {
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(request),
@@ -23,6 +23,7 @@ export const logoutUserService = (request) => {
   const parameters = {
     method: 'POST',
     headers: {
+      Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: request,
     },
@@ -40,6 +41,7 @@ export const signUpUserService = (request) => {
   const parameters = {
     method: 'POST',
     headers: {
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(request),
@@ -50,21 +52,21 @@ export const signUpUserService = (request) => {
   });
 };
 
-export const editProfileService = (request) => {
-  console.log('REQUEST', request);
-  // const EDIP_PROFILE_API_ENDPOINT = 'https://shoeshine.herokuapp.com/profile';
-  const EDIP_PROFILE_API_ENDPOINT = 'http://127.0.0.1:8080/profile';
+export const editProfileService = (request, token) => {
+  console.log('R', request);
+  const PROFILE_API_ENDPOINT = 'http://127.0.0.1:8080/profile';
 
   const parameters = {
     method: 'PATCH',
     headers: {
+      Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: request.token,
+      Authorization: token,
     },
-    body: JSON.stringify(request.profile),
+    body: JSON.stringify(request),
   };
 
-  return fetch(EDIP_PROFILE_API_ENDPOINT, parameters).then((response) => {
+  return fetch(PROFILE_API_ENDPOINT, parameters).then((response) => {
     return response;
   });
 };

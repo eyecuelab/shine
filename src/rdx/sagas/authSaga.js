@@ -6,7 +6,9 @@ import {
   signUpUserService,
   editProfileService,
 } from '../services/authService';
-import { call, put, cancelled } from 'redux-saga/effects';
+import { call, put, cancelled, select } from 'redux-saga/effects';
+
+export const getToken = (state) => state.users.auth.token;
 
 export function* loginSaga(action) {
   try {
@@ -16,7 +18,6 @@ export function* loginSaga(action) {
       const token = data.data.attributes.token;
       const profile = data.included[0].attributes;
       const userId = data.data.attributes.user_id;
-      console.log('DATA', data);
 
       yield put(
         actions.logIn({
@@ -37,11 +38,12 @@ export function* loginSaga(action) {
   }
 }
 
-export function* logoutSaga(action) {
+export function* logoutSaga() {
   try {
-    let response = yield call(logoutUserService, action.payload);
+    const token = yield select(getToken);
+    let response = yield call(logoutUserService, token);
     if (response.ok && response.status === 200) {
-      yield put(actions.logOut());
+      yield put({ type: types.LOGOUT_SUCCESS });
     } else {
       throw yield response.json();
     }
@@ -54,7 +56,7 @@ export function* signupSaga(action) {
   try {
     let response = yield call(signUpUserService, action.payload);
     if (response.ok && response.status === 204) {
-      yield put(actions.signUp());
+      yield put({ type: types.SIGNUP_SUCCESS });
     } else {
       throw yield response.json();
     }
@@ -69,11 +71,20 @@ export function* signupSaga(action) {
 }
 
 export function* editProfileSaga(action) {
-  console.log(action.payload);
   try {
-    let response = yield call(editProfileService, action.payload);
+    const token = yield select(getToken);
+    let response = yield call(editProfileService, action.payload, token);
+    const data = yield response.json();
+    const profile = data.data.attributes;
+    const userId = data.data.id;
     if (response.status >= 200 && response.status < 300) {
-      yield put(actions.updateProfile());
+      yield put(
+        actions.updateProfile({
+          token: token,
+          userId: userId,
+          profile: profile,
+        }),
+      );
     } else {
       throw yield response.json();
     }
