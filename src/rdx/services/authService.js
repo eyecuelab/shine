@@ -53,7 +53,7 @@ export const signUpUserService = (request) => {
 };
 
 export const editProfileService = (request, token) => {
-  console.log('R', request);
+  console.log('EDIT REQUEST', request);
   const PROFILE_API_ENDPOINT = 'http://127.0.0.1:8080/profile';
 
   const parameters = {

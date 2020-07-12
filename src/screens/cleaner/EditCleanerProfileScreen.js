@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, { useState, useRef } from 'react';
 import { Input, Button } from 'react-native-elements';
 import { StyleSheet, Keyboard } from 'react-native';
@@ -10,7 +9,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
+const EditCleanerProfileScreen = ({
+  cleaner,
+  navigation,
+  updateCleanerWatcher,
+}) => {
   const [cleanerProfile, setCleanerProfile] = useState({
     first_name: '',
     last_name: '',
@@ -58,8 +61,20 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
 
   const errorMessage = cleaner.errorMessage;
 
-  const handleSubmit = () => {
-    applyCleanerWatcher(cleanerProfile);
+  const onSubmit = () => {
+    updateCleanerWatcher({
+      first_name: 'Update Test',
+      last_name: 'Update',
+      street_address: '123',
+      city: 'Portland',
+      state: 'OR',
+      postal_code: '99999',
+      phone: '(123)-111-1111',
+      bio: 'blah blah blah',
+      business_name: 'Update Test',
+    });
+    // updateCleanerWatcher(cleanerProfile);
+    navigation.navigate('Cleaner Profile');
   };
 
   return (
@@ -69,9 +84,6 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
         contentContainerStyle={styles.container}
         scrollEnabled={true}
       >
-        <ImageArea>
-          <Image source={require('../../../assets/images/logo-outline.png')} />
-        </ImageArea>
         <Input
           value={cleanerProfile.business_name}
           label="Business"
@@ -236,29 +248,19 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
         ) : null}
 
         <Button
-          title="APPLY"
+          title="SUBMIT"
           containerStyle={{ paddingTop: 20, width: 350 }}
           buttonStyle={{
             backgroundColor: 'black',
             height: 50,
             borderRadius: 7,
           }}
-          onPress={handleSubmit}
+          onPress={onSubmit}
         />
       </KeyboardAwareScrollView>
     </ScrollViewContainer>
   );
 };
-
-const ImageArea = styled.View`
-  width: 100px;
-  height: 100px;
-`;
-
-const Image = styled.Image`
-  width: 100%;
-  height: 100%;
-`;
 
 const styles = StyleSheet.create({
   container: {
@@ -288,9 +290,10 @@ const Text = styled.Text`
   text-align: center;
 `;
 
-CleanerApplicationScreen.propTypes = {
+EditCleanerProfileScreen.propTypes = {
   navigation: PropTypes.object,
-  applyCleanerWatcher: PropTypes.func,
+  updateCleanerWatcher: PropTypes.func,
+  users: PropTypes.object,
   cleaner: PropTypes.object,
 };
 
@@ -298,4 +301,4 @@ const mapStateToProps = (state) => {
   return { cleaner: state.cleaner };
 };
 
-export default connect(mapStateToProps, actions)(CleanerApplicationScreen);
+export default connect(mapStateToProps, actions)(EditCleanerProfileScreen);
