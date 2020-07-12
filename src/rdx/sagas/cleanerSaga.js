@@ -28,14 +28,17 @@ export function* cleanerApplySaga(action) {
 }
 
 export function* editCleanerSaga(action) {
+  console.log('ACTION', action.payload);
   try {
     const url = yield select(getUrl);
     const token = yield select(getToken);
     const cleanerID = yield select(getCleanerID);
-    let response = yield call(editCleanerService, [action.payload, url, token]);
-    if (response.ok && response.status === 200) {
+    let response = yield call(editCleanerService, action.payload, url, token);
+    console.log('Edit Response::', response);
+    if (response.status >= 200 && response.status < 300) {
       const data = yield response.json();
-      yield put(actions.updateCleanerProfile(cleanerID, data));
+      console.log('DATA::', data);
+      // yield put(actions.updateCleanerProfile(data));
     } else {
       throw yield response.json();
     }

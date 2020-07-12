@@ -15,20 +15,15 @@ export const applyCleanerService = (request, token) => {
   });
 };
 
-export const editCleanerService = (request) => {
-  const payload = request[0];
-  const url = request[1];
-  const token = request[2];
-  console.log('Request', payload);
-
+export const editCleanerService = (request, url, token) => {
   const parameters = {
     method: 'PATCH',
     headers: {
-      // Accept: 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: token,
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(request),
   };
 
   return fetch(url, parameters).then((response) => {

@@ -21,19 +21,12 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         errorMessage: action.error,
       };
     case types.UPDATE_CLEANER_PROFILE:
-      return {
-        ...state,
-        data: {
-          links: { ...state.data.links },
-          meta: { ...state.data.meta },
-          data: {
-            type: 'cleaners',
-            id: action.cleanerID,
-            attributes: action.payload,
-          },
-        },
-        errorMessage: null,
-      };
+      console.log('REDUCER', action.payload);
+    // return {
+    //   ...state,
+    //   data: action.payload,
+    //   errorMessage: null,
+    // };
     case types.UPDATE_CLEANER_ERROR:
       return {
         ...state,

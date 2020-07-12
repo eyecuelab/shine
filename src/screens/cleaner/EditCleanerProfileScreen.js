@@ -63,9 +63,8 @@ const EditCleanerProfileScreen = ({
 
   const onSubmit = () => {
     updateCleanerWatcher({
-      first_name: 'Last Test',
+      first_name: 'Update Test',
       last_name: 'Update',
-      // email: 'cltest1@mail.com',
       street_address: '123',
       city: 'Portland',
       state: 'OR',

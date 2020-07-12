@@ -118,12 +118,6 @@ export const editProfileWatcher = (payload) => {
   };
 };
 
-// export const getProfileWatcher = () => {
-//   return {
-//     type: types.GET_PROFILE_WATCHER,
-//   };
-// };
-
 export const updateProfile = (payload) => {
   return {
     type: types.UPDATE_PROFILE,
@@ -154,10 +148,9 @@ export const updateCleanerWatcher = (payload) => {
   };
 };
 
-export const updateCleanerProfile = (cleanerID, payload) => {
+export const updateCleanerProfile = (payload) => {
   return {
     type: types.UPDATE_CLEANER_PROFILE,
-    cleanerID,
     payload,
   };
 };
