@@ -12,7 +12,7 @@ const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
   const onSubmit = () => {
     logoutWatcher();
   };
-  console.log('USER STATE', users);
+  // console.log('USER STATE', users);
   return (
     <>
       <ProfileContainer>

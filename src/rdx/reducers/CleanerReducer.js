@@ -2,7 +2,7 @@ import * as types from '../actions/types';
 import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialCleanerState = {
-  cleaner: null,
+  data: null,
   errorMessage: null,
 };
 
@@ -12,7 +12,7 @@ const cleanerReducer = (state = initialCleanerState, action) => {
     //   return { ...state };
     case types.ADD_CLEANER_PROFILE:
       return {
-        cleaner: action.payload,
+        data: action.payload,
         errorMessage: null,
       };
     case types.ADD_CLEANER_ERROR:
@@ -20,9 +20,28 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         ...state,
         errorMessage: action.error,
       };
+    case types.UPDATE_CLEANER_PROFILE:
+      return {
+        ...state,
+        data: {
+          links: { ...state.data.links },
+          meta: { ...state.data.meta },
+          data: {
+            type: 'cleaners',
+            id: action.cleanerID,
+            attributes: action.payload,
+          },
+        },
+        errorMessage: null,
+      };
+    case types.UPDATE_CLEANER_ERROR:
+      return {
+        ...state,
+        errorMessage: action.error,
+      };
     case types.DELETE_CLEANER_SUCCESS:
       return {
-        cleaner: null,
+        data: null,
         errorMessage: null,
       };
     default:

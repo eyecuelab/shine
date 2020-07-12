@@ -9,7 +9,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const EditCleanerProfileScreen = ({ cleaner, navigation }) => {
+const EditCleanerProfileScreen = ({
+  cleaner,
+  navigation,
+  updateCleanerWatcher,
+}) => {
   const [cleanerProfile, setCleanerProfile] = useState({
     first_name: '',
     last_name: '',
@@ -58,8 +62,19 @@ const EditCleanerProfileScreen = ({ cleaner, navigation }) => {
   const errorMessage = cleaner.errorMessage;
 
   const onSubmit = () => {
-    console.log(cleanerProfile);
-    // applyCleanerWatcher(cleanerProfile);
+    updateCleanerWatcher({
+      first_name: 'Last Test',
+      last_name: 'Update',
+      // email: 'cltest1@mail.com',
+      street_address: '123',
+      city: 'Portland',
+      state: 'OR',
+      postal_code: '99999',
+      phone: '(123)-111-1111',
+      bio: 'blah blah blah',
+      business_name: 'Update Test',
+    });
+    // updateCleanerWatcher(cleanerProfile);
     navigation.navigate('Cleaner Profile');
   };
 
@@ -278,7 +293,7 @@ const Text = styled.Text`
 
 EditCleanerProfileScreen.propTypes = {
   navigation: PropTypes.object,
-  applyCleanerWatcher: PropTypes.func,
+  updateCleanerWatcher: PropTypes.func,
   users: PropTypes.object,
   cleaner: PropTypes.object,
 };

@@ -25,7 +25,7 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
         headerBackTitleVisible: false,
       }}
     >
-      {!authentication || cleaner.cleaner === null ? (
+      {!authentication && cleaner.data === null ? (
         <>
           <CleanerStack.Screen
             name="Cleaner Option Screen"

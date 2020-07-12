@@ -14,23 +14,25 @@ const CleanerProfileScreen = ({
   navigation,
   deleteCleanerWatcher,
 }) => {
-  const profile = cleaner.cleaner.data.attributes;
-
   const onDelete = () => {
     deleteCleanerWatcher();
-    navigation.navigate('CleanerOptionScreen');
+    // navigation.navigate('CleanerOptionScreen');
   };
 
   return (
     <>
       <ProfileContainer>
         <Container>
-          <Name>{profile.business_name}</Name>
+          <Name>
+            {cleaner.data ? cleaner.data.data.attributes.business_name : null}
+          </Name>
         </Container>
 
         <ListItem>
           <Text>Account</Text>
-          <Text>{profile.email}</Text>
+          <Text>
+            {cleaner.data ? cleaner.data.data.attributes.email : null}
+          </Text>
         </ListItem>
 
         <ListItem onPress={() => navigation.navigate('Edit Profile')}>

@@ -5,10 +5,11 @@ import {
   editCleanerService,
   deleteCleanerService,
 } from '../services/cleanerService';
-import { call, put, cancelled, select } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 
 export const getToken = (state) => state.users.data.data.attributes.token;
-export const getUrl = (state) => state.cleaner.cleaner.links.self;
+export const getUrl = (state) => state.cleaner.data.links.self;
+export const getCleanerID = (state) => state.cleaner.data.data.id;
 
 export function* cleanerApplySaga(action) {
   try {
@@ -26,16 +27,29 @@ export function* cleanerApplySaga(action) {
   }
 }
 
-// export function* editCleanerSaga(action)
-//   console.log(action);
-// }
+export function* editCleanerSaga(action) {
+  try {
+    const url = yield select(getUrl);
+    const token = yield select(getToken);
+    const cleanerID = yield select(getCleanerID);
+    let response = yield call(editCleanerService, [action.payload, url, token]);
+    if (response.ok && response.status === 200) {
+      const data = yield response.json();
+      yield put(actions.updateCleanerProfile(cleanerID, data));
+    } else {
+      throw yield response.json();
+    }
+  } catch (error) {
+    console.log('UPDATE CLEANER PROFILE ERROR: ', error);
+    yield put({ type: types.UPDATE_CLEANER_ERROR, error: error.message });
+  }
+}
 
 export function* deleteCleanerSaga() {
   try {
     const url = yield select(getUrl);
     const token = yield select(getToken);
     let response = yield call(deleteCleanerService, url, token);
-    console.log(response);
     if (response.ok && response.status === 204) {
       yield put({ type: types.DELETE_CLEANER_SUCCESS });
     } else {
