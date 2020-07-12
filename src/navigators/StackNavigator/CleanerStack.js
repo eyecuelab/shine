@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 const CleanerStack = createStackNavigator();
 
 const CleanerStackNavigator = ({ cleaner, users }) => {
-  console.log('STATE', cleaner.cleaner === null);
+  const authentication = users.data ? users.data.included.length === 2 : null;
   return (
     <CleanerStack.Navigator
       screenOptions={{
@@ -24,7 +24,7 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
         headerBackTitleVisible: false,
       }}
     >
-      {cleaner.cleaner === null || users.status === 'Logged out' ? (
+      {!authentication || cleaner.cleaner === null ? (
         <>
           <CleanerStack.Screen
             name="Cleaner Option Screen"
@@ -45,11 +45,6 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
             component={CleanerProfileScreen}
             options={{ title: 'CLEANER PROFILE' }}
           />
-          {/* <CleanerStack.Screen
-            name="CleanerOptionScreen"
-            component={CleanerOptionScreen}
-            options={{ title: 'SHINE' }}
-          /> */}
         </>
       )}
     </CleanerStack.Navigator>

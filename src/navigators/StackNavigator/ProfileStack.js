@@ -14,9 +14,6 @@ import PropTypes from 'prop-types';
 const ProfileStack = createStackNavigator();
 
 const ProfileStackNavigator = ({ users }) => {
-  const authentication =
-    users.data === null ? null : users.data.data.attributes.token;
-
   return (
     <ProfileStack.Navigator
       screenOptions={{
@@ -29,7 +26,7 @@ const ProfileStackNavigator = ({ users }) => {
         headerBackTitleVisible: false,
       }}
     >
-      {authentication === null ? (
+      {users.data === null ? (
         <>
           <ProfileStack.Screen
             name="Welcome"

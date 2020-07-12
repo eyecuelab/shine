@@ -12,7 +12,7 @@ const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
   const onSubmit = () => {
     logoutWatcher();
   };
-
+  console.log('USER STATE', users);
   return (
     <>
       <ProfileContainer>
@@ -22,15 +22,20 @@ const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
               source={require('../../../assets/images/profile-pic.png')}
             />
             <Name>
-              {users.data.included[0].attributes.first_name}{' '}
-              {users.data.included[0].attributes.last_name}
+              {users.data
+                ? users.data.included[0].attributes.first_name +
+                  ' ' +
+                  users.data.included[0].attributes.last_name
+                : null}
             </Name>
           </Container>
         </ProfileBackground>
 
         <ListItem>
           <Text>Account</Text>
-          <Text>{users.data.included[0].attributes.email}</Text>
+          <Text>
+            {users.data ? users.data.included[0].attributes.email : null}
+          </Text>
         </ListItem>
 
         <ListItem onPress={() => navigation.navigate('Change Password')}>

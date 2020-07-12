@@ -7,7 +7,7 @@ import {
 } from '../services/cleanerService';
 import { call, put, cancelled, select } from 'redux-saga/effects';
 
-export const getToken = (state) => state.users.auth.token;
+export const getToken = (state) => state.users.data.data.attributes.token;
 export const getUrl = (state) => state.cleaner.cleaner.links.self;
 
 export function* cleanerApplySaga(action) {
