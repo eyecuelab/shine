@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
+import PropTypes from 'prop-types';
 // SCREEN IMPORTS:
 import CleanerOptionScreen from '../../screens/cleaner/CleanerOptionScreen';
 import SignInScreen from '../../screens/shared/SignInScreen';
 import CleanerApplicationScreen from '../../screens/cleaner/CleanerApplicationScreen';
 import CleanerProfileScreen from '../../screens/cleaner/CleanerProfileScreen';
-import PropTypes from 'prop-types';
+import EditCleanerProfileScreen from '../../screens/cleaner/EditCleanerProfileScreen';
 
 const CleanerStack = createStackNavigator();
 
@@ -44,6 +45,11 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
             name="Cleaner Profile"
             component={CleanerProfileScreen}
             options={{ title: 'CLEANER PROFILE' }}
+          />
+          <CleanerStack.Screen
+            name="Edit Profile"
+            component={EditCleanerProfileScreen}
+            options={{ title: 'EDIT PROFILE' }}
           />
         </>
       )}

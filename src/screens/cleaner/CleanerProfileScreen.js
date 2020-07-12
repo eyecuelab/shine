@@ -15,8 +15,6 @@ const CleanerProfileScreen = ({
   deleteCleanerWatcher,
 }) => {
   const profile = cleaner.cleaner.data.attributes;
-  // console.log('C', profile);
-  // console.log('U', users);
 
   const onDelete = () => {
     deleteCleanerWatcher();
@@ -33,6 +31,11 @@ const CleanerProfileScreen = ({
         <ListItem>
           <Text>Account</Text>
           <Text>{profile.email}</Text>
+        </ListItem>
+
+        <ListItem onPress={() => navigation.navigate('Edit Profile')}>
+          <Text>Edit Cleaner Profile</Text>
+          <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>
 
         <ListItemCenter onPress={onDelete}>

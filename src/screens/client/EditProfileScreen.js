@@ -169,7 +169,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
             </ErrorTextContainer>
 
             <Button
-              title="Submit"
+              title="SUBMIT"
               containerStyle={{ paddingTop: 20, width: 350 }}
               buttonStyle={{
                 backgroundColor: 'black',
