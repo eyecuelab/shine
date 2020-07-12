@@ -67,17 +67,16 @@ export function* editProfileSaga(action) {
   try {
     const token = yield select(getToken);
     let response = yield call(editProfileService, action.payload, token);
-    const data = yield response.json();
-    const userData = data.data;
-    console.log('EDIT', data.data);
-    // const profile = data.data.attributes;
-    // const userId = data.data.id;
     if (response.status >= 200 && response.status < 300) {
+      const data = yield response.json();
+      console.log(data);
+      const userData = data.data;
       yield put(actions.updateProfile(userData));
     } else {
       throw yield response.json();
     }
   } catch (error) {
     console.log('EDIT PROFILE ERROR: ', error);
+    yield put({ type: types.UPDATE_PROFILE_ERROR, error: error.message });
   }
 }

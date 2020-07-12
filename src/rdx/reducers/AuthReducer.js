@@ -10,10 +10,10 @@ const initialAuthState = {
 
 const authReducer = (state = initialAuthState, action) => {
   switch (action.type) {
-    case REHYDRATE:
-      return {
-        ...state,
-      };
+    // case REHYDRATE:
+    //   return {
+    //     ...state,
+    //   };
     case types.LOGIN_SUCCESS:
       return {
         ...state,
@@ -72,7 +72,14 @@ const authReducer = (state = initialAuthState, action) => {
         },
         errorMessage: null,
         signupMessage: null,
-        status: 'User Profile updated',
+        status: 'User profile updated',
+      };
+    case types.UPDATE_PROFILE_ERROR:
+      return {
+        ...state,
+        errorMessage: action.error,
+        signupMessage: null,
+        status: 'User profile update error',
       };
     default:
       return state;

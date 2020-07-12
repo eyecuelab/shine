@@ -52,12 +52,17 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
   const inputEl4 = React.useRef(null);
   const inputEl5 = React.useRef(null);
   const inputEl6 = React.useRef(null);
-
   const navigation = useNavigation();
+  const errorMessage = users.errorMessage;
+
+  const street = users.data.included[0].attributes.street_address;
+  const city = users.data.included[0].attributes.city;
+  const state = users.data.included[0].attributes.state;
+  const zip = users.data.included[0].attributes.postal_code;
+  const phone = users.data.included[0].attributes.phone;
 
   const onSubmit = () => {
     editProfileWatcher(userProfile);
-    navigation.navigate('Profile');
   };
 
   return (
@@ -68,66 +73,83 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Container>
-            <TextInput
-              placeholder="Street Address"
-              returnKeyType="next"
-              autoCapitalize="words"
-              autoCorrect={false}
-              style={styles.input}
-              value={userProfile.street_address}
-              onChangeText={(text) =>
-                handleProfileChange('street_address', text)
-              }
-              onSubmitEditing={() => inputEl2.current.focus()}
-              // blurOnSubmit={false}
-            />
-            <TextInput
-              ref={inputEl2}
-              placeholder="City"
-              returnKeyType="next"
-              autoCapitalize="words"
-              autoCorrect={false}
-              style={styles.input}
-              value={userProfile.city}
-              onChangeText={(text) => handleProfileChange('city', text)}
-              onSubmitEditing={() => inputEl3.current.focus()}
-            />
-            <TextInput
-              ref={inputEl3}
-              placeholder="State"
-              returnKeyType="next"
-              autoCapitalize="characters"
-              autoCorrect={false}
-              maxLength={2}
-              style={styles.input}
-              value={userProfile.state}
-              onChangeText={(text) => handleProfileChange('state', text)}
-              onSubmitEditing={() => inputEl4.current.focus()}
-            />
-            <TextInput
-              ref={inputEl4}
-              placeholder="Zip"
-              returnKeyType="done"
-              keyboardType="number-pad"
-              maxLength={5}
-              style={styles.input}
-              value={userProfile.postal_code}
-              onChangeText={(text) => handleProfileChange('postal_code', text)}
-              onSubmitEditing={() => inputEl5.current.focus()}
-            />
-            <TextInput
-              ref={inputEl5}
-              placeholder="Phone (xxx)-xxx-xxxx"
-              returnKeyType="done"
-              textContentType="telephoneNumber"
-              dataDetactorTypes="phoneNunmber"
-              keyboardType="phone-pad"
-              maxLength={10}
-              style={styles.input}
-              value={userProfile.phone}
-              onChangeText={(text) => onTextChange(text)}
-              // onSubmitEditing={() => inputEl6.current.focus()}
-            />
+            <MultiLineInputs>
+              <Text>Street</Text>
+              <TextInput
+                placeholder={street ? street : 'Street Address'}
+                returnKeyType="next"
+                autoCapitalize="words"
+                autoCorrect={false}
+                style={styles.input}
+                value={userProfile.street_address}
+                onChangeText={(text) =>
+                  handleProfileChange('street_address', text)
+                }
+                onSubmitEditing={() => inputEl2.current.focus()}
+                // blurOnSubmit={false}
+              />
+            </MultiLineInputs>
+            <MultiLineInputs>
+              <Text>City</Text>
+              <TextInput
+                ref={inputEl2}
+                placeholder={city ? city : 'City'}
+                returnKeyType="next"
+                autoCapitalize="words"
+                autoCorrect={false}
+                style={styles.input}
+                value={userProfile.city}
+                onChangeText={(text) => handleProfileChange('city', text)}
+                onSubmitEditing={() => inputEl3.current.focus()}
+              />
+            </MultiLineInputs>
+            <MultiLineInputs>
+              <Text>State</Text>
+              <TextInput
+                ref={inputEl3}
+                placeholder={state ? state : 'State'}
+                returnKeyType="next"
+                autoCapitalize="characters"
+                autoCorrect={false}
+                maxLength={2}
+                style={styles.input}
+                value={userProfile.state}
+                onChangeText={(text) => handleProfileChange('state', text)}
+                onSubmitEditing={() => inputEl4.current.focus()}
+              />
+            </MultiLineInputs>
+            <MultiLineInputs>
+              <Text>Zip</Text>
+              <TextInput
+                ref={inputEl4}
+                placeholder={zip ? zip : 'Zip'}
+                returnKeyType="done"
+                keyboardType="number-pad"
+                maxLength={5}
+                style={styles.input}
+                value={userProfile.postal_code}
+                onChangeText={(text) =>
+                  handleProfileChange('postal_code', text)
+                }
+                onSubmitEditing={() => inputEl5.current.focus()}
+              />
+            </MultiLineInputs>
+            <MultiLineInputs>
+              <Text>Phone</Text>
+              <TextInput
+                ref={inputEl5}
+                placeholder={phone ? phone : '(xxx)-xxx-xxxx'}
+                returnKeyType="done"
+                textContentType="telephoneNumber"
+                dataDetactorTypes="phoneNunmber"
+                keyboardType="phone-pad"
+                maxLength={10}
+                style={styles.input}
+                value={userProfile.phone}
+                onChangeText={(text) => onTextChange(text)}
+                // onSubmitEditing={() => inputEl6.current.focus()}
+              />
+            </MultiLineInputs>
             {/* <TextInput
               ref={inputEl6}
               placeholder="Upload Iamge"
@@ -139,6 +161,12 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               onChangeText={(text) => handleProfileChange('image_file', text)}
               onSubmitEditing={() => inputEl3.current.focus()}
             /> */}
+
+            <ErrorTextContainer>
+              <ErrorText>
+                {errorMessage !== null ? errorMessage : 'Profile Updated'}
+              </ErrorText>
+            </ErrorTextContainer>
 
             <Button
               title="Submit"
@@ -165,7 +193,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#8A8F9E',
     borderBottomWidth: StyleSheet.hairlineWidth,
     height: 40,
-    width: width * 0.85,
+    width: width * 0.6,
     marginVertical: 5,
     paddingHorizontal: 20,
     fontSize: 15,
@@ -181,16 +209,30 @@ const Container = styled.View`
 `;
 
 const Text = styled.Text`
-  color: #8e1818;
   font-size: 16px;
-  font-weight: 500;
-  text-align: center;
+  font-weight: 400;
+  margin-right: 10px;
 `;
 
 const MultiLineInputs = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: space-evenly;
+`;
+
+const ErrorTextContainer = styled.View`
+  margin-horizontal: 20px;
+  padding: 25px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ErrorText = styled.Text`
+  color: #8e1818;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
 `;
 
 EditProfileScreen.propTypes = {
