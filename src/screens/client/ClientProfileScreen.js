@@ -22,14 +22,15 @@ const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
               source={require('../../../assets/images/profile-pic.png')}
             />
             <Name>
-              {users.auth.profile.first_name} {users.auth.profile.last_name}
+              {users.data.included[0].attributes.first_name}{' '}
+              {users.data.included[0].attributes.last_name}
             </Name>
           </Container>
         </ProfileBackground>
 
         <ListItem>
           <Text>Account</Text>
-          <Text>{users.auth.profile.email}</Text>
+          <Text>{users.data.included[0].attributes.email}</Text>
         </ListItem>
 
         <ListItem onPress={() => navigation.navigate('Change Password')}>

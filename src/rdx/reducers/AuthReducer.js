@@ -2,11 +2,7 @@ import * as types from '../actions/types';
 import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialAuthState = {
-  auth: {
-    token: null,
-    userId: null,
-    profile: {},
-  },
+  data: null,
   errorMessage: null,
   signupMessage: null,
   status: 'Logged out',
@@ -14,14 +10,14 @@ const initialAuthState = {
 
 const authReducer = (state = initialAuthState, action) => {
   switch (action.type) {
-    // case REHYDRATE:
-    //   return {
-    //     ...state,
-    //   };
+    case REHYDRATE:
+      return {
+        ...state,
+      };
     case types.LOGIN_SUCCESS:
       return {
         ...state,
-        auth: action.payload,
+        data: action.payload,
         errorMessage: null,
         signupMessage: null,
         status: 'Logged in',
@@ -43,11 +39,7 @@ const authReducer = (state = initialAuthState, action) => {
     case types.LOGOUT_SUCCESS:
       return {
         ...state,
-        auth: {
-          token: null,
-          userId: null,
-          profile: {},
-        },
+        data: null,
         errorMessage: null,
         signupMessage: null,
         status: 'Logged out',
@@ -55,11 +47,7 @@ const authReducer = (state = initialAuthState, action) => {
     case types.SIGNUP_SUCCESS:
       return {
         ...state,
-        auth: {
-          token: null,
-          userId: null,
-          profile: {},
-        },
+        data: null,
         errorMessage: null,
         signupMessage: 'You have seccessfully signed up',
         status: 'Signed up',
@@ -73,7 +61,15 @@ const authReducer = (state = initialAuthState, action) => {
     case types.UPDATE_PROFILE:
       return {
         ...state,
-        auth: action.payload,
+        data: {
+          links: { ...state.data.links },
+          meta: { ...state.data.meta },
+          included: {
+            ...state.data.included,
+            [0]: action.payload,
+          },
+          data: { ...state.data.data },
+        },
         errorMessage: null,
         signupMessage: null,
         status: 'User Profile updated',

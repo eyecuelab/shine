@@ -14,7 +14,8 @@ import PropTypes from 'prop-types';
 const ProfileStack = createStackNavigator();
 
 const ProfileStackNavigator = ({ users }) => {
-  const authentication = users.auth.token;
+  const authentication =
+    users.data === null ? null : users.data.data.attributes.token;
 
   return (
     <ProfileStack.Navigator

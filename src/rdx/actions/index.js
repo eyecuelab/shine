@@ -84,17 +84,17 @@ export const deleteOrder = (uuid) => {
 
 // ====== USERS ACTION CREATORS ======= //
 
-export const loginWatcher = (user) => {
+export const loginWatcher = (payload) => {
   return {
     type: types.LOGIN_WATCHER,
-    payload: user,
+    payload,
   };
 };
 
-export const logIn = (profile) => {
+export const logIn = (payload) => {
   return {
     type: types.LOGIN_SUCCESS,
-    payload: profile,
+    payload,
   };
 };
 
@@ -104,10 +104,10 @@ export const logoutWatcher = () => {
   };
 };
 
-export const signupWatcher = (user) => {
+export const signupWatcher = (payload) => {
   return {
     type: types.SIGNUP_WATCHER,
-    payload: user,
+    payload,
   };
 };
 
@@ -124,10 +124,10 @@ export const getProfileWatcher = () => {
   };
 };
 
-export const updateProfile = (profile) => {
+export const updateProfile = (payload) => {
   return {
     type: types.UPDATE_PROFILE,
-    payload: profile,
+    payload,
   };
 };
 
@@ -147,9 +147,17 @@ export const postCleanerProfile = (payload) => {
   };
 };
 
-export const updateCleanerWatcher = () => {
+export const updateCleanerWatcher = (payload) => {
   return {
     type: types.UPDATE_CLEANER_WATCHER,
+    payload,
+  };
+};
+
+export const updateCleanerProfile = (payload) => {
+  return {
+    type: types.UPDATE_CLEANER_PROFILE,
+    payload,
   };
 };
 
