@@ -1,23 +1,40 @@
 import * as types from '../actions/types';
+import { REHYDRATE } from 'redux-persist/lib/constants';
 
-const cleanerReducer = (state = {}, action) => {
+const initialCleanerState = {
+  data: null,
+  errorMessage: null,
+};
+
+const cleanerReducer = (state = initialCleanerState, action) => {
   switch (action.type) {
+    // case REHYDRATE:
+    //   return { ...state };
     case types.ADD_CLEANER_PROFILE:
       return {
-        id: action.id,
-        businessName: action.payload.businessName,
-        imageUrl: action.payload.imageUrl,
-        bio: action.payload.bio,
-        streetAddress: action.address.streetAddress,
-        city: action.address.city,
-        state: action.address.state,
-        postalCode: action.address.postalCode,
-        phoneNumber: action.address.phoneNumber,
-        email: action.payload.email,
-        userId: action.payload.user_id,
-        createdAt: null,
-        updatedAt: null,
-        shoeTypes: null,
+        data: action.payload,
+        errorMessage: null,
+      };
+    case types.ADD_CLEANER_ERROR:
+      return {
+        ...state,
+        errorMessage: action.error,
+      };
+    case types.UPDATE_CLEANER_SUCCESS:
+      return {
+        ...state,
+        data: action.payload,
+        errorMessage: null,
+      };
+    case types.UPDATE_CLEANER_ERROR:
+      return {
+        ...state,
+        errorMessage: action.error,
+      };
+    case types.DELETE_CLEANER_SUCCESS:
+      return {
+        data: null,
+        errorMessage: null,
       };
     default:
       return state;

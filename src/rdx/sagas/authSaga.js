@@ -6,25 +6,18 @@ import {
   signUpUserService,
   editProfileService,
 } from '../services/authService';
-import { call, put, cancelled } from 'redux-saga/effects';
+import { call, put, cancelled, select } from 'redux-saga/effects';
+
+export const getToken = (state) => state.users.data.data.attributes.token;
 
 export function* loginSaga(action) {
   try {
     let response = yield call(loginUserService, action.payload);
     if (response.ok && response.status === 200) {
       const data = yield response.json();
-      const token = data.data.attributes.token;
-      const profile = data.included[0].attributes;
-      const userId = data.data.attributes.user_id;
-      console.log('DATA', data);
+      console.log(data);
 
-      yield put(
-        actions.logIn({
-          token: token,
-          userId: userId,
-          profile: profile,
-        }),
-      );
+      yield put(actions.logIn(data));
     } else {
       throw yield response.json();
     }
@@ -37,11 +30,12 @@ export function* loginSaga(action) {
   }
 }
 
-export function* logoutSaga(action) {
+export function* logoutSaga() {
   try {
-    let response = yield call(logoutUserService, action.payload);
+    const token = yield select(getToken);
+    let response = yield call(logoutUserService, token);
     if (response.ok && response.status === 200) {
-      yield put(actions.logOut());
+      yield put({ type: types.LOGOUT_SUCCESS });
     } else {
       throw yield response.json();
     }
@@ -54,7 +48,7 @@ export function* signupSaga(action) {
   try {
     let response = yield call(signUpUserService, action.payload);
     if (response.ok && response.status === 204) {
-      yield put(actions.signUp());
+      yield put({ type: types.SIGNUP_SUCCESS });
     } else {
       throw yield response.json();
     }
@@ -69,15 +63,19 @@ export function* signupSaga(action) {
 }
 
 export function* editProfileSaga(action) {
-  console.log(action.payload);
   try {
-    let response = yield call(editProfileService, action.payload);
+    const token = yield select(getToken);
+    let response = yield call(editProfileService, action.payload, token);
     if (response.status >= 200 && response.status < 300) {
-      yield put(actions.updateProfile());
+      const data = yield response.json();
+      console.log('EDIT DATA', data);
+      const userData = data.data;
+      yield put(actions.updateProfile(userData));
     } else {
       throw yield response.json();
     }
   } catch (error) {
     console.log('EDIT PROFILE ERROR: ', error);
+    yield put({ type: types.UPDATE_PROFILE_ERROR, error: error.message });
   }
 }

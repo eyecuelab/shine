@@ -84,74 +84,79 @@ export const deleteOrder = (uuid) => {
 
 // ====== USERS ACTION CREATORS ======= //
 
-export const loginWatcher = (user) => {
+export const loginWatcher = (payload) => {
   return {
     type: types.LOGIN_WATCHER,
-    payload: user,
+    payload,
   };
 };
 
-export const logIn = (profile) => {
+export const logIn = (payload) => {
   return {
     type: types.LOGIN_SUCCESS,
-    payload: profile,
+    payload,
   };
 };
 
-export const logoutWatcher = (token) => {
+export const logoutWatcher = () => {
   return {
     type: types.LOGOUT_WATCHER,
-    payload: token,
   };
 };
 
-export const logOut = () => {
-  return {
-    type: types.LOGOUT_SUCCESS,
-  };
-};
-
-export const signupWatcher = (user) => {
+export const signupWatcher = (payload) => {
   return {
     type: types.SIGNUP_WATCHER,
-    payload: user,
+    payload,
   };
 };
 
-export const signUp = () => {
-  return {
-    type: types.SIGNUP_SUCCESS,
-  };
-};
-
-export const editProfileWatcher = ({ token, profile }) => {
+export const editProfileWatcher = (payload) => {
   return {
     type: types.EDIT_PROFILE_WATCHER,
-    payload: { token, profile },
+    payload,
   };
 };
 
-export const updateProfile = (profile) => {
+export const updateProfile = (payload) => {
   return {
     type: types.UPDATE_PROFILE,
-    payload: profile,
+    payload,
   };
 };
 
 // ====== CLEANERS ACTION CREATORS ======= //
 
-export const applyCleanerWatcher = ({ userId, profile, address }) => {
+export const applyCleanerWatcher = (payload) => {
   return {
     type: types.APPLY_CLEANER_WATCHER,
-    payload: { userId, profile, address },
+    payload,
   };
 };
 
-// export const addCleanerProfile = (address, profile) => {
-//   return {
-//     type: types.ADD_CLEANER_PROFILE,
-//     id: uuid.v4(),
-//     address: address,
-//     payload: profile,
-//   };
-// };
+export const postCleanerProfile = (payload) => {
+  return {
+    type: types.ADD_CLEANER_PROFILE,
+    payload,
+  };
+};
+
+export const editCleanerWatcher = (payload) => {
+  return {
+    type: types.EDIT_CLEANER_WATCHER,
+    payload,
+  };
+};
+
+export const updateCleanerProfile = (payload) => {
+  return {
+    type: types.UPDATE_CLEANER_SUCCESS,
+    payload,
+  };
+};
+
+export const deleteCleanerWatcher = () => {
+  return {
+    type: types.DELETE_CLEANER_WATCHER,
+  };
+};

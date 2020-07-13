@@ -6,48 +6,65 @@ import WelcomeScreen from '../../screens/shared/WelcomeScreen';
 import SignInScreen from '../../screens/shared/SignInScreen';
 import SignUpScreen from '../../screens/shared/SignUpScreen';
 import ClientProfileScreen from '../../screens/client/ClientProfileScreen';
-import ChangePasswordScreen from '../../screens/shared/ChangePasswordScreen';
-import EditProfileScreen from '../../screens/shared/EditProfileScreen';
+import ChangePasswordScreen from '../../screens/client/ChangePasswordScreen';
+import EditProfileScreen from '../../screens/client/EditProfileScreen';
 import CleanerApplicationScreen from '../../screens/cleaner/CleanerApplicationScreen';
 import PropTypes from 'prop-types';
 
 const ProfileStack = createStackNavigator();
 
 const ProfileStackNavigator = ({ users }) => {
-  const authentication = users.auth.token;
-
   return (
     <ProfileStack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: 'white',
-          borderBottomColor: 'white',
-          shadowColor: 'white',
+          backgroundColor: '#CBB387',
+          borderBottomColor: '#CBB387',
+          shadowColor: '#CBB387',
         },
-        headerTintColor: 'black',
+        headerTintColor: '#FFFFFF',
         headerBackTitleVisible: false,
       }}
     >
-      {authentication === null ? (
+      {users.data === null ? (
         <>
-          <ProfileStack.Screen name="Welcome" component={WelcomeScreen} />
-          <ProfileStack.Screen name="SignUp" component={SignUpScreen} />
-          <ProfileStack.Screen name="LogIn" component={SignInScreen} />
+          <ProfileStack.Screen
+            name="Welcome"
+            component={WelcomeScreen}
+            options={{ title: 'SHINE' }}
+          />
+          <ProfileStack.Screen
+            name="SignUp"
+            component={SignUpScreen}
+            options={{ title: 'SIGN UP' }}
+          />
+          <ProfileStack.Screen
+            name="LogIn"
+            component={SignInScreen}
+            options={{ title: 'LOG IN' }}
+          />
         </>
       ) : (
         <>
-          <ProfileStack.Screen name="Profile" component={ClientProfileScreen} />
+          <ProfileStack.Screen
+            name="Profile"
+            component={ClientProfileScreen}
+            options={{ title: 'PROFILE' }}
+          />
           <ProfileStack.Screen
             name="Change Password"
             component={ChangePasswordScreen}
+            options={{ title: '' }}
           />
           <ProfileStack.Screen
             name="Edit Profile"
             component={EditProfileScreen}
+            options={{ title: 'EDIT PROFILE' }}
           />
           <ProfileStack.Screen
             name="Cleaner Application"
             component={CleanerApplicationScreen}
+            options={{ title: 'BECOME A CLEANER' }}
           />
         </>
       )}
