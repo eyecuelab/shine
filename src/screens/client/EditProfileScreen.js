@@ -63,6 +63,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
 
   const onSubmit = () => {
     editProfileWatcher(userProfile);
+    navigation.navigate('Profile');
   };
 
   return (
@@ -164,7 +165,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
 
             <ErrorTextContainer>
               <ErrorText>
-                {errorMessage !== null ? errorMessage : 'Profile Updated'}
+                {errorMessage !== null ? errorMessage : null}
               </ErrorText>
             </ErrorTextContainer>
 
