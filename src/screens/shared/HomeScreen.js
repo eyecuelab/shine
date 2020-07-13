@@ -10,9 +10,8 @@ import OrderItem from '../../components/order/OrderItem';
 
 const { height: HEIGHT } = Dimensions.get('window');
 
-const HomeScreen = ({ orders }) => {
+const HomeScreen = ({ orders, users }) => {
   const navigation = useNavigation();
-
   const handleClick = (item) => {
     if (item.requestCompleted === false) {
       navigation.navigate('OrderFinal', item);
@@ -20,9 +19,10 @@ const HomeScreen = ({ orders }) => {
       navigation.navigate('OrderStatus', item);
     }
   };
+  const userId = users.data ? users.data.included[0].id : null;
 
-  if (orders.length !== 0) {
-    return (
+  return orders.map((item) =>
+    item.attributes.user_id == userId ? (
       <>
         <ListContainer>
           <ImageArea onPress={() => navigation.navigate('NewOrder')}>
@@ -39,24 +39,21 @@ const HomeScreen = ({ orders }) => {
             margin: 10,
           }}
         >
-          {orders &&
-            orders.map((item) => {
-              return (
-                <TouchableOpacity
-                  key={item.uuid}
-                  onPress={() => handleClick(item)}
-                >
-                  <ItemsContainer>
-                    <OrderItem order={item} />
-                  </ItemsContainer>
-                </TouchableOpacity>
-              );
-            })}
+          {orders.map((item) => {
+            return (
+              <TouchableOpacity
+                key={item.uuid}
+                onPress={() => handleClick(item)}
+              >
+                <ItemsContainer>
+                  <OrderItem order={item} />
+                </ItemsContainer>
+              </TouchableOpacity>
+            );
+          })}
         </ScrollView>
       </>
-    );
-  } else {
-    return (
+    ) : (
       <>
         <HomeContainer>
           <ImageArea onPress={() => navigation.navigate('NewOrder')}>
@@ -64,8 +61,8 @@ const HomeScreen = ({ orders }) => {
           </ImageArea>
         </HomeContainer>
       </>
-    );
-  }
+    ),
+  );
 };
 
 const HomeContainer = styled.View`
@@ -102,10 +99,11 @@ const ItemsContainer = styled.View`
 
 HomeScreen.propTypes = {
   orders: PropTypes.array,
+  users: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders };
+  return { orders: state.orders, users: state.users };
 };
 
 export default connect(mapStateToProps, actions)(HomeScreen);

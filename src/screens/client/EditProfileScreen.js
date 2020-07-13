@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
-import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-elements';
 import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
@@ -52,9 +51,8 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
   const inputEl4 = React.useRef(null);
   const inputEl5 = React.useRef(null);
   const inputEl6 = React.useRef(null);
-  const navigation = useNavigation();
+
   const errorMessage = users.errorMessage;
-  console.log(errorMessage);
 
   const street = users.data.included[0].attributes.street_address;
   const city = users.data.included[0].attributes.city;
