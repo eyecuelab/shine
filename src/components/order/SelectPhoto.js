@@ -13,7 +13,7 @@ const options = {
 };
 
 const SelectPhoto = ({ jumpTo, image, setImage }) => {
-  // console.log(image.fileName);
+  // console.log(image);
   useEffect(() => {
     (async () => {
       if (Constants.platform.ios) {
@@ -29,18 +29,39 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
 
   const PickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync(options);
-    console.log(result);
+
     if (!result.cancelled) {
+      let localUri = result.uri;
+      let fileName = localUri.split('/').pop();
+
+      let match = /\.(\w+)$/.exec(fileName);
+      let type = match ? `image/${match[1]}` : `image`;
+      const file = {
+        uri: localUri,
+        name: fileName,
+        type: type,
+      };
+      console.log(file);
+
+      // uploadImage(result.uri, 'test-image');
       setImage(result.uri);
     }
   };
 
   const TakePhoto = async () => {
     let result = await ImagePicker.launchCameraAsync(options);
+
     if (!result.cancelled) {
       setImage(result.uri);
     }
   };
+
+  // const uploadImage = async (uri, imageName) => {
+  //   const response = await fetch(uri);
+  //   // const blob = await response.blob();
+  //   console.log(imageName);
+  //   console.log(blob);
+  // };
 
   return image === 'empty.img' ? (
     <Container>

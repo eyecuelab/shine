@@ -31,7 +31,7 @@ function* postOrder(order, token) {
   //   type: `image/${fileType}`,
   // })
   // console.log(FormData)
-
+  console.log('ORDER: ', order);
   const urlLink = 'http://127.0.0.1:8080/orders';
   const response = yield fetch(urlLink, {
     method: 'POST',
