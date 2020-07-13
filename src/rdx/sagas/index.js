@@ -8,9 +8,9 @@ import watchOrdersLoad, {
 export default function* rootSaga() {
   yield all([
     watchUserAuthentication(),
-    watchCleanerActions(),
     watchOrdersLoad(),
     watchPostOrder(),
+    watchCleanerActions(),
     watchOrdersReload(),
   ]);
 }

@@ -54,6 +54,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
   const inputEl6 = React.useRef(null);
   const navigation = useNavigation();
   const errorMessage = users.errorMessage;
+  console.log(errorMessage);
 
   const street = users.data.included[0].attributes.street_address;
   const city = users.data.included[0].attributes.city;
@@ -63,7 +64,6 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
 
   const onSubmit = () => {
     editProfileWatcher(userProfile);
-    navigation.navigate('Profile');
   };
 
   return (

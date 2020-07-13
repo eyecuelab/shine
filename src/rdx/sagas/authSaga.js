@@ -68,7 +68,6 @@ export function* editProfileSaga(action) {
     let response = yield call(editProfileService, action.payload, token);
     if (response.status >= 200 && response.status < 300) {
       const data = yield response.json();
-      console.log('EDIT DATA', data);
       const userData = data.data;
       yield put(actions.updateProfile(userData));
     } else {
