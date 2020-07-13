@@ -15,6 +15,7 @@ import AddOnSwitch from '../../components/order/AddOnSwitch';
 const OrderFinalScreen = ({ navigation }) => {
   const route = useRoute();
   const item = route.params;
+  console.log(item);
   const handleSubmit = () => {
     navigation.navigate('OrderConfrim', item);
   };
@@ -35,12 +36,18 @@ const OrderFinalScreen = ({ navigation }) => {
           <SwitchText>REPLACE SHOELACES</SwitchText>
         </SwitchTextContainer>
         <SwitchContainer>
-          <AddOnSwitch disabled={true} switchState={item.addOns.polish} />
           <AddOnSwitch
             disabled={true}
-            switchState={item.addOns.rainProtection}
+            switchState={item.attributes.add_ons.polish}
           />
-          <AddOnSwitch disabled={true} switchState={item.addOns.replaceLaces} />
+          <AddOnSwitch
+            disabled={true}
+            switchState={item.attributes.add_ons.rainProtection}
+          />
+          <AddOnSwitch
+            disabled={true}
+            switchState={item.attributes.add_ons.replaceLaces}
+          />
         </SwitchContainer>
 
         {/* ========== NEED TO REFACTOR BELOW THIS CODE

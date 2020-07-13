@@ -1,11 +1,12 @@
-import React from 'react';
-import Header from '../../components/shared/Header';
+import * as React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
-const OrdersInAreaScreen = ({ navigation }) => {
+import * as actions from '../../rdx/actions';
+
+const OrdersInAreaScreen = ({ cleaner, navigation }) => {
   return (
     <>
-      <Header title="Orders In Area" navigation={navigation} />
       <Container>
         <Text>OrdersInAreaScreen</Text>
       </Container>
@@ -27,6 +28,11 @@ const Text = styled.Text`
 
 OrdersInAreaScreen.propTypes = {
   navigation: PropTypes.object,
+  cleaner: PropTypes.object,
 };
 
-export default OrdersInAreaScreen;
+const mapStateToProps = (state) => {
+  return { cleaner: state.cleaner };
+};
+
+export default connect(mapStateToProps, actions)(OrdersInAreaScreen);

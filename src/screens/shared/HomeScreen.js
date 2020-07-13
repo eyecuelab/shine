@@ -13,7 +13,7 @@ const { height: HEIGHT } = Dimensions.get('window');
 const HomeScreen = ({ orders, users }) => {
   const navigation = useNavigation();
   const handleClick = (item) => {
-    if (item.requestCompleted === false) {
+    if (item.attributes.quote_accepted_at === null) {
       navigation.navigate('OrderFinal', item);
     } else {
       navigation.navigate('OrderStatus', item);
@@ -42,7 +42,7 @@ const HomeScreen = ({ orders, users }) => {
           {orders.map((item) => {
             return (
               <TouchableOpacity
-                key={item.uuid}
+                key={item.attributes.uuid}
                 onPress={() => handleClick(item)}
               >
                 <ItemsContainer>
