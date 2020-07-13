@@ -33,7 +33,6 @@ export function* loginSaga(action) {
 export function* logoutSaga() {
   try {
     const token = yield select(getToken);
-    console.log(token);
     let response = yield call(logoutUserService, token);
     if (response.ok && response.status === 200) {
       yield put({ type: types.LOGOUT_SUCCESS });
@@ -69,7 +68,7 @@ export function* editProfileSaga(action) {
     let response = yield call(editProfileService, action.payload, token);
     if (response.status >= 200 && response.status < 300) {
       const data = yield response.json();
-      console.log(data);
+      console.log('EDIT DATA', data);
       const userData = data.data;
       yield put(actions.updateProfile(userData));
     } else {

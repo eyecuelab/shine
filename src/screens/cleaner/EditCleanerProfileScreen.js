@@ -12,7 +12,7 @@ import * as actions from '../../rdx/actions';
 const EditCleanerProfileScreen = ({
   cleaner,
   navigation,
-  updateCleanerWatcher,
+  editCleanerWatcher,
 }) => {
   const [cleanerProfile, setCleanerProfile] = useState({
     first_name: '',
@@ -36,6 +36,16 @@ const EditCleanerProfileScreen = ({
   const inputEl8 = useRef(null);
   const inputEl9 = useRef(null);
   const inputEl10 = useRef(null);
+
+  const businessName = cleaner.data.data.attributes.business_name;
+  const firstName = cleaner.data.data.attributes.first_name;
+  const lastName = cleaner.data.data.attributes.last_name;
+  const email = cleaner.data.data.attributes.email;
+  const phone = cleaner.data.data.attributes.phone;
+  const street = cleaner.data.data.attributes.street_address;
+  const city = cleaner.data.data.attributes.city;
+  const state = cleaner.data.data.attributes.state;
+  const zip = cleaner.data.data.attributes.postal_code;
 
   const handleChange = (key, value) => {
     setCleanerProfile((current) => ({
@@ -62,18 +72,7 @@ const EditCleanerProfileScreen = ({
   const errorMessage = cleaner.errorMessage;
 
   const onSubmit = () => {
-    updateCleanerWatcher({
-      first_name: 'Update Test',
-      last_name: 'Update',
-      street_address: '123',
-      city: 'Portland',
-      state: 'OR',
-      postal_code: '99999',
-      phone: '(123)-111-1111',
-      bio: 'blah blah blah',
-      business_name: 'Update Test',
-    });
-    // updateCleanerWatcher(cleanerProfile);
+    editCleanerWatcher(cleanerProfile);
     navigation.navigate('Cleaner Profile');
   };
 
@@ -88,7 +87,7 @@ const EditCleanerProfileScreen = ({
           value={cleanerProfile.business_name}
           label="Business"
           labelStyle={{ fontSize: 20 }}
-          placeholder="Title"
+          placeholder={businessName ? businessName : 'Title'}
           leftIcon={
             <MaterialIcons
               name="business"
@@ -109,7 +108,7 @@ const EditCleanerProfileScreen = ({
             containerStyle={{ flex: 1 }}
             label="Contact Name"
             labelStyle={{ fontSize: 20 }}
-            placeholder="First"
+            placeholder={firstName ? firstName : 'First'}
             autoCompleteType={'name'}
             leftIcon={
               <MaterialIcons
@@ -129,7 +128,7 @@ const EditCleanerProfileScreen = ({
             containerStyle={{ flex: 1 }}
             label=""
             labelStyle={{ fontSize: 20 }}
-            placeholder="Last"
+            placeholder={lastName ? lastName : 'Last'}
             returnKeyType="next"
             onChangeText={(text) => handleChange('last_name', text)}
             onSubmitEditing={() => inputEl4.current.focus()}
@@ -141,7 +140,7 @@ const EditCleanerProfileScreen = ({
           autoCorrect={false}
           label="Email"
           labelStyle={{ fontSize: 20 }}
-          placeholder="example@email.com"
+          placeholder={email ? email : 'example@email.com'}
           keyboardType="email-address"
           autoCapitalize="none"
           leftIcon={
@@ -161,7 +160,7 @@ const EditCleanerProfileScreen = ({
           value={cleanerProfile.phone}
           label="Phone Number"
           labelStyle={{ fontSize: 20 }}
-          placeholder="(xxx)-xxx-xxxx"
+          placeholder={phone ? phone : '(xxx)-xxx-xxxx'}
           textContentType="telephoneNumber"
           dataDetactorTypes="phoneNunmber"
           keyboardType="phone-pad"
@@ -183,7 +182,7 @@ const EditCleanerProfileScreen = ({
           value={cleanerProfile.street_address}
           label="Address"
           labelStyle={{ fontSize: 20 }}
-          placeholder="Street"
+          placeholder={street ? street : 'Street'}
           leftIcon={
             <MaterialIcons
               name="home"
@@ -201,7 +200,7 @@ const EditCleanerProfileScreen = ({
           <Input
             ref={inputEl7}
             value={cleanerProfile.city}
-            placeholder="City"
+            placeholder={city ? city : 'City'}
             containerStyle={{ flex: 2 }}
             onChangeText={(text) => handleChange('city', text)}
             returnKeyType="next"
@@ -210,7 +209,7 @@ const EditCleanerProfileScreen = ({
           <Input
             ref={inputEl8}
             value={cleanerProfile.state}
-            placeholder="State"
+            placeholder={state ? state : 'State'}
             containerStyle={{ flex: 1 }}
             autoCapitalize="characters"
             maxLength={2}
@@ -222,7 +221,7 @@ const EditCleanerProfileScreen = ({
         <Input
           ref={inputEl9}
           value={cleanerProfile.postal_code}
-          placeholder="Zip"
+          placeholder={zip ? zip : 'Zip'}
           keyboardType="number-pad"
           maxLength={5}
           onChangeText={(text) => handleChange('postal_code', text)}
@@ -292,7 +291,7 @@ const Text = styled.Text`
 
 EditCleanerProfileScreen.propTypes = {
   navigation: PropTypes.object,
-  updateCleanerWatcher: PropTypes.func,
+  editCleanerWatcher: PropTypes.func,
   users: PropTypes.object,
   cleaner: PropTypes.object,
 };
