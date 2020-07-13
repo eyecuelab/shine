@@ -13,6 +13,7 @@ const options = {
 };
 
 const SelectPhoto = ({ jumpTo, image, setImage }) => {
+  console.log(image.fileName);
   useEffect(() => {
     (async () => {
       if (Constants.platform.ios) {
@@ -28,6 +29,7 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
 
   const PickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync(options);
+    console.log(result);
     if (!result.cancelled) {
       setImage(result.uri);
     }
