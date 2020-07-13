@@ -8,24 +8,16 @@ import {
 } from '../services/authService';
 import { call, put, cancelled, select } from 'redux-saga/effects';
 
-export const getToken = (state) => state.users.auth.token;
+export const getToken = (state) => state.users.data.data.attributes.token;
 
 export function* loginSaga(action) {
   try {
     let response = yield call(loginUserService, action.payload);
     if (response.ok && response.status === 200) {
       const data = yield response.json();
-      const token = data.data.attributes.token;
-      const profile = data.included[0].attributes;
-      const userId = data.data.attributes.user_id;
+      console.log(data);
 
-      yield put(
-        actions.logIn({
-          token: token,
-          userId: userId,
-          profile: profile,
-        }),
-      );
+      yield put(actions.logIn(data));
     } else {
       throw yield response.json();
     }
@@ -74,21 +66,16 @@ export function* editProfileSaga(action) {
   try {
     const token = yield select(getToken);
     let response = yield call(editProfileService, action.payload, token);
-    const data = yield response.json();
-    const profile = data.data.attributes;
-    const userId = data.data.id;
     if (response.status >= 200 && response.status < 300) {
-      yield put(
-        actions.updateProfile({
-          token: token,
-          userId: userId,
-          profile: profile,
-        }),
-      );
+      const data = yield response.json();
+      console.log('EDIT DATA', data);
+      const userData = data.data;
+      yield put(actions.updateProfile(userData));
     } else {
       throw yield response.json();
     }
   } catch (error) {
     console.log('EDIT PROFILE ERROR: ', error);
+    yield put({ type: types.UPDATE_PROFILE_ERROR, error: error.message });
   }
 }

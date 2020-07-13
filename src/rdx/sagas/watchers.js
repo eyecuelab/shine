@@ -16,6 +16,6 @@ export function* watchUserAuthentication() {
 
 export function* watchCleanerActions() {
   yield takeLatest(types.APPLY_CLEANER_WATCHER, cleanerApplySaga);
-  // yield takeLatest(types.UPDATE_CLEANER_WATCHER, editCleanerSaga);
+  yield takeLatest(types.EDIT_CLEANER_WATCHER, editCleanerSaga);
   yield takeLatest(types.DELETE_CLEANER_WATCHER, deleteCleanerSaga);
 }

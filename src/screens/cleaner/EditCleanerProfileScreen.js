@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, { useState, useRef } from 'react';
 import { Input, Button } from 'react-native-elements';
 import { StyleSheet, Keyboard } from 'react-native';
@@ -10,7 +9,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
+const EditCleanerProfileScreen = ({
+  cleaner,
+  navigation,
+  editCleanerWatcher,
+}) => {
   const [cleanerProfile, setCleanerProfile] = useState({
     first_name: '',
     last_name: '',
@@ -33,6 +36,16 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
   const inputEl8 = useRef(null);
   const inputEl9 = useRef(null);
   const inputEl10 = useRef(null);
+
+  const businessName = cleaner.data.data.attributes.business_name;
+  const firstName = cleaner.data.data.attributes.first_name;
+  const lastName = cleaner.data.data.attributes.last_name;
+  const email = cleaner.data.data.attributes.email;
+  const phone = cleaner.data.data.attributes.phone;
+  const street = cleaner.data.data.attributes.street_address;
+  const city = cleaner.data.data.attributes.city;
+  const state = cleaner.data.data.attributes.state;
+  const zip = cleaner.data.data.attributes.postal_code;
 
   const handleChange = (key, value) => {
     setCleanerProfile((current) => ({
@@ -58,8 +71,9 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
 
   const errorMessage = cleaner.errorMessage;
 
-  const handleSubmit = () => {
-    applyCleanerWatcher(cleanerProfile);
+  const onSubmit = () => {
+    editCleanerWatcher(cleanerProfile);
+    navigation.navigate('Cleaner Profile');
   };
 
   return (
@@ -69,14 +83,11 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
         contentContainerStyle={styles.container}
         scrollEnabled={true}
       >
-        <ImageArea>
-          <Image source={require('../../../assets/images/logo-outline.png')} />
-        </ImageArea>
         <Input
           value={cleanerProfile.business_name}
           label="Business"
           labelStyle={{ fontSize: 20 }}
-          placeholder="Title"
+          placeholder={businessName ? businessName : 'Title'}
           leftIcon={
             <MaterialIcons
               name="business"
@@ -97,7 +108,7 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
             containerStyle={{ flex: 1 }}
             label="Contact Name"
             labelStyle={{ fontSize: 20 }}
-            placeholder="First"
+            placeholder={firstName ? firstName : 'First'}
             autoCompleteType={'name'}
             leftIcon={
               <MaterialIcons
@@ -117,7 +128,7 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
             containerStyle={{ flex: 1 }}
             label=""
             labelStyle={{ fontSize: 20 }}
-            placeholder="Last"
+            placeholder={lastName ? lastName : 'Last'}
             returnKeyType="next"
             onChangeText={(text) => handleChange('last_name', text)}
             onSubmitEditing={() => inputEl4.current.focus()}
@@ -129,7 +140,7 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
           autoCorrect={false}
           label="Email"
           labelStyle={{ fontSize: 20 }}
-          placeholder="example@email.com"
+          placeholder={email ? email : 'example@email.com'}
           keyboardType="email-address"
           autoCapitalize="none"
           leftIcon={
@@ -149,7 +160,7 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
           value={cleanerProfile.phone}
           label="Phone Number"
           labelStyle={{ fontSize: 20 }}
-          placeholder="(xxx)-xxx-xxxx"
+          placeholder={phone ? phone : '(xxx)-xxx-xxxx'}
           textContentType="telephoneNumber"
           dataDetactorTypes="phoneNunmber"
           keyboardType="phone-pad"
@@ -171,7 +182,7 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
           value={cleanerProfile.street_address}
           label="Address"
           labelStyle={{ fontSize: 20 }}
-          placeholder="Street"
+          placeholder={street ? street : 'Street'}
           leftIcon={
             <MaterialIcons
               name="home"
@@ -189,7 +200,7 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
           <Input
             ref={inputEl7}
             value={cleanerProfile.city}
-            placeholder="City"
+            placeholder={city ? city : 'City'}
             containerStyle={{ flex: 2 }}
             onChangeText={(text) => handleChange('city', text)}
             returnKeyType="next"
@@ -198,7 +209,7 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
           <Input
             ref={inputEl8}
             value={cleanerProfile.state}
-            placeholder="State"
+            placeholder={state ? state : 'State'}
             containerStyle={{ flex: 1 }}
             autoCapitalize="characters"
             maxLength={2}
@@ -210,7 +221,7 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
         <Input
           ref={inputEl9}
           value={cleanerProfile.postal_code}
-          placeholder="Zip"
+          placeholder={zip ? zip : 'Zip'}
           keyboardType="number-pad"
           maxLength={5}
           onChangeText={(text) => handleChange('postal_code', text)}
@@ -236,29 +247,19 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
         ) : null}
 
         <Button
-          title="APPLY"
+          title="SUBMIT"
           containerStyle={{ paddingTop: 20, width: 350 }}
           buttonStyle={{
             backgroundColor: 'black',
             height: 50,
             borderRadius: 7,
           }}
-          onPress={handleSubmit}
+          onPress={onSubmit}
         />
       </KeyboardAwareScrollView>
     </ScrollViewContainer>
   );
 };
-
-const ImageArea = styled.View`
-  width: 100px;
-  height: 100px;
-`;
-
-const Image = styled.Image`
-  width: 100%;
-  height: 100%;
-`;
 
 const styles = StyleSheet.create({
   container: {
@@ -288,9 +289,10 @@ const Text = styled.Text`
   text-align: center;
 `;
 
-CleanerApplicationScreen.propTypes = {
+EditCleanerProfileScreen.propTypes = {
   navigation: PropTypes.object,
-  applyCleanerWatcher: PropTypes.func,
+  editCleanerWatcher: PropTypes.func,
+  users: PropTypes.object,
   cleaner: PropTypes.object,
 };
 
@@ -298,4 +300,4 @@ const mapStateToProps = (state) => {
   return { cleaner: state.cleaner };
 };
 
-export default connect(mapStateToProps, actions)(CleanerApplicationScreen);
+export default connect(mapStateToProps, actions)(EditCleanerProfileScreen);

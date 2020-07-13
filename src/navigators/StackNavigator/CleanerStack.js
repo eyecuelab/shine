@@ -1,17 +1,18 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
+import PropTypes from 'prop-types';
 // SCREEN IMPORTS:
 import CleanerOptionScreen from '../../screens/cleaner/CleanerOptionScreen';
 import SignInScreen from '../../screens/shared/SignInScreen';
 import CleanerApplicationScreen from '../../screens/cleaner/CleanerApplicationScreen';
 import CleanerProfileScreen from '../../screens/cleaner/CleanerProfileScreen';
-import PropTypes from 'prop-types';
+import EditCleanerProfileScreen from '../../screens/cleaner/EditCleanerProfileScreen';
 
 const CleanerStack = createStackNavigator();
 
 const CleanerStackNavigator = ({ cleaner, users }) => {
-  console.log('STATE', cleaner.cleaner === null);
+  const authentication = users.data ? users.data.included.length === 2 : null;
   return (
     <CleanerStack.Navigator
       screenOptions={{
@@ -24,7 +25,7 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
         headerBackTitleVisible: false,
       }}
     >
-      {cleaner.cleaner === null || users.status === 'Logged out' ? (
+      {!authentication && cleaner.data === null ? (
         <>
           <CleanerStack.Screen
             name="Cleaner Option Screen"
@@ -45,11 +46,11 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
             component={CleanerProfileScreen}
             options={{ title: 'CLEANER PROFILE' }}
           />
-          {/* <CleanerStack.Screen
-            name="CleanerOptionScreen"
-            component={CleanerOptionScreen}
-            options={{ title: 'SHINE' }}
-          /> */}
+          <CleanerStack.Screen
+            name="Edit Profile"
+            component={EditCleanerProfileScreen}
+            options={{ title: 'EDIT PROFILE' }}
+          />
         </>
       )}
     </CleanerStack.Navigator>
