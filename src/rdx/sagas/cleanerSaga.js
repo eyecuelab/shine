@@ -9,7 +9,6 @@ import { call, put, select } from 'redux-saga/effects';
 
 export const getToken = (state) => state.users.data.data.attributes.token;
 export const getUrl = (state) => state.cleaner.data.links.self;
-export const getCleanerID = (state) => state.cleaner.data.data.id;
 
 export function* cleanerApplySaga(action) {
   try {
@@ -28,17 +27,13 @@ export function* cleanerApplySaga(action) {
 }
 
 export function* editCleanerSaga(action) {
-  console.log('ACTION', action.payload);
   try {
     const url = yield select(getUrl);
     const token = yield select(getToken);
-    const cleanerID = yield select(getCleanerID);
     let response = yield call(editCleanerService, action.payload, url, token);
-    console.log('Edit Response::', response);
     if (response.status >= 200 && response.status < 300) {
       const data = yield response.json();
-      console.log('DATA::', data);
-      // yield put(actions.updateCleanerProfile(data));
+      yield put(actions.updateCleanerProfile(data));
     } else {
       throw yield response.json();
     }

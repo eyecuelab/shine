@@ -141,16 +141,16 @@ export const postCleanerProfile = (payload) => {
   };
 };
 
-export const updateCleanerWatcher = (payload) => {
+export const editCleanerWatcher = (payload) => {
   return {
-    type: types.UPDATE_CLEANER_WATCHER,
+    type: types.EDIT_CLEANER_WATCHER,
     payload,
   };
 };
 
 export const updateCleanerProfile = (payload) => {
   return {
-    type: types.UPDATE_CLEANER_PROFILE,
+    type: types.UPDATE_CLEANER_SUCCESS,
     payload,
   };
 };

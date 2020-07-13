@@ -20,13 +20,12 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         ...state,
         errorMessage: action.error,
       };
-    case types.UPDATE_CLEANER_PROFILE:
-      console.log('REDUCER', action.payload);
-    // return {
-    //   ...state,
-    //   data: action.payload,
-    //   errorMessage: null,
-    // };
+    case types.UPDATE_CLEANER_SUCCESS:
+      return {
+        ...state,
+        data: action.payload,
+        errorMessage: null,
+      };
     case types.UPDATE_CLEANER_ERROR:
       return {
         ...state,
