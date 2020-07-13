@@ -33,7 +33,6 @@ function* postOrder(order, token) {
   // console.log(FormData)
 
   const urlLink = 'http://127.0.0.1:8080/orders';
-
   const response = yield fetch(urlLink, {
     method: 'POST',
     headers: {
@@ -41,8 +40,6 @@ function* postOrder(order, token) {
     },
     body: JSON.stringify(order),
   });
-  // console.log({response});
-  // console.log(response.status);
   if (response.ok && response.status === 200) {
     return response;
   } else {

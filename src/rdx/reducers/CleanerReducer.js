@@ -8,8 +8,8 @@ const initialCleanerState = {
 
 const cleanerReducer = (state = initialCleanerState, action) => {
   switch (action.type) {
-    // case REHYDRATE:
-    //   return { ...state };
+    case REHYDRATE:
+      return { ...state };
     case types.ADD_CLEANER_PROFILE:
       return {
         data: action.payload,

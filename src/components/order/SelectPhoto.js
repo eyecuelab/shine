@@ -13,7 +13,7 @@ const options = {
 };
 
 const SelectPhoto = ({ jumpTo, image, setImage }) => {
-  console.log(image.fileName);
+  // console.log(image.fileName);
   useEffect(() => {
     (async () => {
       if (Constants.platform.ios) {
