@@ -7,7 +7,12 @@ const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
 const ListItem = ({ order }) => {
   // console.log('TEST: ', order.item.image);
-  return <ImageArea source={{ uri: order.image }} />;
+  // return <ImageArea source={{ uri: order.attributes.image_url }} />;
+  return (
+    <ImageArea
+      source={require('../../../assets/images/shoes_placeholder.png')}
+    />
+  );
 };
 
 const ImageArea = styled.Image`

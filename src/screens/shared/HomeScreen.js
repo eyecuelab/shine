@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import OrderItem from '../../components/order/OrderItem';
+import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
 
 const { height: HEIGHT } = Dimensions.get('window');
 
@@ -24,34 +25,21 @@ const HomeScreen = ({ orders, users }) => {
   return orders.map((item) =>
     item.attributes.user_id == userId ? (
       <>
-        <ListContainer>
+        {/* <ListContainer>
           <ImageArea onPress={() => navigation.navigate('NewOrder')}>
             <Image source={require('../../../assets/images/logo.png')} />
           </ImageArea>
-        </ListContainer>
-
-        <ScrollView
-          contentContainerStyle={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            margin: 10,
-          }}
+        </ListContainer> */}
+        {console.log('ITEMS:', item)}
+        {/* <Text>{item.attributes.uuid}</Text> */}
+        <TouchableOpacity
+          key={item.attributes.uuid}
+          onPress={() => handleClick(item)}
         >
-          {orders.map((item) => {
-            return (
-              <TouchableOpacity
-                key={item.attributes.uuid}
-                onPress={() => handleClick(item)}
-              >
-                <ItemsContainer>
-                  <OrderItem order={item} />
-                </ItemsContainer>
-              </TouchableOpacity>
-            );
-          })}
-        </ScrollView>
+          <ItemsContainer>
+            <OrderItem order={item} />
+          </ItemsContainer>
+        </TouchableOpacity>
       </>
     ) : (
       <>
@@ -95,6 +83,12 @@ const ItemsContainer = styled.View`
   margin: 10px;
   flex-direction: row;
   flex-wrap: wrap;
+`;
+
+const Text = styled.Text`
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
 `;
 
 HomeScreen.propTypes = {

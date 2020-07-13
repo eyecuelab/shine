@@ -15,8 +15,6 @@ export function* loginSaga(action) {
     let response = yield call(loginUserService, action.payload);
     if (response.ok && response.status === 200) {
       const data = yield response.json();
-      console.log(data);
-
       yield put(actions.logIn(data));
     } else {
       throw yield response.json();
