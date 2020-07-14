@@ -18,6 +18,7 @@ const CleanerStack = createStackNavigator();
 
 const CleanerStackNavigator = ({ cleaner, users }) => {
   const authentication = users.data ? users.data.included.length === 2 : null;
+
   return (
     <CleanerStack.Navigator
       screenOptions={{
@@ -30,7 +31,7 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
         headerBackTitleVisible: false,
       }}
     >
-      {!authentication && cleaner.data === null ? (
+      {!authentication || cleaner.data === null ? (
         <>
           <CleanerStack.Screen
             name="Cleaner Option Screen"
