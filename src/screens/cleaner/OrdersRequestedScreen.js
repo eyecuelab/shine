@@ -1,14 +1,12 @@
 import React from 'react';
-import Header from '../../components/shared/Header';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 
-const LiveOrdersScreen = ({ navigation }) => {
+const OrderRequestedScreen = () => {
   return (
     <>
-      <Header title="Live Orders" navigation={navigation} />
       <Container>
-        <Text>LiveOrdersScreen</Text>
+        <Text>OrderRequestedScreen</Text>
       </Container>
     </>
   );
@@ -26,8 +24,8 @@ const Text = styled.Text`
   font-weight: 500;
 `;
 
-LiveOrdersScreen.propTypes = {
+OrderRequestedScreen.propTypes = {
   navigation: PropTypes.object,
 };
 
-export default LiveOrdersScreen;
+export default OrderRequestedScreen;

@@ -10,12 +10,11 @@ const initialAuthState = {
 
 const authReducer = (state = initialAuthState, action) => {
   switch (action.type) {
-    case REHYDRATE:
-      return {
-        ...state,
-      };
+    // case REHYDRATE:
+    //   return {
+    //     ...state,
+    //   };
     case types.LOGIN_SUCCESS:
-      console.log('AUTH ACTION', action.payload.data.attributes.token);
       return {
         ...state,
         data: action.payload,

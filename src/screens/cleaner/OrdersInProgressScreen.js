@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 
-const CompletedOrdersScreen = () => {
+const OrdersInProgressScreen = () => {
   return (
     <>
       <Container>
-        <Text>CompletedOrdersScreen</Text>
+        <Text>OrdersInProgressScreen</Text>
       </Container>
     </>
   );
@@ -24,8 +24,8 @@ const Text = styled.Text`
   font-weight: 500;
 `;
 
-CompletedOrdersScreen.propTypes = {
+OrdersInProgressScreen.propTypes = {
   navigation: PropTypes.object,
 };
 
-export default CompletedOrdersScreen;
+export default OrdersInProgressScreen;

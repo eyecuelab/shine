@@ -3,8 +3,8 @@ import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const orderReducer = (state = [], action) => {
   switch (action.type) {
-    case REHYDRATE:
-      return [];
+    // case REHYDRATE:
+    //   return [];
     case types.LOAD_ORDERS_SUCCESS:
       return [...state, ...action.payload];
     // case types.ADD_ORDER:
