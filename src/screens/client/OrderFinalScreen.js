@@ -15,7 +15,7 @@ import AddOnSwitch from '../../components/order/AddOnSwitch';
 const OrderFinalScreen = ({ navigation }) => {
   const route = useRoute();
   const item = route.params;
-  console.log(item);
+  console.log(route);
   const handleSubmit = () => {
     navigation.navigate('OrderConfrim', item);
   };

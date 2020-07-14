@@ -13,7 +13,11 @@ const OrdersInAreaScreen = ({ orders, cleaner, navigation }) => {
         {orders.map((item) =>
           item.attributes.quote_accepted_at === null ? (
             <>
-              <ItemsContainer>
+              <ItemsContainer
+                key={item.attributes.uuid}
+                onPress={() => navigation.navigate('Order Detail', item)}
+              >
+                {/* TODO: REPLACE PHOTO INSTEAD OF TEXT */}
                 <Text>{item.attributes.uuid}</Text>
               </ItemsContainer>
             </>
@@ -30,7 +34,7 @@ const Container = styled.View`
   background-color: white;
 `;
 
-const ItemsContainer = styled.View`
+const ItemsContainer = styled.TouchableOpacity`
   flex-direction: row;
   width: 100%;
   height: 60px;
