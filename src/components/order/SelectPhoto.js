@@ -4,6 +4,10 @@ import Constants from 'expo-constants';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
+import { RNS3 } from 'react-native-aws3';
+import getEnvVars from '../../../environment';
+// import { AWS_ACCESS_KEY_ID } from 'react-native-dotenv';
+const { AWSAccessKeyId, AWSSecretKey } = getEnvVars();
 
 const options = {
   mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -11,9 +15,16 @@ const options = {
   aspect: [4, 3],
   quality: 1,
 };
+const config = {
+  keyPrefix: 's3/',
+  bucket: 'shoeshine-dev-drake',
+  region: 'us-west-2',
+  accessKey: AWSAccessKeyId,
+  secretKey: AWSSecretKey,
+  successActionStatus: 201,
+};
 
 const SelectPhoto = ({ jumpTo, image, setImage }) => {
-  // console.log(image.fileName);
   useEffect(() => {
     (async () => {
       if (Constants.platform.ios) {
@@ -29,17 +40,38 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
 
   const PickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync(options);
-    console.log(result);
+
     if (!result.cancelled) {
-      setImage(result.uri);
+      uploadImage(result);
+      // setImage(result.uri);
     }
   };
 
   const TakePhoto = async () => {
     let result = await ImagePicker.launchCameraAsync(options);
+
     if (!result.cancelled) {
-      setImage(result.uri);
+      uploadImage(result);
+      // setImage(result.uri);
     }
+  };
+
+  const uploadImage = (result) => {
+    let localUri = result.uri;
+    let fileName = localUri.split('/').pop();
+
+    let match = /\.(\w+)$/.exec(fileName);
+    let type = match ? `image/${match[1]}` : `image`;
+    const file = {
+      uri: localUri,
+      name: fileName,
+      type: type,
+    };
+
+    RNS3.put(file, config).then((response) => {
+      setImage(response.body.postResponse.location);
+      console.log(response.body.postResponse.location);
+    });
   };
 
   return image === 'empty.img' ? (
