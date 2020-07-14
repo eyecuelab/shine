@@ -4,6 +4,8 @@ import Constants from 'expo-constants';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
+import { RNS3 } from 'react-native-aws3';
+// import { AWS_ACCESS_KEY_ID } from 'react-native-dotenv';
 
 const options = {
   mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -13,7 +15,6 @@ const options = {
 };
 
 const SelectPhoto = ({ jumpTo, image, setImage }) => {
-  // console.log(image);
   useEffect(() => {
     (async () => {
       if (Constants.platform.ios) {
@@ -43,9 +44,18 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
       };
       console.log(file);
 
-      // uploadImage(result.uri, 'test-image');
+      uploadImage(file, config);
       setImage(result.uri);
     }
+  };
+
+  const config = {
+    keyPrefix: 's3/',
+    bucket: 'shoeshine-dev-drake',
+    region: 'us-west-2',
+    accessKey: '',
+    secretKey: '',
+    successActionStatus: 201,
   };
 
   const TakePhoto = async () => {
@@ -56,12 +66,11 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
     }
   };
 
-  // const uploadImage = async (uri, imageName) => {
-  //   const response = await fetch(uri);
-  //   // const blob = await response.blob();
-  //   console.log(imageName);
-  //   console.log(blob);
-  // };
+  const uploadImage = (file, config) => {
+    RNS3.put(file, config).then((response) => {
+      console.log(response);
+    });
+  };
 
   return image === 'empty.img' ? (
     <Container>
