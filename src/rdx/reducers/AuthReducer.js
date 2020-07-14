@@ -6,14 +6,15 @@ const initialAuthState = {
   errorMessage: null,
   signupMessage: null,
   status: 'Logged out',
+  cleaner: {},
 };
 
 const authReducer = (state = initialAuthState, action) => {
   switch (action.type) {
-    case REHYDRATE:
-      return {
-        ...state,
-      };
+    // case REHYDRATE:
+    //   return {
+    //     ...state,
+    //   };
     case types.LOGIN_SUCCESS:
       return {
         ...state,
@@ -21,6 +22,7 @@ const authReducer = (state = initialAuthState, action) => {
         errorMessage: null,
         signupMessage: null,
         status: 'Logged in',
+        cleaner: { ...action.payload.included[1] },
       };
     case types.LOGIN_ERROR:
       return {
@@ -43,6 +45,7 @@ const authReducer = (state = initialAuthState, action) => {
         errorMessage: null,
         signupMessage: null,
         status: 'Logged out',
+        cleaner: {},
       };
     case types.SIGNUP_SUCCESS:
       return {
@@ -51,6 +54,7 @@ const authReducer = (state = initialAuthState, action) => {
         errorMessage: null,
         signupMessage: 'You have seccessfully signed up',
         status: 'Signed up',
+        cleaner: null,
       };
     case types.SIGNUP_ERROR:
       return {
@@ -73,6 +77,7 @@ const authReducer = (state = initialAuthState, action) => {
         errorMessage: null,
         signupMessage: null,
         status: 'User profile updated',
+        cleaner: { ...state.data.included[1] },
       };
     case types.UPDATE_PROFILE_ERROR:
       return {
