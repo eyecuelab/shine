@@ -7,19 +7,20 @@ import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
 const OrdersInAreaScreen = ({ orders, cleaner, navigation }) => {
-  return orders.map((item) =>
-    item.attributes.quote_accepted_at === null ? (
-      <>
-        {console.log(item)}
-        <ScrollViewContainer>
-          <Container>
-            <ItemsContainer>
-              <Text>{item.attributes.uuid}</Text>
-            </ItemsContainer>
-          </Container>
-        </ScrollViewContainer>
-      </>
-    ) : null,
+  return (
+    <ScrollViewContainer>
+      <Container>
+        {orders.map((item) =>
+          item.attributes.quote_accepted_at === null ? (
+            <>
+              <ItemsContainer>
+                <Text>{item.attributes.uuid}</Text>
+              </ItemsContainer>
+            </>
+          ) : null,
+        )}
+      </Container>
+    </ScrollViewContainer>
   );
 };
 
@@ -42,9 +43,8 @@ const ItemsContainer = styled.View`
 `;
 
 const Text = styled.Text`
-  color: black;
-  font-size: 20px;
-  font-weight: 500;
+  color: #737272;
+  font-size: 16px;
 `;
 
 OrdersInAreaScreen.propTypes = {
