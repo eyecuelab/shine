@@ -16,6 +16,7 @@ export function* loginSaga(action) {
     if (response.ok && response.status === 200) {
       const data = yield response.json();
       yield put(actions.logIn(data));
+      yield put(actions.loadOrders());
     } else {
       throw yield response.json();
     }

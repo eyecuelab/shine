@@ -16,7 +16,7 @@ const options = {
   quality: 1,
 };
 const config = {
-  keyPrefix: 's3/',
+  // keyPrefix: 's3/',
   bucket: 'shoeshine-dev-drake',
   region: 'us-west-2',
   accessKey: AWSAccessKeyId,
@@ -70,6 +70,7 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
 
     RNS3.put(file, config).then((response) => {
       setImage(response.body.postResponse.location);
+      console.log(response);
       console.log(response.body.postResponse.location);
     });
   };

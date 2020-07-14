@@ -70,8 +70,11 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
   const inputEl4 = useRef(null);
   const inputEl5 = useRef(null);
 
+  console.log('IMAGE URL', item.image);
+
   const handleSubmit = () => {
     postOrder({
+      image_url: item.image,
       shoe_types: chosenShoeTypes,
       time_frame: item.timeFrame,
       add_ons: {
