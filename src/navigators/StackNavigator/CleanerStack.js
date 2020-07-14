@@ -19,10 +19,8 @@ const CleanerStack = createStackNavigator();
 const CleanerStackNavigator = ({ cleaner, users }) => {
   // const authentication = users.data ? users.data.included.length === 2 : null;
   const authentication = users.status !== 'Logged out' ? true : false;
-  console.log(authentication);
   const cleanerAccontExist =
     Object.keys(users.cleaner).length === 0 ? false : true;
-  console.log('C', cleanerAccontExist);
 
   return (
     <CleanerStack.Navigator

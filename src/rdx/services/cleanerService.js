@@ -15,7 +15,8 @@ export const applyCleanerService = (request, token) => {
   });
 };
 
-export const editCleanerService = (request, url, token) => {
+export const editCleanerService = (request, userID, token) => {
+  const UPDATE_CLEANER_ENDPOINT = `http://127.0.0.1:8080/cleaners/${userID}`;
   const parameters = {
     method: 'PATCH',
     headers: {
@@ -26,12 +27,13 @@ export const editCleanerService = (request, url, token) => {
     body: JSON.stringify(request),
   };
 
-  return fetch(url, parameters).then((response) => {
+  return fetch(UPDATE_CLEANER_ENDPOINT, parameters).then((response) => {
     return response;
   });
 };
 
-export const deleteCleanerService = (url, token) => {
+export const deleteCleanerService = (userID, token) => {
+  const DELETE_CLEANER_ENDPOINT = `http://127.0.0.1:8080/cleaners/${userID}`;
   const parameters = {
     method: 'DELETE',
     headers: {
@@ -41,7 +43,7 @@ export const deleteCleanerService = (url, token) => {
     },
   };
 
-  return fetch(url, parameters).then((response) => {
+  return fetch(DELETE_CLEANER_ENDPOINT, parameters).then((response) => {
     return response;
   });
 };
