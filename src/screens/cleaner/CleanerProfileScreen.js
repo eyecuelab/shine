@@ -10,13 +10,11 @@ const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
 const CleanerProfileScreen = ({
   cleaner,
-  users,
   navigation,
   deleteCleanerWatcher,
 }) => {
   const onDelete = () => {
     deleteCleanerWatcher();
-    // navigation.navigate('CleanerOptionScreen');
   };
 
   return (
@@ -40,6 +38,27 @@ const CleanerProfileScreen = ({
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>
 
+        <ListItem onPress={() => navigation.navigate('Orders In Area')}>
+          <Text>New Orders In Area</Text>
+          <Feather name="chevron-right" size={24} color="#737272" />
+        </ListItem>
+
+        <ListItem onPress={() => navigation.navigate('Orders Requested')}>
+          <Text>Orders with Quote Accepted</Text>
+          <Feather name="chevron-right" size={24} color="#737272" />
+        </ListItem>
+
+        <ListItem onPress={() => navigation.navigate('Orders In Progress')}>
+          <Text>Orders In Progress</Text>
+          <Feather name="chevron-right" size={24} color="#737272" />
+        </ListItem>
+
+        <ListItem onPress={() => navigation.navigate('Completed Orders')}>
+          <Text>Orders Completed</Text>
+          <Feather name="chevron-right" size={24} color="#737272" />
+        </ListItem>
+
+        <Seperator />
         <ListItemCenter onPress={onDelete}>
           <CenterText>Delete Cleaner's Account</CenterText>
         </ListItemCenter>
@@ -107,7 +126,7 @@ const ListItemCenter = styled.TouchableOpacity`
 
 const Seperator = styled.View`
   width: 100%;
-  height: 20px;
+  height: 15px;
   background-color: #e6e6e6;
   border-bottom-width: 1px;
   border-bottom-color: #e3e3e3;
@@ -127,14 +146,13 @@ const CenterText = styled.Text`
 
 CleanerProfileScreen.propTypes = {
   navigation: PropTypes.object,
-  users: PropTypes.object,
   cleaner: PropTypes.object,
   updateCleanerWatcher: PropTypes.func,
   deleteCleanerWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
-  return { users: state.users, cleaner: state.cleaner };
+  return { cleaner: state.cleaner };
 };
 
 export default connect(mapStateToProps, actions)(CleanerProfileScreen);

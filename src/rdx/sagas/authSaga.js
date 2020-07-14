@@ -15,8 +15,6 @@ export function* loginSaga(action) {
     let response = yield call(loginUserService, action.payload);
     if (response.ok && response.status === 200) {
       const data = yield response.json();
-      console.log(data);
-
       yield put(actions.logIn(data));
     } else {
       throw yield response.json();
@@ -68,7 +66,6 @@ export function* editProfileSaga(action) {
     let response = yield call(editProfileService, action.payload, token);
     if (response.status >= 200 && response.status < 300) {
       const data = yield response.json();
-      console.log('EDIT DATA', data);
       const userData = data.data;
       yield put(actions.updateProfile(userData));
     } else {

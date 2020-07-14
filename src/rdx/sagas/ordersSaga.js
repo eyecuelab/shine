@@ -8,7 +8,6 @@ export const getToken = (state) => state.users.data.data.attributes.token;
 export function* handleOrdersLoad() {
   try {
     const token = yield select(getToken);
-
     const orders = yield call(fetchOrders, token);
 
     yield put(setOrders(orders));
