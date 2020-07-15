@@ -31,10 +31,10 @@ const OrdersList = ({ orders }) => {
       >
         {orders &&
           orders.map((item) => {
-            console.log(item.id);
+            console.log(item.attributes.id);
             return (
               <TouchableOpacity
-                key={item.uuid}
+                key={item.attributes.id}
                 onPress={() => goToDetail(item)}
               >
                 <ItemsContainer>

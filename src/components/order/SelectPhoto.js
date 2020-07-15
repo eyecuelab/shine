@@ -4,25 +4,7 @@ import Constants from 'expo-constants';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
-import { RNS3 } from 'react-native-aws3';
-import getEnvVars from '../../../environment';
-// import { AWS_ACCESS_KEY_ID } from 'react-native-dotenv';
-const { AWSAccessKeyId, AWSSecretKey } = getEnvVars();
-
-const options = {
-  mediaTypes: ImagePicker.MediaTypeOptions.Images,
-  allowsEditing: true,
-  aspect: [4, 3],
-  quality: 1,
-};
-const config = {
-  keyPrefix: 's3/',
-  bucket: 'shoeshine-dev-drake',
-  region: 'us-west-2',
-  accessKey: AWSAccessKeyId,
-  secretKey: AWSSecretKey,
-  successActionStatus: 201,
-};
+import { PickImage, TakePhoto } from '../shared/UploadPhotoFunctions';
 
 const SelectPhoto = ({ jumpTo, image, setImage }) => {
   useEffect(() => {
@@ -38,44 +20,6 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
     })();
   }, []);
 
-  const PickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync(options);
-
-    if (!result.cancelled) {
-      uploadImage(result);
-      // setImage(result.uri);
-    }
-  };
-
-  const TakePhoto = async () => {
-    let result = await ImagePicker.launchCameraAsync(options);
-
-    if (!result.cancelled) {
-      uploadImage(result);
-      // setImage(result.uri);
-    }
-  };
-
-  const uploadImage = (result) => {
-    let localUri = result.uri;
-    let fileName = localUri.split('/').pop();
-
-    let match = /\.(\w+)$/.exec(fileName);
-    let type = match ? `image/${match[1]}` : `image`;
-    console.log(localUri);
-    const file = {
-      uri: localUri,
-      name: fileName,
-      type: type,
-    };
-
-    RNS3.put(file, config).then((response) => {
-      setImage(response.body.postResponse.location);
-      console.log(response);
-      console.log(response.body.postResponse.location);
-    });
-  };
-
   return image === 'empty.img' ? (
     <Container>
       <Button
@@ -86,7 +30,7 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
           height: 50,
           borderRadius: 7,
         }}
-        onPress={PickImage}
+        onPress={() => PickImage({ setImage: setImage })}
       />
       <Button
         title="TAKE A PHOTO"
@@ -96,7 +40,7 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
           height: 50,
           borderRadius: 7,
         }}
-        onPress={TakePhoto}
+        onPress={() => TakePhoto({ setImage: setImage })}
       />
     </Container>
   ) : (

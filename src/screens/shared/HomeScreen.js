@@ -27,7 +27,7 @@ const HomeScreen = ({ orders, users }) => {
           item.attributes.user_id == userId ? (
             <>
               <ItemsContainer
-                key={item.attributes.uuid}
+                key={item.attributes.id}
                 onPress={() => handleClick(item)}
               >
                 <OrderItem order={item} />
