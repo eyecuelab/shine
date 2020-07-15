@@ -16,7 +16,7 @@ const options = {
   quality: 1,
 };
 const config = {
-  // keyPrefix: 's3/',
+  keyPrefix: 's3/',
   bucket: 'shoeshine-dev-drake',
   region: 'us-west-2',
   accessKey: AWSAccessKeyId,
@@ -62,6 +62,7 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
 
     let match = /\.(\w+)$/.exec(fileName);
     let type = match ? `image/${match[1]}` : `image`;
+    console.log(localUri);
     const file = {
       uri: localUri,
       name: fileName,
