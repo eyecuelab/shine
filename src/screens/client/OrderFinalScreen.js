@@ -15,7 +15,7 @@ import AddOnSwitch from '../../components/order/AddOnSwitch';
 const OrderFinalScreen = ({ navigation }) => {
   const route = useRoute();
   const item = route.params;
-  console.log(route);
+  console.log(item);
   const handleSubmit = () => {
     navigation.navigate('OrderConfrim', item);
   };
@@ -27,7 +27,7 @@ const OrderFinalScreen = ({ navigation }) => {
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto(item.image)}
+      {ShoePhoto(item.attributes.image_url)}
       <Container>
         <Text>You've recieved cleaning quotes!</Text>
         <SwitchTextContainer>
