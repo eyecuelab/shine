@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
 const ListItem = ({ order }) => {
-  console.log(order.attributes.image_url);
   return order.attributes.image_url === null ? (
     <ImageArea
       // eslint-disable-next-line no-undef

@@ -31,7 +31,7 @@ const OrdersList = ({ orders }) => {
       >
         {orders &&
           orders.map((item) => {
-            // console.log(item);
+            console.log(item.id);
             return (
               <TouchableOpacity
                 key={item.uuid}
