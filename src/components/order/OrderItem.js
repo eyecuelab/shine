@@ -6,11 +6,10 @@ import PropTypes from 'prop-types';
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
 const ListItem = ({ order }) => {
-  // console.log('TEST: ', order.item.image);
-  // return <ImageArea source={{ uri: order.attributes.image_url }} />;
   console.log(order.attributes.image_url);
   return order.attributes.image_url === null ? (
     <ImageArea
+      // eslint-disable-next-line no-undef
       source={require('../../../assets/images/shoes_placeholder.png')}
     />
   ) : (
