@@ -8,7 +8,7 @@ import {
 import { call, put, select } from 'redux-saga/effects';
 
 export const getToken = (state) => state.users.data.data.attributes.token;
-export const getUrl = (state) => state.cleaner.data.links.self;
+export const getUserID = (state) => state.users.cleaner.id;
 
 export function* cleanerApplySaga(action) {
   try {
@@ -28,9 +28,14 @@ export function* cleanerApplySaga(action) {
 
 export function* editCleanerSaga(action) {
   try {
-    const url = yield select(getUrl);
+    const userID = yield select(getUserID);
     const token = yield select(getToken);
-    let response = yield call(editCleanerService, action.payload, url, token);
+    let response = yield call(
+      editCleanerService,
+      action.payload,
+      userID,
+      token,
+    );
     if (response.status >= 200 && response.status < 300) {
       const data = yield response.json();
       yield put(actions.updateCleanerProfile(data));
@@ -45,9 +50,9 @@ export function* editCleanerSaga(action) {
 
 export function* deleteCleanerSaga() {
   try {
-    const url = yield select(getUrl);
+    const userID = yield select(getUserID);
     const token = yield select(getToken);
-    let response = yield call(deleteCleanerService, url, token);
+    let response = yield call(deleteCleanerService, userID, token);
     if (response.ok && response.status === 204) {
       yield put({ type: types.DELETE_CLEANER_SUCCESS });
     } else {
