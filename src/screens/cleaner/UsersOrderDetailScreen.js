@@ -8,7 +8,7 @@ import * as actions from '../../rdx/actions';
 const UsersOrderDetailScreen = ({ navigation }) => {
   const route = useRoute();
   const item = route.params;
-  console.log('DETAIL', item);
+  // console.log('DETAIL', item);
 
   return (
     <>

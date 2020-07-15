@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   Dimensions,
   TextInput,
@@ -6,6 +6,8 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
+  Modal,
 } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
@@ -13,16 +15,18 @@ import { Button } from 'react-native-elements';
 import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
 
-const { width } = Dimensions.get('window');
+const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
 const EditProfileScreen = ({ editProfileWatcher, users }) => {
-  const [userProfile, setUserProfile] = React.useState({
+  const [userProfile, setUserProfile] = useState({
     street_address: '',
     city: '',
     state: '',
     postal_code: '',
     phone: '',
   });
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleProfileChange = (key, value) => {
     setUserProfile((current) => ({
@@ -50,7 +54,6 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
   const inputEl3 = React.useRef(null);
   const inputEl4 = React.useRef(null);
   const inputEl5 = React.useRef(null);
-  const inputEl6 = React.useRef(null);
 
   const errorMessage = users.errorMessage;
 
@@ -72,6 +75,50 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Container>
+            <PhotoContainer>
+              <Profile
+                source={require('../../../assets/images/profile-pic.png')}
+              />
+              <ChangePhotoClick
+                onPress={() => {
+                  setModalVisible(true);
+                }}
+              >
+                <BlueText>Change Profile Photo</BlueText>
+              </ChangePhotoClick>
+            </PhotoContainer>
+
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => {
+                Alert.alert('Modal has been closed.');
+              }}
+            >
+              <ModalContainer>
+                <ModalView>
+                  <ModalItem>
+                    <Text>Choose a profile image using your:</Text>
+                  </ModalItem>
+
+                  <ModalItem onPress={() => {}}>
+                    <BlueText>Camera</BlueText>
+                  </ModalItem>
+                  <ModalItem onPress={() => {}}>
+                    <BlueText>Photo Library</BlueText>
+                  </ModalItem>
+                  <ModalItem
+                    onPress={() => {
+                      setModalVisible(!modalVisible);
+                    }}
+                  >
+                    <BlueText>Cancel</BlueText>
+                  </ModalItem>
+                </ModalView>
+              </ModalContainer>
+            </Modal>
+
             <MultiLineInputs>
               <Text>Street</Text>
               <TextInput
@@ -146,20 +193,8 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
                 style={styles.input}
                 value={userProfile.phone}
                 onChangeText={(text) => onTextChange(text)}
-                // onSubmitEditing={() => inputEl6.current.focus()}
               />
             </MultiLineInputs>
-            {/* <TextInput
-              ref={inputEl6}
-              placeholder="Upload Iamge"
-              returnKeyType="done"
-              autoCapitalize="none"
-              autoCorrect={false}
-              style={styles.input}
-              value={userProfile.image_file}
-              onChangeText={(text) => handleProfileChange('image_file', text)}
-              onSubmitEditing={() => inputEl3.current.focus()}
-            /> */}
 
             <ErrorTextContainer>
               <ErrorText>
@@ -192,7 +227,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#8A8F9E',
     borderBottomWidth: StyleSheet.hairlineWidth,
     height: 40,
-    width: width * 0.6,
+    width: WIDTH * 0.6,
     marginVertical: 5,
     paddingHorizontal: 20,
     fontSize: 15,
@@ -205,6 +240,62 @@ const Container = styled.View`
   align-items: center;
   justify-content: center;
   background-color: white;
+`;
+
+const PhotoContainer = styled.View`
+  width: 100%;
+  height: ${HEIGHT / 6}px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  position: relative;
+`;
+
+const Profile = styled.Image`
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  border-width: 3px;
+  border-color: #cbb387;
+  margin-bottom: 20px;
+`;
+
+const ChangePhotoClick = styled.TouchableHighlight``;
+
+const ModalContainer = styled.View`
+  flex: 1;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 22px;
+`;
+
+const ModalView = styled.View`
+  width: 100%;
+  margin: 20px;
+  background-color: white;
+  padding: 30px;
+  align-items: center;
+  shadow-color: #000;
+  shadow-opacity: 0.25;
+`;
+
+const ModalItem = styled.TouchableOpacity`
+  flex-direction: row;
+  width: 100%;
+  height: 60px;
+  border-bottom-width: 1px;
+  border-bottom-color: #e3e3e3;
+  padding-horizontal: 25px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+`;
+
+const BlueText = styled.Text`
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 10px;
+  color: #3483eb;
 `;
 
 const Text = styled.Text`

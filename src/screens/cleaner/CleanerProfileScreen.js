@@ -9,10 +9,20 @@ import * as actions from '../../rdx/actions';
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
 const CleanerProfileScreen = ({
+  users,
   cleaner,
   navigation,
   deleteCleanerWatcher,
 }) => {
+  const businessName =
+    Object.keys(users.cleaner).length !== 0
+      ? users.cleaner.attributes.business_name
+      : null;
+  const email =
+    Object.keys(users.cleaner).length !== 0
+      ? users.cleaner.attributes.email
+      : null;
+
   const onDelete = () => {
     deleteCleanerWatcher();
   };
@@ -21,16 +31,12 @@ const CleanerProfileScreen = ({
     <>
       <ProfileContainer>
         <Container>
-          <Name>
-            {cleaner.data ? cleaner.data.data.attributes.business_name : null}
-          </Name>
+          <Name>{businessName}</Name>
         </Container>
 
         <ListItem>
           <Text>Account</Text>
-          <Text>
-            {cleaner.data ? cleaner.data.data.attributes.email : null}
-          </Text>
+          <Text>{email}</Text>
         </ListItem>
 
         <ListItem onPress={() => navigation.navigate('Edit Profile')}>
@@ -152,7 +158,7 @@ CleanerProfileScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { cleaner: state.cleaner };
+  return { users: state.users, cleaner: state.cleaner };
 };
 
 export default connect(mapStateToProps, actions)(CleanerProfileScreen);
