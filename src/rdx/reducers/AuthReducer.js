@@ -86,6 +86,33 @@ const authReducer = (state = initialAuthState, action) => {
         signupMessage: null,
         status: 'User profile update error',
       };
+
+    case types.ADD_CLEANER_PROFILE:
+      return {
+        ...state,
+        errorMessage: null,
+        signupMessage: null,
+        status: 'Cleaner profile added',
+        cleaner: action.payload.data,
+      };
+
+    case types.UPDATE_CLEANER_SUCCESS:
+      return {
+        ...state,
+        errorMessage: null,
+        signupMessage: null,
+        status: 'Cleaner profile updated',
+        cleaner: action.payload.data,
+      };
+
+    case types.DELETE_CLEANER_SUCCESS:
+      return {
+        ...state,
+        errorMessage: null,
+        signupMessage: null,
+        status: 'Cleaner profile deleted',
+        cleaner: {},
+      };
     default:
       return state;
   }

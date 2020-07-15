@@ -18,6 +18,7 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         errorMessage: action.error,
       };
     case types.UPDATE_CLEANER_SUCCESS:
+      console.log('C REDUCER', action.payload);
       return {
         ...state,
         data: action.payload,
