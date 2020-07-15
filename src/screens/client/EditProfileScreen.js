@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useState } from 'react';
 import {
   Dimensions,
@@ -30,9 +31,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
     phone: '',
   });
 
-  const [profilePhoto, setProfilePhoto] = useState(
-    'file://path/../../../assets/images/profile-pic.png',
-  );
+  const [profilePhoto, setProfilePhoto] = useState('');
   console.log(profilePhoto);
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -73,9 +72,24 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
   const phone = users.data.included[0].attributes.phone;
 
   const onSubmit = () => {
-    editProfileWatcher(userProfile);
+    editProfileWatcher({
+      image_url: userProfile.image_url,
+      street_address: userProfile.street_address,
+      city: userProfile.city,
+      state: userProfile.state,
+      postal_code: userProfile.postal_code,
+      phone: userProfile.phone,
+    });
   };
-
+  const ProfilePhotoDisplay = () => {
+    if (profilePhoto === '') {
+      return (
+        <Profile source={require('../../../assets/images/profile-pic.png')} />
+      );
+    } else {
+      return <Profile source={{ uri: profilePhoto }} />;
+    }
+  };
   return (
     <>
       <KeyboardAvoidingView
@@ -85,7 +99,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Container>
             <PhotoContainer>
-              <Profile source={{ uri: profilePhoto }} />
+              <ProfilePhotoDisplay />
               <ChangePhotoClick
                 onPress={() => {
                   setModalVisible(true);
@@ -114,7 +128,9 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
                   >
                     <BlueText>Photo Library</BlueText>
                   </ModalItem>
-                  <ModalItem onPress={() => {}}>
+                  <ModalItem
+                    onPress={() => TakePhoto({ setImage: setProfilePhoto })}
+                  >
                     <BlueText>Camera</BlueText>
                   </ModalItem>
                   <ModalItem
