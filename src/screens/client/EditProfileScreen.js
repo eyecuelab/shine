@@ -14,6 +14,10 @@ import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
+import {
+  PickImage,
+  TakePhoto,
+} from '../../components/shared/UploadPhotoFunctions';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
@@ -25,6 +29,11 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
     postal_code: '',
     phone: '',
   });
+
+  const [profilePhoto, setProfilePhoto] = useState(
+    'file://path/../../../assets/images/profile-pic.png',
+  );
+  console.log(profilePhoto);
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -76,9 +85,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Container>
             <PhotoContainer>
-              <Profile
-                source={require('../../../assets/images/profile-pic.png')}
-              />
+              <Profile source={{ uri: profilePhoto }} />
               <ChangePhotoClick
                 onPress={() => {
                   setModalVisible(true);
@@ -102,11 +109,13 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
                     <Text>Choose a profile image using your:</Text>
                   </ModalItem>
 
-                  <ModalItem onPress={() => {}}>
-                    <BlueText>Camera</BlueText>
+                  <ModalItem
+                    onPress={() => PickImage({ setImage: setProfilePhoto })}
+                  >
+                    <BlueText>Photo Library</BlueText>
                   </ModalItem>
                   <ModalItem onPress={() => {}}>
-                    <BlueText>Photo Library</BlueText>
+                    <BlueText>Camera</BlueText>
                   </ModalItem>
                   <ModalItem
                     onPress={() => {
