@@ -31,7 +31,9 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
     phone: '',
   });
 
-  const [profilePhoto, setProfilePhoto] = useState('');
+  const [profilePhoto, setProfilePhoto] = useState(
+    users.data.included[0].attributes.image_url,
+  );
   console.log(profilePhoto);
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -64,7 +66,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
   const inputEl5 = React.useRef(null);
 
   const errorMessage = users.errorMessage;
-
+  console.log('REDUX:', users.data);
   const street = users.data.included[0].attributes.street_address;
   const city = users.data.included[0].attributes.city;
   const state = users.data.included[0].attributes.state;
@@ -73,7 +75,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
 
   const onSubmit = () => {
     editProfileWatcher({
-      image_url: userProfile.image_url,
+      image_url: profilePhoto,
       street_address: userProfile.street_address,
       city: userProfile.city,
       state: userProfile.state,
@@ -82,7 +84,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
     });
   };
   const ProfilePhotoDisplay = () => {
-    if (profilePhoto === '') {
+    if (profilePhoto === null) {
       return (
         <Profile source={require('../../../assets/images/profile-pic.png')} />
       );
