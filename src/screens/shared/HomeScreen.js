@@ -21,9 +21,18 @@ const HomeScreen = ({ orders, users }) => {
   const userId = users.data ? users.data.included[0].id : null;
 
   return (
-    <ScrollViewContainer>
-      <ListContainer>
-        {orders.map((item) =>
+    // <ScrollViewContainer>
+    <ListContainer>
+      {orders.length == 0 ? (
+        <>
+          <HomeContainer>
+            <ImageArea onPress={() => navigation.navigate('NewOrder')}>
+              <Image source={require('../../../assets/images/logo.png')} />
+            </ImageArea>
+          </HomeContainer>
+        </>
+      ) : (
+        orders.map((item) =>
           item.attributes.user_id == userId ? (
             <>
               <ItemsContainer
@@ -33,24 +42,38 @@ const HomeScreen = ({ orders, users }) => {
                 <OrderItem order={item} />
               </ItemsContainer>
             </>
-          ) : (
-            <>
-              <HomeContainer>
-                <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-                  <Image source={require('../../../assets/images/logo.png')} />
-                </ImageArea>
-              </HomeContainer>
-            </>
-          ),
-        )}
-      </ListContainer>
-    </ScrollViewContainer>
+          ) : null,
+        )
+      )}
+      {/* {orders.map((item) =>
+        item.attributes.user_id == userId ? (
+          <>
+            <ItemsContainer
+              key={item.attributes.uuid}
+              onPress={() => handleClick(item)}
+            >
+              <OrderItem order={item} />
+            </ItemsContainer>
+          </>
+        ) : (
+          <>
+            <HomeContainer>
+              <ImageArea onPress={() => navigation.navigate('NewOrder')}>
+                <Image source={require('../../../assets/images/logo.png')} />
+              </ImageArea>
+            </HomeContainer>
+          </>
+        ),
+      )} */}
+    </ListContainer>
+    // </ScrollViewContainer>
   );
 };
 
 const HomeContainer = styled.View`
   width: 100%;
   height: 100%;
+
   align-items: center;
   justify-content: center;
   background-color: #cbb387;
