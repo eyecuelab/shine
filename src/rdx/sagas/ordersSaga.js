@@ -1,6 +1,6 @@
 import { takeEvery, put, call, select } from 'redux-saga/effects';
 import * as types from '../actions/types';
-import { fetchOrders, postOrder } from '../api';
+import { fetchOrders, postOrder } from '../services/ordersService';
 import { setOrders, setError, reloadOrders, setPostError } from '../actions';
 
 export const getToken = (state) => state.users.data.data.attributes.token;

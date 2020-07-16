@@ -32,6 +32,7 @@ const HomeStackNavigator = () => {
         component={HomeScreen}
         options={{
           title: '',
+          // eslint-disable-next-line react/display-name
           headerRight: () => (
             <Button
               onPress={() => navigation.navigate('NewOrder')}

@@ -81,7 +81,7 @@ const HomeContainer = styled.View`
 const ListContainer = styled.View`
   flex: 1;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: center;
   background-color: white;
   flex-direction: row;
   flex-wrap: wrap;

@@ -1,5 +1,4 @@
 import * as types from './types';
-import uuid from 'uuid';
 
 // ====== ORDERS ACTION CREATORS ======= //
 
