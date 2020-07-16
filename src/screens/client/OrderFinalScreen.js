@@ -27,7 +27,7 @@ const OrderFinalScreen = ({ navigation }) => {
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto(item.image)}
+      {ShoePhoto(item.attributes.image_url)}
       <Container>
         <Text>You've recieved cleaning quotes!</Text>
         <SwitchTextContainer>

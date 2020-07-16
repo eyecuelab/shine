@@ -12,15 +12,29 @@ const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
   const onSubmit = () => {
     logoutWatcher();
   };
-  // console.log('USER STATE', users);
+
+  // const profilePhoto = users.data.included[0].attributes.image_url;
+  const profilePhoto = users.data.included[0].attributes.image_url
+    ? users.data.included[0].attributes.image_url
+    : '';
+  console.log(profilePhoto);
+
+  const ProfilePhotoDisplay = () => {
+    if (profilePhoto === '') {
+      return (
+        <Profile source={require('../../../assets/images/profile-pic.png')} />
+      );
+    } else {
+      return <Profile source={{ uri: profilePhoto }} />;
+    }
+  };
+
   return (
     <>
       <ProfileContainer>
         <ProfileBackground>
           <Container>
-            <Profile
-              source={require('../../../assets/images/profile-pic.png')}
-            />
+            <ProfilePhotoDisplay />
             <Name>
               {users.data
                 ? users.data.included[0].attributes.first_name +

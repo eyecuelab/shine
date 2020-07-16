@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useState } from 'react';
 import {
   Dimensions,
@@ -14,17 +15,25 @@ import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
+import {
+  PickImage,
+  TakePhoto,
+} from '../../components/shared/UploadPhotoFunctions';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
-const EditProfileScreen = ({ editProfileWatcher, users }) => {
+const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
   const [userProfile, setUserProfile] = useState({
-    street_address: '',
-    city: '',
-    state: '',
-    postal_code: '',
-    phone: '',
+    street_address: user.street_address,
+    city: user.city,
+    state: user.state,
+    postal_code: user.postal_code,
+    phone: user.phone,
   });
+
+  const [profilePhoto, setProfilePhoto] = useState(
+    user.image_url ? user.image_url : '',
+  );
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -55,18 +64,33 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
   const inputEl4 = React.useRef(null);
   const inputEl5 = React.useRef(null);
 
-  const errorMessage = users.errorMessage;
-
-  const street = users.data.included[0].attributes.street_address;
-  const city = users.data.included[0].attributes.city;
-  const state = users.data.included[0].attributes.state;
-  const zip = users.data.included[0].attributes.postal_code;
-  const phone = users.data.included[0].attributes.phone;
+  // const errorMessage = errorMessage;
+  // console.log('REDUX:', users.data);
+  // const street = user.street_address;
+  // const city = user.city;
+  // const state = user.state;
+  // const zip = user.postal_code;
+  // const phone = user.phone;
 
   const onSubmit = () => {
-    editProfileWatcher(userProfile);
+    editProfileWatcher({
+      image_url: profilePhoto,
+      street_address: userProfile.street_address,
+      city: userProfile.city,
+      state: userProfile.state,
+      postal_code: userProfile.postal_code,
+      phone: userProfile.phone,
+    });
   };
-
+  const ProfilePhotoDisplay = () => {
+    if (profilePhoto === '') {
+      return (
+        <Profile source={require('../../../assets/images/profile-pic.png')} />
+      );
+    } else {
+      return <Profile source={{ uri: profilePhoto }} />;
+    }
+  };
   return (
     <>
       <KeyboardAvoidingView
@@ -76,9 +100,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Container>
             <PhotoContainer>
-              <Profile
-                source={require('../../../assets/images/profile-pic.png')}
-              />
+              <ProfilePhotoDisplay />
               <ChangePhotoClick
                 onPress={() => {
                   setModalVisible(true);
@@ -102,11 +124,15 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
                     <Text>Choose a profile image using your:</Text>
                   </ModalItem>
 
-                  <ModalItem onPress={() => {}}>
-                    <BlueText>Camera</BlueText>
-                  </ModalItem>
-                  <ModalItem onPress={() => {}}>
+                  <ModalItem
+                    onPress={() => PickImage({ setImage: setProfilePhoto })}
+                  >
                     <BlueText>Photo Library</BlueText>
+                  </ModalItem>
+                  <ModalItem
+                    onPress={() => TakePhoto({ setImage: setProfilePhoto })}
+                  >
+                    <BlueText>Camera</BlueText>
                   </ModalItem>
                   <ModalItem
                     onPress={() => {
@@ -122,7 +148,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
             <MultiLineInputs>
               <Text>Street</Text>
               <TextInput
-                placeholder={street ? street : 'Street Address'}
+                placeholder={'Street Address'}
                 returnKeyType="next"
                 autoCapitalize="words"
                 autoCorrect={false}
@@ -139,7 +165,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               <Text>City</Text>
               <TextInput
                 ref={inputEl2}
-                placeholder={city ? city : 'City'}
+                placeholder={'City'}
                 returnKeyType="next"
                 autoCapitalize="words"
                 autoCorrect={false}
@@ -153,7 +179,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               <Text>State</Text>
               <TextInput
                 ref={inputEl3}
-                placeholder={state ? state : 'State'}
+                placeholder={'State'}
                 returnKeyType="next"
                 autoCapitalize="characters"
                 autoCorrect={false}
@@ -168,7 +194,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               <Text>Zip</Text>
               <TextInput
                 ref={inputEl4}
-                placeholder={zip ? zip : 'Zip'}
+                placeholder={'Zip'}
                 returnKeyType="done"
                 keyboardType="number-pad"
                 maxLength={5}
@@ -184,7 +210,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               <Text>Phone</Text>
               <TextInput
                 ref={inputEl5}
-                placeholder={phone ? phone : '(xxx)-xxx-xxxx'}
+                placeholder={'(xxx)-xxx-xxxx'}
                 returnKeyType="done"
                 textContentType="telephoneNumber"
                 dataDetactorTypes="phoneNunmber"
@@ -327,11 +353,15 @@ const ErrorText = styled.Text`
 
 EditProfileScreen.propTypes = {
   editProfileWatcher: PropTypes.func,
-  users: PropTypes.object,
+  user: PropTypes.object,
+  errorMessage: PropTypes.any,
 };
 
 const mapStateToProps = (state) => {
-  return { users: state.users };
+  return {
+    user: state.users.data.included[0].attributes,
+    errorMessage: state.users.errorMessage,
+  };
 };
 
 export default connect(mapStateToProps, actions)(EditProfileScreen);

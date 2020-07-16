@@ -19,33 +19,29 @@ const HomeScreen = ({ orders, users }) => {
     }
   };
   const userId = users.data ? users.data.included[0].id : null;
-
-  return (
-    <ScrollViewContainer>
-      <ListContainer>
-        {orders.map((item) =>
-          item.attributes.user_id == userId ? (
-            <>
-              <ItemsContainer
-                key={item.attributes.uuid}
-                onPress={() => handleClick(item)}
-              >
-                <OrderItem order={item} />
-              </ItemsContainer>
-            </>
-          ) : (
-            <>
-              <HomeContainer>
-                <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-                  <Image source={require('../../../assets/images/logo.png')} />
-                </ImageArea>
-              </HomeContainer>
-            </>
-          ),
-        )}
-      </ListContainer>
-    </ScrollViewContainer>
-  );
+  // if (orders.length !==0) {}
+  // console.log(orders[0].id);
+  if (orders.length !== 0) {
+    return (
+      <ScrollViewContainer>
+        <ListContainer>
+          {orders.map((item) => (
+            <ItemsContainer key={item.id} onPress={() => handleClick(item)}>
+              <OrderItem order={item} />
+            </ItemsContainer>
+          ))}
+        </ListContainer>
+      </ScrollViewContainer>
+    );
+  } else {
+    return (
+      <HomeContainer>
+        <ImageArea onPress={() => navigation.navigate('NewOrder')}>
+          <Image source={require('../../../assets/images/logo-outline.png')} />
+        </ImageArea>
+      </HomeContainer>
+    );
+  }
 };
 
 const HomeContainer = styled.View`
@@ -59,7 +55,7 @@ const HomeContainer = styled.View`
 const ListContainer = styled.View`
   flex: 1;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: center;
   background-color: white;
   flex-direction: row;
   flex-wrap: wrap;

@@ -29,7 +29,6 @@ const NewOrderScreen = ({ navigation }) => {
   ]);
 
   const [note, setNote] = useState('');
-
   // ROUTE STATE
   const [routes] = useState([
     { key: 'first', title: 'Step 1' },
