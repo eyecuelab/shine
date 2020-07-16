@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dimensions,
   TextInput,
@@ -37,6 +37,10 @@ const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
+  useEffect(() => {
+    setModalVisible(false);
+  }, [profilePhoto]);
+
   const handleProfileChange = (key, value) => {
     setUserProfile((current) => ({
       ...current,
@@ -63,14 +67,6 @@ const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
   const inputEl3 = React.useRef(null);
   const inputEl4 = React.useRef(null);
   const inputEl5 = React.useRef(null);
-
-  // const errorMessage = errorMessage;
-  // console.log('REDUX:', users.data);
-  // const street = user.street_address;
-  // const city = user.city;
-  // const state = user.state;
-  // const zip = user.postal_code;
-  // const phone = user.phone;
 
   const onSubmit = () => {
     editProfileWatcher({
