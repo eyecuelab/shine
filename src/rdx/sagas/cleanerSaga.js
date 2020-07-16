@@ -4,6 +4,7 @@ import {
   applyCleanerService,
   editCleanerService,
   deleteCleanerService,
+  loadQuotableOrdersService,
 } from '../services/cleanerService';
 import { call, put, select } from 'redux-saga/effects';
 
@@ -60,5 +61,22 @@ export function* deleteCleanerSaga() {
     }
   } catch (error) {
     console.log('DELETE CLEANER ERROR:', error);
+  }
+}
+
+export function* loadQuotableOrdersSaga() {
+  try {
+    const userID = yield select(getUserID);
+    const token = yield select(getToken);
+    let response = yield call(loadQuotableOrdersService, userID, token);
+    if (response.ok && response.status === 200) {
+      const data = yield response.json();
+      console.log(data);
+      // yield put(actions.postCleanerProfile(data));
+    } else {
+      throw yield response.json();
+    }
+  } catch (error) {
+    console.log('LOAD QUOTABLE ORDERS ERROR:', error);
   }
 }

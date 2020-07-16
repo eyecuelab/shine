@@ -160,3 +160,9 @@ export const deleteCleanerWatcher = () => {
     type: types.DELETE_CLEANER_WATCHER,
   };
 };
+
+export const loadQuotableOrdersWatcher = () => {
+  return {
+    type: types.LOAD_QUOTABLE_ORDERS_WATCHER,
+  };
+};

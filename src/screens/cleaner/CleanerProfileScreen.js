@@ -13,6 +13,7 @@ const CleanerProfileScreen = ({
   cleaner,
   navigation,
   deleteCleanerWatcher,
+  loadQuotableOrdersWatcher,
 }) => {
   const businessName =
     Object.keys(users.cleaner).length !== 0
@@ -22,6 +23,11 @@ const CleanerProfileScreen = ({
     Object.keys(users.cleaner).length !== 0
       ? users.cleaner.attributes.email
       : null;
+
+  const onLoadQuotableOrders = () => {
+    loadQuotableOrdersWatcher();
+    navigation.navigate('Orders In Area');
+  };
 
   const onDelete = () => {
     deleteCleanerWatcher();
@@ -44,8 +50,8 @@ const CleanerProfileScreen = ({
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>
 
-        <ListItem onPress={() => navigation.navigate('Orders In Area')}>
-          <Text>New Orders In Area</Text>
+        <ListItem onPress={onLoadQuotableOrders}>
+          <Text>Quotable Orders In Area</Text>
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>
 
@@ -155,6 +161,7 @@ CleanerProfileScreen.propTypes = {
   cleaner: PropTypes.object,
   updateCleanerWatcher: PropTypes.func,
   deleteCleanerWatcher: PropTypes.func,
+  loadQuotableOrdersWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {

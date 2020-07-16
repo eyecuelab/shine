@@ -1,5 +1,5 @@
 export const applyCleanerService = (request, token) => {
-  const APPLY_CLEANER_ENDPOINT = 'http://127.0.0.1:8080/cleaners';
+  const url = 'http://127.0.0.1:8080/cleaners';
 
   const parameters = {
     method: 'POST',
@@ -10,13 +10,13 @@ export const applyCleanerService = (request, token) => {
     body: JSON.stringify(request),
   };
 
-  return fetch(APPLY_CLEANER_ENDPOINT, parameters).then((response) => {
+  return fetch(url, parameters).then((response) => {
     return response;
   });
 };
 
 export const editCleanerService = (request, userID, token) => {
-  const UPDATE_CLEANER_ENDPOINT = `http://127.0.0.1:8080/cleaners/${userID}`;
+  const url = `http://127.0.0.1:8080/cleaners/${userID}`;
   const parameters = {
     method: 'PATCH',
     headers: {
@@ -27,13 +27,13 @@ export const editCleanerService = (request, userID, token) => {
     body: JSON.stringify(request),
   };
 
-  return fetch(UPDATE_CLEANER_ENDPOINT, parameters).then((response) => {
+  return fetch(url, parameters).then((response) => {
     return response;
   });
 };
 
 export const deleteCleanerService = (userID, token) => {
-  const DELETE_CLEANER_ENDPOINT = `http://127.0.0.1:8080/cleaners/${userID}`;
+  const url = `http://127.0.0.1:8080/cleaners/${userID}`;
   const parameters = {
     method: 'DELETE',
     headers: {
@@ -43,7 +43,23 @@ export const deleteCleanerService = (userID, token) => {
     },
   };
 
-  return fetch(DELETE_CLEANER_ENDPOINT, parameters).then((response) => {
+  return fetch(url, parameters).then((response) => {
+    return response;
+  });
+};
+
+export const loadQuotableOrdersService = (userID, token) => {
+  const url = `http://127.0.0.1:8080/cleaners/${userID}/orders?quotable=true`;
+  const parameters = {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+  };
+
+  return fetch(url, parameters).then((response) => {
     return response;
   });
 };
