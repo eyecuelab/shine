@@ -8,20 +8,20 @@ import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
 const OrdersInAreaScreen = ({ orders, cleaner, navigation }) => {
-  console.log(cleaner.quotableOrders);
   return (
     <ScrollViewContainer>
       <Container>
-        {cleaner.quotableOrders.map((item) => (
-          <ItemsContainer
-            key={item.attributes.uuid}
-            onPress={() => navigation.navigate('Order Detail', item)}
-          >
-            {/* TODO: REPLACE PHOTO INSTEAD OF TEXT */}
-            <Text>{item.attributes.uuid}</Text>
-            <OrderItem order={item} />
-          </ItemsContainer>
-        ))}
+        {cleaner.quotableOrders &&
+          cleaner.quotableOrders.map((item) => (
+            <ItemsContainer
+              key={item.attributes.uuid}
+              onPress={() => navigation.navigate('Order Detail', item)}
+            >
+              {/* TODO: REPLACE PHOTO INSTEAD OF TEXT */}
+              <Text>{item.attributes.uuid}</Text>
+              <OrderItem order={item} />
+            </ItemsContainer>
+          ))}
       </Container>
     </ScrollViewContainer>
   );
