@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
