@@ -17,6 +17,7 @@ export function* loginSaga(action) {
       const data = yield response.json();
       yield put(actions.logIn(data));
       yield put(actions.loadOrders());
+      yield put(actions.loadCleaner(data));
     } else {
       throw yield response.json();
     }

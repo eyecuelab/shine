@@ -9,7 +9,7 @@ import {
 import { call, put, select } from 'redux-saga/effects';
 
 export const getToken = (state) => state.users.data.data.attributes.token;
-export const getUserID = (state) => state.users.cleaner.id;
+export const getUserID = (state) => state.cleaner.data.id;
 
 export function* cleanerApplySaga(action) {
   try {
@@ -17,7 +17,7 @@ export function* cleanerApplySaga(action) {
     let response = yield call(applyCleanerService, action.payload, token);
     if (response.ok && response.status === 200) {
       const data = yield response.json();
-      yield put(actions.postCleanerProfile(data));
+      yield put(actions.postCleanerProfile(data.data));
     } else {
       throw yield response.json();
     }
@@ -39,7 +39,7 @@ export function* editCleanerSaga(action) {
     );
     if (response.status >= 200 && response.status < 300) {
       const data = yield response.json();
-      yield put(actions.updateCleanerProfile(data));
+      yield put(actions.updateCleanerProfile(data.data));
     } else {
       throw yield response.json();
     }

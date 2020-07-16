@@ -38,15 +38,15 @@ const EditCleanerProfileScreen = ({
   const inputEl9 = useRef(null);
   const inputEl10 = useRef(null);
 
-  const businessName = users.cleaner.attributes.business_name;
-  const firstName = users.cleaner.attributes.first_name;
-  const lastName = users.cleaner.attributes.last_name;
-  const email = users.cleaner.attributes.email;
-  const phone = users.cleaner.attributes.phone;
-  const street = users.cleaner.attributes.street_address;
-  const city = users.cleaner.attributes.city;
-  const state = users.cleaner.attributes.state;
-  const zip = users.cleaner.attributes.postal_code;
+  const businessName = cleaner.data.attributes.business_name;
+  const firstName = cleaner.data.attributes.first_name;
+  const lastName = cleaner.data.attributes.last_name;
+  const email = cleaner.data.attributes.email;
+  const phone = cleaner.data.attributes.phone;
+  const street = cleaner.data.attributes.street_address;
+  const city = cleaner.data.attributes.city;
+  const state = cleaner.data.attributes.state;
+  const zip = cleaner.data.attributes.postal_code;
 
   const handleChange = (key, value) => {
     setCleanerProfile((current) => ({

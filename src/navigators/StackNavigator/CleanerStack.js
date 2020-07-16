@@ -17,10 +17,10 @@ import UsersOrderDetailScreen from '../../screens/cleaner/UsersOrderDetailScreen
 const CleanerStack = createStackNavigator();
 
 const CleanerStackNavigator = ({ cleaner, users }) => {
-  // const authentication = users.data ? users.data.included.length === 2 : null;
   const authentication = users.status !== 'Logged out' ? true : false;
-  const cleanerAccontExist =
-    Object.keys(users.cleaner).length === 0 ? false : true;
+  const cleanerAccontExist = cleaner.data ? true : false;
+  // const cleanerAccontExist =
+  //   Object.keys(users.cleaner).length === 0 ? false : true;
 
   return (
     <CleanerStack.Navigator

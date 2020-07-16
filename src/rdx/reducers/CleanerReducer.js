@@ -7,6 +7,20 @@ const initialCleanerState = {
 
 const cleanerReducer = (state = initialCleanerState, action) => {
   switch (action.type) {
+    case types.LOAD_CLEANER:
+      return {
+        data:
+          action.payload.included[1] !== undefined
+            ? action.payload.included[1]
+            : null,
+        errorMessage: null,
+      };
+    case types.LOGOUT_SUCCESS:
+      return {
+        data: null,
+        errorMessage: null,
+      };
+
     case types.ADD_CLEANER_PROFILE:
       return {
         data: action.payload,
@@ -18,7 +32,6 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         errorMessage: action.error,
       };
     case types.UPDATE_CLEANER_SUCCESS:
-      console.log('C REDUCER', action.payload);
       return {
         ...state,
         data: action.payload,

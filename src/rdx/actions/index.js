@@ -127,6 +127,13 @@ export const updateProfile = (payload) => {
 
 // ====== CLEANERS ACTION CREATORS ======= //
 
+export const loadCleaner = (payload) => {
+  return {
+    type: types.LOAD_CLEANER,
+    payload,
+  };
+};
+
 export const applyCleanerWatcher = (payload) => {
   return {
     type: types.APPLY_CLEANER_WATCHER,

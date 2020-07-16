@@ -15,14 +15,10 @@ const CleanerProfileScreen = ({
   deleteCleanerWatcher,
   loadQuotableOrdersWatcher,
 }) => {
-  const businessName =
-    Object.keys(users.cleaner).length !== 0
-      ? users.cleaner.attributes.business_name
-      : null;
-  const email =
-    Object.keys(users.cleaner).length !== 0
-      ? users.cleaner.attributes.email
-      : null;
+  const businessName = cleaner.data
+    ? cleaner.data.attributes.business_name
+    : null;
+  const email = cleaner.data ? cleaner.data.attributes.email : null;
 
   const onLoadQuotableOrders = () => {
     loadQuotableOrdersWatcher();
