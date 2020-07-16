@@ -126,6 +126,13 @@ export const updateProfile = (payload) => {
 
 // ====== CLEANERS ACTION CREATORS ======= //
 
+export const loadCleaner = (payload) => {
+  return {
+    type: types.LOAD_CLEANER,
+    payload,
+  };
+};
+
 export const applyCleanerWatcher = (payload) => {
   return {
     type: types.APPLY_CLEANER_WATCHER,
@@ -157,5 +164,18 @@ export const updateCleanerProfile = (payload) => {
 export const deleteCleanerWatcher = () => {
   return {
     type: types.DELETE_CLEANER_WATCHER,
+  };
+};
+
+export const loadQuotableOrdersWatcher = () => {
+  return {
+    type: types.LOAD_QUOTABLE_ORDERS_WATCHER,
+  };
+};
+
+export const setQuotableOrders = (payload) => {
+  return {
+    type: types.SET_QUOTABLE_ORDERS,
+    payload,
   };
 };

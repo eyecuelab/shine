@@ -13,7 +13,6 @@ import AddOnSwitch from '../../components/order/AddOnSwitch';
 const OrderConfirmScreen = ({ navigation, requestComplete }) => {
   const route = useRoute();
   const item = route.params;
-  // console.log(item);
 
   const handleSubmit = () => {
     requestComplete(item.uuid, true);

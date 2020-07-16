@@ -12,15 +12,15 @@ import OrderRequestedScreen from '../../screens/cleaner/OrdersRequestedScreen';
 import OrdersInProgressScreen from '../../screens/cleaner/OrdersInProgressScreen';
 import CompletedOrdersScreen from '../../screens/cleaner/CompletedOrdersScreen';
 import OrdersInAreaScreen from '../../screens/cleaner/OrdersInAreaScreen';
-import UsersOrderDetailScreen from '../../screens/cleaner/UsersOrderDetailScreen';
+import QuotableOrderDetailScreen from '../../screens/cleaner/QuotableOrderDetailScreen';
 
 const CleanerStack = createStackNavigator();
 
 const CleanerStackNavigator = ({ cleaner, users }) => {
-  // const authentication = users.data ? users.data.included.length === 2 : null;
   const authentication = users.status !== 'Logged out' ? true : false;
-  const cleanerAccontExist =
-    Object.keys(users.cleaner).length === 0 ? false : true;
+  const cleanerAccontExist = cleaner.data ? true : false;
+  // const cleanerAccontExist =
+  //   Object.keys(users.cleaner).length === 0 ? false : true;
 
   return (
     <CleanerStack.Navigator
@@ -67,7 +67,7 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
           />
           <CleanerStack.Screen
             name="Order Detail"
-            component={UsersOrderDetailScreen}
+            component={QuotableOrderDetailScreen}
             options={{ title: 'ORDER DETAIL' }}
           />
           <CleanerStack.Screen

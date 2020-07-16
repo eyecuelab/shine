@@ -19,29 +19,55 @@ const HomeScreen = ({ orders, users }) => {
     }
   };
   const userId = users.data ? users.data.included[0].id : null;
-  // if (orders.length !==0) {}
-  // console.log(orders[0].id);
-  if (orders.length !== 0) {
-    return (
-      <ScrollViewContainer>
-        <ListContainer>
-          {orders.map((item) => (
-            <ItemsContainer key={item.id} onPress={() => handleClick(item)}>
+
+  return (
+    // <ScrollViewContainer>
+    <ListContainer>
+      {orders.length == 0 ? (
+        <>
+          <HomeContainer>
+            <ImageArea onPress={() => navigation.navigate('NewOrder')}>
+              <Image source={require('../../../assets/images/logo.png')} />
+            </ImageArea>
+          </HomeContainer>
+        </>
+      ) : (
+        orders.map((item) =>
+          item.attributes.user_id == userId ? (
+            <>
+              <ItemsContainer
+                key={item.attributes.uuid}
+                onPress={() => handleClick(item)}
+              >
+                <OrderItem order={item} />
+              </ItemsContainer>
+            </>
+          ) : null,
+        )
+      )}
+      {/* {orders.map((item) =>
+        item.attributes.user_id == userId ? (
+          <>
+            <ItemsContainer
+              key={item.attributes.uuid}
+              onPress={() => handleClick(item)}
+            >
               <OrderItem order={item} />
             </ItemsContainer>
-          ))}
-        </ListContainer>
-      </ScrollViewContainer>
-    );
-  } else {
-    return (
-      <HomeContainer>
-        <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-          <Image source={require('../../../assets/images/logo-outline.png')} />
-        </ImageArea>
-      </HomeContainer>
-    );
-  }
+          </>
+        ) : (
+          <>
+            <HomeContainer>
+              <ImageArea onPress={() => navigation.navigate('NewOrder')}>
+                <Image source={require('../../../assets/images/logo.png')} />
+              </ImageArea>
+            </HomeContainer>
+          </>
+        ),
+      )} */}
+    </ListContainer>
+    // </ScrollViewContainer>
+  );
 };
 
 const HomeContainer = styled.View`
@@ -73,8 +99,6 @@ const Image = styled.Image`
 
 const ItemsContainer = styled.TouchableOpacity`
   margin: 10px;
-  flex-direction: row;
-  flex-wrap: wrap;
 `;
 
 const Header = styled.TouchableOpacity`
