@@ -13,10 +13,14 @@ const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
     logoutWatcher();
   };
 
-  const profilePhoto = users.data.included[0].attributes.image_url;
+  // const profilePhoto = users.data.included[0].attributes.image_url;
+  const profilePhoto = users.data.included[0].attributes.image_url
+    ? users.data.included[0].attributes.image_url
+    : '';
+  console.log(profilePhoto);
 
   const ProfilePhotoDisplay = () => {
-    if (profilePhoto === null) {
+    if (profilePhoto === '') {
       return (
         <Profile source={require('../../../assets/images/profile-pic.png')} />
       );
