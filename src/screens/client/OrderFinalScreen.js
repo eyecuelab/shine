@@ -7,10 +7,10 @@ import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceTagWhite from '../../components/shared/PriceTagWhite';
+import AddOnSwitch from '../../components/order/AddOnSwitch';
 // import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
-import AddOnSwitch from '../../components/order/AddOnSwitch';
 
 const OrderFinalScreen = ({ navigation }) => {
   const route = useRoute();
