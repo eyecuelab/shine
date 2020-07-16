@@ -72,7 +72,7 @@ export function* loadQuotableOrdersSaga() {
     if (response.ok && response.status === 200) {
       const data = yield response.json();
       console.log(data);
-      // yield put(actions.postCleanerProfile(data));
+      yield put(actions.setQuotableOrders(data.data));
     } else {
       throw yield response.json();
     }

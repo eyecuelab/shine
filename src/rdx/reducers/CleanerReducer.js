@@ -2,6 +2,7 @@ import * as types from '../actions/types';
 
 const initialCleanerState = {
   data: null,
+  quotableOrders: [],
   errorMessage: null,
 };
 
@@ -45,6 +46,12 @@ const cleanerReducer = (state = initialCleanerState, action) => {
     case types.DELETE_CLEANER_SUCCESS:
       return {
         data: null,
+        errorMessage: null,
+      };
+    case types.SET_QUOTABLE_ORDERS:
+      return {
+        ...state,
+        quotableOrders: action.payload,
         errorMessage: null,
       };
     default:

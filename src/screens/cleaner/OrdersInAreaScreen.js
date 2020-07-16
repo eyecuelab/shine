@@ -3,26 +3,25 @@ import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
 import styled from 'styled-components/native';
+import OrderItem from '../../components/order/OrderItem';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
 const OrdersInAreaScreen = ({ orders, cleaner, navigation }) => {
+  console.log(cleaner.quotableOrders);
   return (
     <ScrollViewContainer>
       <Container>
-        {orders.map((item) =>
-          item.attributes.quote_accepted_at === null ? (
-            <>
-              <ItemsContainer
-                key={item.attributes.uuid}
-                onPress={() => navigation.navigate('Order Detail', item)}
-              >
-                {/* TODO: REPLACE PHOTO INSTEAD OF TEXT */}
-                <Text>{item.attributes.uuid}</Text>
-              </ItemsContainer>
-            </>
-          ) : null,
-        )}
+        {cleaner.quotableOrders.map((item) => (
+          <ItemsContainer
+            key={item.attributes.uuid}
+            onPress={() => navigation.navigate('Order Detail', item)}
+          >
+            {/* TODO: REPLACE PHOTO INSTEAD OF TEXT */}
+            <Text>{item.attributes.uuid}</Text>
+            <OrderItem order={item} />
+          </ItemsContainer>
+        ))}
       </Container>
     </ScrollViewContainer>
   );
@@ -35,15 +34,9 @@ const Container = styled.View`
 `;
 
 const ItemsContainer = styled.TouchableOpacity`
+  margin: 10px;
   flex-direction: row;
-  width: 100%;
-  height: 60px;
-  border-bottom-width: 1px;
-  border-bottom-color: #e3e3e3;
-  padding-horizontal: 25px;
-  align-items: center;
-  justify-content: space-between;
-  background-color: white;
+  flex-wrap: wrap;
 `;
 
 const Text = styled.Text`

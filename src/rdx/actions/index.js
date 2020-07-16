@@ -173,3 +173,10 @@ export const loadQuotableOrdersWatcher = () => {
     type: types.LOAD_QUOTABLE_ORDERS_WATCHER,
   };
 };
+
+export const setQuotableOrders = (payload) => {
+  return {
+    type: types.SET_QUOTABLE_ORDERS,
+    payload,
+  };
+};
