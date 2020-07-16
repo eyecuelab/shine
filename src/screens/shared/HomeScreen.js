@@ -20,54 +20,27 @@ const HomeScreen = ({ orders, users }) => {
   };
   const userId = users.data ? users.data.included[0].id : null;
 
-  return (
-    // <ScrollViewContainer>
-    <ListContainer>
-      {orders.length == 0 ? (
-        <>
-          <HomeContainer>
-            <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-              <Image source={require('../../../assets/images/logo.png')} />
-            </ImageArea>
-          </HomeContainer>
-        </>
-      ) : (
-        orders.map((item) =>
-          item.attributes.user_id == userId ? (
-            <>
-              <ItemsContainer
-                key={item.attributes.uuid}
-                onPress={() => handleClick(item)}
-              >
-                <OrderItem order={item} />
-              </ItemsContainer>
-            </>
-          ) : null,
-        )
-      )}
-      {/* {orders.map((item) =>
-        item.attributes.user_id == userId ? (
-          <>
-            <ItemsContainer
-              key={item.attributes.uuid}
-              onPress={() => handleClick(item)}
-            >
+  if (orders.length !== 0) {
+    return (
+      <ScrollViewContainer>
+        <ListContainer>
+          {orders.map((item) => (
+            <ItemsContainer key={item.id} onPress={() => handleClick(item)}>
               <OrderItem order={item} />
             </ItemsContainer>
-          </>
-        ) : (
-          <>
-            <HomeContainer>
-              <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-                <Image source={require('../../../assets/images/logo.png')} />
-              </ImageArea>
-            </HomeContainer>
-          </>
-        ),
-      )} */}
-    </ListContainer>
-    // </ScrollViewContainer>
-  );
+          ))}
+        </ListContainer>
+      </ScrollViewContainer>
+    );
+  } else {
+    return (
+      <HomeContainer>
+        <ImageArea onPress={() => navigation.navigate('NewOrder')}>
+          <Image source={require('../../../assets/images/logo-outline.png')} />
+        </ImageArea>
+      </HomeContainer>
+    );
+  }
 };
 
 const HomeContainer = styled.View`
