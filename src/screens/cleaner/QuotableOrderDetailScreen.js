@@ -7,16 +7,17 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
-import { formatDate } from '../../components/shared/DateFormatting';
+import { formatDate, formatDateTime } from '../../components/shared/FormatDate';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
 const QuotableOrderDetailScreen = ({ route }) => {
   const item = route.params;
-  console.log('DETAIL', item);
+  // console.log('DETAIL', item);
   const estimatedPrice = item.attributes.estimated_price;
   const [quotedPrice, setQuotedPrice] = useState(estimatedPrice);
+
   const today = new Date();
   const [expireDate, setExpireDate] = useState(new Date(today));
   const [completeDate, setCompeleteDate] = useState(new Date(today));
@@ -36,7 +37,7 @@ const QuotableOrderDetailScreen = ({ route }) => {
     setCompeleteDate(currentDate);
   };
 
-  const showMode = (currentMode) => {
+  const showExpireMode = (currentMode) => {
     setShowExpire(!showExpire);
     setMode(currentMode);
   };
@@ -47,18 +48,24 @@ const QuotableOrderDetailScreen = ({ route }) => {
   };
 
   const showDatepicker = () => {
-    showMode('date');
+    showExpireMode('date');
   };
 
   const showTimepicker = () => {
-    showMode('time');
+    showExpireMode('time');
   };
 
   const showCompleteDatePicker = () => {
     showCompleteMode('date');
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    console.log({
+      quoted_price: quotedPrice,
+      expires_at: formatDateTime(expireDate),
+      delivery_by: formatDate(completeDate),
+    });
+  };
 
   return (
     <ScrollViewContailner>
@@ -113,7 +120,7 @@ const QuotableOrderDetailScreen = ({ route }) => {
               color="black"
               style={{ marginRight: 5 }}
             />{' '}
-            {formatDate(expireDate)}
+            {formatDateTime(expireDate)}
           </DateText>
           <TouchableOpacity onPress={showDatepicker}>
             <DatePickerText>Set Expire Date</DatePickerText>
