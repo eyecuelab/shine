@@ -14,6 +14,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
+import { formatDate } from '../../components/shared/DateFormatting';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
@@ -25,7 +26,7 @@ const QuotableOrderDetailScreen = ({ route }) => {
   const [expireDate, setExpireDate] = useState(new Date(today));
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
-  console.log('DATE', expireDate);
+  console.log('F', formatDate(expireDate));
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || expireDate;
