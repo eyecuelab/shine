@@ -7,6 +7,7 @@ import {
   editProfileService,
 } from '../services/authService';
 import { call, put, cancelled, select } from 'redux-saga/effects';
+import { symbol } from 'prop-types';
 
 export const getToken = (state) => state.users.data.data.attributes.token;
 

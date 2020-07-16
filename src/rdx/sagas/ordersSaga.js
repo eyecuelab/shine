@@ -9,6 +9,7 @@ export function* handleOrdersLoad() {
   try {
     const token = yield select(getToken);
     const orders = yield call(fetchOrders, token);
+    console.log('ORDERS', orders);
     yield put(setOrders(orders));
   } catch (error) {
     yield put(setError(error.toString()));

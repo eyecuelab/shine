@@ -73,7 +73,6 @@ const HomeScreen = ({ orders, users }) => {
 const HomeContainer = styled.View`
   width: 100%;
   height: 100%;
-
   align-items: center;
   justify-content: center;
   background-color: #cbb387;
@@ -100,8 +99,6 @@ const Image = styled.Image`
 
 const ItemsContainer = styled.TouchableOpacity`
   margin: 10px;
-  flex-direction: row;
-  flex-wrap: wrap;
 `;
 
 const Header = styled.TouchableOpacity`

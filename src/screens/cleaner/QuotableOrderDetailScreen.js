@@ -21,12 +21,12 @@ import * as actions from '../../rdx/actions';
 
 const QuotableOrderDetailScreen = ({ route }) => {
   const item = route.params;
-  // console.log('DETAIL', item);
+  console.log('DETAIL', item);
   const today = new Date();
   const [expireDate, setExpireDate] = useState(new Date(today));
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
-  console.log('F', formatDate(expireDate));
+  // console.log(formatDate(expireDate));
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || expireDate;
@@ -51,6 +51,7 @@ const QuotableOrderDetailScreen = ({ route }) => {
     <ScrollViewContailner>
       {ShoePhoto(item.image)}
       <Container>
+        <Text>{item.id}</Text>
         <SwitchTextContainer>
           <SwitchText>ADD POLISH</SwitchText>
           <SwitchText>ADD RAIN PROTECTION</SwitchText>
@@ -72,22 +73,21 @@ const QuotableOrderDetailScreen = ({ route }) => {
         </SwitchContainer>
       </Container>
 
-      <View>
+      <DatePickerContainer>
         <Button onPress={showDatepicker} title="Set Expire Date" />
-      </View>
-      <View>
         <Button onPress={showTimepicker} title="Set Expire Time" />
-      </View>
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={expireDate}
-          mode={mode}
-          is24Hour={true}
-          display="default"
-          onChange={onChange}
-        />
-      )}
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={expireDate}
+            mode={mode}
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+          />
+        )}
+        <Text>{formatDate(expireDate)}</Text>
+      </DatePickerContainer>
     </ScrollViewContailner>
   );
 };
@@ -119,6 +119,8 @@ const SwitchContainer = styled.View`
   margin-top: 40px;
   padding-top: 10px;
 `;
+
+const DatePickerContainer = styled.View``;
 
 QuotableOrderDetailScreen.propTypes = {
   navigation: PropTypes.object,

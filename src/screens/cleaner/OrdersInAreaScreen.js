@@ -17,8 +17,6 @@ const OrdersInAreaScreen = ({ orders, cleaner, navigation }) => {
               key={item.attributes.uuid}
               onPress={() => navigation.navigate('Order Detail', item)}
             >
-              {/* TODO: REPLACE PHOTO INSTEAD OF TEXT */}
-              <Text>{item.attributes.uuid}</Text>
               <OrderItem order={item} />
             </ItemsContainer>
           ))}
@@ -29,14 +27,14 @@ const OrdersInAreaScreen = ({ orders, cleaner, navigation }) => {
 
 const Container = styled.View`
   flex: 1;
-  align-items: center;
-  background-color: white;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 const ItemsContainer = styled.TouchableOpacity`
   margin: 10px;
-  flex-direction: row;
-  flex-wrap: wrap;
 `;
 
 const Text = styled.Text`
