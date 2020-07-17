@@ -109,7 +109,7 @@ export const getOrderByIdWatcher = (payload) => {
   };
 };
 
-export const setCurrentOrder = (payload) => {
+export const setSelectedOrder = (payload) => {
   return {
     type: types.GET_ORDER_BY_ID_SUCCESS,
     payload,

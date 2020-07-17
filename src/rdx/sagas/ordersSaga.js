@@ -13,7 +13,7 @@ import {
   setPostError,
   setPublishedOrder,
   setPublishError,
-  setCurrentOrder,
+  setSelectedOrder,
   setGetOrderByIdError,
 } from '../actions';
 
@@ -54,7 +54,7 @@ export function* getOrderByIdSaga(action) {
     const orderID = action.payload;
     const token = yield select(getToken);
     const result = yield call(getOrderById, orderID, token);
-    console.log('SAGA', result);
+    yield put(setSelectedOrder(result));
   } catch (error) {
     yield put(setGetOrderByIdError(error.toString()));
   }
