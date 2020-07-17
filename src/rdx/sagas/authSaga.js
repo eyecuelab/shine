@@ -36,14 +36,14 @@ export function* logoutSaga() {
     const token = yield select(getToken);
     let response = yield call(logoutUserService, token);
     if (response.ok && response.status === 200) {
-      console.log('RESPONSE', response);
-      console.log('SUCCESS!');
+      // console.log('RESPONSE', response);
+      // console.log('SUCCESS!');
       yield put({ type: types.LOGOUT_SUCCESS });
     } else {
       throw yield response.json();
     }
   } catch (error) {
-    console.log('ERROR', error.message);
+    // console.log('ERROR', error.message);
   }
 }
 
@@ -56,7 +56,7 @@ export function* signupSaga(action) {
       throw yield response.json();
     }
   } catch (error) {
-    console.log('SIGNUP ERROR: ', error);
+    // console.log('SIGNUP ERROR: ', error);
     yield put({ type: types.SIGNUP_ERROR, error: error.message });
   } finally {
     if (yield cancelled()) {
@@ -86,12 +86,10 @@ export function* editPasswordSaga(action) {
   try {
     const token = yield select(getToken);
     let response = yield call(editProfileService, action.payload, token);
+
     if (response.status >= 200 && response.status < 300) {
-      // const data = yield response.json();
-      // const userData = data.data;
-      // yield put(actions.updateProfile(userData));
-      yield call(
-        loginSaga({
+      yield put(
+        actions.loginWatcher({
           email: action.payload.email,
           password: action.payload.password,
         }),
@@ -100,7 +98,6 @@ export function* editPasswordSaga(action) {
       throw yield response.json();
     }
   } catch (error) {
-    console.log('EDIT PROFILE ERROR: ', error);
     yield put({ type: types.UPDATE_PROFILE_ERROR, error: error.message });
   }
 }
