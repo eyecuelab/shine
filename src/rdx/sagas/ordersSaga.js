@@ -9,7 +9,6 @@ export function* handleOrdersLoad() {
   try {
     const token = yield select(getToken);
     const orders = yield call(fetchOrders, token);
-    console.log('ORDERS', orders);
     yield put(setOrders(orders));
   } catch (error) {
     yield put(setError(error.toString()));
@@ -19,12 +18,15 @@ export function* handleOrdersLoad() {
 export function* postOrderSaga(action) {
   try {
     const token = yield select(getToken);
-
     const result = yield call(postOrder, action.payload, token);
     yield put(reloadOrders(result));
   } catch (error) {
     yield put(setPostError(error.toString()));
   }
+}
+
+export function* publishOrderSaga(action) {
+  console.log(action);
 }
 
 export default function* watchOrdersLoad() {
@@ -33,6 +35,7 @@ export default function* watchOrdersLoad() {
 
 export function* watchPostOrder() {
   yield takeEvery(types.POST_ORDER, postOrderSaga);
+  yield takeEvery(types.PUBLISH_ORDER_WATCHER, publishOrderSaga);
 }
 
 export function* watchOrdersReload() {

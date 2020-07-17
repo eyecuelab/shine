@@ -36,6 +36,13 @@ export const setPostError = (error) => {
   };
 };
 
+export const publishOrderWatcher = (payload) => {
+  return {
+    type: types.PUBLISH_ORDER_WATCHER,
+    payload,
+  };
+};
+
 export const reloadOrders = (result) => {
   return {
     type: types.POST_ORDER_SUCCESS,
@@ -184,12 +191,5 @@ export const addQuoteWatcher = ({ orderID, quote }) => {
   return {
     type: types.ADD_QUOTE_WATCHER,
     payload: { orderID, quote },
-  };
-};
-
-export const postQuote = (payload) => {
-  return {
-    type: types.POST_QUOTE_SUCCESS,
-    payload,
   };
 };

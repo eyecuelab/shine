@@ -34,4 +34,8 @@ function* postOrder(order, token) {
   }
 }
 
-export { fetchOrders, postOrder };
+function* publishOrder(request, token, orderID) {
+  console.log('R: ', request);
+}
+
+export { fetchOrders, postOrder, publishOrder };

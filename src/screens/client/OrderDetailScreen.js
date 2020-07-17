@@ -5,6 +5,9 @@ import {
   TextInput,
   StyleSheet,
   KeyboardAvoidingView,
+  Keyboard,
+  Alert,
+  Modal,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
@@ -13,6 +16,7 @@ import AddOnSwitch from '../../components/order/AddOnSwitch';
 import PriceTagBlack from '../../components/shared/PriceTagBlack';
 import DashedLine from '../../components/shared/Dash';
 import ShoePhoto from '../../components/shared/ShoePhoto';
+import { formatDate } from '../../components/shared/FormatDate';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
@@ -20,7 +24,7 @@ import _ from 'lodash';
 
 const { width } = Dimensions.get('window');
 
-const OrderDetailScreen = ({ navigation, postOrder }) => {
+const OrderDetailScreen = ({ navigation, postOrder, publishOrderWatcher }) => {
   const route = useRoute();
   const item = route.params;
 
@@ -65,12 +69,15 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
   const [locState, setLocState] = useState('');
   const [postalCode, setPostalCode] = useState('');
 
+  const currentDate = formatDate(new Date());
+
   const inputEl2 = useRef(null);
   const inputEl3 = useRef(null);
   const inputEl4 = useRef(null);
   const inputEl5 = useRef(null);
 
-  console.log('IMAGE URL', item.image);
+  const [modalVisible, setModalVisible] = useState(false);
+  console.log(modalVisible);
 
   const handleSubmit = () => {
     postOrder({
@@ -89,7 +96,13 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
       state: locState,
       postal_code: postalCode,
     });
-    navigation.navigate('Home');
+    setModalVisible(!modalVisible);
+    // publishOrderWatcher({ published_at: currentDate });
+    // navigation.navigate('Home');
+  };
+
+  const handlePublish = () => {
+    publishOrderWatcher({ published_at: currentDate });
   };
 
   return (
@@ -98,6 +111,32 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
         behavior={Platform.OS == 'ios' ? 'position' : 'height'}
       >
         {ShoePhoto(item.image)}
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}
+        >
+          <ModalContainer>
+            <ModalView>
+              <ModalText>Would you like to publish this order?</ModalText>
+              <ModalItem onPress={handlePublish}>
+                <RedText>Publish</RedText>
+              </ModalItem>
+              <ModalItem
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <BlueText>Cancel</BlueText>
+              </ModalItem>
+            </ModalView>
+          </ModalContainer>
+        </Modal>
+
         <Container>
           <Text>Nice! The shoe cleaners are ready to work!</Text>
           <SwitchTextContainer>
@@ -202,6 +241,58 @@ const styles = StyleSheet.create({
   },
 });
 
+const ModalContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-top: 22px;
+`;
+
+const ModalView = styled.View`
+  margin: 20px;
+  background-color: #e6e6e6;
+  border-radius: 20;
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
+  shadow-color: #000;
+  shadow-opacity: 0.25;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const ModalItem = styled.TouchableOpacity`
+  width: 50%;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  background-color: #e6e6e6;
+  padding-top: 20px;
+  border-top-width: 1px;
+  border-top-color: #939393;
+`;
+
+const ModalText = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
+  margin: 20px;
+  text-align: center;
+`;
+
+const RedText = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
+  margin-right: 10px;
+  color: #8e1818;
+`;
+
+const BlueText = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
+  margin-right: 10px;
+  color: #3483eb;
+`;
+
 const Container = styled.View`
   align-items: center;
   justify-content: center;
@@ -252,6 +343,7 @@ const PriceText = styled.Text`
 OrderDetailScreen.propTypes = {
   navigation: PropTypes.object,
   postOrder: PropTypes.func,
+  publishOrder: PropTypes.func,
   requestComplete: PropTypes.func,
   orders: PropTypes.array,
 };
