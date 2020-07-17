@@ -121,8 +121,15 @@ const QuotableOrderDetailScreen = ({
       </Container>
 
       <DashedLine />
-      {item.status ? (
-        <StatusText>{item.status}</StatusText>
+      {cleaner.quotedStatus[item.id] == 'Requested' ? (
+        <>
+          <QuoteContainer>
+            <StatusText>Quote has been successfully requested.</StatusText>
+            <ListText>Quoted Price: {quotedPrice}</ListText>
+            <ListText>Quote Expired At: {formatDateTime(expireDate)}</ListText>
+            <ListText>Returned By:{formatDate(completeDate)}</ListText>
+          </QuoteContainer>
+        </>
       ) : (
         <>
           <QuoteContainer>
