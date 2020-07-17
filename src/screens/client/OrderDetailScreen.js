@@ -16,7 +16,7 @@ import AddOnSwitch from '../../components/order/AddOnSwitch';
 import PriceTagBlack from '../../components/shared/PriceTagBlack';
 import DashedLine from '../../components/shared/Dash';
 import ShoePhoto from '../../components/shared/ShoePhoto';
-import { formatDate } from '../../components/shared/FormatDate';
+// import { formatDate } from '../../components/shared/FormatDate';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
@@ -69,7 +69,7 @@ const OrderDetailScreen = ({ navigation, postOrder, publishOrderWatcher }) => {
   const [locState, setLocState] = useState('');
   const [postalCode, setPostalCode] = useState('');
 
-  const currentDate = formatDate(new Date());
+  // const currentDate = formatDate(new Date());
 
   const inputEl2 = useRef(null);
   const inputEl3 = useRef(null);
@@ -77,7 +77,6 @@ const OrderDetailScreen = ({ navigation, postOrder, publishOrderWatcher }) => {
   const inputEl5 = useRef(null);
 
   const [modalVisible, setModalVisible] = useState(false);
-  console.log(modalVisible);
 
   const handleSubmit = () => {
     postOrder({
@@ -101,9 +100,9 @@ const OrderDetailScreen = ({ navigation, postOrder, publishOrderWatcher }) => {
     // navigation.navigate('Home');
   };
 
-  const handlePublish = () => {
-    publishOrderWatcher({ published_at: currentDate });
-  };
+  // const handlePublish = () => {
+  //   publishOrderWatcher({ published_at: currentDate });
+  // };
 
   return (
     <ScrollViewContailner>
@@ -112,7 +111,7 @@ const OrderDetailScreen = ({ navigation, postOrder, publishOrderWatcher }) => {
       >
         {ShoePhoto(item.image)}
 
-        <Modal
+        {/* <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}
@@ -135,7 +134,7 @@ const OrderDetailScreen = ({ navigation, postOrder, publishOrderWatcher }) => {
               </ModalItem>
             </ModalView>
           </ModalContainer>
-        </Modal>
+        </Modal> */}
 
         <Container>
           <Text>Nice! The shoe cleaners are ready to work!</Text>

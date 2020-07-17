@@ -36,10 +36,10 @@ export const setPostError = (error) => {
   };
 };
 
-export const publishOrderWatcher = (payload) => {
+export const publishOrderWatcher = ({ orderID, publishedAt }) => {
   return {
     type: types.PUBLISH_ORDER_WATCHER,
-    payload,
+    payload: { orderID, publishedAt },
   };
 };
 

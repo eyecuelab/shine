@@ -34,7 +34,7 @@ function* postOrder(order, token) {
   }
 }
 
-function* publishOrder(request, token, orderID) {
+function* publishOrder(request, token) {
   console.log('R: ', request);
 }
 
