@@ -1,9 +1,9 @@
 import React from 'react';
-import { Dimensions, View } from 'react-native';
+import { Dimensions } from 'react-native';
 import Dash from 'react-native-dash';
 import styled from 'styled-components/native';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const DashedLine = () => {
   return (

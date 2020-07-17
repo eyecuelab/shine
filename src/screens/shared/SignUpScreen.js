@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import * as React from 'react';
 import {
   Dimensions,
@@ -9,7 +10,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
-import { useNavigation } from '@react-navigation/native';
+// import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-elements';
 import { Feather } from '@expo/vector-icons';
 import * as actions from '../../rdx/actions';
@@ -28,7 +29,7 @@ const SignUpScreen = ({ signupWatcher, users }) => {
   };
 
   const statusMessage = users.signupMessage;
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const inputEl2 = React.useRef(null);
   const inputEl3 = React.useRef(null);

@@ -20,7 +20,7 @@ import _ from 'lodash';
 
 const { width } = Dimensions.get('window');
 
-const OrderDetailScreen = ({ navigation, postOrder, publishOrderWatcher }) => {
+const OrderDetailScreen = ({ navigation, postOrder }) => {
   const route = useRoute();
   const item = route.params;
 
@@ -93,6 +93,7 @@ const OrderDetailScreen = ({ navigation, postOrder, publishOrderWatcher }) => {
   return (
     <ScrollViewContailner>
       <KeyboardAvoidingView
+        // eslint-disable-next-line no-undef
         behavior={Platform.OS == 'ios' ? 'position' : 'height'}
       >
         {ShoePhoto(item.image)}
@@ -166,6 +167,7 @@ const OrderDetailScreen = ({ navigation, postOrder, publishOrderWatcher }) => {
             returnKeyType="done"
             onChangeText={(text) => setPostalCode(text)}
             value={postalCode}
+            onSubmitEditing={() => inputEl5.current.focus()}
           />
 
           <DashedLine />
