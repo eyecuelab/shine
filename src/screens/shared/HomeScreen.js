@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react';
-import { Dimensions } from 'react-native';
+// import { Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../rdx/actions';
 import { useNavigation } from '@react-navigation/native';
@@ -21,41 +21,9 @@ const HomeScreen = ({ orders, users }) => {
   const userId = users.data ? users.data.included[0].id : null;
 
   return (
-    // <ScrollViewContainer>
-    <ListContainer>
-      {orders.length == 0 ? (
-        <>
-          <HomeContainer>
-            <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-              <Image source={require('../../../assets/images/logo.png')} />
-            </ImageArea>
-          </HomeContainer>
-        </>
-      ) : (
-        orders.map((item) =>
-          item.attributes.user_id == userId ? (
-            <>
-              <ItemsContainer
-                key={item.attributes.uuid}
-                onPress={() => handleClick(item)}
-              >
-                <OrderItem order={item} />
-              </ItemsContainer>
-            </>
-          ) : null,
-        )
-      )}
-      {/* {orders.map((item) =>
-        item.attributes.user_id == userId ? (
-          <>
-            <ItemsContainer
-              key={item.attributes.uuid}
-              onPress={() => handleClick(item)}
-            >
-              <OrderItem order={item} />
-            </ItemsContainer>
-          </>
-        ) : (
+    <ScrollViewContainer>
+      <ListContainer>
+        {orders.length == 0 ? (
           <>
             <HomeContainer>
               <ImageArea onPress={() => navigation.navigate('NewOrder')}>
@@ -63,10 +31,17 @@ const HomeScreen = ({ orders, users }) => {
               </ImageArea>
             </HomeContainer>
           </>
-        ),
-      )} */}
-    </ListContainer>
-    // </ScrollViewContainer>
+        ) : (
+          orders.map((item) =>
+            item.attributes.user_id == userId ? (
+              <ItemsContainer key={item.id} onPress={() => handleClick(item)}>
+                <OrderItem order={item} />
+              </ItemsContainer>
+            ) : null,
+          )
+        )}
+      </ListContainer>
+    </ScrollViewContainer>
   );
 };
 

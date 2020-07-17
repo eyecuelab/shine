@@ -21,7 +21,6 @@ import {
 } from '../../components/shared/UploadPhotoFunctions';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
-
 const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
   const [userProfile, setUserProfile] = useState({
     street_address: user.street_address,
@@ -30,6 +29,7 @@ const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
     postal_code: user.postal_code,
     phone: user.phone,
   });
+  console.log(user);
 
   const [profilePhoto, setProfilePhoto] = useState(
     user.image_url ? user.image_url : '',
@@ -68,15 +68,21 @@ const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
   const inputEl4 = React.useRef(null);
   const inputEl5 = React.useRef(null);
 
+  console.log(user.email);
+
   const onSubmit = () => {
-    editProfileWatcher({
-      image_url: profilePhoto,
-      street_address: userProfile.street_address,
-      city: userProfile.city,
-      state: userProfile.state,
-      postal_code: userProfile.postal_code,
-      phone: userProfile.phone,
-    });
+    editProfileWatcher(
+      {
+        image_url: profilePhoto,
+        email: user.email,
+        street_address: userProfile.street_address,
+        city: userProfile.city,
+        state: userProfile.state,
+        postal_code: userProfile.postal_code,
+        phone: userProfile.phone,
+      },
+      user.email,
+    );
   };
   const ProfilePhotoDisplay = () => {
     if (profilePhoto === '') {

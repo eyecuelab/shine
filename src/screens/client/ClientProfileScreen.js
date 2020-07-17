@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
@@ -6,19 +5,22 @@ import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
+import { useNavigation } from '@react-navigation/native';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
-const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
+const ClientProfileScreen = ({ users, logoutWatcher }) => {
+  const navigation = useNavigation();
   const onSubmit = () => {
     logoutWatcher();
+    navigation.navigate('LogIn');
   };
 
   // const profilePhoto = users.data.included[0].attributes.image_url;
   const profilePhoto = users.data.included[0].attributes.image_url
     ? users.data.included[0].attributes.image_url
     : '';
-  console.log(profilePhoto);
+  // console.log(profilePhoto);
 
   const ProfilePhotoDisplay = () => {
     if (profilePhoto === '') {
@@ -169,7 +171,7 @@ const CenterText = styled.Text`
 `;
 
 ClientProfileScreen.propTypes = {
-  navigation: PropTypes.object,
+  // navigation: PropTypes.object,
   users: PropTypes.object,
   logoutWatcher: PropTypes.func,
 };
