@@ -5,11 +5,12 @@ import {
   editCleanerService,
   deleteCleanerService,
   loadQuotableOrdersService,
+  postQuoteService,
 } from '../services/cleanerService';
 import { call, put, select } from 'redux-saga/effects';
 
 export const getToken = (state) => state.users.data.data.attributes.token;
-export const getUserID = (state) => state.cleaner.data.id;
+export const getCleanerID = (state) => state.cleaner.data.id;
 
 export function* cleanerApplySaga(action) {
   try {
@@ -29,12 +30,12 @@ export function* cleanerApplySaga(action) {
 
 export function* editCleanerSaga(action) {
   try {
-    const userID = yield select(getUserID);
+    const cleanerID = yield select(getCleanerID);
     const token = yield select(getToken);
     let response = yield call(
       editCleanerService,
       action.payload,
-      userID,
+      cleanerID,
       token,
     );
     if (response.status >= 200 && response.status < 300) {
@@ -51,9 +52,9 @@ export function* editCleanerSaga(action) {
 
 export function* deleteCleanerSaga() {
   try {
-    const userID = yield select(getUserID);
+    const cleanerID = yield select(getCleanerID);
     const token = yield select(getToken);
-    let response = yield call(deleteCleanerService, userID, token);
+    let response = yield call(deleteCleanerService, cleanerID, token);
     if (response.ok && response.status === 204) {
       yield put({ type: types.DELETE_CLEANER_SUCCESS });
     } else {
@@ -66,9 +67,9 @@ export function* deleteCleanerSaga() {
 
 export function* loadQuotableOrdersSaga() {
   try {
-    const userID = yield select(getUserID);
+    const cleanerID = yield select(getCleanerID);
     const token = yield select(getToken);
-    let response = yield call(loadQuotableOrdersService, userID, token);
+    let response = yield call(loadQuotableOrdersService, cleanerID, token);
     if (response.ok && response.status === 200) {
       const data = yield response.json();
       yield put(actions.setQuotableOrders(data.data));
@@ -77,5 +78,27 @@ export function* loadQuotableOrdersSaga() {
     }
   } catch (error) {
     console.log('LOAD QUOTABLE ORDERS ERROR:', error);
+  }
+}
+
+export function* postQuoteSaga(action) {
+  console.log(action.payload);
+  try {
+    const cleanerID = yield select(getCleanerID);
+    const token = yield select(getToken);
+    let response = yield call(
+      postQuoteService,
+      action.payload,
+      cleanerID,
+      token,
+    );
+    if (response.ok && response.status === 204) {
+      yield put({ type: types.POST_QUOTE_SUCCESS });
+    } else {
+      throw yield response.json();
+    }
+  } catch (error) {
+    console.log('POST QUOTE ERROR:', error);
+    yield put({ type: types.POST_QUOTE_ERROR, error: error.message });
   }
 }
