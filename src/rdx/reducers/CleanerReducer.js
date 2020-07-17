@@ -1,4 +1,5 @@
 import * as types from '../actions/types';
+import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialCleanerState = {
   data: null,
@@ -8,6 +9,10 @@ const initialCleanerState = {
 
 const cleanerReducer = (state = initialCleanerState, action) => {
   switch (action.type) {
+    // case REHYDRATE:
+    //   return {
+    //     ...state,
+    //   };
     case types.LOAD_CLEANER:
       return {
         data:
@@ -54,9 +59,18 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         quotableOrders: action.payload,
         errorMessage: null,
       };
-    case types.POST_ORDER_SUCCESS:
+    case types.POST_QUOTE_SUCCESS:
       return {
         ...state,
+        quotableOrders: state.quotableOrders.map((item) => {
+          if (item.id === action.payload) {
+            return {
+              ...item,
+              status: 'Quote has been successfully requested.',
+            };
+          }
+          return item;
+        }),
         errorMessage: null,
       };
     case types.POST_QUOTE_ERROR:

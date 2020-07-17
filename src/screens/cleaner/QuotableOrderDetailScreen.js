@@ -14,7 +14,12 @@ import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const QuotableOrderDetailScreen = ({ route, addQuoteWatcher }) => {
+const QuotableOrderDetailScreen = ({
+  route,
+  addQuoteWatcher,
+  cleaner,
+  navigation,
+}) => {
   const item = route.params;
   const orderID = item.id;
 
@@ -71,11 +76,12 @@ const QuotableOrderDetailScreen = ({ route, addQuoteWatcher }) => {
         delivery_by: formatDate(completeDate),
       },
     });
+    navigation.navigate('Orders In Area');
   };
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto(item.image)}
+      {ShoePhoto(item.attributes.image_url)}
       <InfoText>Order Id: {item.id}</InfoText>
       <InfoText>Time Frame: {item.attributes.time_frame}</InfoText>
       <InfoText>
@@ -115,89 +121,95 @@ const QuotableOrderDetailScreen = ({ route, addQuoteWatcher }) => {
       </Container>
 
       <DashedLine />
-      <QuoteContainer>
-        <TitleText>Create a Quote</TitleText>
-        <Input
-          label="Quoted Price"
-          labelStyle={{ fontSize: 20, color: '#939393' }}
-          leftIcon={
-            <FontAwesome
-              name="dollar"
-              size={20}
-              color="black"
-              style={{ marginRight: 5 }}
+      {item.status ? (
+        <StatusText>{item.status}</StatusText>
+      ) : (
+        <>
+          <QuoteContainer>
+            <TitleText>Create a Quote</TitleText>
+            <Input
+              label="Quoted Price"
+              labelStyle={{ fontSize: 20, color: '#939393' }}
+              leftIcon={
+                <FontAwesome
+                  name="dollar"
+                  size={20}
+                  color="black"
+                  style={{ marginRight: 5 }}
+                />
+              }
+              placeholder={estimatedPrice}
+              value={quotedPrice}
+              onChangeText={(text) => setQuotedPrice(text)}
             />
-          }
-          placeholder={estimatedPrice}
-          value={quotedPrice}
-          onChangeText={(text) => setQuotedPrice(text)}
-        />
 
-        <DatePickerContainer>
-          <ListText>Expired At</ListText>
-          <DateText>
-            <FontAwesome
-              name="calendar"
-              size={24}
-              color="black"
-              style={{ marginRight: 5 }}
-            />{' '}
-            {formatDateTime(expireDate)}
-          </DateText>
-          <TouchableOpacity onPress={showDatepicker}>
-            <DatePickerText>Set Expire Date</DatePickerText>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={showTimepicker}>
-            <DatePickerText>Set Expire Time</DatePickerText>
-          </TouchableOpacity>
-          {showExpire && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={expireDate}
-              mode={mode}
-              is24Hour={true}
-              display="default"
-              onChange={onExpireDateChange}
-            />
-          )}
-        </DatePickerContainer>
+            <DatePickerContainer>
+              <ListText>Expired At</ListText>
+              <DateText>
+                <FontAwesome
+                  name="calendar"
+                  size={24}
+                  color="black"
+                  style={{ marginRight: 5 }}
+                />{' '}
+                {formatDateTime(expireDate)}
+              </DateText>
+              <TouchableOpacity onPress={showDatepicker}>
+                <DatePickerText>Set Expire Date</DatePickerText>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={showTimepicker}>
+                <DatePickerText>Set Expire Time</DatePickerText>
+              </TouchableOpacity>
+              {showExpire && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={expireDate}
+                  mode={mode}
+                  is24Hour={true}
+                  display="default"
+                  onChange={onExpireDateChange}
+                />
+              )}
+            </DatePickerContainer>
 
-        <DatePickerContainer>
-          <ListText>Delivery By</ListText>
-          <DateText>
-            <FontAwesome
-              name="calendar-check-o"
-              size={24}
-              color="black"
-              style={{ marginRight: 5 }}
-            />{' '}
-            {formatDate(completeDate)}
-          </DateText>
-          <TouchableOpacity onPress={showCompleteDatePicker}>
-            <DatePickerText>Set Complete Date</DatePickerText>
-          </TouchableOpacity>
-          {showComplete && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={completeDate}
-              mode={mode}
-              is24Hour={true}
-              display="default"
-              onChange={onCompleteDateChange}
+            <DatePickerContainer>
+              <ListText>Delivery By</ListText>
+              <DateText>
+                <FontAwesome
+                  name="calendar-check-o"
+                  size={24}
+                  color="black"
+                  style={{ marginRight: 5 }}
+                />{' '}
+                {formatDate(completeDate)}
+              </DateText>
+              <TouchableOpacity onPress={showCompleteDatePicker}>
+                <DatePickerText>Set Complete Date</DatePickerText>
+              </TouchableOpacity>
+              {showComplete && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={completeDate}
+                  mode={mode}
+                  is24Hour={true}
+                  display="default"
+                  onChange={onCompleteDateChange}
+                />
+              )}
+            </DatePickerContainer>
+            <Button
+              title="SUBMIT"
+              containerStyle={{ paddingTop: 10, width: 330 }}
+              buttonStyle={{
+                backgroundColor: 'black',
+                height: 50,
+                borderRadius: 7,
+              }}
+              onPress={onSubmit}
             />
-          )}
-        </DatePickerContainer>
-        <Button
-          title="SUBMIT"
-          containerStyle={{ paddingTop: 10, width: 330 }}
-          buttonStyle={{
-            backgroundColor: 'black',
-            height: 50,
-            borderRadius: 7,
-          }}
-          onPress={onSubmit}
-        />
-      </QuoteContainer>
+          </QuoteContainer>
+        </>
+      )}
     </ScrollViewContailner>
   );
 };
@@ -292,6 +304,14 @@ const DatePickerContainer = styled.View`
   margin-bottom: 25px;
 `;
 
+const StatusText = styled.Text`
+  text-align: center;
+  color: #8e1818;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 20px 10px 50px 10px;
+`;
+
 QuotableOrderDetailScreen.propTypes = {
   navigation: PropTypes.object,
   orders: PropTypes.array,
@@ -300,7 +320,7 @@ QuotableOrderDetailScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders, cleaner: state.cleaner };
+  return { orders: state.orders.orders, cleaner: state.cleaner };
 };
 
 export default connect(mapStateToProps, actions)(QuotableOrderDetailScreen);
