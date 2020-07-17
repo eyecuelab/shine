@@ -23,10 +23,6 @@ const orderReducer = (state = initialOrdersState, action) => {
         orders: [],
       };
     case types.PUBLISH_ORDER_SUCCESS:
-<<<<<<< HEAD
-      // console.log('REDUCER', action.payload);
-=======
->>>>>>> development
       return {
         ...state,
         orders: state.orders.map((item) => {
