@@ -1,5 +1,11 @@
 import { takeLatest } from 'redux-saga/effects';
-import { loginSaga, logoutSaga, signupSaga, editProfileSaga } from './authSaga';
+import {
+  loginSaga,
+  logoutSaga,
+  signupSaga,
+  editProfileSaga,
+  editPasswordSaga,
+} from './authSaga';
 import {
   cleanerApplySaga,
   editCleanerSaga,
@@ -13,6 +19,7 @@ export function* watchUserAuthentication() {
   yield takeLatest(types.LOGOUT_WATCHER, logoutSaga);
   yield takeLatest(types.SIGNUP_WATCHER, signupSaga);
   yield takeLatest(types.EDIT_PROFILE_WATCHER, editProfileSaga);
+  yield takeLatest(types.UPDATE_PASSWORD, editPasswordSaga);
 }
 
 export function* watchCleanerActions() {

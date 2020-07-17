@@ -79,3 +79,26 @@ export function* editProfileSaga(action) {
     yield put({ type: types.UPDATE_PROFILE_ERROR, error: error.message });
   }
 }
+
+export function* editPasswordSaga(action) {
+  try {
+    const token = yield select(getToken);
+    let response = yield call(editProfileService, action.payload, token);
+    if (response.status >= 200 && response.status < 300) {
+      // const data = yield response.json();
+      // const userData = data.data;
+      // yield put(actions.updateProfile(userData));
+      yield call(
+        loginSaga({
+          email: action.payload.email,
+          password: action.payload.password,
+        }),
+      );
+    } else {
+      throw yield response.json();
+    }
+  } catch (error) {
+    console.log('EDIT PROFILE ERROR: ', error);
+    yield put({ type: types.UPDATE_PROFILE_ERROR, error: error.message });
+  }
+}
