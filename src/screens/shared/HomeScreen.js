@@ -9,9 +9,10 @@ import styled from 'styled-components/native';
 import OrderItem from '../../components/order/OrderItem';
 import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
 
-const HomeScreen = ({ orders, users }) => {
+const HomeScreen = ({ orders, users, getOrderByIdWatcher }) => {
   const navigation = useNavigation();
   const handleClick = (item) => {
+    getOrderByIdWatcher(item.id);
     if (item.attributes.quote_accepted_at === null) {
       navigation.navigate('OrderFinal', item);
     } else {
@@ -95,6 +96,7 @@ const Text = styled.Text`
 HomeScreen.propTypes = {
   orders: PropTypes.array,
   users: PropTypes.object,
+  getOrderByIdWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {

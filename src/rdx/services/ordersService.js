@@ -51,4 +51,20 @@ const publishOrder = async (request, token) => {
   }
 };
 
-export { fetchOrders, postOrder, publishOrder };
+const getOrderById = async (orderID, token) => {
+  const urlLink = `http://127.0.0.1:8080/orders/${orderID}`;
+  const response = await fetch(urlLink, {
+    method: 'GET',
+    headers: {
+      Authorization: token,
+    },
+  });
+  const result = await response.json();
+  if (response.ok && response.status === 200) {
+    return result;
+  } else {
+    throw new Error(response.json());
+  }
+};
+
+export { fetchOrders, postOrder, publishOrder, getOrderById };

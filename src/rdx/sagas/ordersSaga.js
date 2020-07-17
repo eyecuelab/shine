@@ -4,6 +4,7 @@ import {
   fetchOrders,
   postOrder,
   publishOrder,
+  getOrderById,
 } from '../services/ordersService';
 import {
   setOrders,
@@ -12,6 +13,8 @@ import {
   setPostError,
   setPublishedOrder,
   setPublishError,
+  setCurrentOrder,
+  setGetOrderByIdError,
 } from '../actions';
 
 export const getToken = (state) => state.users.data.data.attributes.token;
@@ -46,6 +49,17 @@ export function* publishOrderSaga(action) {
   }
 }
 
+export function* getOrderByIdSaga(action) {
+  try {
+    const orderID = action.payload;
+    const token = yield select(getToken);
+    const result = yield call(getOrderById, orderID, token);
+    console.log('SAGA', result);
+  } catch (error) {
+    yield put(setGetOrderByIdError(error.toString()));
+  }
+}
+
 export default function* watchOrdersLoad() {
   yield takeEvery(types.LOAD_ORDERS, handleOrdersLoad);
 }
@@ -60,4 +74,8 @@ export function* watchOrdersReload() {
 
 export function* watchPublishOrder() {
   yield takeLatest(types.PUBLISH_ORDER_WATCHER, publishOrderSaga);
+}
+
+export function* watchGetOrderById() {
+  yield takeLatest(types.GET_ORDER_BY_ID_WATCHER, getOrderByIdSaga);
 }

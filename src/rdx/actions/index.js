@@ -102,6 +102,27 @@ export const deleteOrder = (uuid) => {
   };
 };
 
+export const getOrderByIdWatcher = (payload) => {
+  return {
+    type: types.GET_ORDER_BY_ID_WATCHER,
+    payload,
+  };
+};
+
+export const setCurrentOrder = (payload) => {
+  return {
+    type: types.GET_ORDER_BY_ID_SUCCESS,
+    payload,
+  };
+};
+
+export const setGetOrderByIdError = (error) => {
+  return {
+    type: types.GET_ORDER_BY_ID_ERROR,
+    error,
+  };
+};
+
 // ====== USERS ACTION CREATORS ======= //
 
 export const loginWatcher = (payload) => {

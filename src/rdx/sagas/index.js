@@ -4,6 +4,7 @@ import watchOrdersLoad, {
   watchPostOrder,
   watchOrdersReload,
   watchPublishOrder,
+  watchGetOrderById,
 } from './ordersSaga';
 
 export default function* rootSaga() {
@@ -14,5 +15,6 @@ export default function* rootSaga() {
     watchCleanerActions(),
     watchOrdersReload(),
     watchPublishOrder(),
+    watchGetOrderById(),
   ]);
 }
