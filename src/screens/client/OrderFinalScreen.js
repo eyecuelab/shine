@@ -7,7 +7,6 @@ import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
-import { formatDate } from '../../components/shared/FormatDate';
 import PriceTagWhite from '../../components/shared/PriceTagWhite';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
 import { Button } from 'react-native-elements';
@@ -27,6 +26,7 @@ const OrderFinalScreen = ({ navigation, publishOrderWatcher }) => {
       publishedAt: { published_at: currentDate },
     });
     setModalVisible(!modalVisible);
+    navigation.navigate('Home');
   };
 
   const handleSubmit = () => {

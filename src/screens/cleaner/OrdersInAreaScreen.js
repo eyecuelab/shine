@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
 import styled from 'styled-components/native';
 import OrderItem from '../../components/order/OrderItem';
+import OrderItemCompleted from '../../components/order/OrderItemCompleted';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
@@ -17,7 +18,12 @@ const OrdersInAreaScreen = ({ orders, cleaner, navigation }) => {
               key={item.attributes.uuid}
               onPress={() => navigation.navigate('Order Detail', item)}
             >
-              <OrderItem order={item} />
+              {console.log(item.status)}
+              {item.status ? (
+                <OrderItemCompleted order={item} />
+              ) : (
+                <OrderItem order={item} />
+              )}
             </ItemsContainer>
           ))}
       </Container>

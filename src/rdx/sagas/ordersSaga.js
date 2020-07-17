@@ -40,7 +40,6 @@ export function* publishOrderSaga(action) {
   try {
     const token = yield select(getToken);
     const result = yield call(publishOrder, action.payload, token);
-    console.log('SAGA', result);
     yield put(setPublishedOrder(result));
   } catch (error) {
     yield put(setPublishError(error.toString()));

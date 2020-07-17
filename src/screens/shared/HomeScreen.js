@@ -36,7 +36,7 @@ const HomeScreen = ({ orders, users }) => {
     return (
       <HomeContainer>
         <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-          <Image source={require('../../../assets/images/logo-outline.png')} />
+          <Image source={require('../../../assets/images/logo-clear.png')} />
         </ImageArea>
       </HomeContainer>
     );
