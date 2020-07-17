@@ -29,7 +29,7 @@ const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
     postal_code: user.postal_code,
     phone: user.phone,
   });
-  console.log(user);
+  // console.log('USER: ', user);
 
   const [profilePhoto, setProfilePhoto] = useState(
     user.image_url ? user.image_url : '',
@@ -68,7 +68,7 @@ const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
   const inputEl4 = React.useRef(null);
   const inputEl5 = React.useRef(null);
 
-  console.log(user.email);
+  // console.log(user.email);
 
   const onSubmit = () => {
     editProfileWatcher(

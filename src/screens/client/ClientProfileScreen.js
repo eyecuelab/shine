@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
-const ClientProfileScreen = ({ user, navigation, logoutWatcher }) => {
+const ClientProfileScreen = ({ users, user, navigation, logoutWatcher }) => {
   // const navigation = useNavigation();
   const onSubmit = () => {
     logoutWatcher();
@@ -17,8 +17,10 @@ const ClientProfileScreen = ({ user, navigation, logoutWatcher }) => {
   };
 
   // const profilePhoto = users.data.included[0].attributes.image_url;
+  // console.log('USER', user);
+  // console.log('USERSSS', users);
   const profilePhoto = user ? user.image_url : '';
-  // console.log(profilePhoto);
+  console.log(profilePhoto);
   // const profilePhoto = users.data
   //   ? users.data.included[0].attributes.image_url
   //   : '';
@@ -174,6 +176,7 @@ const mapStateToProps = (state) => {
     user: state.users.data
       ? state.users.data.included[0].attributes
       : state.users.data,
+    users: state.users,
   };
 };
 

@@ -18,7 +18,7 @@ const HomeScreen = ({ orders, users }) => {
       navigation.navigate('OrderStatus', item);
     }
   };
-  console.log('HOMESCREEN: ', users);
+  // console.log('HOMESCREEN: ', users);
   // const userId = users.data ? users.data.included[0].id : null;
 
   if (orders.length !== 0) {
