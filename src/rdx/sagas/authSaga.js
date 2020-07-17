@@ -36,12 +36,14 @@ export function* logoutSaga() {
     const token = yield select(getToken);
     let response = yield call(logoutUserService, token);
     if (response.ok && response.status === 200) {
+      console.log('RESPONSE', response);
+      console.log('SUCCESS!');
       yield put({ type: types.LOGOUT_SUCCESS });
     } else {
       throw yield response.json();
     }
   } catch (error) {
-    console.log('LOGOUT ERROR:', error);
+    console.log('ERROR', error.message);
   }
 }
 

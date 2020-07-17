@@ -9,17 +9,15 @@ import { useNavigation } from '@react-navigation/native';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
-const ClientProfileScreen = ({ users, logoutWatcher }) => {
+const ClientProfileScreen = ({ user, logoutWatcher }) => {
   const navigation = useNavigation();
   const onSubmit = () => {
     logoutWatcher();
-    navigation.navigate('LogIn');
+    navigation.navigate('Home');
   };
 
   // const profilePhoto = users.data.included[0].attributes.image_url;
-  const profilePhoto = users.data.included[0].attributes.image_url
-    ? users.data.included[0].attributes.image_url
-    : '';
+  const profilePhoto = user.image_url ? user.image_url : '';
   // console.log(profilePhoto);
 
   const ProfilePhotoDisplay = () => {
@@ -38,21 +36,13 @@ const ClientProfileScreen = ({ users, logoutWatcher }) => {
         <ProfileBackground>
           <Container>
             <ProfilePhotoDisplay />
-            <Name>
-              {users.data
-                ? users.data.included[0].attributes.first_name +
-                  ' ' +
-                  users.data.included[0].attributes.last_name
-                : null}
-            </Name>
+            <Name>{user ? user.first_name + ' ' + user.last_name : null}</Name>
           </Container>
         </ProfileBackground>
 
         <ListItem>
           <Text>Account</Text>
-          <Text>
-            {users.data ? users.data.included[0].attributes.email : null}
-          </Text>
+          <Text>{user ? user.email : null}</Text>
         </ListItem>
 
         <ListItem onPress={() => navigation.navigate('Change Password')}>
@@ -172,12 +162,12 @@ const CenterText = styled.Text`
 
 ClientProfileScreen.propTypes = {
   // navigation: PropTypes.object,
-  users: PropTypes.object,
+  user: PropTypes.object,
   logoutWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
-  return { users: state.users };
+  return { user: state.users.data.included[0].attributes };
 };
 
 export default connect(mapStateToProps, actions)(ClientProfileScreen);
