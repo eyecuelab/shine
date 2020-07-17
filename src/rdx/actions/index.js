@@ -124,6 +124,13 @@ export const updateProfile = (payload) => {
   };
 };
 
+export const updatePassword = (payload) => {
+  return {
+    type: types.UPDATE_PASSWORD,
+    payload,
+  };
+};
+
 // ====== CLEANERS ACTION CREATORS ======= //
 
 export const loadCleaner = (payload) => {
