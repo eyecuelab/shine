@@ -15,6 +15,7 @@ const cleanerReducer = (state = initialCleanerState, action) => {
     //   };
     case types.LOAD_CLEANER:
       return {
+        ...state,
         data:
           action.payload.included[1] !== undefined
             ? action.payload.included[1]
@@ -23,12 +24,14 @@ const cleanerReducer = (state = initialCleanerState, action) => {
       };
     case types.LOGOUT_SUCCESS:
       return {
+        ...state,
         data: null,
         errorMessage: null,
       };
 
     case types.ADD_CLEANER_PROFILE:
       return {
+        ...state,
         data: action.payload,
         errorMessage: null,
       };
@@ -50,6 +53,7 @@ const cleanerReducer = (state = initialCleanerState, action) => {
       };
     case types.DELETE_CLEANER_SUCCESS:
       return {
+        ...state,
         data: null,
         errorMessage: null,
       };
