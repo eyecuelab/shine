@@ -34,4 +34,21 @@ function* postOrder(order, token) {
   }
 }
 
-export { fetchOrders, postOrder };
+const publishOrder = async (request, token) => {
+  const urlLink = `http://127.0.0.1:8080/orders/${request.orderID}`;
+  const response = await fetch(urlLink, {
+    method: 'PATCH',
+    headers: {
+      Authorization: token,
+    },
+    body: JSON.stringify(request.publishedAt),
+  });
+  const result = await response.json();
+  if (response.ok && response.status === 200) {
+    return result;
+  } else {
+    throw new Error(response.json());
+  }
+};
+
+export { fetchOrders, postOrder, publishOrder };

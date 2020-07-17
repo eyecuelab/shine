@@ -12,9 +12,18 @@
 //     expireDate.getMinutes() +
 //     ':00';
 
-export const formatDate = (date) => {
+export const formatDateTime = (date) => {
   const theDate = new Date(date);
   return theDate.toLocaleTimeString('en-us', {
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric',
+  });
+};
+
+export const formatDate = (date) => {
+  const theDate = new Date(date);
+  return theDate.toLocaleDateString('en-us', {
     day: 'numeric',
     month: 'numeric',
     year: 'numeric',

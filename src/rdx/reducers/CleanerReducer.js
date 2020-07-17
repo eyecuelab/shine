@@ -54,6 +54,16 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         quotableOrders: action.payload,
         errorMessage: null,
       };
+    case types.POST_ORDER_SUCCESS:
+      return {
+        ...state,
+        errorMessage: null,
+      };
+    case types.POST_QUOTE_ERROR:
+      return {
+        ...state,
+        errorMessage: action.error,
+      };
     default:
       return state;
   }

@@ -15,8 +15,8 @@ export const applyCleanerService = (request, token) => {
   });
 };
 
-export const editCleanerService = (request, userID, token) => {
-  const url = `http://127.0.0.1:8080/cleaners/${userID}`;
+export const editCleanerService = (request, cleanerID, token) => {
+  const url = `http://127.0.0.1:8080/cleaners/${cleanerID}`;
   const parameters = {
     method: 'PATCH',
     headers: {
@@ -32,8 +32,8 @@ export const editCleanerService = (request, userID, token) => {
   });
 };
 
-export const deleteCleanerService = (userID, token) => {
-  const url = `http://127.0.0.1:8080/cleaners/${userID}`;
+export const deleteCleanerService = (cleanerID, token) => {
+  const url = `http://127.0.0.1:8080/cleaners/${cleanerID}`;
   const parameters = {
     method: 'DELETE',
     headers: {
@@ -48,8 +48,8 @@ export const deleteCleanerService = (userID, token) => {
   });
 };
 
-export const loadQuotableOrdersService = (userID, token) => {
-  const url = `http://127.0.0.1:8080/cleaners/${userID}/orders?quotable=true`;
+export const loadQuotableOrdersService = (cleanerID, token) => {
+  const url = `http://127.0.0.1:8080/cleaners/${cleanerID}/orders?quotable=true`;
   const parameters = {
     method: 'GET',
     headers: {
@@ -57,6 +57,24 @@ export const loadQuotableOrdersService = (userID, token) => {
       'Content-Type': 'application/json',
       Authorization: token,
     },
+  };
+
+  return fetch(url, parameters).then((response) => {
+    return response;
+  });
+};
+
+export const postQuoteService = (request, cleanerID, token) => {
+  console.log('R', request.quote);
+  const url = `http://127.0.0.1:8080/cleaners/${cleanerID}/orders/${request.orderID}/quote`;
+  const parameters = {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+    body: JSON.stringify(request.quote),
   };
 
   return fetch(url, parameters).then((response) => {

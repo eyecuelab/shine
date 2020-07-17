@@ -3,6 +3,7 @@ import { watchUserAuthentication, watchCleanerActions } from './watchers';
 import watchOrdersLoad, {
   watchPostOrder,
   watchOrdersReload,
+  watchPublishOrder,
 } from './ordersSaga';
 
 export default function* rootSaga() {
@@ -12,5 +13,6 @@ export default function* rootSaga() {
     watchPostOrder(),
     watchCleanerActions(),
     watchOrdersReload(),
+    watchPublishOrder(),
   ]);
 }

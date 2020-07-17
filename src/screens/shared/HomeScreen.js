@@ -56,7 +56,7 @@ const HomeContainer = styled.View`
 const ListContainer = styled.View`
   flex: 1;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: white;
   flex-direction: row;
   flex-wrap: wrap;
@@ -73,7 +73,7 @@ const Image = styled.Image`
 `;
 
 const ItemsContainer = styled.TouchableOpacity`
-  margin: 10px;
+  margin: 20px 0px 0px 20px;
 `;
 
 const Header = styled.TouchableOpacity`
@@ -100,7 +100,7 @@ HomeScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders, users: state.users };
+  return { orders: state.orders.orders, users: state.users };
 };
 
 export default connect(mapStateToProps, actions)(HomeScreen);

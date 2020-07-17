@@ -49,7 +49,7 @@ OrdersInAreaScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders, cleaner: state.cleaner };
+  return { orders: state.orders.orders, cleaner: state.cleaner };
 };
 
 export default connect(mapStateToProps, actions)(OrdersInAreaScreen);

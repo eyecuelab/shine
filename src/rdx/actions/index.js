@@ -36,6 +36,27 @@ export const setPostError = (error) => {
   };
 };
 
+export const publishOrderWatcher = ({ orderID, publishedAt }) => {
+  return {
+    type: types.PUBLISH_ORDER_WATCHER,
+    payload: { orderID, publishedAt },
+  };
+};
+
+export const setPublishedOrder = (payload) => {
+  return {
+    type: types.PUBLISH_ORDER_SUCCESS,
+    payload,
+  };
+};
+
+export const setPublishError = (error) => {
+  return {
+    type: types.PUBLISH_ORDER_FAIL,
+    error,
+  };
+};
+
 export const reloadOrders = (result) => {
   return {
     type: types.POST_ORDER_SUCCESS,
@@ -184,5 +205,12 @@ export const setQuotableOrders = (payload) => {
   return {
     type: types.SET_QUOTABLE_ORDERS,
     payload,
+  };
+};
+
+export const addQuoteWatcher = ({ orderID, quote }) => {
+  return {
+    type: types.ADD_QUOTE_WATCHER,
+    payload: { orderID, quote },
   };
 };
