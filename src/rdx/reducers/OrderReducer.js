@@ -8,10 +8,10 @@ const initialOrdersState = {
 
 const orderReducer = (state = initialOrdersState, action) => {
   switch (action.type) {
-    // case REHYDRATE:
-    //   return {
-    //     ...state,
-    //   };
+    case REHYDRATE:
+      return {
+        ...state,
+      };
     case types.LOAD_ORDERS_SUCCESS:
       return {
         ...state,
@@ -23,6 +23,10 @@ const orderReducer = (state = initialOrdersState, action) => {
         orders: [],
       };
     case types.PUBLISH_ORDER_SUCCESS:
+<<<<<<< HEAD
+      // console.log('REDUCER', action.payload);
+=======
+>>>>>>> development
       return {
         ...state,
         orders: state.orders.map((item) => {
@@ -78,20 +82,12 @@ const orderReducer = (state = initialOrdersState, action) => {
     //       };
     //     }
 
-    //     return item;
-    //   });
-    // case types.ADD_ORDER_ADDRESS:
-    //   return state.map((item) => {
-    //     if (item.uuid === action.uuid) {
-    //       return {
-    //         ...item,
-    //         orderAddress: action.payload,
-    //       };
-    //     }
-    //     return item;
-    //   });
     case types.REQUEST_COMPLETE:
+<<<<<<< HEAD
+      // console.log('RE', action.payload);
+=======
       console.log('REQUEST REDUCER:', action.payload);
+>>>>>>> development
       return {
         ...state,
         orders: state.orders.map((item) => {

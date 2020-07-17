@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react';
-import { Dimensions } from 'react-native';
+// import { Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../rdx/actions';
 import { useNavigation } from '@react-navigation/native';
@@ -18,7 +18,8 @@ const HomeScreen = ({ orders, users }) => {
       navigation.navigate('OrderStatus', item);
     }
   };
-  const userId = users.data ? users.data.included[0].id : null;
+  // console.log('HOMESCREEN: ', users);
+  // const userId = users.data ? users.data.included[0].id : null;
 
   if (orders.length !== 0) {
     return (
