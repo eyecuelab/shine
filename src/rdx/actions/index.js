@@ -179,3 +179,17 @@ export const setQuotableOrders = (payload) => {
     payload,
   };
 };
+
+export const addQuoteWatcher = ({ orderID, quote }) => {
+  return {
+    type: types.ADD_QUOTE_WATCHER,
+    payload: { orderID, quote },
+  };
+};
+
+export const postQuote = (payload) => {
+  return {
+    type: types.POST_QUOTE_SUCCESS,
+    payload,
+  };
+};

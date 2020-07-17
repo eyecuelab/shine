@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Platform, TouchableOpacity } from 'react-native';
+import { Platform, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Input, Button } from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
@@ -7,15 +7,17 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
+import DashedLine from '../../components/shared/Dash';
 import PriceTagBlack from '../../components/shared/PriceTagBlack';
 import { formatDate, formatDateTime } from '../../components/shared/FormatDate';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const QuotableOrderDetailScreen = ({ route }) => {
+const QuotableOrderDetailScreen = ({ route, addQuoteWatcher }) => {
   const item = route.params;
-  console.log('DETAIL', item);
+  const orderID = item.id;
+
   const estimatedPrice = item.attributes.estimated_price;
   const [quotedPrice, setQuotedPrice] = useState(estimatedPrice);
 
@@ -61,10 +63,13 @@ const QuotableOrderDetailScreen = ({ route }) => {
   };
 
   const onSubmit = () => {
-    console.log({
-      quoted_price: quotedPrice,
-      expires_at: formatDateTime(expireDate),
-      delivery_by: formatDate(completeDate),
+    addQuoteWatcher({
+      orderID: orderID,
+      quote: {
+        quoted_price: quotedPrice,
+        expires_at: formatDateTime(expireDate),
+        delivery_by: formatDate(completeDate),
+      },
     });
   };
 
@@ -73,7 +78,9 @@ const QuotableOrderDetailScreen = ({ route }) => {
       {ShoePhoto(item.image)}
       <InfoText>Order Id: {item.id}</InfoText>
       <InfoText>Time Frame: {item.attributes.time_frame}</InfoText>
-      <InfoText>Shoe Types: {item.attributes.shoe_types}</InfoText>
+      <InfoText>
+        Shoe Types: {item.attributes.shoe_types.map((i) => i + ' ')}
+      </InfoText>
       <InfoText>Note: {item.attributes.note}</InfoText>
       <InfoText>
         Pickup Address: {item.attributes.street_address} {item.attributes.city}{' '}
@@ -107,6 +114,7 @@ const QuotableOrderDetailScreen = ({ route }) => {
         </PriceContianer>
       </Container>
 
+      <DashedLine />
       <QuoteContainer>
         <TitleText>Create a Quote</TitleText>
         <Input
@@ -209,9 +217,11 @@ const InfoText = styled.Text`
 
 const TitleText = styled.Text`
   font-size: 22px;
-  color: #8e1818;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin: 0px 40px 50px 40px;
+  padding: 15px;
+  text-align: center;
+  background-color: #cbb387;
 `;
 
 const ListText = styled.Text`
@@ -272,9 +282,7 @@ const PriceText = styled.Text`
 `;
 
 const QuoteContainer = styled.View`
-  margin-vertical: 20px;
-  padding: 30px 20px 40px 20px;
-  border: 2px black;
+  padding: 30px 20px 50px 20px;
 `;
 
 const DatePickerContainer = styled.View`
@@ -288,6 +296,7 @@ QuotableOrderDetailScreen.propTypes = {
   navigation: PropTypes.object,
   orders: PropTypes.array,
   cleaner: PropTypes.object,
+  addQuoteWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
