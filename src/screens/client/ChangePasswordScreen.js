@@ -35,7 +35,7 @@ const ChangePasswordScreen = ({
       postal_code: user.postal_code,
       phone: user.phone,
     });
-    // navigation.navigate('Profile');
+    navigation.navigate('Profile');
   };
   return (
     <>
