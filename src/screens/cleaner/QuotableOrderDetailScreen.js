@@ -7,6 +7,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
+import PriceTagBlack from '../../components/shared/PriceTagBlack';
 import { formatDate, formatDateTime } from '../../components/shared/FormatDate';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
@@ -14,7 +15,7 @@ import * as actions from '../../rdx/actions';
 
 const QuotableOrderDetailScreen = ({ route }) => {
   const item = route.params;
-  // console.log('DETAIL', item);
+  console.log('DETAIL', item);
   const estimatedPrice = item.attributes.estimated_price;
   const [quotedPrice, setQuotedPrice] = useState(estimatedPrice);
 
@@ -70,8 +71,15 @@ const QuotableOrderDetailScreen = ({ route }) => {
   return (
     <ScrollViewContailner>
       {ShoePhoto(item.image)}
+      <InfoText>Order Id: {item.id}</InfoText>
+      <InfoText>Time Frame: {item.attributes.time_frame}</InfoText>
+      <InfoText>Shoe Types: {item.attributes.shoe_types}</InfoText>
+      <InfoText>Note: {item.attributes.note}</InfoText>
+      <InfoText>
+        Pickup Address: {item.attributes.street_address} {item.attributes.city}{' '}
+        {item.attributes.state} {', '} {item.attributes.postal_code}
+      </InfoText>
       <Container>
-        <Text>{item.id}</Text>
         <SwitchTextContainer>
           <SwitchText>ADD POLISH</SwitchText>
           <SwitchText>ADD RAIN PROTECTION</SwitchText>
@@ -91,10 +99,16 @@ const QuotableOrderDetailScreen = ({ route }) => {
             switchState={item.attributes.add_ons.replaceLaces}
           />
         </SwitchContainer>
+        <PriceContianer>
+          <PriceTextContainer>
+            <PriceText>ROUGH EST.</PriceText>
+          </PriceTextContainer>
+          {PriceTagBlack(Math.floor(estimatedPrice), 99)}
+        </PriceContianer>
       </Container>
 
       <QuoteContainer>
-        <Text>Create a Quote</Text>
+        <TitleText>Create a Quote</TitleText>
         <Input
           label="Quoted Price"
           labelStyle={{ fontSize: 20, color: '#939393' }}
@@ -112,7 +126,7 @@ const QuotableOrderDetailScreen = ({ route }) => {
         />
 
         <DatePickerContainer>
-          <TitleText>Expired At</TitleText>
+          <ListText>Expired At</ListText>
           <DateText>
             <FontAwesome
               name="calendar"
@@ -141,7 +155,7 @@ const QuotableOrderDetailScreen = ({ route }) => {
         </DatePickerContainer>
 
         <DatePickerContainer>
-          <TitleText>Delivery By</TitleText>
+          <ListText>Delivery By</ListText>
           <DateText>
             <FontAwesome
               name="calendar-check-o"
@@ -187,14 +201,20 @@ const Container = styled.View`
   flex-wrap: wrap;
 `;
 
-const Text = styled.Text`
+const InfoText = styled.Text`
+  font-size: 20px;
+  margin-bottom: 20px;
+  margin-left: 30px;
+`;
+
+const TitleText = styled.Text`
   font-size: 22px;
   color: #8e1818;
   font-weight: 600;
   margin-bottom: 20px;
 `;
 
-const TitleText = styled.Text`
+const ListText = styled.Text`
   font-size: 20px;
   color: #939393;
   font-weight: 700;
@@ -232,6 +252,23 @@ const SwitchText = styled.Text`
 const SwitchContainer = styled.View`
   margin-top: 40px;
   padding-top: 10px;
+`;
+
+const PriceContianer = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const PriceTextContainer = styled.View`
+  margin-right: 110px;
+  justify-content: center;
+`;
+
+const PriceText = styled.Text`
+  text-align: left;
+  padding-left: 10px;
+  color: black;
+  font-size: 18px;
 `;
 
 const QuoteContainer = styled.View`

@@ -13,9 +13,9 @@ const HomeScreen = ({ orders, users }) => {
   const navigation = useNavigation();
   const handleClick = (item) => {
     if (item.attributes.quote_accepted_at === null) {
-      navigation.navigate('OrderFinal', item);
-    } else {
       navigation.navigate('OrderStatus', item);
+    } else {
+      navigation.navigate('OrderFinal', item);
     }
   };
   const userId = users.data ? users.data.included[0].id : null;
@@ -36,7 +36,7 @@ const HomeScreen = ({ orders, users }) => {
     return (
       <HomeContainer>
         <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-          <Image source={require('../../../assets/images/logo-outline.png')} />
+          <Image source={require('../../../assets/images/logo.png')} />
         </ImageArea>
       </HomeContainer>
     );
@@ -54,7 +54,7 @@ const HomeContainer = styled.View`
 const ListContainer = styled.View`
   flex: 1;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: white;
   flex-direction: row;
   flex-wrap: wrap;

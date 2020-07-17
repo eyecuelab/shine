@@ -14,10 +14,9 @@ const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
   };
 
   // const profilePhoto = users.data.included[0].attributes.image_url;
-  const profilePhoto = users.data.included[0].attributes.image_url
+  const profilePhoto = users.data
     ? users.data.included[0].attributes.image_url
     : '';
-  console.log(profilePhoto);
 
   const ProfilePhotoDisplay = () => {
     if (profilePhoto === '') {

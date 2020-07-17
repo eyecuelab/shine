@@ -7,6 +7,8 @@ const orderReducer = (state = [], action) => {
       return [];
     case types.LOAD_ORDERS_SUCCESS:
       return [...action.payload];
+    case types.LOGOUT_SUCCESS:
+      return [];
     // case types.ADD_ORDER:
     //   return [
     //     ...state,
