@@ -120,7 +120,7 @@ const NewOrderScreen = ({ navigation }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders };
+  return { orders: state.orders.orders };
 };
 
 NewOrderScreen.propTypes = {

@@ -82,9 +82,9 @@ export function* loadQuotableOrdersSaga() {
 }
 
 export function* postQuoteSaga(action) {
-  console.log(action.payload);
   try {
     const cleanerID = yield select(getCleanerID);
+    const orderID = action.payload.orderID;
     const token = yield select(getToken);
     let response = yield call(
       postQuoteService,
@@ -93,7 +93,7 @@ export function* postQuoteSaga(action) {
       token,
     );
     if (response.ok && response.status === 204) {
-      yield put({ type: types.POST_QUOTE_SUCCESS });
+      yield put(actions.postQuote(orderID));
     } else {
       throw yield response.json();
     }

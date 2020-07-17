@@ -23,9 +23,23 @@ const orderReducer = (state = initialOrdersState, action) => {
         orders: [],
       };
     case types.PUBLISH_ORDER_SUCCESS:
+<<<<<<< HEAD
       // console.log('REDUCER', action.payload);
+=======
+>>>>>>> development
       return {
         ...state,
+        orders: state.orders.map((item) => {
+          if (item.attributes.uuid === action.payload.data.attributes.uuid) {
+            return {
+              type: action.payload.data.type,
+              id: action.payload.data.id,
+              links: action.payload.links,
+              attributes: action.payload.data.attributes,
+            };
+          }
+          return item;
+        }),
         selectedOrder: action.payload,
       };
     // case types.ADD_ORDER:
@@ -69,8 +83,13 @@ const orderReducer = (state = initialOrdersState, action) => {
     //     }
 
     case types.REQUEST_COMPLETE:
+<<<<<<< HEAD
       // console.log('RE', action.payload);
+=======
+      console.log('REQUEST REDUCER:', action.payload);
+>>>>>>> development
       return {
+        ...state,
         orders: state.orders.map((item) => {
           if (item.uuid === action.uuid) {
             return {

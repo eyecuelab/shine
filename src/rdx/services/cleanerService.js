@@ -65,7 +65,6 @@ export const loadQuotableOrdersService = (cleanerID, token) => {
 };
 
 export const postQuoteService = (request, cleanerID, token) => {
-  console.log('R', request.quote);
   const url = `http://127.0.0.1:8080/cleaners/${cleanerID}/orders/${request.orderID}/quote`;
   const parameters = {
     method: 'POST',

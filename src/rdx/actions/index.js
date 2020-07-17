@@ -214,3 +214,10 @@ export const addQuoteWatcher = ({ orderID, quote }) => {
     payload: { orderID, quote },
   };
 };
+
+export const postQuote = (orderID) => {
+  return {
+    type: types.POST_QUOTE_SUCCESS,
+    payload: orderID,
+  };
+};
