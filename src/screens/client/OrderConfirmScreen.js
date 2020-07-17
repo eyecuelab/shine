@@ -4,11 +4,11 @@ import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
-import PriceTagWhite from '../../components/shared/PriceTagWhite';
+// import PriceTagWhite from '../../components/shared/PriceTagWhite';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
-import AddOnSwitch from '../../components/order/AddOnSwitch';
+// import AddOnSwitch from '../../components/order/AddOnSwitch';
 
 const OrderConfirmScreen = ({ navigation, requestComplete }) => {
   const route = useRoute();
@@ -29,7 +29,7 @@ const OrderConfirmScreen = ({ navigation, requestComplete }) => {
       <Container>
         <Text>Price : $ 34.99</Text>
         <Text>Service Due: returned by Thursday</Text>
-        <Text>Cleaner's Info</Text>
+        <Text>Cleaner`&apos;`s Info</Text>
         <Button
           title="PLACE MY ORDER"
           containerStyle={{ paddingVertical: 20, width: 350 }}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import {
   TouchableWithoutFeedback,
@@ -35,11 +35,12 @@ const ChangePasswordScreen = ({
       postal_code: user.postal_code,
       phone: user.phone,
     });
-    // navigation.navigate('Profile');
+    navigation.navigate('Profile');
   };
   return (
     <>
       <KeyboardAvoidingView
+        // eslint-disable-next-line no-undef
         behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
       >

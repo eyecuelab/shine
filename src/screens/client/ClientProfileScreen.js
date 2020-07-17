@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
@@ -5,28 +6,23 @@ import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
-import { useNavigation } from '@react-navigation/native';
 
-const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
+const { height: HEIGHT } = Dimensions.get('window');
 
-const ClientProfileScreen = ({ users, user, navigation, logoutWatcher }) => {
+const ClientProfileScreen = ({ user, navigation, logoutWatcher }) => {
   // const navigation = useNavigation();
   const onSubmit = () => {
     logoutWatcher();
-    // navigation.navigate('Home');
   };
 
-  // const profilePhoto = users.data.included[0].attributes.image_url;
-  // console.log('USER', user);
-  // console.log('USERSSS', users);
   const profilePhoto = user ? user.image_url : '';
-  console.log(profilePhoto);
-  // const profilePhoto = users.data
-  //   ? users.data.included[0].attributes.image_url
-  //   : '';
 
   const ProfilePhotoDisplay = () => {
-    if (profilePhoto === '') {
+    if (
+      profilePhoto === '' ||
+      profilePhoto === null ||
+      profilePhoto === undefined
+    ) {
       return (
         <Profile source={require('../../../assets/images/profile-pic.png')} />
       );

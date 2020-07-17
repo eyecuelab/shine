@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TouchableOpacity } from 'react-native';
+
 import { connect } from 'react-redux';
 import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
 import styled from 'styled-components/native';
@@ -8,7 +8,7 @@ import OrderItemCompleted from '../../components/order/OrderItemCompleted';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const OrdersInAreaScreen = ({ orders, cleaner, navigation }) => {
+const OrdersInAreaScreen = ({ cleaner, navigation }) => {
   return (
     <ScrollViewContainer>
       <Container>
@@ -43,10 +43,10 @@ const ItemsContainer = styled.TouchableOpacity`
   margin: 10px;
 `;
 
-const Text = styled.Text`
-  color: #737272;
-  font-size: 16px;
-`;
+// const Text = styled.Text`
+//   color: #737272;
+//   font-size: 16px;
+// `;
 
 OrdersInAreaScreen.propTypes = {
   navigation: PropTypes.object,

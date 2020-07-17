@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, Switch } from 'react-native';
+import { Switch } from 'react-native';
 
 const AdditionalServiceSwitch = () => {
   // ========= states for additional services ======================

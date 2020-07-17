@@ -1,5 +1,5 @@
 import * as types from '../actions/types';
-import { REHYDRATE } from 'redux-persist/lib/constants';
+// import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialCleanerState = {
   data: null,

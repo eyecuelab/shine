@@ -9,7 +9,6 @@ import SetupOrAdd from '../../components/order/SetupOrAdd';
 import PropTypes from 'prop-types';
 import SelectPhoto from '../../components/order/SelectPhoto';
 import * as actions from '../../rdx/actions';
-import _ from 'lodash';
 
 const initialLayout = { width: Dimensions.get('window').width };
 

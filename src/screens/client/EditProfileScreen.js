@@ -29,7 +29,6 @@ const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
     postal_code: user.postal_code,
     phone: user.phone,
   });
-  // console.log('USER: ', user);
 
   const [profilePhoto, setProfilePhoto] = useState(
     user.image_url ? user.image_url : '',

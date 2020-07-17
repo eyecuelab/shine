@@ -9,7 +9,7 @@ import styled from 'styled-components/native';
 import OrderItem from '../../components/order/OrderItem';
 import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
 
-const HomeScreen = ({ orders, users }) => {
+const HomeScreen = ({ orders }) => {
   const navigation = useNavigation();
   const handleClick = (item) => {
     if (item.attributes.quote_accepted_at === null) {
@@ -18,8 +18,6 @@ const HomeScreen = ({ orders, users }) => {
       navigation.navigate('OrderStatus', item);
     }
   };
-  // console.log('HOMESCREEN: ', users);
-  // const userId = users.data ? users.data.included[0].id : null;
 
   if (orders.length !== 0) {
     return (
@@ -75,23 +73,23 @@ const ItemsContainer = styled.TouchableOpacity`
   margin: 20px 0px 0px 20px;
 `;
 
-const Header = styled.TouchableOpacity`
-  flex-direction: row;
-  width: 100%;
-  height: 60px;
-  border-bottom-width: 1px;
-  border-bottom-color: #e3e3e3;
-  padding-horizontal: 25px;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-`;
+// const Header = styled.TouchableOpacity`
+//   flex-direction: row;
+//   width: 100%;
+//   height: 60px;
+//   border-bottom-width: 1px;
+//   border-bottom-color: #e3e3e3;
+//   padding-horizontal: 25px;
+//   align-items: center;
+//   justify-content: center;
+//   background-color: white;
+// `;
 
-const Text = styled.Text`
-  color: black;
-  font-size: 20px;
-  font-weight: 500;
-`;
+// const Text = styled.Text`
+//   color: black;
+//   font-size: 20px;
+//   font-weight: 500;
+// `;
 
 HomeScreen.propTypes = {
   orders: PropTypes.array,
