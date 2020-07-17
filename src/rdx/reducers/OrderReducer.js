@@ -23,7 +23,7 @@ const orderReducer = (state = initialOrdersState, action) => {
         orders: [],
       };
     case types.PUBLISH_ORDER_SUCCESS:
-      console.log('REDUCER', action.payload);
+      // console.log('REDUCER', action.payload);
       return {
         ...state,
         selectedOrder: action.payload,
@@ -69,7 +69,7 @@ const orderReducer = (state = initialOrdersState, action) => {
     //     }
 
     case types.REQUEST_COMPLETE:
-      console.log('RE', action.payload);
+      // console.log('RE', action.payload);
       return {
         orders: state.orders.map((item) => {
           if (item.uuid === action.uuid) {

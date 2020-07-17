@@ -60,8 +60,6 @@ export const TakePhoto = async ({ setImage }) => {
 
     RNS3.put(file, config).then((response) => {
       setImage(response.body.postResponse.location);
-      console.log(response);
-      console.log(response.body.postResponse.location);
     });
   }
 };
@@ -72,7 +70,7 @@ export const UploadImage = ({ result, setImage }) => {
 
   let match = /\.(\w+)$/.exec(fileName);
   let type = match ? `image/${match[1]}` : `image`;
-  console.log(localUri);
+
   const file = {
     uri: localUri,
     name: fileName,
@@ -81,7 +79,5 @@ export const UploadImage = ({ result, setImage }) => {
 
   RNS3.put(file, config).then((response) => {
     setImage(response.body.postResponse.location);
-    console.log(response);
-    console.log(response.body.postResponse.location);
   });
 };
