@@ -18,31 +18,30 @@ const HomeScreen = ({ orders, users }) => {
       navigation.navigate('OrderStatus', item);
     }
   };
-  const userId = users.data ? users.data.included[0].id : null;
+  console.log('HOMESCREEN: ', users);
+  // const userId = users.data ? users.data.included[0].id : null;
 
-  return (
-    <ScrollViewContainer>
-      <ListContainer>
-        {orders.length == 0 ? (
-          <>
-            <HomeContainer>
-              <ImageArea onPress={() => navigation.navigate('NewOrder')}>
-                <Image source={require('../../../assets/images/logo.png')} />
-              </ImageArea>
-            </HomeContainer>
-          </>
-        ) : (
-          orders.map((item) =>
-            item.attributes.user_id == userId ? (
-              <ItemsContainer key={item.id} onPress={() => handleClick(item)}>
-                <OrderItem order={item} />
-              </ItemsContainer>
-            ) : null,
-          )
-        )}
-      </ListContainer>
-    </ScrollViewContainer>
-  );
+  if (orders.length !== 0) {
+    return (
+      <ScrollViewContainer>
+        <ListContainer>
+          {orders.map((item) => (
+            <ItemsContainer key={item.id} onPress={() => handleClick(item)}>
+              <OrderItem order={item} />
+            </ItemsContainer>
+          ))}
+        </ListContainer>
+      </ScrollViewContainer>
+    );
+  } else {
+    return (
+      <HomeContainer>
+        <ImageArea onPress={() => navigation.navigate('NewOrder')}>
+          <Image source={require('../../../assets/images/logo-outline.png')} />
+        </ImageArea>
+      </HomeContainer>
+    );
+  }
 };
 
 const HomeContainer = styled.View`

@@ -9,15 +9,15 @@ import { useNavigation } from '@react-navigation/native';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
-const ClientProfileScreen = ({ user, logoutWatcher }) => {
-  const navigation = useNavigation();
+const ClientProfileScreen = ({ user, navigation, logoutWatcher }) => {
+  // const navigation = useNavigation();
   const onSubmit = () => {
     logoutWatcher();
-    navigation.navigate('Home');
+    // navigation.navigate('Home');
   };
 
   // const profilePhoto = users.data.included[0].attributes.image_url;
-  const profilePhoto = user.image_url ? user.image_url : '';
+  const profilePhoto = user ? user.image_url : '';
   // console.log(profilePhoto);
   // const profilePhoto = users.data
   //   ? users.data.included[0].attributes.image_url
@@ -164,13 +164,17 @@ const CenterText = styled.Text`
 `;
 
 ClientProfileScreen.propTypes = {
-  // navigation: PropTypes.object,
+  navigation: PropTypes.object,
   user: PropTypes.object,
   logoutWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
-  return { user: state.users.data.included[0].attributes };
+  return {
+    user: state.users.data
+      ? state.users.data.included[0].attributes
+      : state.users.data,
+  };
 };
 
 export default connect(mapStateToProps, actions)(ClientProfileScreen);
