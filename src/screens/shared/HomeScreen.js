@@ -98,7 +98,7 @@ HomeScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders, users: state.users };
+  return { orders: state.orders.orders, users: state.users };
 };
 
 export default connect(mapStateToProps, actions)(HomeScreen);

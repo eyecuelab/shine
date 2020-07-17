@@ -18,15 +18,15 @@ const OrderFinalScreen = ({ navigation, publishOrderWatcher }) => {
   const route = useRoute();
   const item = route.params;
   const [modalVisible, setModalVisible] = useState(false);
-  const currentDate = formatDate(new Date());
+  const currentDate = new Date();
 
   const handlePublish = () => {
     const orderID = item.id;
-    console.log(orderID);
     publishOrderWatcher({
       orderID: orderID,
       publishedAt: { published_at: currentDate },
     });
+    setModalVisible(!modalVisible);
   };
 
   const handleSubmit = () => {
@@ -265,7 +265,7 @@ OrderFinalScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders };
+  return { orders: state.orders.orders };
 };
 
 export default connect(mapStateToProps, actions)(OrderFinalScreen);

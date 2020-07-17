@@ -43,6 +43,20 @@ export const publishOrderWatcher = ({ orderID, publishedAt }) => {
   };
 };
 
+export const setPublishedOrder = (payload) => {
+  return {
+    type: types.PUBLISH_ORDER_SUCCESS,
+    payload,
+  };
+};
+
+export const setPublishError = (error) => {
+  return {
+    type: types.PUBLISH_ORDER_FAIL,
+    error,
+  };
+};
+
 export const reloadOrders = (result) => {
   return {
     type: types.POST_ORDER_SUCCESS,

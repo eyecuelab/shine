@@ -1,14 +1,33 @@
 import * as types from '../actions/types';
 import { REHYDRATE } from 'redux-persist/lib/constants';
 
-const orderReducer = (state = [], action) => {
+const initialOrdersState = {
+  orders: [],
+  selectedOrder: {},
+};
+
+const orderReducer = (state = initialOrdersState, action) => {
   switch (action.type) {
     // case REHYDRATE:
-    //   return [];
+    //   return {
+    //     ...state,
+    //   };
     case types.LOAD_ORDERS_SUCCESS:
-      return [...action.payload];
+      return {
+        ...state,
+        orders: [...action.payload],
+      };
     case types.LOGOUT_SUCCESS:
-      return [];
+      return {
+        ...state,
+        orders: [],
+      };
+    case types.PUBLISH_ORDER_SUCCESS:
+      console.log('REDUCER', action.payload);
+      return {
+        ...state,
+        selectedOrder: action.payload,
+      };
     // case types.ADD_ORDER:
     //   return [
     //     ...state,
@@ -62,15 +81,18 @@ const orderReducer = (state = [], action) => {
     //     return item;
     //   });
     case types.REQUEST_COMPLETE:
-      return state.map((item) => {
-        if (item.uuid === action.uuid) {
-          return {
-            ...item,
-            requestCompleted: action.payload,
-          };
-        }
-        return item;
-      });
+      console.log('RE', action.payload);
+      return {
+        orders: state.orders.map((item) => {
+          if (item.uuid === action.uuid) {
+            return {
+              ...item,
+              requestCompleted: action.payload,
+            };
+          }
+          return item;
+        }),
+      };
     // case types.DELETE_ORDER:
     //   return state.filter((item) => item.uuid !== action.uuid);
     default:
