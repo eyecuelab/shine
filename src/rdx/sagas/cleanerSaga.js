@@ -93,8 +93,7 @@ export function* postQuoteSaga(action) {
       token,
     );
     if (response.ok && response.status === 204) {
-      console.log(orderID);
-      yield put(actions.postQuote(orderID));
+      yield put(actions.postQuote({ orderID: orderID, cleanerID: cleanerID }));
     } else {
       throw yield response.json();
     }

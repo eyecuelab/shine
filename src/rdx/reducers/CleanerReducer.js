@@ -66,12 +66,16 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         errorMessage: null,
       };
     case types.POST_QUOTE_SUCCESS:
-      const orderID = action.payload;
+      const orderID = action.payload.orderID;
+      const cleanerID = action.payload.cleanerID;
       return {
         ...state,
         quotedStatus: {
-          [orderID]: 'Requested',
           ...state.quotedStatus,
+          [orderID]: {
+            ...state.quotedStatus[orderID],
+            [cleanerID]: 'Requested',
+          },
         },
         errorMessage: null,
       };

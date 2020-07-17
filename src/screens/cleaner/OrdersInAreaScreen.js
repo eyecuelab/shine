@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
 const OrdersInAreaScreen = ({ orders, cleaner, navigation }) => {
-  console.log(cleaner.quotedStatus[6]);
+  const cleanerID = cleaner.data ? cleaner.data.id : null;
+
   return (
     <ScrollViewContainer>
       <Container>
@@ -19,7 +20,8 @@ const OrdersInAreaScreen = ({ orders, cleaner, navigation }) => {
               key={item.attributes.uuid}
               onPress={() => navigation.navigate('Order Detail', item)}
             >
-              {cleaner.quotedStatus[item.id] ? (
+              {cleaner.quotedStatus[item.id] !== undefined &&
+              cleaner.quotedStatus[item.id][cleanerID] == 'Requested' ? (
                 <OrderItemCompleted order={item} />
               ) : (
                 <OrderItem order={item} />
@@ -40,7 +42,7 @@ const Container = styled.View`
 `;
 
 const ItemsContainer = styled.TouchableOpacity`
-  margin: 10px;
+  margin: 20px 0px 0px 20px;
 `;
 
 const Text = styled.Text`
