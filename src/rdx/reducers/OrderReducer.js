@@ -38,6 +38,12 @@ const orderReducer = (state = initialOrdersState, action) => {
         }),
         selectedOrder: action.payload,
       };
+    case types.GET_ORDER_BY_ID_SUCCESS:
+      return {
+        ...state,
+        selectedOrder: action.payload,
+      };
+
     // case types.ADD_ORDER:
     //   return [
     //     ...state,
@@ -83,7 +89,7 @@ const orderReducer = (state = initialOrdersState, action) => {
       return {
         ...state,
         orders: state.orders.map((item) => {
-          if (item.uuid === action.uuid) {
+          if (item.attributes.uuid === action.uuid) {
             return {
               ...item,
               requestCompleted: action.payload,

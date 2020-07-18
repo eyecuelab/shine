@@ -3,8 +3,9 @@ import * as types from '../actions/types';
 
 const initialCleanerState = {
   data: null,
-  quotableOrders: [],
+  quotableOrders: {},
   errorMessage: null,
+  quotedStatus: {},
 };
 
 const cleanerReducer = (state = initialCleanerState, action) => {
@@ -20,6 +21,7 @@ const cleanerReducer = (state = initialCleanerState, action) => {
           action.payload.included[1] !== undefined
             ? action.payload.included[1]
             : null,
+        quotableOrders: state.quotableOrders,
         errorMessage: null,
       };
     case types.LOGOUT_SUCCESS:
@@ -64,17 +66,17 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         errorMessage: null,
       };
     case types.POST_QUOTE_SUCCESS:
+      const orderID = action.payload.orderID;
+      const cleanerID = action.payload.cleanerID;
       return {
         ...state,
-        quotableOrders: state.quotableOrders.map((item) => {
-          if (item.id === action.payload) {
-            return {
-              ...item,
-              status: 'Quote has been successfully requested.',
-            };
-          }
-          return item;
-        }),
+        quotedStatus: {
+          ...state.quotedStatus,
+          [orderID]: {
+            ...state.quotedStatus[orderID],
+            [cleanerID]: 'Requested',
+          },
+        },
         errorMessage: null,
       };
     case types.POST_QUOTE_ERROR:
