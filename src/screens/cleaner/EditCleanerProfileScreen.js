@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
 const EditCleanerProfileScreen = ({
-  users,
   cleaner,
   navigation,
   editCleanerWatcher,

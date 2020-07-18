@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TouchableOpacity } from 'react-native';
+
 import { connect } from 'react-redux';
 import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
 import styled from 'styled-components/native';
@@ -45,10 +45,10 @@ const ItemsContainer = styled.TouchableOpacity`
   margin: 20px 0px 0px 20px;
 `;
 
-const Text = styled.Text`
-  color: #737272;
-  font-size: 16px;
-`;
+// const Text = styled.Text`
+//   color: #737272;
+//   font-size: 16px;
+// `;
 
 OrdersInAreaScreen.propTypes = {
   navigation: PropTypes.object,

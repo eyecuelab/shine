@@ -1,5 +1,3 @@
-// import { put } from 'redux-saga/effects';
-
 const fetchOrders = async (token) => {
   const response = await fetch('http://127.0.0.1:8080/orders', {
     method: 'GET',

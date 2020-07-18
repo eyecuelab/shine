@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import { Feather } from '@expo/vector-icons';
+// import { Feather } from '@expo/vector-icons';
 // SCREEN IMPORTS:
 import HomeScreen from '../../screens/shared/HomeScreen';
 import NewOrderScreen from '../../screens/client/NewOrderScreen';

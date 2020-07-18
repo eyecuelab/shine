@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react';
-import { Dimensions } from 'react-native';
+// import { Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../rdx/actions';
 import { useNavigation } from '@react-navigation/native';
@@ -19,7 +19,6 @@ const HomeScreen = ({ orders, users, getOrderByIdWatcher }) => {
       navigation.navigate('OrderStatus', item);
     }
   };
-  const userId = users.data ? users.data.included[0].id : null;
 
   if (orders.length !== 0) {
     return (
@@ -75,23 +74,23 @@ const ItemsContainer = styled.TouchableOpacity`
   margin: 20px 0px 0px 20px;
 `;
 
-const Header = styled.TouchableOpacity`
-  flex-direction: row;
-  width: 100%;
-  height: 60px;
-  border-bottom-width: 1px;
-  border-bottom-color: #e3e3e3;
-  padding-horizontal: 25px;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-`;
+// const Header = styled.TouchableOpacity`
+//   flex-direction: row;
+//   width: 100%;
+//   height: 60px;
+//   border-bottom-width: 1px;
+//   border-bottom-color: #e3e3e3;
+//   padding-horizontal: 25px;
+//   align-items: center;
+//   justify-content: center;
+//   background-color: white;
+// `;
 
-const Text = styled.Text`
-  color: black;
-  font-size: 20px;
-  font-weight: 500;
-`;
+// const Text = styled.Text`
+//   color: black;
+//   font-size: 20px;
+//   font-weight: 500;
+// `;
 
 HomeScreen.propTypes = {
   orders: PropTypes.array,

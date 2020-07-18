@@ -7,7 +7,7 @@ import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
-import PriceTagWhite from '../../components/shared/PriceTagWhite';
+// import PriceTagWhite from '../../components/shared/PriceTagWhite';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
@@ -33,9 +33,9 @@ const OrderFinalScreen = ({
     navigation.navigate('Home');
   };
 
-  const handleSubmit = () => {
-    navigation.navigate('OrderConfrim', item);
-  };
+  // const handleSubmit = () => {
+  //   navigation.navigate('OrderConfrim', item);
+  // };
 
   const handleCancelClick = () => {
     deleteOrderWatcher(orderID);
@@ -219,46 +219,46 @@ const SwitchContainer = styled.View`
   padding-top: 10px;
 `;
 
-const BidsContainer = styled.View`
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
+// const BidsContainer = styled.View`
+//   align-items: center;
+//   justify-content: center;
+//   flex-direction: row;
+//   flex-wrap: wrap;
+// `;
 
-const PriceTicketContainer = styled.TouchableOpacity`
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 20px;
-`;
+// const PriceTicketContainer = styled.TouchableOpacity`
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding-bottom: 20px;
+// `;
 
-const PriceTicket = styled.Image`
-  margin: 30px;
-  flex-wrap: wrap;
-`;
+// const PriceTicket = styled.Image`
+//   margin: 30px;
+//   flex-wrap: wrap;
+// `;
 
-const PriceContianer = styled.View`
-  flex-wrap: wrap;
-  width: 200px;
-  position: absolute;
-  align-items: center;
-  justify-content: center;
-`;
+// const PriceContianer = styled.View`
+//   flex-wrap: wrap;
+//   width: 200px;
+//   position: absolute;
+//   align-items: center;
+//   justify-content: center;
+// `;
 
-const DueText = styled.Text`
-  color: #e6e6e6;
-  font-size: 14px;
-  font-weight: 700;
-  text-align: center;
-`;
+// const DueText = styled.Text`
+//   color: #e6e6e6;
+//   font-size: 14px;
+//   font-weight: 700;
+//   text-align: center;
+// `;
 
-const ExpireText = styled.Text`
-  color: #939393;
-  font-size: 18px;
-  font-family: Marison-Sans-Round;
-  text-align: center;
-`;
+// const ExpireText = styled.Text`
+//   color: #939393;
+//   font-size: 18px;
+//   font-family: Marison-Sans-Round;
+//   text-align: center;
+// `;
 
 OrderFinalScreen.propTypes = {
   navigation: PropTypes.object,

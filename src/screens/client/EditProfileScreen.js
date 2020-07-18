@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dimensions,
   TextInput,
@@ -21,7 +21,6 @@ import {
 } from '../../components/shared/UploadPhotoFunctions';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
-
 const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
   const [userProfile, setUserProfile] = useState({
     street_address: user.street_address,
@@ -36,6 +35,10 @@ const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
   );
 
   const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    setModalVisible(false);
+  }, [profilePhoto]);
 
   const handleProfileChange = (key, value) => {
     setUserProfile((current) => ({
@@ -64,23 +67,21 @@ const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
   const inputEl4 = React.useRef(null);
   const inputEl5 = React.useRef(null);
 
-  // const errorMessage = errorMessage;
-  // console.log('REDUX:', users.data);
-  // const street = user.street_address;
-  // const city = user.city;
-  // const state = user.state;
-  // const zip = user.postal_code;
-  // const phone = user.phone;
+  // console.log(user.email);
 
   const onSubmit = () => {
-    editProfileWatcher({
-      image_url: profilePhoto,
-      street_address: userProfile.street_address,
-      city: userProfile.city,
-      state: userProfile.state,
-      postal_code: userProfile.postal_code,
-      phone: userProfile.phone,
-    });
+    editProfileWatcher(
+      {
+        image_url: profilePhoto,
+        email: user.email,
+        street_address: userProfile.street_address,
+        city: userProfile.city,
+        state: userProfile.state,
+        postal_code: userProfile.postal_code,
+        phone: userProfile.phone,
+      },
+      user.email,
+    );
   };
   const ProfilePhotoDisplay = () => {
     if (profilePhoto === '') {

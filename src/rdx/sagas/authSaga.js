@@ -7,7 +7,6 @@ import {
   editProfileService,
 } from '../services/authService';
 import { call, put, cancelled, select } from 'redux-saga/effects';
-import { symbol } from 'prop-types';
 
 export const getToken = (state) => state.users.data.data.attributes.token;
 
@@ -41,7 +40,7 @@ export function* logoutSaga() {
       throw yield response.json();
     }
   } catch (error) {
-    console.log('LOGOUT ERROR:', error);
+    // console.log('ERROR', error.message);
   }
 }
 
@@ -54,7 +53,6 @@ export function* signupSaga(action) {
       throw yield response.json();
     }
   } catch (error) {
-    console.log('SIGNUP ERROR: ', error);
     yield put({ type: types.SIGNUP_ERROR, error: error.message });
   } finally {
     if (yield cancelled()) {
@@ -76,6 +74,26 @@ export function* editProfileSaga(action) {
     }
   } catch (error) {
     console.log('EDIT PROFILE ERROR: ', error);
+    yield put({ type: types.UPDATE_PROFILE_ERROR, error: error.message });
+  }
+}
+
+export function* editPasswordSaga(action) {
+  try {
+    const token = yield select(getToken);
+    let response = yield call(editProfileService, action.payload, token);
+
+    if (response.status >= 200 && response.status < 300) {
+      yield put(
+        actions.loginWatcher({
+          email: action.payload.email,
+          password: action.payload.password,
+        }),
+      );
+    } else {
+      throw yield response.json();
+    }
+  } catch (error) {
     yield put({ type: types.UPDATE_PROFILE_ERROR, error: error.message });
   }
 }

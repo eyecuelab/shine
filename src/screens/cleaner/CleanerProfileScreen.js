@@ -6,10 +6,9 @@ import { Feather } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
+const { height: HEIGHT } = Dimensions.get('window');
 
 const CleanerProfileScreen = ({
-  users,
   cleaner,
   navigation,
   deleteCleanerWatcher,
@@ -68,7 +67,7 @@ const CleanerProfileScreen = ({
 
         <Seperator />
         <ListItemCenter onPress={onDelete}>
-          <CenterText>Delete Cleaner's Account</CenterText>
+          <CenterText>Delete Your Cleaner Account</CenterText>
         </ListItemCenter>
       </ProfileContainer>
     </>
@@ -91,14 +90,14 @@ const Container = styled.View`
   position: relative;
 `;
 
-const Profile = styled.Image`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
-  border-width: 3px;
-  border-color: #cbb387;
-  margin-bottom: 20px;
-`;
+// const Profile = styled.Image`
+//   width: 80px;
+//   height: 80px;
+//   border-radius: 40px;
+//   border-width: 3px;
+//   border-color: #cbb387;
+//   margin-bottom: 20px;
+// `;
 
 const Name = styled.Text`
   color: #2c2c2c;

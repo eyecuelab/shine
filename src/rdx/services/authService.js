@@ -66,7 +66,6 @@ export const editProfileService = (request, token) => {
   };
 
   return fetch(PROFILE_API_ENDPOINT, parameters).then((response) => {
-    console.log('RESPONSE: ', response);
     return response;
   });
 };

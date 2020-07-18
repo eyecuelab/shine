@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
@@ -6,20 +7,22 @@ import { Feather } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
+const { height: HEIGHT } = Dimensions.get('window');
 
-const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
+const ClientProfileScreen = ({ user, navigation, logoutWatcher }) => {
+  // const navigation = useNavigation();
   const onSubmit = () => {
     logoutWatcher();
   };
 
-  // const profilePhoto = users.data.included[0].attributes.image_url;
-  const profilePhoto = users.data
-    ? users.data.included[0].attributes.image_url
-    : '';
+  const profilePhoto = user ? user.image_url : '';
 
   const ProfilePhotoDisplay = () => {
-    if (profilePhoto === '') {
+    if (
+      profilePhoto === '' ||
+      profilePhoto === null ||
+      profilePhoto === undefined
+    ) {
       return (
         <Profile source={require('../../../assets/images/profile-pic.png')} />
       );
@@ -34,21 +37,13 @@ const ClientProfileScreen = ({ users, navigation, logoutWatcher }) => {
         <ProfileBackground>
           <Container>
             <ProfilePhotoDisplay />
-            <Name>
-              {users.data
-                ? users.data.included[0].attributes.first_name +
-                  ' ' +
-                  users.data.included[0].attributes.last_name
-                : null}
-            </Name>
+            <Name>{user ? user.first_name + ' ' + user.last_name : null}</Name>
           </Container>
         </ProfileBackground>
 
         <ListItem>
           <Text>Account</Text>
-          <Text>
-            {users.data ? users.data.included[0].attributes.email : null}
-          </Text>
+          <Text>{user ? user.email : null}</Text>
         </ListItem>
 
         <ListItem onPress={() => navigation.navigate('Change Password')}>
@@ -168,12 +163,17 @@ const CenterText = styled.Text`
 
 ClientProfileScreen.propTypes = {
   navigation: PropTypes.object,
-  users: PropTypes.object,
+  user: PropTypes.object,
   logoutWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
-  return { users: state.users };
+  return {
+    user: state.users.data
+      ? state.users.data.included[0].attributes
+      : state.users.data,
+    users: state.users,
+  };
 };
 
 export default connect(mapStateToProps, actions)(ClientProfileScreen);
