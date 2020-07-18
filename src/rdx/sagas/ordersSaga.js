@@ -5,6 +5,7 @@ import {
   postOrder,
   publishOrder,
   getOrderById,
+  deleteOrder,
 } from '../services/ordersService';
 import {
   setOrders,
@@ -15,6 +16,7 @@ import {
   setPublishError,
   setSelectedOrder,
   setGetOrderByIdError,
+  deleteOrderError,
 } from '../actions';
 
 export const getToken = (state) => state.users.data.data.attributes.token;
@@ -60,6 +62,19 @@ export function* getOrderByIdSaga(action) {
   }
 }
 
+export function* deleteOrderSaga(action) {
+  try {
+    const orderID = action.payload;
+    const token = yield select(getToken);
+    const result = yield call(deleteOrder, orderID, token);
+    yield put({ type: types.DELETE_ORDER_SUCCESS });
+    const orders = yield call(fetchOrders, token);
+    yield put(setOrders(orders));
+  } catch (error) {
+    yield put(deleteOrderError(error.toString()));
+  }
+}
+
 export default function* watchOrdersLoad() {
   yield takeEvery(types.LOAD_ORDERS, handleOrdersLoad);
 }
@@ -78,4 +93,8 @@ export function* watchPublishOrder() {
 
 export function* watchGetOrderById() {
   yield takeLatest(types.GET_ORDER_BY_ID_WATCHER, getOrderByIdSaga);
+}
+
+export function* watchDeleteOrder() {
+  yield takeLatest(types.DELETE_ORDER_WATCHER, deleteOrderSaga);
 }

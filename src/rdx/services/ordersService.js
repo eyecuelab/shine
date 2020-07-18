@@ -1,7 +1,6 @@
 // import { put } from 'redux-saga/effects';
 
 const fetchOrders = async (token) => {
-  console.log('HIT API');
   const response = await fetch('http://127.0.0.1:8080/orders', {
     method: 'GET',
     headers: {
@@ -18,7 +17,6 @@ const fetchOrders = async (token) => {
 };
 
 function* postOrder(order, token) {
-  console.log('ORDER: ', order);
   const urlLink = 'http://127.0.0.1:8080/orders';
   const response = yield fetch(urlLink, {
     method: 'POST',
@@ -67,4 +65,19 @@ const getOrderById = async (orderID, token) => {
   }
 };
 
-export { fetchOrders, postOrder, publishOrder, getOrderById };
+function* deleteOrder(orderID, token) {
+  const urlLink = `http://127.0.0.1:8080/orders/${orderID}`;
+  const response = yield fetch(urlLink, {
+    method: 'DELETE',
+    headers: {
+      Authorization: token,
+    },
+  });
+  if (response.status === 204) {
+    return response;
+  } else {
+    throw new Error(response.json());
+  }
+}
+
+export { fetchOrders, postOrder, publishOrder, getOrderById, deleteOrder };

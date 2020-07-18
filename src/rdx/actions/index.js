@@ -95,10 +95,17 @@ export const requestComplete = (uuid, requestCompleted) => {
   };
 };
 
-export const deleteOrder = (uuid) => {
+export const deleteOrderWatcher = (payload) => {
   return {
-    type: types.DELETE_ORDER,
-    uuid: uuid,
+    type: types.DELETE_ORDER_WATCHER,
+    payload,
+  };
+};
+
+export const deleteOrderError = (error) => {
+  return {
+    type: types.DELETE_ORDER_ERROR,
+    error,
   };
 };
 
