@@ -1,16 +1,30 @@
-import { takeEvery, put, call, select } from 'redux-saga/effects';
+import { takeEvery, put, call, select, takeLatest } from 'redux-saga/effects';
 import * as types from '../actions/types';
-import { fetchOrders, postOrder } from '../api';
-import { setOrders, setError, reloadOrders, setPostError } from '../actions';
+import {
+  fetchOrders,
+  postOrder,
+  publishOrder,
+  getOrderById,
+  deleteOrder,
+} from '../services/ordersService';
+import {
+  setOrders,
+  setError,
+  reloadOrders,
+  setPostError,
+  setPublishedOrder,
+  setPublishError,
+  setSelectedOrder,
+  setGetOrderByIdError,
+  deleteOrderError,
+} from '../actions';
 
-export const getToken = (state) => state.users.auth.token;
+export const getToken = (state) => state.users.data.data.attributes.token;
 
 export function* handleOrdersLoad() {
   try {
     const token = yield select(getToken);
-    // console.log(token);
     const orders = yield call(fetchOrders, token);
-    console.log('ORDERS', orders);
     yield put(setOrders(orders));
   } catch (error) {
     yield put(setError(error.toString()));
@@ -27,6 +41,40 @@ export function* postOrderSaga(action) {
   }
 }
 
+export function* publishOrderSaga(action) {
+  try {
+    const token = yield select(getToken);
+    const result = yield call(publishOrder, action.payload, token);
+    yield put(setPublishedOrder(result));
+  } catch (error) {
+    yield put(setPublishError(error.toString()));
+  }
+}
+
+export function* getOrderByIdSaga(action) {
+  try {
+    const orderID = action.payload;
+    const token = yield select(getToken);
+    const result = yield call(getOrderById, orderID, token);
+    yield put(setSelectedOrder(result));
+  } catch (error) {
+    yield put(setGetOrderByIdError(error.toString()));
+  }
+}
+
+export function* deleteOrderSaga(action) {
+  try {
+    const orderID = action.payload;
+    const token = yield select(getToken);
+    const result = yield call(deleteOrder, orderID, token);
+    yield put({ type: types.DELETE_ORDER_SUCCESS });
+    const orders = yield call(fetchOrders, token);
+    yield put(setOrders(orders));
+  } catch (error) {
+    yield put(deleteOrderError(error.toString()));
+  }
+}
+
 export default function* watchOrdersLoad() {
   yield takeEvery(types.LOAD_ORDERS, handleOrdersLoad);
 }
@@ -37,4 +85,16 @@ export function* watchPostOrder() {
 
 export function* watchOrdersReload() {
   yield takeEvery(types.POST_ORDER_SUCCESS, handleOrdersLoad);
+}
+
+export function* watchPublishOrder() {
+  yield takeLatest(types.PUBLISH_ORDER_WATCHER, publishOrderSaga);
+}
+
+export function* watchGetOrderById() {
+  yield takeLatest(types.GET_ORDER_BY_ID_WATCHER, getOrderByIdSaga);
+}
+
+export function* watchDeleteOrder() {
+  yield takeLatest(types.DELETE_ORDER_WATCHER, deleteOrderSaga);
 }

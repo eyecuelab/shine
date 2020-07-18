@@ -1,4 +1,5 @@
-import * as React from 'react';
+/* eslint-disable no-undef */
+import React, { useState, useEffect } from 'react';
 import {
   Dimensions,
   TextInput,
@@ -6,24 +7,38 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
+  Modal,
 } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
-import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-elements';
 import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
+import {
+  PickImage,
+  TakePhoto,
+} from '../../components/shared/UploadPhotoFunctions';
 
-const { width } = Dimensions.get('window');
-
-const EditProfileScreen = ({ editProfileWatcher, users }) => {
-  const [userProfile, setUserProfile] = React.useState({
-    street_address: '',
-    city: '',
-    state: '',
-    postal_code: '',
-    phone: '',
+const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
+const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
+  const [userProfile, setUserProfile] = useState({
+    street_address: user.street_address,
+    city: user.city,
+    state: user.state,
+    postal_code: user.postal_code,
+    phone: user.phone,
   });
+
+  const [profilePhoto, setProfilePhoto] = useState(
+    user.image_url ? user.image_url : '',
+  );
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    setModalVisible(false);
+  }, [profilePhoto]);
 
   const handleProfileChange = (key, value) => {
     setUserProfile((current) => ({
@@ -51,20 +66,32 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
   const inputEl3 = React.useRef(null);
   const inputEl4 = React.useRef(null);
   const inputEl5 = React.useRef(null);
-  const inputEl6 = React.useRef(null);
-  const navigation = useNavigation();
-  const errorMessage = users.errorMessage;
 
-  const street = users.data.included[0].attributes.street_address;
-  const city = users.data.included[0].attributes.city;
-  const state = users.data.included[0].attributes.state;
-  const zip = users.data.included[0].attributes.postal_code;
-  const phone = users.data.included[0].attributes.phone;
+  // console.log(user.email);
 
   const onSubmit = () => {
-    editProfileWatcher(userProfile);
+    editProfileWatcher(
+      {
+        image_url: profilePhoto,
+        email: user.email,
+        street_address: userProfile.street_address,
+        city: userProfile.city,
+        state: userProfile.state,
+        postal_code: userProfile.postal_code,
+        phone: userProfile.phone,
+      },
+      user.email,
+    );
   };
-
+  const ProfilePhotoDisplay = () => {
+    if (profilePhoto === '') {
+      return (
+        <Profile source={require('../../../assets/images/profile-pic.png')} />
+      );
+    } else {
+      return <Profile source={{ uri: profilePhoto }} />;
+    }
+  };
   return (
     <>
       <KeyboardAvoidingView
@@ -73,10 +100,56 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Container>
+            <PhotoContainer>
+              <ProfilePhotoDisplay />
+              <ChangePhotoClick
+                onPress={() => {
+                  setModalVisible(true);
+                }}
+              >
+                <BlueText>Change Profile Photo</BlueText>
+              </ChangePhotoClick>
+            </PhotoContainer>
+
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => {
+                Alert.alert('Modal has been closed.');
+              }}
+            >
+              <ModalContainer>
+                <ModalView>
+                  <ModalItem>
+                    <Text>Choose a profile image using your:</Text>
+                  </ModalItem>
+
+                  <ModalItem
+                    onPress={() => PickImage({ setImage: setProfilePhoto })}
+                  >
+                    <BlueText>Photo Library</BlueText>
+                  </ModalItem>
+                  <ModalItem
+                    onPress={() => TakePhoto({ setImage: setProfilePhoto })}
+                  >
+                    <BlueText>Camera</BlueText>
+                  </ModalItem>
+                  <ModalItem
+                    onPress={() => {
+                      setModalVisible(!modalVisible);
+                    }}
+                  >
+                    <BlueText>Cancel</BlueText>
+                  </ModalItem>
+                </ModalView>
+              </ModalContainer>
+            </Modal>
+
             <MultiLineInputs>
               <Text>Street</Text>
               <TextInput
-                placeholder={street ? street : 'Street Address'}
+                placeholder={'Street Address'}
                 returnKeyType="next"
                 autoCapitalize="words"
                 autoCorrect={false}
@@ -93,7 +166,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               <Text>City</Text>
               <TextInput
                 ref={inputEl2}
-                placeholder={city ? city : 'City'}
+                placeholder={'City'}
                 returnKeyType="next"
                 autoCapitalize="words"
                 autoCorrect={false}
@@ -107,7 +180,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               <Text>State</Text>
               <TextInput
                 ref={inputEl3}
-                placeholder={state ? state : 'State'}
+                placeholder={'State'}
                 returnKeyType="next"
                 autoCapitalize="characters"
                 autoCorrect={false}
@@ -122,7 +195,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               <Text>Zip</Text>
               <TextInput
                 ref={inputEl4}
-                placeholder={zip ? zip : 'Zip'}
+                placeholder={'Zip'}
                 returnKeyType="done"
                 keyboardType="number-pad"
                 maxLength={5}
@@ -138,7 +211,7 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
               <Text>Phone</Text>
               <TextInput
                 ref={inputEl5}
-                placeholder={phone ? phone : '(xxx)-xxx-xxxx'}
+                placeholder={'(xxx)-xxx-xxxx'}
                 returnKeyType="done"
                 textContentType="telephoneNumber"
                 dataDetactorTypes="phoneNunmber"
@@ -147,24 +220,12 @@ const EditProfileScreen = ({ editProfileWatcher, users }) => {
                 style={styles.input}
                 value={userProfile.phone}
                 onChangeText={(text) => onTextChange(text)}
-                // onSubmitEditing={() => inputEl6.current.focus()}
               />
             </MultiLineInputs>
-            {/* <TextInput
-              ref={inputEl6}
-              placeholder="Upload Iamge"
-              returnKeyType="done"
-              autoCapitalize="none"
-              autoCorrect={false}
-              style={styles.input}
-              value={userProfile.image_file}
-              onChangeText={(text) => handleProfileChange('image_file', text)}
-              onSubmitEditing={() => inputEl3.current.focus()}
-            /> */}
 
             <ErrorTextContainer>
               <ErrorText>
-                {errorMessage !== null ? errorMessage : 'Profile Updated'}
+                {errorMessage !== null ? errorMessage : null}
               </ErrorText>
             </ErrorTextContainer>
 
@@ -193,7 +254,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#8A8F9E',
     borderBottomWidth: StyleSheet.hairlineWidth,
     height: 40,
-    width: width * 0.6,
+    width: WIDTH * 0.6,
     marginVertical: 5,
     paddingHorizontal: 20,
     fontSize: 15,
@@ -206,6 +267,62 @@ const Container = styled.View`
   align-items: center;
   justify-content: center;
   background-color: white;
+`;
+
+const PhotoContainer = styled.View`
+  width: 100%;
+  height: ${HEIGHT / 6}px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  position: relative;
+`;
+
+const Profile = styled.Image`
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  border-width: 3px;
+  border-color: #cbb387;
+  margin-bottom: 20px;
+`;
+
+const ChangePhotoClick = styled.TouchableHighlight``;
+
+const ModalContainer = styled.View`
+  flex: 1;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 22px;
+`;
+
+const ModalView = styled.View`
+  width: 100%;
+  margin: 20px;
+  background-color: white;
+  padding: 30px;
+  align-items: center;
+  shadow-color: #000;
+  shadow-opacity: 0.25;
+`;
+
+const ModalItem = styled.TouchableOpacity`
+  flex-direction: row;
+  width: 100%;
+  height: 60px;
+  border-bottom-width: 1px;
+  border-bottom-color: #e3e3e3;
+  padding-horizontal: 25px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+`;
+
+const BlueText = styled.Text`
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 10px;
+  color: #3483eb;
 `;
 
 const Text = styled.Text`
@@ -237,11 +354,15 @@ const ErrorText = styled.Text`
 
 EditProfileScreen.propTypes = {
   editProfileWatcher: PropTypes.func,
-  users: PropTypes.object,
+  user: PropTypes.object,
+  errorMessage: PropTypes.any,
 };
 
 const mapStateToProps = (state) => {
-  return { users: state.users };
+  return {
+    user: state.users.data.included[0].attributes,
+    errorMessage: state.users.errorMessage,
+  };
 };
 
 export default connect(mapStateToProps, actions)(EditProfileScreen);

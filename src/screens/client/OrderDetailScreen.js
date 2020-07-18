@@ -72,6 +72,7 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
 
   const handleSubmit = () => {
     postOrder({
+      image_url: item.image,
       shoe_types: chosenShoeTypes,
       time_frame: item.timeFrame,
       add_ons: {
@@ -92,6 +93,7 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
   return (
     <ScrollViewContailner>
       <KeyboardAvoidingView
+        // eslint-disable-next-line no-undef
         behavior={Platform.OS == 'ios' ? 'position' : 'height'}
       >
         {ShoePhoto(item.image)}
@@ -165,6 +167,7 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
             returnKeyType="done"
             onChangeText={(text) => setPostalCode(text)}
             value={postalCode}
+            onSubmitEditing={() => inputEl5.current.focus()}
           />
 
           <DashedLine />
@@ -249,12 +252,13 @@ const PriceText = styled.Text`
 OrderDetailScreen.propTypes = {
   navigation: PropTypes.object,
   postOrder: PropTypes.func,
+  publishOrder: PropTypes.func,
   requestComplete: PropTypes.func,
   orders: PropTypes.array,
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders };
+  return { orders: state.orders.orders };
 };
 
 export default connect(mapStateToProps, actions)(OrderDetailScreen);

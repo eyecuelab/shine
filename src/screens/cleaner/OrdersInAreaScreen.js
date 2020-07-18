@@ -1,32 +1,63 @@
-import React from 'react';
-import Header from '../../components/shared/Header';
+import * as React from 'react';
+
+import { connect } from 'react-redux';
+import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
 import styled from 'styled-components/native';
+import OrderItem from '../../components/order/OrderItem';
+import OrderItemCompleted from '../../components/order/OrderItemCompleted';
 import PropTypes from 'prop-types';
-const OrdersInAreaScreen = ({ navigation }) => {
+import * as actions from '../../rdx/actions';
+
+const OrdersInAreaScreen = ({ orders, cleaner, navigation }) => {
+  const cleanerID = cleaner.data ? cleaner.data.id : null;
+
   return (
-    <>
-      <Header title="Orders In Area" navigation={navigation} />
+    <ScrollViewContainer>
       <Container>
-        <Text>OrdersInAreaScreen</Text>
+        {cleaner.quotableOrders &&
+          cleaner.quotableOrders.map((item) => (
+            <ItemsContainer
+              key={item.attributes.uuid}
+              onPress={() => navigation.navigate('Order Detail', item)}
+            >
+              {cleaner.quotedStatus[item.id] !== undefined &&
+              cleaner.quotedStatus[item.id][cleanerID] == 'Requested' ? (
+                <OrderItemCompleted order={item} />
+              ) : (
+                <OrderItem order={item} />
+              )}
+            </ItemsContainer>
+          ))}
       </Container>
-    </>
+    </ScrollViewContainer>
   );
 };
 
 const Container = styled.View`
   flex: 1;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
-const Text = styled.Text`
-  color: black;
-  font-size: 20px;
-  font-weight: 500;
+const ItemsContainer = styled.TouchableOpacity`
+  margin: 20px 0px 0px 20px;
 `;
+
+// const Text = styled.Text`
+//   color: #737272;
+//   font-size: 16px;
+// `;
 
 OrdersInAreaScreen.propTypes = {
   navigation: PropTypes.object,
+  orders: PropTypes.array,
+  cleaner: PropTypes.object,
 };
 
-export default OrdersInAreaScreen;
+const mapStateToProps = (state) => {
+  return { orders: state.orders.orders, cleaner: state.cleaner };
+};
+
+export default connect(mapStateToProps, actions)(OrdersInAreaScreen);

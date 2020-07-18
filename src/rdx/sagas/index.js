@@ -3,14 +3,20 @@ import { watchUserAuthentication, watchCleanerActions } from './watchers';
 import watchOrdersLoad, {
   watchPostOrder,
   watchOrdersReload,
+  watchPublishOrder,
+  watchGetOrderById,
+  watchDeleteOrder,
 } from './ordersSaga';
 
 export default function* rootSaga() {
   yield all([
     watchUserAuthentication(),
-    watchCleanerActions(),
     watchOrdersLoad(),
     watchPostOrder(),
+    watchCleanerActions(),
     watchOrdersReload(),
+    watchPublishOrder(),
+    watchGetOrderById(),
+    watchDeleteOrder(),
   ]);
 }

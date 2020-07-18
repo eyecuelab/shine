@@ -1,12 +1,10 @@
 import React from 'react';
-import Header from '../../components/shared/Header';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 
-const CompletedOrdersScreen = ({ navigation }) => {
+const CompletedOrdersScreen = () => {
   return (
     <>
-      <Header title="Completed Orders" navigation={navigation} />
       <Container>
         <Text>CompletedOrdersScreen</Text>
       </Container>

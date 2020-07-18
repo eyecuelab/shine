@@ -8,11 +8,20 @@ import SignInScreen from '../../screens/shared/SignInScreen';
 import CleanerApplicationScreen from '../../screens/cleaner/CleanerApplicationScreen';
 import CleanerProfileScreen from '../../screens/cleaner/CleanerProfileScreen';
 import EditCleanerProfileScreen from '../../screens/cleaner/EditCleanerProfileScreen';
+import OrderRequestedScreen from '../../screens/cleaner/OrdersRequestedScreen';
+import OrdersInProgressScreen from '../../screens/cleaner/OrdersInProgressScreen';
+import CompletedOrdersScreen from '../../screens/cleaner/CompletedOrdersScreen';
+import OrdersInAreaScreen from '../../screens/cleaner/OrdersInAreaScreen';
+import QuotableOrderDetailScreen from '../../screens/cleaner/QuotableOrderDetailScreen';
 
 const CleanerStack = createStackNavigator();
 
 const CleanerStackNavigator = ({ cleaner, users }) => {
-  const authentication = users.data ? users.data.included.length === 2 : null;
+  const authentication = users.status !== 'Logged out' ? true : false;
+  const cleanerAccontExist = cleaner.data ? true : false;
+  // const cleanerAccontExist =
+  //   Object.keys(users.cleaner).length === 0 ? false : true;
+
   return (
     <CleanerStack.Navigator
       screenOptions={{
@@ -25,7 +34,7 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
         headerBackTitleVisible: false,
       }}
     >
-      {!authentication && cleaner.data === null ? (
+      {!authentication || !cleanerAccontExist ? (
         <>
           <CleanerStack.Screen
             name="Cleaner Option Screen"
@@ -50,6 +59,31 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
             name="Edit Profile"
             component={EditCleanerProfileScreen}
             options={{ title: 'EDIT PROFILE' }}
+          />
+          <CleanerStack.Screen
+            name="Orders In Area"
+            component={OrdersInAreaScreen}
+            options={{ title: 'ORDERS IN AREA' }}
+          />
+          <CleanerStack.Screen
+            name="Order Detail"
+            component={QuotableOrderDetailScreen}
+            options={{ title: 'ORDER DETAIL' }}
+          />
+          <CleanerStack.Screen
+            name="Orders Requested"
+            component={OrderRequestedScreen}
+            options={{ title: 'ORDERS REQUESTED' }}
+          />
+          <CleanerStack.Screen
+            name="Orders In Progress"
+            component={OrdersInProgressScreen}
+            options={{ title: 'ORDERS IN PROGRESS' }}
+          />
+          <CleanerStack.Screen
+            name="Completed Orders"
+            component={CompletedOrdersScreen}
+            options={{ title: 'COMPLETED ORDERS' }}
           />
         </>
       )}

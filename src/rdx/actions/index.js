@@ -1,5 +1,4 @@
 import * as types from './types';
-import uuid from 'uuid';
 
 // ====== ORDERS ACTION CREATORS ======= //
 
@@ -33,6 +32,27 @@ export const postOrder = (order) => {
 export const setPostError = (error) => {
   return {
     type: types.POST_ORDER_FAIL,
+    error,
+  };
+};
+
+export const publishOrderWatcher = ({ orderID, publishedAt }) => {
+  return {
+    type: types.PUBLISH_ORDER_WATCHER,
+    payload: { orderID, publishedAt },
+  };
+};
+
+export const setPublishedOrder = (payload) => {
+  return {
+    type: types.PUBLISH_ORDER_SUCCESS,
+    payload,
+  };
+};
+
+export const setPublishError = (error) => {
+  return {
+    type: types.PUBLISH_ORDER_FAIL,
     error,
   };
 };
@@ -75,10 +95,38 @@ export const requestComplete = (uuid, requestCompleted) => {
   };
 };
 
-export const deleteOrder = (uuid) => {
+export const deleteOrderWatcher = (payload) => {
   return {
-    type: types.DELETE_ORDER,
-    uuid: uuid,
+    type: types.DELETE_ORDER_WATCHER,
+    payload,
+  };
+};
+
+export const deleteOrderError = (error) => {
+  return {
+    type: types.DELETE_ORDER_ERROR,
+    error,
+  };
+};
+
+export const getOrderByIdWatcher = (payload) => {
+  return {
+    type: types.GET_ORDER_BY_ID_WATCHER,
+    payload,
+  };
+};
+
+export const setSelectedOrder = (payload) => {
+  return {
+    type: types.GET_ORDER_BY_ID_SUCCESS,
+    payload,
+  };
+};
+
+export const setGetOrderByIdError = (error) => {
+  return {
+    type: types.GET_ORDER_BY_ID_ERROR,
+    error,
   };
 };
 
@@ -125,7 +173,21 @@ export const updateProfile = (payload) => {
   };
 };
 
+export const updatePassword = (payload) => {
+  return {
+    type: types.UPDATE_PASSWORD,
+    payload,
+  };
+};
+
 // ====== CLEANERS ACTION CREATORS ======= //
+
+export const loadCleaner = (payload) => {
+  return {
+    type: types.LOAD_CLEANER,
+    payload,
+  };
+};
 
 export const applyCleanerWatcher = (payload) => {
   return {
@@ -158,5 +220,32 @@ export const updateCleanerProfile = (payload) => {
 export const deleteCleanerWatcher = () => {
   return {
     type: types.DELETE_CLEANER_WATCHER,
+  };
+};
+
+export const loadQuotableOrdersWatcher = () => {
+  return {
+    type: types.LOAD_QUOTABLE_ORDERS_WATCHER,
+  };
+};
+
+export const setQuotableOrders = (payload) => {
+  return {
+    type: types.SET_QUOTABLE_ORDERS,
+    payload,
+  };
+};
+
+export const addQuoteWatcher = ({ orderID, quote }) => {
+  return {
+    type: types.ADD_QUOTE_WATCHER,
+    payload: { orderID, quote },
+  };
+};
+
+export const postQuote = (payload) => {
+  return {
+    type: types.POST_QUOTE_SUCCESS,
+    payload,
   };
 };

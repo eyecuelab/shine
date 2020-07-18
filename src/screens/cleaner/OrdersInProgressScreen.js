@@ -1,14 +1,12 @@
 import React from 'react';
-import Header from '../../components/shared/Header';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 
-const SettingsScreen = ({ navigation }) => {
+const OrdersInProgressScreen = () => {
   return (
     <>
-      <Header title="Settings" navigation={navigation} />
       <Container>
-        <Text>SettingsScreen</Text>
+        <Text>OrdersInProgressScreen</Text>
       </Container>
     </>
   );
@@ -26,8 +24,8 @@ const Text = styled.Text`
   font-weight: 500;
 `;
 
-SettingsScreen.propTypes = {
+OrdersInProgressScreen.propTypes = {
   navigation: PropTypes.object,
 };
 
-export default SettingsScreen;
+export default OrdersInProgressScreen;

@@ -1,32 +1,50 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-undef */
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Modal } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
-import PriceTagWhite from '../../components/shared/PriceTagWhite';
-// import { Button } from 'react-native-elements';
+// import PriceTagWhite from '../../components/shared/PriceTagWhite';
+import AddOnSwitch from '../../components/order/AddOnSwitch';
+import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
-import AddOnSwitch from '../../components/order/AddOnSwitch';
 
-const OrderFinalScreen = ({ navigation }) => {
+const OrderFinalScreen = ({
+  navigation,
+  publishOrderWatcher,
+  deleteOrderWatcher,
+}) => {
   const route = useRoute();
   const item = route.params;
-  const handleSubmit = () => {
-    navigation.navigate('OrderConfrim', item);
+  const [modalVisible, setModalVisible] = useState(false);
+  const currentDate = new Date();
+  const orderID = item.id;
+
+  const handlePublish = () => {
+    publishOrderWatcher({
+      orderID: orderID,
+      publishedAt: { published_at: currentDate },
+    });
+    setModalVisible(!modalVisible);
+    navigation.navigate('Home');
   };
 
-  // const handleCancelClick = () => {
-  //   deleteOrder(item.uuid);
-  //   navigation.navigate('Home');
+  // const handleSubmit = () => {
+  //   navigation.navigate('OrderConfrim', item);
   // };
+
+  const handleCancelClick = () => {
+    deleteOrderWatcher(orderID);
+    navigation.navigate('Home');
+  };
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto(item.image)}
+      {ShoePhoto(item.attributes.image_url)}
       <Container>
         <Text>You've recieved cleaning quotes!</Text>
         <SwitchTextContainer>
@@ -35,17 +53,61 @@ const OrderFinalScreen = ({ navigation }) => {
           <SwitchText>REPLACE SHOELACES</SwitchText>
         </SwitchTextContainer>
         <SwitchContainer>
-          <AddOnSwitch disabled={true} switchState={item.addOns.polish} />
           <AddOnSwitch
             disabled={true}
-            switchState={item.addOns.rainProtection}
+            switchState={item.attributes.add_ons.polish}
           />
-          <AddOnSwitch disabled={true} switchState={item.addOns.replaceLaces} />
+          <AddOnSwitch
+            disabled={true}
+            switchState={item.attributes.add_ons.rainProtection}
+          />
+          <AddOnSwitch
+            disabled={true}
+            switchState={item.attributes.add_ons.replaceLaces}
+          />
         </SwitchContainer>
+
+        {item.attributes.published_at ? null : (
+          <Button
+            title="PUBLISH"
+            containerStyle={{ paddingVertical: 40, width: 350 }}
+            buttonStyle={{
+              backgroundColor: '#939393',
+              height: 50,
+              borderRadius: 7,
+            }}
+            onPress={() => setModalVisible(!modalVisible)}
+          />
+        )}
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}
+        >
+          <ModalContainer>
+            <ModalView>
+              <ModalText>Would you like to publish this order?</ModalText>
+              <ModalItem onPress={handlePublish}>
+                <RedText>Publish</RedText>
+              </ModalItem>
+              <ModalItem
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <BlueText>Cancel</BlueText>
+              </ModalItem>
+            </ModalView>
+          </ModalContainer>
+        </Modal>
 
         {/* ========== NEED TO REFACTOR BELOW THIS CODE
                  ADD CLEANER'S STATE INTO PRICE TICKET ============ */}
-        <BidsContainer>
+        {/* <BidsContainer>
           <PriceTicketContainer onPress={handleSubmit}>
             <PriceTicket
               source={require('../../../assets/images/price-ticket-black.png')}
@@ -56,30 +118,9 @@ const OrderFinalScreen = ({ navigation }) => {
             </PriceContianer>
             <ExpireText>Expires in 12HR</ExpireText>
           </PriceTicketContainer>
+        </BidsContainer> */}
 
-          <PriceTicketContainer onPress={handleSubmit}>
-            <PriceTicket
-              source={require('../../../assets/images/price-ticket-black.png')}
-            />
-            <PriceContianer>
-              {PriceTagWhite(41, 99)}
-              <DueText>RETURNED BY TOMORROW</DueText>
-            </PriceContianer>
-            <ExpireText>Expires in 3HR</ExpireText>
-          </PriceTicketContainer>
-          <PriceTicketContainer onPress={handleSubmit}>
-            <PriceTicket
-              source={require('../../../assets/images/price-ticket-black.png')}
-            />
-            <PriceContianer>
-              {PriceTagWhite(47, 99)}
-              <DueText>RETURNED TODAY</DueText>
-            </PriceContianer>
-            <ExpireText>Expires in 3MIN</ExpireText>
-          </PriceTicketContainer>
-        </BidsContainer>
-        {/* ============================================================= */}
-        {/* <Button
+        <Button
           title="CANCEL SERVICE"
           containerStyle={{ paddingVertical: 40, width: 350 }}
           buttonStyle={{
@@ -88,7 +129,7 @@ const OrderFinalScreen = ({ navigation }) => {
             borderRadius: 7,
           }}
           onPress={handleCancelClick}
-        /> */}
+        />
       </Container>
     </ScrollViewContailner>
   );
@@ -101,6 +142,58 @@ const Container = styled.View`
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
+`;
+
+const ModalContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-top: 22px;
+`;
+
+const ModalView = styled.View`
+  margin: 20px;
+  background-color: #e6e6e6;
+  border-radius: 20px;
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
+  shadow-color: #000;
+  shadow-opacity: 0.25;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const ModalItem = styled.TouchableOpacity`
+  width: 50%;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  background-color: #e6e6e6;
+  padding-top: 20px;
+  border-top-width: 1px;
+  border-top-color: #939393;
+`;
+
+const ModalText = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
+  margin: 20px;
+  text-align: center;
+`;
+
+const RedText = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
+  margin-right: 10px;
+  color: #8e1818;
+`;
+
+const BlueText = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
+  margin-right: 10px;
+  color: #3483eb;
 `;
 
 const Text = styled.Text`
@@ -126,56 +219,56 @@ const SwitchContainer = styled.View`
   padding-top: 10px;
 `;
 
-const BidsContainer = styled.View`
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
+// const BidsContainer = styled.View`
+//   align-items: center;
+//   justify-content: center;
+//   flex-direction: row;
+//   flex-wrap: wrap;
+// `;
 
-const PriceTicketContainer = styled.TouchableOpacity`
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 20px;
-`;
+// const PriceTicketContainer = styled.TouchableOpacity`
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding-bottom: 20px;
+// `;
 
-const PriceTicket = styled.Image`
-  margin: 30px;
-  flex-wrap: wrap;
-`;
+// const PriceTicket = styled.Image`
+//   margin: 30px;
+//   flex-wrap: wrap;
+// `;
 
-const PriceContianer = styled.View`
-  flex-wrap: wrap;
-  width: 200px;
-  position: absolute;
-  align-items: center;
-  justify-content: center;
-`;
+// const PriceContianer = styled.View`
+//   flex-wrap: wrap;
+//   width: 200px;
+//   position: absolute;
+//   align-items: center;
+//   justify-content: center;
+// `;
 
-const DueText = styled.Text`
-  color: #e6e6e6;
-  font-size: 14px;
-  font-weight: 700;
-  text-align: center;
-`;
+// const DueText = styled.Text`
+//   color: #e6e6e6;
+//   font-size: 14px;
+//   font-weight: 700;
+//   text-align: center;
+// `;
 
-const ExpireText = styled.Text`
-  color: #939393;
-  font-size: 18px;
-  font-family: Marison-Sans-Round;
-  text-align: center;
-`;
+// const ExpireText = styled.Text`
+//   color: #939393;
+//   font-size: 18px;
+//   font-family: Marison-Sans-Round;
+//   text-align: center;
+// `;
 
 OrderFinalScreen.propTypes = {
   navigation: PropTypes.object,
-  requestComplete: PropTypes.func,
-  deleteOrder: PropTypes.func,
   orders: PropTypes.array,
+  deleteOrderWatcher: PropTypes.func,
+  publishOrderWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders };
+  return { orders: state.orders.orders };
 };
 
 export default connect(mapStateToProps, actions)(OrderFinalScreen);

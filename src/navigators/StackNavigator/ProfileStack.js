@@ -59,7 +59,7 @@ const ProfileStackNavigator = ({ users }) => {
           <ProfileStack.Screen
             name="Edit Profile"
             component={EditProfileScreen}
-            options={{ title: 'EDIT PROFILE' }}
+            options={{ title: 'UPDATE PROFILE' }}
           />
           <ProfileStack.Screen
             name="Cleaner Application"

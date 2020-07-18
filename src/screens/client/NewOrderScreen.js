@@ -9,7 +9,6 @@ import SetupOrAdd from '../../components/order/SetupOrAdd';
 import PropTypes from 'prop-types';
 import SelectPhoto from '../../components/order/SelectPhoto';
 import * as actions from '../../rdx/actions';
-import _ from 'lodash';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -29,7 +28,6 @@ const NewOrderScreen = ({ navigation }) => {
   ]);
 
   const [note, setNote] = useState('');
-
   // ROUTE STATE
   const [routes] = useState([
     { key: 'first', title: 'Step 1' },
@@ -121,7 +119,7 @@ const NewOrderScreen = ({ navigation }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders };
+  return { orders: state.orders.orders };
 };
 
 NewOrderScreen.propTypes = {

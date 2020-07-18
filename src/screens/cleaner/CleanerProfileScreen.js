@@ -6,33 +6,38 @@ import { Feather } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
+const { height: HEIGHT } = Dimensions.get('window');
 
 const CleanerProfileScreen = ({
   cleaner,
-  users,
   navigation,
   deleteCleanerWatcher,
+  loadQuotableOrdersWatcher,
 }) => {
+  const businessName = cleaner.data
+    ? cleaner.data.attributes.business_name
+    : null;
+  const email = cleaner.data ? cleaner.data.attributes.email : null;
+
+  const onLoadQuotableOrders = () => {
+    loadQuotableOrdersWatcher();
+    navigation.navigate('Orders In Area');
+  };
+
   const onDelete = () => {
     deleteCleanerWatcher();
-    // navigation.navigate('CleanerOptionScreen');
   };
 
   return (
     <>
       <ProfileContainer>
         <Container>
-          <Name>
-            {cleaner.data ? cleaner.data.data.attributes.business_name : null}
-          </Name>
+          <Name>{businessName}</Name>
         </Container>
 
         <ListItem>
           <Text>Account</Text>
-          <Text>
-            {cleaner.data ? cleaner.data.data.attributes.email : null}
-          </Text>
+          <Text>{email}</Text>
         </ListItem>
 
         <ListItem onPress={() => navigation.navigate('Edit Profile')}>
@@ -40,8 +45,29 @@ const CleanerProfileScreen = ({
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>
 
+        <ListItem onPress={onLoadQuotableOrders}>
+          <Text>Quotable Orders In Area</Text>
+          <Feather name="chevron-right" size={24} color="#737272" />
+        </ListItem>
+
+        <ListItem onPress={() => navigation.navigate('Orders Requested')}>
+          <Text>Orders with Quote Accepted</Text>
+          <Feather name="chevron-right" size={24} color="#737272" />
+        </ListItem>
+
+        <ListItem onPress={() => navigation.navigate('Orders In Progress')}>
+          <Text>Orders In Progress</Text>
+          <Feather name="chevron-right" size={24} color="#737272" />
+        </ListItem>
+
+        <ListItem onPress={() => navigation.navigate('Completed Orders')}>
+          <Text>Orders Completed</Text>
+          <Feather name="chevron-right" size={24} color="#737272" />
+        </ListItem>
+
+        <Seperator />
         <ListItemCenter onPress={onDelete}>
-          <CenterText>Delete Cleaner's Account</CenterText>
+          <CenterText>Delete Your Cleaner Account</CenterText>
         </ListItemCenter>
       </ProfileContainer>
     </>
@@ -64,14 +90,14 @@ const Container = styled.View`
   position: relative;
 `;
 
-const Profile = styled.Image`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
-  border-width: 3px;
-  border-color: #cbb387;
-  margin-bottom: 20px;
-`;
+// const Profile = styled.Image`
+//   width: 80px;
+//   height: 80px;
+//   border-radius: 40px;
+//   border-width: 3px;
+//   border-color: #cbb387;
+//   margin-bottom: 20px;
+// `;
 
 const Name = styled.Text`
   color: #2c2c2c;
@@ -107,7 +133,7 @@ const ListItemCenter = styled.TouchableOpacity`
 
 const Seperator = styled.View`
   width: 100%;
-  height: 20px;
+  height: 15px;
   background-color: #e6e6e6;
   border-bottom-width: 1px;
   border-bottom-color: #e3e3e3;
@@ -127,10 +153,10 @@ const CenterText = styled.Text`
 
 CleanerProfileScreen.propTypes = {
   navigation: PropTypes.object,
-  users: PropTypes.object,
   cleaner: PropTypes.object,
   updateCleanerWatcher: PropTypes.func,
   deleteCleanerWatcher: PropTypes.func,
+  loadQuotableOrdersWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {

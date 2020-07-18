@@ -4,13 +4,7 @@ import Constants from 'expo-constants';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
-
-const options = {
-  mediaTypes: ImagePicker.MediaTypeOptions.Images,
-  allowsEditing: true,
-  aspect: [4, 3],
-  quality: 1,
-};
+import { PickImage, TakePhoto } from '../shared/UploadPhotoFunctions';
 
 const SelectPhoto = ({ jumpTo, image, setImage }) => {
   useEffect(() => {
@@ -26,20 +20,6 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
     })();
   }, []);
 
-  const PickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync(options);
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-  };
-
-  const TakePhoto = async () => {
-    let result = await ImagePicker.launchCameraAsync(options);
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-  };
-
   return image === 'empty.img' ? (
     <Container>
       <Button
@@ -50,7 +30,7 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
           height: 50,
           borderRadius: 7,
         }}
-        onPress={PickImage}
+        onPress={() => PickImage({ setImage: setImage })}
       />
       <Button
         title="TAKE A PHOTO"
@@ -60,7 +40,7 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
           height: 50,
           borderRadius: 7,
         }}
-        onPress={TakePhoto}
+        onPress={() => TakePhoto({ setImage: setImage })}
       />
     </Container>
   ) : (

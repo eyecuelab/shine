@@ -10,9 +10,6 @@ import OrderItem from '../../components/order/OrderItem';
 // const { height: HEIGHT } = Dimensions.get('window');
 
 const OrdersList = ({ orders }) => {
-  // const route = useRoute();
-  // const { image } = route.params;
-  // console.log('ORDERS: ', orders);
   const navigation = useNavigation();
   const goToDetail = (item) => {
     navigation.navigate('OrderDetail', item);
@@ -31,10 +28,10 @@ const OrdersList = ({ orders }) => {
       >
         {orders &&
           orders.map((item) => {
-            // console.log(item);
+            // console.log(item.attributes.id);
             return (
               <TouchableOpacity
-                key={item.uuid}
+                key={item.attributes.id}
                 onPress={() => goToDetail(item)}
               >
                 <ItemsContainer>

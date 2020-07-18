@@ -37,15 +37,15 @@ const EditCleanerProfileScreen = ({
   const inputEl9 = useRef(null);
   const inputEl10 = useRef(null);
 
-  const businessName = cleaner.data.data.attributes.business_name;
-  const firstName = cleaner.data.data.attributes.first_name;
-  const lastName = cleaner.data.data.attributes.last_name;
-  const email = cleaner.data.data.attributes.email;
-  const phone = cleaner.data.data.attributes.phone;
-  const street = cleaner.data.data.attributes.street_address;
-  const city = cleaner.data.data.attributes.city;
-  const state = cleaner.data.data.attributes.state;
-  const zip = cleaner.data.data.attributes.postal_code;
+  const businessName = cleaner.data.attributes.business_name;
+  const firstName = cleaner.data.attributes.first_name;
+  const lastName = cleaner.data.attributes.last_name;
+  const email = cleaner.data.attributes.email;
+  const phone = cleaner.data.attributes.phone;
+  const street = cleaner.data.attributes.street_address;
+  const city = cleaner.data.attributes.city;
+  const state = cleaner.data.attributes.state;
+  const zip = cleaner.data.attributes.postal_code;
 
   const handleChange = (key, value) => {
     setCleanerProfile((current) => ({
@@ -297,7 +297,7 @@ EditCleanerProfileScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { cleaner: state.cleaner };
+  return { users: state.users, cleaner: state.cleaner };
 };
 
 export default connect(mapStateToProps, actions)(EditCleanerProfileScreen);

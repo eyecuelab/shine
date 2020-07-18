@@ -15,9 +15,9 @@ export function* loginSaga(action) {
     let response = yield call(loginUserService, action.payload);
     if (response.ok && response.status === 200) {
       const data = yield response.json();
-      console.log(data);
-
       yield put(actions.logIn(data));
+      yield put(actions.loadOrders());
+      yield put(actions.loadCleaner(data));
     } else {
       throw yield response.json();
     }
@@ -40,7 +40,7 @@ export function* logoutSaga() {
       throw yield response.json();
     }
   } catch (error) {
-    console.log('LOGOUT ERROR:', error);
+    // console.log('ERROR', error.message);
   }
 }
 
@@ -53,7 +53,6 @@ export function* signupSaga(action) {
       throw yield response.json();
     }
   } catch (error) {
-    console.log('SIGNUP ERROR: ', error);
     yield put({ type: types.SIGNUP_ERROR, error: error.message });
   } finally {
     if (yield cancelled()) {
@@ -68,7 +67,6 @@ export function* editProfileSaga(action) {
     let response = yield call(editProfileService, action.payload, token);
     if (response.status >= 200 && response.status < 300) {
       const data = yield response.json();
-      console.log('EDIT DATA', data);
       const userData = data.data;
       yield put(actions.updateProfile(userData));
     } else {
@@ -76,6 +74,26 @@ export function* editProfileSaga(action) {
     }
   } catch (error) {
     console.log('EDIT PROFILE ERROR: ', error);
+    yield put({ type: types.UPDATE_PROFILE_ERROR, error: error.message });
+  }
+}
+
+export function* editPasswordSaga(action) {
+  try {
+    const token = yield select(getToken);
+    let response = yield call(editProfileService, action.payload, token);
+
+    if (response.status >= 200 && response.status < 300) {
+      yield put(
+        actions.loginWatcher({
+          email: action.payload.email,
+          password: action.payload.password,
+        }),
+      );
+    } else {
+      throw yield response.json();
+    }
+  } catch (error) {
     yield put({ type: types.UPDATE_PROFILE_ERROR, error: error.message });
   }
 }
