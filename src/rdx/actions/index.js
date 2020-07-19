@@ -95,10 +95,38 @@ export const requestComplete = (uuid, requestCompleted) => {
   };
 };
 
-export const deleteOrder = (uuid) => {
+export const deleteOrderWatcher = (payload) => {
   return {
-    type: types.DELETE_ORDER,
-    uuid: uuid,
+    type: types.DELETE_ORDER_WATCHER,
+    payload,
+  };
+};
+
+export const deleteOrderError = (error) => {
+  return {
+    type: types.DELETE_ORDER_ERROR,
+    error,
+  };
+};
+
+export const getOrderByIdWatcher = (payload) => {
+  return {
+    type: types.GET_ORDER_BY_ID_WATCHER,
+    payload,
+  };
+};
+
+export const setSelectedOrder = (payload) => {
+  return {
+    type: types.GET_ORDER_BY_ID_SUCCESS,
+    payload,
+  };
+};
+
+export const setGetOrderByIdError = (error) => {
+  return {
+    type: types.GET_ORDER_BY_ID_ERROR,
+    error,
   };
 };
 
@@ -215,9 +243,9 @@ export const addQuoteWatcher = ({ orderID, quote }) => {
   };
 };
 
-export const postQuote = (orderID) => {
+export const postQuote = (payload) => {
   return {
     type: types.POST_QUOTE_SUCCESS,
-    payload: orderID,
+    payload,
   };
 };

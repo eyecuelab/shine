@@ -22,6 +22,7 @@ const QuotableOrderDetailScreen = ({
 }) => {
   const item = route.params;
   const orderID = item.id;
+  const cleanerID = cleaner.data.id;
 
   const estimatedPrice = item.attributes.estimated_price;
   const [quotedPrice, setQuotedPrice] = useState(estimatedPrice);
@@ -121,8 +122,16 @@ const QuotableOrderDetailScreen = ({
       </Container>
 
       <DashedLine />
-      {item.status ? (
-        <StatusText>{item.status}</StatusText>
+      {cleaner.quotedStatus[item.id] !== undefined &&
+      cleaner.quotedStatus[item.id][cleanerID] == 'Requested' ? (
+        <>
+          <QuoteContainer>
+            <StatusText>Quote has been successfully requested.</StatusText>
+            <ListText>Quoted Price: {quotedPrice}</ListText>
+            <ListText>Quote Expired At: {formatDateTime(expireDate)}</ListText>
+            <ListText>Returned By:{formatDate(completeDate)}</ListText>
+          </QuoteContainer>
+        </>
       ) : (
         <>
           <QuoteContainer>

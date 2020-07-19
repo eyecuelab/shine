@@ -13,14 +13,18 @@ import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const OrderFinalScreen = ({ navigation, publishOrderWatcher }) => {
+const OrderFinalScreen = ({
+  navigation,
+  publishOrderWatcher,
+  deleteOrderWatcher,
+}) => {
   const route = useRoute();
   const item = route.params;
   const [modalVisible, setModalVisible] = useState(false);
   const currentDate = new Date();
+  const orderID = item.id;
 
   const handlePublish = () => {
-    const orderID = item.id;
     publishOrderWatcher({
       orderID: orderID,
       publishedAt: { published_at: currentDate },
@@ -33,10 +37,10 @@ const OrderFinalScreen = ({ navigation, publishOrderWatcher }) => {
   //   navigation.navigate('OrderConfrim', item);
   // };
 
-  // const handleCancelClick = () => {
-  //   deleteOrder(item.uuid);
-  //   navigation.navigate('Home');
-  // };
+  const handleCancelClick = () => {
+    deleteOrderWatcher(orderID);
+    navigation.navigate('Home');
+  };
 
   return (
     <ScrollViewContailner>
@@ -115,8 +119,8 @@ const OrderFinalScreen = ({ navigation, publishOrderWatcher }) => {
             <ExpireText>Expires in 12HR</ExpireText>
           </PriceTicketContainer>
         </BidsContainer> */}
-        {/* ============================================================= */}
-        {/* <Button
+
+        <Button
           title="CANCEL SERVICE"
           containerStyle={{ paddingVertical: 40, width: 350 }}
           buttonStyle={{
@@ -125,7 +129,7 @@ const OrderFinalScreen = ({ navigation, publishOrderWatcher }) => {
             borderRadius: 7,
           }}
           onPress={handleCancelClick}
-        /> */}
+        />
       </Container>
     </ScrollViewContailner>
   );
@@ -258,9 +262,8 @@ const SwitchContainer = styled.View`
 
 OrderFinalScreen.propTypes = {
   navigation: PropTypes.object,
-  requestComplete: PropTypes.func,
-  deleteOrder: PropTypes.func,
   orders: PropTypes.array,
+  deleteOrderWatcher: PropTypes.func,
   publishOrderWatcher: PropTypes.func,
 };
 

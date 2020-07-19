@@ -258,7 +258,7 @@ OrderDetailScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders };
+  return { orders: state.orders.orders };
 };
 
 export default connect(mapStateToProps, actions)(OrderDetailScreen);
