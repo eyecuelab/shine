@@ -117,7 +117,7 @@ const QuotableOrderDetailScreen = ({
           <PriceTextContainer>
             <PriceText>ROUGH EST.</PriceText>
           </PriceTextContainer>
-          {PriceTagBlack(Math.floor(estimatedPrice), 99)}
+          {PriceTagBlack(estimatedPrice)}
         </PriceContianer>
       </Container>
 
@@ -147,7 +147,6 @@ const QuotableOrderDetailScreen = ({
                   style={{ marginRight: 5 }}
                 />
               }
-              placeholder={estimatedPrice}
               value={quotedPrice}
               onChangeText={(text) => setQuotedPrice(text)}
             />
@@ -296,7 +295,7 @@ const PriceTextContainer = styled.View`
 `;
 
 const PriceText = styled.Text`
-  text-align: left;
+  margin-left: 20px;
   padding-left: 10px;
   color: black;
   font-size: 18px;

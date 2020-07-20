@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 const PriceTagWhite = (price) => {
-  const dollars = price.split('.')[0];
-  const cents = price.split('.')[1];
+  const dollars = price.toString().split('.')[0];
+  const cents = price.toString().split('.')[1];
   return (
     <>
       <PriceContianer>

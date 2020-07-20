@@ -54,7 +54,7 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
   const priceByTime = timePrice(item.timeFrame);
   const priceByStyle = typePrice(chosenShoeTypes);
   const addPrice = _.sum([priceByTime, priceByStyle, deliveryFee]);
-  const estPrice = _.floor(addPrice);
+  const estPrice = _.floor(addPrice) + 0.99;
 
   const [polish, setPolish] = useState(false);
   const [rainProtection, setRainProtection] = useState(false);
@@ -125,7 +125,7 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
             <PriceTextContainer>
               <PriceText>ROUGH EST.</PriceText>
             </PriceTextContainer>
-            {PriceTagBlack(estPrice, 99)}
+            {PriceTagBlack(estPrice)}
           </PriceContianer>
 
           <DashedLine />
@@ -243,7 +243,7 @@ const PriceTextContainer = styled.View`
 `;
 
 const PriceText = styled.Text`
-  text-align: left;
+  margin-left: 20px;
   padding-left: 10px;
   color: black;
   font-size: 18px;
