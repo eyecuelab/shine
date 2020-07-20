@@ -73,7 +73,7 @@ const SignUpScreen = ({ signupWatcher, users }) => {
       password: password,
     });
 
-    navigation.navigate('LogIn');
+    // navigation.navigate('LogIn');
   };
 
   return (

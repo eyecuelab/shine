@@ -47,6 +47,7 @@ export function* logoutSaga() {
 export function* signupSaga(action) {
   try {
     let response = yield call(signUpUserService, action.payload);
+    console.log(response.status);
     if (response.ok && response.status === 204) {
       yield put({ type: types.SIGNUP_SUCCESS });
     } else {
