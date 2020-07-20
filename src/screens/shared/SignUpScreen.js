@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Dimensions,
   TextInput,
@@ -11,7 +11,7 @@ import {
 import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
@@ -30,27 +30,57 @@ const SignUpScreen = ({ signupWatcher, users }) => {
   };
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [authCode, setAuthCode] = useState('');
 
   const statusMessage = users.signupMessage;
-  // const navigation = useNavigation();
+
+  const navigation = useNavigation();
 
   const inputEl2 = useRef(null);
   const inputEl3 = useRef(null);
   const inputEl4 = useRef(null);
 
+  useEffect(() => {
+    console.log('HIT USE EFFECT');
+    if (users.signupMessage === 'Sign Up Successful!') {
+      setModalVisible(true);
+    }
+  }, [users.signupMessage]);
+
   const onSignUp = () => {
-    setModalVisible(true);
+    // if (emailError === 'Please Enter a Valid Email Address') {
+    //   setEmailError('Please Enter a Valid Email Address');
+    // }
+    if (firstName.length === 0 || lastName.length === 0) {
+      setEmailError('Please Fill Out All Required Fields');
+    }
+    if (password.length < 6 || password.length > 10) {
+      setEmailError('Password should contain 6-10 characters');
+    } else {
+      signupWatcher({
+        email: email,
+        first_name: firstName,
+        last_name: lastName,
+        password: password,
+      });
+    }
+  };
+
+  const onSetEmail = () => {
+    // eslint-disable-next-line no-useless-escape
+    // var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    // if (email.match(mailformat)) {
+    //   (inputE12) => inputE12.current.focus();
+    //   setEmailError('');
+    // } else {
+    // setEmailError('Please Enter a Valid Email Address');
+    // }
   };
 
   const onSubmit = () => {
     setModalVisible(false);
-    // signupWatcher({
-    //   email: email,
-    //   first_name: firstName,
-    //   last_name: lastName,
-    //   password: password,
-    // });
-    // TODO: add modal to confirm signed up status and route to login page
+
     // navigation.navigate('LogIn');
   };
 
@@ -82,12 +112,18 @@ const SignUpScreen = ({ signupWatcher, users }) => {
                     <HeaderText>Welcome to Shine {firstName}! </HeaderText>
                   </ModalHeader>
                   <ModalItem>
-                    <Text>
-                      If all of your information is correct we will send a
-                      confirmation email to {email}
-                    </Text>
+                    <Text>An Confirmation Code has been sent to {email}</Text>
                   </ModalItem>
-                  <ModalConfirm>
+                  <ModalItem>
+                    <CodeTextInput
+                      placeholder="Your Authorization Code"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      value={authCode}
+                      onChangeText={setAuthCode}
+                    />
+                  </ModalItem>
+                  <ModalConfirm onPress={() => onSubmit()}>
                     <ConfirmText>Confirm and Continue</ConfirmText>
                   </ModalConfirm>
                 </ModalView>
@@ -102,7 +138,7 @@ const SignUpScreen = ({ signupWatcher, users }) => {
               style={styles.input}
               value={email}
               onChangeText={setEmail}
-              onSubmitEditing={() => inputEl2.current.focus()}
+              onEndEditing={() => onSetEmail()}
             />
             <TextInput
               ref={inputEl2}
@@ -138,7 +174,7 @@ const SignUpScreen = ({ signupWatcher, users }) => {
                 value={password}
                 secureTextEntry={secureTextEntry}
                 onChangeText={setPassword}
-                onSubmitEditing={onSubmit}
+                // onSubmitEditing={onSubmit}
               />
               <SecureButton onPress={toggleSecureTextEntry}>
                 {secureTextEntry ? (
@@ -151,6 +187,11 @@ const SignUpScreen = ({ signupWatcher, users }) => {
             {statusMessage !== null ? (
               <MessageContainer>
                 <Text>{statusMessage}</Text>
+              </MessageContainer>
+            ) : null}
+            {emailError.length !== 0 ? (
+              <MessageContainer>
+                <ErrorText>{emailError}</ErrorText>
               </MessageContainer>
             ) : null}
             <UniversalButton title={'Sign Up'} onPress={onSignUp} width={350} />
@@ -219,6 +260,20 @@ const Text = styled.Text`
   color: black;
   font-size: 14px;
   font-weight: 400;
+  text-align: center;
+`;
+
+const CodeTextInput = styled.TextInput`
+  width: 80%;
+  padding: 10px;
+  border-width: 1px;
+  border-color: black;
+`;
+
+const ErrorText = styled.Text`
+  color: #8e1818;
+  font-size: 16px;
+  font-weight: 500;
   text-align: center;
 `;
 
