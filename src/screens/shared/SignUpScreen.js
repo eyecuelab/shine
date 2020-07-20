@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import {
   Dimensions,
   TextInput,
@@ -31,47 +31,55 @@ const SignUpScreen = ({ signupWatcher, users }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [emailError, setEmailError] = useState('');
+  const [signIn, setSignIn] = useState(false);
 
   const statusMessage = users.signupMessage;
+
   const navigation = useNavigation();
 
   const inputEl2 = useRef(null);
   const inputEl3 = useRef(null);
   const inputEl4 = useRef(null);
 
-  const onSignUp = () => {
-    if (emailError === 'Please Enter a Valid Email Address') {
-      setEmailError('Please Enter a Valid Email Address');
+  useEffect(() => {
+    console.log('HIT USE EFFECT');
+    if (users.signupMessage === 'Sign Up Successful!') {
+      setModalVisible(true);
     }
+  }, [users.signupMessage]);
+
+  const onSignUp = () => {
+    // if (emailError === 'Please Enter a Valid Email Address') {
+    //   setEmailError('Please Enter a Valid Email Address');
+    // }
     if (firstName.length === 0 || lastName.length === 0) {
       setEmailError('Please Fill Out All Required Fields');
     }
     if (password.length < 6 || password.length > 10) {
       setEmailError('Password should contain 6-10 characters');
     } else {
-      setModalVisible(true);
+      signupWatcher({
+        email: email,
+        first_name: firstName,
+        last_name: lastName,
+        password: password,
+      });
     }
   };
 
   const onSetEmail = () => {
     // eslint-disable-next-line no-useless-escape
-    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (email.match(mailformat)) {
-      (inputE12) => inputE12.current.focus();
-      setEmailError('');
-    } else {
-      setEmailError('Please Enter a Valid Email Address');
-    }
+    // var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    // if (email.match(mailformat)) {
+    //   (inputE12) => inputE12.current.focus();
+    //   setEmailError('');
+    // } else {
+    // setEmailError('Please Enter a Valid Email Address');
+    // }
   };
 
   const onSubmit = () => {
     setModalVisible(false);
-    signupWatcher({
-      email: email,
-      first_name: firstName,
-      last_name: lastName,
-      password: password,
-    });
 
     // navigation.navigate('LogIn');
   };
