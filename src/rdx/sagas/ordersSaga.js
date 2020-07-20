@@ -18,6 +18,8 @@ import {
   setSelectedOrder,
   setGetOrderByIdError,
   deleteOrderError,
+  quoteAccepted,
+  quoteAcceptError,
 } from '../actions';
 
 export const getToken = (state) => state.users.data.data.attributes.token;
@@ -83,9 +85,9 @@ export function* quoteAcceptSaga(action) {
     const token = yield select(getToken);
     const result = yield call(quoteAccept, action.payload, orderID, token);
     console.log('SAGA', result);
-    // yield put(setPublishedOrder(result));
+    yield put(quoteAccepted(result));
   } catch (error) {
-    // yield put(setPublishError(error.toString()));
+    yield put(quoteAcceptError(error.toString()));
   }
 }
 

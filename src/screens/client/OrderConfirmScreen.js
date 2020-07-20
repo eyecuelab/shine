@@ -13,15 +13,15 @@ import * as actions from '../../rdx/actions';
 const OrderConfirmScreen = ({ navigation, cleaner, quoteAcceptWatcher }) => {
   const route = useRoute();
   const item = route.params;
-  const cleanerID = item.id;
+  const cleanerID = item.attributes.cleaner_id.toString();
   // const currentDate = new Date();
-  // console.log('CONFRIRM', currentDate);
+  console.log('CONFRIRM', item);
 
   const onSubmit = () => {
     quoteAcceptWatcher({
       cleaner_id: cleanerID,
     });
-    // navigation.navigate('Home');
+    navigation.navigate('Home');
   };
 
   const onCancel = () => {

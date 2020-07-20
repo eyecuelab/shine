@@ -79,7 +79,6 @@ export function* deleteOrder(orderID, token) {
 }
 
 export const quoteAccept = async (request, orderID, token) => {
-  console.log('R', request);
   const urlLink = `http://127.0.0.1:8080/orders/${orderID}`;
   const response = await fetch(urlLink, {
     method: 'PATCH',

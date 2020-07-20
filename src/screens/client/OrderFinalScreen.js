@@ -109,7 +109,10 @@ const OrderFinalScreen = ({
 
         {order.included &&
           order.included.map((item) => (
-            <BidsContainer key={item.id} onPress={() => handleQuoteClick(item)}>
+            <QuoteContainer
+              key={item.id}
+              onPress={() => handleQuoteClick(item)}
+            >
               <PriceTicketContainer>
                 <PriceTicket
                   source={require('../../../assets/images/price-ticket-black.png')}
@@ -120,7 +123,7 @@ const OrderFinalScreen = ({
                 </PriceContianer>
                 <ExpireText>{item.attributes.expires_at}</ExpireText>
               </PriceTicketContainer>
-            </BidsContainer>
+            </QuoteContainer>
           ))}
 
         <Button
@@ -252,12 +255,11 @@ const SwitchContainer = styled.View`
   padding-top: 10px;
 `;
 
-const BidsContainer = styled.TouchableOpacity`
+const QuoteContainer = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
-  border: 3px red;
 `;
 
 const PriceTicketContainer = styled.View`

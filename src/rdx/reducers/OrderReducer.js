@@ -43,7 +43,21 @@ const orderReducer = (state = initialOrdersState, action) => {
         ...state,
         selectedOrder: action.payload,
       };
-
+    case types.QUOTE_ACCEPT_SUCCESS:
+      return {
+        ...state,
+        orders: state.orders.map((item) => {
+          if (item.attributes.uuid === action.payload.data.attributes.uuid) {
+            return {
+              type: action.payload.data.type,
+              id: action.payload.data.id,
+              links: action.payload.links,
+              attributes: action.payload.data.attributes,
+            };
+          }
+          return item;
+        }),
+      };
     // case types.ADD_ORDER:
     //   return [
     //     ...state,
@@ -89,7 +103,7 @@ const orderReducer = (state = initialOrdersState, action) => {
       return {
         ...state,
         orders: state.orders.map((item) => {
-          if (item.attributes.uuid === action.uuid) {
+          if (item.attributes.uuid === action.payload.data.attributes.uuid) {
             return {
               ...item,
               requestCompleted: action.payload,
