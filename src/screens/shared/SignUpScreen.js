@@ -11,7 +11,7 @@ import {
 import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
@@ -30,28 +30,50 @@ const SignUpScreen = ({ signupWatcher, users }) => {
   };
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [emailError, setEmailError] = useState('');
 
   const statusMessage = users.signupMessage;
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const inputEl2 = useRef(null);
   const inputEl3 = useRef(null);
   const inputEl4 = useRef(null);
 
   const onSignUp = () => {
-    setModalVisible(true);
+    if (emailError === 'Please Enter a Valid Email Address') {
+      setEmailError('Please Enter a Valid Email Address');
+    }
+    if (firstName.length === 0 || lastName.length === 0) {
+      setEmailError('Please Fill Out All Required Fields');
+    }
+    if (password.length < 6 || password.length > 10) {
+      setEmailError('Password should contain 6-10 characters');
+    } else {
+      setModalVisible(true);
+    }
+  };
+
+  const onSetEmail = () => {
+    // eslint-disable-next-line no-useless-escape
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (email.match(mailformat)) {
+      (inputE12) => inputE12.current.focus();
+      setEmailError('');
+    } else {
+      setEmailError('Please Enter a Valid Email Address');
+    }
   };
 
   const onSubmit = () => {
     setModalVisible(false);
-    // signupWatcher({
-    //   email: email,
-    //   first_name: firstName,
-    //   last_name: lastName,
-    //   password: password,
-    // });
-    // TODO: add modal to confirm signed up status and route to login page
-    // navigation.navigate('LogIn');
+    signupWatcher({
+      email: email,
+      first_name: firstName,
+      last_name: lastName,
+      password: password,
+    });
+
+    navigation.navigate('LogIn');
   };
 
   return (
@@ -87,7 +109,7 @@ const SignUpScreen = ({ signupWatcher, users }) => {
                       confirmation email to {email}
                     </Text>
                   </ModalItem>
-                  <ModalConfirm>
+                  <ModalConfirm onPress={() => onSubmit()}>
                     <ConfirmText>Confirm and Continue</ConfirmText>
                   </ModalConfirm>
                 </ModalView>
@@ -102,7 +124,7 @@ const SignUpScreen = ({ signupWatcher, users }) => {
               style={styles.input}
               value={email}
               onChangeText={setEmail}
-              onSubmitEditing={() => inputEl2.current.focus()}
+              onEndEditing={() => onSetEmail()}
             />
             <TextInput
               ref={inputEl2}
@@ -138,7 +160,7 @@ const SignUpScreen = ({ signupWatcher, users }) => {
                 value={password}
                 secureTextEntry={secureTextEntry}
                 onChangeText={setPassword}
-                onSubmitEditing={onSubmit}
+                // onSubmitEditing={onSubmit}
               />
               <SecureButton onPress={toggleSecureTextEntry}>
                 {secureTextEntry ? (
@@ -151,6 +173,11 @@ const SignUpScreen = ({ signupWatcher, users }) => {
             {statusMessage !== null ? (
               <MessageContainer>
                 <Text>{statusMessage}</Text>
+              </MessageContainer>
+            ) : null}
+            {emailError.length !== 0 ? (
+              <MessageContainer>
+                <ErrorText>{emailError}</ErrorText>
               </MessageContainer>
             ) : null}
             <UniversalButton title={'Sign Up'} onPress={onSignUp} width={350} />
@@ -219,6 +246,13 @@ const Text = styled.Text`
   color: black;
   font-size: 14px;
   font-weight: 400;
+  text-align: center;
+`;
+
+const ErrorText = styled.Text`
+  color: #8e1818;
+  font-size: 16px;
+  font-weight: 500;
   text-align: center;
 `;
 
