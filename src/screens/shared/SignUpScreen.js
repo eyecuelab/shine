@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import * as React from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Dimensions,
   TextInput,
@@ -8,41 +8,49 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
+import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 // import { useNavigation } from '@react-navigation/native';
-import { Button } from 'react-native-elements';
 import { Feather } from '@expo/vector-icons';
 import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
+import UniversalButton from '../../components/shared/UniversalButton';
 
 const { width } = Dimensions.get('window');
 
 const SignUpScreen = ({ signupWatcher, users }) => {
-  const [email, setEmail] = React.useState('');
-  const [firstName, setFirstName] = React.useState('');
-  const [lastName, setLastName] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [secureTextEntry, setSecureTextEntry] = React.useState(true);
+  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [password, setPassword] = useState('');
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
   const toggleSecureTextEntry = () => {
     setSecureTextEntry((previousState) => !previousState);
   };
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   const statusMessage = users.signupMessage;
   // const navigation = useNavigation();
 
-  const inputEl2 = React.useRef(null);
-  const inputEl3 = React.useRef(null);
-  const inputEl4 = React.useRef(null);
+  const inputEl2 = useRef(null);
+  const inputEl3 = useRef(null);
+  const inputEl4 = useRef(null);
+
+  const onSignUp = () => {
+    setModalVisible(true);
+  };
 
   const onSubmit = () => {
-    signupWatcher({
-      email: email,
-      first_name: firstName,
-      last_name: lastName,
-      password: password,
-    });
-    // TODO: add modal to confrim signed up status and route to login page
+    setModalVisible(false);
+    // signupWatcher({
+    //   email: email,
+    //   first_name: firstName,
+    //   last_name: lastName,
+    //   password: password,
+    // });
+    // TODO: add modal to confirm signed up status and route to login page
     // navigation.navigate('LogIn');
   };
 
@@ -54,6 +62,37 @@ const SignUpScreen = ({ signupWatcher, users }) => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Container>
+            <Modal
+              hasBackdrop={true}
+              hideModalContentWhileAnimating={true}
+              animationIn={'slideInUp'}
+              animationOut={'slideOutDown'}
+              animationInTiming={1000}
+              animationOutTiming={1000}
+              backdropTransitionInTiming={1000}
+              backdropTransitionOutTiming={1000}
+              isVisible={modalVisible}
+              onBackdropPress={() => setModalVisible(false)}
+              swipeDirection={['down']}
+              onSwipeComplete={() => setModalVisible(false)}
+            >
+              <ModalContainer>
+                <ModalView>
+                  <ModalHeader>
+                    <HeaderText>Welcome to Shine {firstName}! </HeaderText>
+                  </ModalHeader>
+                  <ModalItem>
+                    <Text>
+                      If all of your information is correct we will send a
+                      confirmation email to {email}
+                    </Text>
+                  </ModalItem>
+                  <ModalConfirm>
+                    <ConfirmText>Confirm and Continue</ConfirmText>
+                  </ModalConfirm>
+                </ModalView>
+              </ModalContainer>
+            </Modal>
             <TextInput
               placeholder="Email"
               returnKeyType="next"
@@ -114,17 +153,7 @@ const SignUpScreen = ({ signupWatcher, users }) => {
                 <Text>{statusMessage}</Text>
               </MessageContainer>
             ) : null}
-
-            <Button
-              title="Sign up"
-              containerStyle={{ paddingTop: 20, width: 350 }}
-              buttonStyle={{
-                backgroundColor: 'black',
-                height: 50,
-                borderRadius: 7,
-              }}
-              onPress={onSubmit}
-            />
+            <UniversalButton title={'Sign Up'} onPress={onSignUp} width={350} />
           </Container>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
@@ -172,11 +201,64 @@ const MessageContainer = styled.View`
   justify-content: center;
 `;
 
-const Text = styled.Text`
-  color: #8e1818;
+const HeaderText = styled.Text`
+  color: black;
   font-size: 16px;
   font-weight: 500;
   text-align: center;
+`;
+
+const ConfirmText = styled.Text`
+  color: blue;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+`;
+
+const Text = styled.Text`
+  color: black;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+`;
+
+const ModalContainer = styled.View`
+  justify-content: flex-end;
+  align-items: center;
+  background-color: white;
+`;
+
+const ModalView = styled.View`
+  width: 100%;
+  margin-bottom: 20px;
+
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+const ModalHeader = styled.View`
+  width: 100%;
+  height: 60px;
+  border-bottom-width: 1px;
+  border-bottom-color: #e3e3e3;
+  padding-horizontal: 25px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+`;
+
+const ModalItem = styled.View`
+  width: 100%;
+  padding-top: 20px;
+  padding-horizontal: 25px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+`;
+
+const ModalConfirm = styled.TouchableOpacity`
+  width: 100%;
+  padding-top: 20px;
 `;
 
 SignUpScreen.propTypes = {
