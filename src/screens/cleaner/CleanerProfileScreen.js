@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
@@ -18,6 +19,7 @@ const CleanerProfileScreen = ({
     ? cleaner.data.attributes.business_name
     : null;
   const email = cleaner.data ? cleaner.data.attributes.email : null;
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   const onLoadQuotableOrders = () => {
     loadQuotableOrdersWatcher();
@@ -66,9 +68,41 @@ const CleanerProfileScreen = ({
         </ListItem>
 
         <Seperator />
-        <ListItemCenter onPress={onDelete}>
+        <ListItemCenter
+          onPress={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
           <CenterText>Delete Your Cleaner Account</CenterText>
         </ListItemCenter>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          backdropOpacity={0.3}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}
+        >
+          <ModalContainer>
+            <ModalView>
+              <ModalText>
+                Are you sure that you want to permanently delete this cleaner
+                account?
+              </ModalText>
+              <ModalItem onPress={onDelete}>
+                <RedText>DELETE</RedText>
+              </ModalItem>
+              <ModalItem
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <BlueText>CANCEL</BlueText>
+              </ModalItem>
+            </ModalView>
+          </ModalContainer>
+        </Modal>
       </ProfileContainer>
     </>
   );
@@ -149,6 +183,59 @@ const CenterText = styled.Text`
   font-size: 16px;
   text-align: center;
   font-weight: 500;
+`;
+
+const ModalContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-top: 22px;
+`;
+
+const ModalView = styled.View`
+  margin: 20px;
+  background-color: #e6e6e6;
+  border-radius: 20px;
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
+  shadow-color: #000;
+  shadow-opacity: 0.25;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const ModalItem = styled.TouchableOpacity`
+  width: 50%;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  background-color: #e6e6e6;
+  padding-top: 20px;
+  border-top-width: 1px;
+  border-top-color: #939393;
+`;
+
+const ModalText = styled.Text`
+  font-size: 20px;
+  font-weight: 500;
+  margin: 10px;
+  padding-bottom: 20px;
+  text-align: center;
+`;
+
+const RedText = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
+  margin-right: 10px;
+  color: #8e1818;
+`;
+
+const BlueText = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
+  margin-right: 10px;
+  color: #3483eb;
 `;
 
 CleanerProfileScreen.propTypes = {

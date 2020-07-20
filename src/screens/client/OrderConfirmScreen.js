@@ -10,14 +10,13 @@ import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 // import AddOnSwitch from '../../components/order/AddOnSwitch';
 
-const OrderConfirmScreen = ({ navigation, requestComplete }) => {
+const OrderConfirmScreen = ({ navigation, cleaner }) => {
   const route = useRoute();
   const item = route.params;
   console.log('CONFRIRM', item);
 
   const handleSubmit = () => {
-    requestComplete(item.uuid, true);
-    navigation.navigate('Home');
+    // navigation.navigate('Home');
   };
 
   const handleCancelClick = () => {
@@ -69,12 +68,11 @@ const Text = styled.Text`
 
 OrderConfirmScreen.propTypes = {
   navigation: PropTypes.object,
-  requestComplete: PropTypes.func,
-  orders: PropTypes.array,
+  cleaner: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders.orders };
+  return { cleaner: state.cleaner };
 };
 
 export default connect(mapStateToProps, actions)(OrderConfirmScreen);
