@@ -7,22 +7,24 @@ import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
-// import PriceTagWhite from '../../components/shared/PriceTagWhite';
+import PriceTagWhite from '../../components/shared/PriceTagWhite';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
 const OrderFinalScreen = ({
+  order,
   navigation,
   publishOrderWatcher,
   deleteOrderWatcher,
 }) => {
-  const route = useRoute();
-  const item = route.params;
+  // const route = useRoute();
+  // const item = route.params;
   const [modalVisible, setModalVisible] = useState(false);
   const currentDate = new Date();
-  const orderID = item.id;
+  const orderID = order.data.id;
+  console.log(order);
 
   const handlePublish = () => {
     publishOrderWatcher({
@@ -33,9 +35,9 @@ const OrderFinalScreen = ({
     navigation.navigate('Home');
   };
 
-  // const handleSubmit = () => {
-  //   navigation.navigate('OrderConfrim', item);
-  // };
+  const handleQuoteClick = (item) => {
+    navigation.navigate('OrderConfrim', item);
+  };
 
   const handleCancelClick = () => {
     deleteOrderWatcher(orderID);
@@ -44,7 +46,7 @@ const OrderFinalScreen = ({
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto(item.attributes.image_url)}
+      {ShoePhoto(order.data.attributes.image_url)}
       <Container>
         <Text>You've recieved cleaning quotes!</Text>
         <SwitchTextContainer>
@@ -55,19 +57,19 @@ const OrderFinalScreen = ({
         <SwitchContainer>
           <AddOnSwitch
             disabled={true}
-            switchState={item.attributes.add_ons.polish}
+            switchState={order.data.attributes.add_ons.polish}
           />
           <AddOnSwitch
             disabled={true}
-            switchState={item.attributes.add_ons.rainProtection}
+            switchState={order.data.attributes.add_ons.rainProtection}
           />
           <AddOnSwitch
             disabled={true}
-            switchState={item.attributes.add_ons.replaceLaces}
+            switchState={order.data.attributes.add_ons.replaceLaces}
           />
         </SwitchContainer>
 
-        {item.attributes.published_at ? null : (
+        {order.data.attributes.published_at ? null : (
           <Button
             title="PUBLISH"
             containerStyle={{ paddingVertical: 40, width: 350 }}
@@ -105,20 +107,21 @@ const OrderFinalScreen = ({
           </ModalContainer>
         </Modal>
 
-        {/* ========== NEED TO REFACTOR BELOW THIS CODE
-                 ADD CLEANER'S STATE INTO PRICE TICKET ============ */}
-        {/* <BidsContainer>
-          <PriceTicketContainer onPress={handleSubmit}>
-            <PriceTicket
-              source={require('../../../assets/images/price-ticket-black.png')}
-            />
-            <PriceContianer>
-              {PriceTagWhite(34, 99)}
-              <DueText>RETURNED BY THURSDAY</DueText>
-            </PriceContianer>
-            <ExpireText>Expires in 12HR</ExpireText>
-          </PriceTicketContainer>
-        </BidsContainer> */}
+        {order.included &&
+          order.included.map((item) => (
+            <BidsContainer key={item.id} onPress={() => handleQuoteClick(item)}>
+              <PriceTicketContainer>
+                <PriceTicket
+                  source={require('../../../assets/images/price-ticket-black.png')}
+                />
+                <PriceContianer>
+                  {PriceTagWhite(item.attributes.quoted_price)}
+                  <DueText>{item.attributes.delivery_by}</DueText>
+                </PriceContianer>
+                <ExpireText>{item.attributes.expires_at}</ExpireText>
+              </PriceTicketContainer>
+            </BidsContainer>
+          ))}
 
         <Button
           title="CANCEL SERVICE"
@@ -219,56 +222,57 @@ const SwitchContainer = styled.View`
   padding-top: 10px;
 `;
 
-// const BidsContainer = styled.View`
-//   align-items: center;
-//   justify-content: center;
-//   flex-direction: row;
-//   flex-wrap: wrap;
-// `;
+const BidsContainer = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border: 3px red;
+`;
 
-// const PriceTicketContainer = styled.TouchableOpacity`
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: space-between;
-//   padding-bottom: 20px;
-// `;
+const PriceTicketContainer = styled.View`
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+`;
 
-// const PriceTicket = styled.Image`
-//   margin: 30px;
-//   flex-wrap: wrap;
-// `;
+const PriceTicket = styled.Image`
+  margin: 30px;
+  flex-wrap: wrap;
+`;
 
-// const PriceContianer = styled.View`
-//   flex-wrap: wrap;
-//   width: 200px;
-//   position: absolute;
-//   align-items: center;
-//   justify-content: center;
-// `;
+const PriceContianer = styled.View`
+  flex-wrap: wrap;
+  width: 200px;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+`;
 
-// const DueText = styled.Text`
-//   color: #e6e6e6;
-//   font-size: 14px;
-//   font-weight: 700;
-//   text-align: center;
-// `;
+const DueText = styled.Text`
+  color: #e6e6e6;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+`;
 
-// const ExpireText = styled.Text`
-//   color: #939393;
-//   font-size: 18px;
-//   font-family: Marison-Sans-Round;
-//   text-align: center;
-// `;
+const ExpireText = styled.Text`
+  color: #939393;
+  font-size: 18px;
+  font-family: Marison-Sans-Round;
+  text-align: center;
+`;
 
 OrderFinalScreen.propTypes = {
   navigation: PropTypes.object,
-  orders: PropTypes.array,
+  order: PropTypes.object,
   deleteOrderWatcher: PropTypes.func,
   publishOrderWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders.orders };
+  return { order: state.orders.selectedOrder };
 };
 
 export default connect(mapStateToProps, actions)(OrderFinalScreen);
