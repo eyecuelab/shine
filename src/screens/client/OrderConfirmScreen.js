@@ -13,6 +13,7 @@ import * as actions from '../../rdx/actions';
 const OrderConfirmScreen = ({ navigation, requestComplete }) => {
   const route = useRoute();
   const item = route.params;
+  console.log('CONFRIRM', item);
 
   const handleSubmit = () => {
     requestComplete(item.uuid, true);
@@ -73,7 +74,7 @@ OrderConfirmScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders };
+  return { orders: state.orders.orders };
 };
 
 export default connect(mapStateToProps, actions)(OrderConfirmScreen);

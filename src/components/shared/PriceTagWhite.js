@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-const PriceTagWhite = (dollars, cents) => {
+const PriceTagWhite = (price) => {
+  const dollars = price.split('.')[0];
+  const cents = price.split('.')[1];
   return (
     <>
       <PriceContianer>
