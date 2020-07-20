@@ -49,7 +49,7 @@ const authReducer = (state = initialAuthState, action) => {
         ...state,
         data: null,
         errorMessage: null,
-        signupMessage: 'You have seccessfully signed up',
+        signupMessage: 'Sign Up Successful!',
         status: 'Signed up',
       };
     case types.SIGNUP_ERROR:

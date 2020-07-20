@@ -43,7 +43,7 @@ const EditProfileScreen = ({
 
   useEffect(() => {
     setModalVisible(false);
-  }, [profilePhoto, profilePhotoUpload]);
+  }, [profilePhoto]);
 
   const handleProfileChange = (key, value) => {
     setUserProfile((current) => ({
