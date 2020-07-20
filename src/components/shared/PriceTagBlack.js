@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-const PriceTag = (dollars, cents) => {
+const PriceTagBlack = (price) => {
+  const dollars = price.toString().split('.')[0];
+  const cents = price.toString().split('.')[1];
   return (
     <>
       <PriceContianer>
@@ -21,29 +23,10 @@ const PriceTag = (dollars, cents) => {
 
 const PriceContianer = styled.View`
   flex-direction: row;
-  flex-wrap: wrap;
+  flex: 1;
   align-items: center;
   justify-content: center;
 `;
-
-// const PriceContianer = styled.View`
-//   flex: 1;
-//   flex-direction: row;
-//   margin: 0px 30px;
-//   align-items: center;
-//   justify-content: center;
-// `;
-
-// const PriceContianer = styled.View`
-//   border: 1px solid black;
-//   flex-direction: row;
-//   flex-wrap: wrap;
-//   align-items: center;
-//   justify-content: center;
-//   width: 50%;
-//   position: relative;
-//   margin: 0px 30px;
-// `;
 
 const SignContainer = styled.View``;
 
@@ -65,9 +48,9 @@ const CentsContainer = styled.View``;
 
 const CentsText = styled.Text`
   color: black;
-  font-size: 70px;
+  font-size: 60px;
   font-family: Marison-Script-Vintage;
   text-decoration-line: underline;
 `;
 
-export default PriceTag;
+export default PriceTagBlack;
