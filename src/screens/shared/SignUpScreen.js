@@ -29,7 +29,7 @@ const SignUpScreen = ({ signupWatcher, users }) => {
     setSecureTextEntry((previousState) => !previousState);
   };
 
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [authCode, setAuthCode] = useState('');
 
