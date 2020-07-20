@@ -21,7 +21,12 @@ import {
 } from '../../components/shared/UploadPhotoFunctions';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
-const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
+const EditProfileScreen = ({
+  editProfileWatcher,
+  user,
+  errorMessage,
+  navigation,
+}) => {
   const [userProfile, setUserProfile] = useState({
     street_address: user.street_address,
     city: user.city,
@@ -38,7 +43,7 @@ const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
 
   useEffect(() => {
     setModalVisible(false);
-  }, [profilePhoto]);
+  }, [profilePhoto, profilePhotoUpload]);
 
   const handleProfileChange = (key, value) => {
     setUserProfile((current) => ({
@@ -70,6 +75,7 @@ const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
   // console.log(user.email);
 
   const onSubmit = () => {
+    console.log('onSubmit', profilePhotoUpload);
     editProfileWatcher(
       {
         image_url: profilePhoto,
@@ -82,6 +88,7 @@ const EditProfileScreen = ({ editProfileWatcher, user, errorMessage }) => {
       },
       user.email,
     );
+    navigation.navigate('Profile');
   };
   const ProfilePhotoDisplay = () => {
     if (profilePhoto === '') {
@@ -356,6 +363,7 @@ EditProfileScreen.propTypes = {
   editProfileWatcher: PropTypes.func,
   user: PropTypes.object,
   errorMessage: PropTypes.any,
+  navigation: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
