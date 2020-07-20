@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Dimensions,
   TextInput,
@@ -29,9 +29,9 @@ const SignUpScreen = ({ signupWatcher, users }) => {
     setSecureTextEntry((previousState) => !previousState);
   };
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(true);
   const [emailError, setEmailError] = useState('');
-  const [signIn, setSignIn] = useState(false);
+  const [authCode, setAuthCode] = useState('');
 
   const statusMessage = users.signupMessage;
 
@@ -112,10 +112,16 @@ const SignUpScreen = ({ signupWatcher, users }) => {
                     <HeaderText>Welcome to Shine {firstName}! </HeaderText>
                   </ModalHeader>
                   <ModalItem>
-                    <Text>
-                      If all of your information is correct we will send a
-                      confirmation email to {email}
-                    </Text>
+                    <Text>An Confirmation Code has been sent to {email}</Text>
+                  </ModalItem>
+                  <ModalItem>
+                    <CodeTextInput
+                      placeholder="Your Authorization Code"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      value={authCode}
+                      onChangeText={setAuthCode}
+                    />
                   </ModalItem>
                   <ModalConfirm onPress={() => onSubmit()}>
                     <ConfirmText>Confirm and Continue</ConfirmText>
@@ -255,6 +261,13 @@ const Text = styled.Text`
   font-size: 14px;
   font-weight: 400;
   text-align: center;
+`;
+
+const CodeTextInput = styled.TextInput`
+  width: 80%;
+  padding: 10px;
+  border-width: 1px;
+  border-color: black;
 `;
 
 const ErrorText = styled.Text`
