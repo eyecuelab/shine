@@ -1,4 +1,4 @@
-const fetchOrders = async (token) => {
+export const fetchOrders = async (token) => {
   const response = await fetch('http://127.0.0.1:8080/orders', {
     method: 'GET',
     headers: {
@@ -14,7 +14,7 @@ const fetchOrders = async (token) => {
   }
 };
 
-function* postOrder(order, token) {
+export function* postOrder(order, token) {
   const urlLink = 'http://127.0.0.1:8080/orders';
   const response = yield fetch(urlLink, {
     method: 'POST',
@@ -30,7 +30,7 @@ function* postOrder(order, token) {
   }
 }
 
-const publishOrder = async (request, token) => {
+export const publishOrder = async (request, token) => {
   const urlLink = `http://127.0.0.1:8080/orders/${request.orderID}`;
   const response = await fetch(urlLink, {
     method: 'PATCH',
@@ -47,7 +47,7 @@ const publishOrder = async (request, token) => {
   }
 };
 
-const getOrderById = async (orderID, token) => {
+export const getOrderById = async (orderID, token) => {
   const urlLink = `http://127.0.0.1:8080/orders/${orderID}`;
   const response = await fetch(urlLink, {
     method: 'GET',
@@ -63,7 +63,7 @@ const getOrderById = async (orderID, token) => {
   }
 };
 
-function* deleteOrder(orderID, token) {
+export function* deleteOrder(orderID, token) {
   const urlLink = `http://127.0.0.1:8080/orders/${orderID}`;
   const response = yield fetch(urlLink, {
     method: 'DELETE',
@@ -78,4 +78,23 @@ function* deleteOrder(orderID, token) {
   }
 }
 
-export { fetchOrders, postOrder, publishOrder, getOrderById, deleteOrder };
+export const quoteAccept = async (request, orderID, token) => {
+  console.log('R', request);
+  const urlLink = `http://127.0.0.1:8080/orders/${orderID}`;
+  const response = await fetch(urlLink, {
+    method: 'PATCH',
+    headers: {
+      Authorization: token,
+    },
+    body: JSON.stringify(request),
+  });
+  const result = await response.json();
+  console.log('SERVICE', result);
+  if (response.ok && response.status === 200) {
+    return result;
+  } else {
+    throw new Error(response.json());
+  }
+};
+
+// export { fetchOrders, postOrder, publishOrder, getOrderById, deleteOrder };

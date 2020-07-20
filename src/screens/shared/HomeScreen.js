@@ -13,7 +13,7 @@ const HomeScreen = ({ orders, users, getOrderByIdWatcher }) => {
   const navigation = useNavigation();
   const handleClick = (item) => {
     getOrderByIdWatcher(item.id);
-    if (item.attributes.quote_accepted_at === null) {
+    if (item.attributes.cleaner_id === null) {
       navigation.navigate('OrderFinal', item);
     } else {
       navigation.navigate('OrderStatus', item);

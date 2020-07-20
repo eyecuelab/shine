@@ -25,7 +25,6 @@ const OrderFinalScreen = ({
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const currentDate = new Date();
   const orderID = order.data.id;
-  console.log(order);
 
   const handlePublish = () => {
     publishOrderWatcher({

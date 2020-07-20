@@ -36,27 +36,6 @@ export const setPostError = (error) => {
   };
 };
 
-export const publishOrderWatcher = ({ orderID, publishedAt }) => {
-  return {
-    type: types.PUBLISH_ORDER_WATCHER,
-    payload: { orderID, publishedAt },
-  };
-};
-
-export const setPublishedOrder = (payload) => {
-  return {
-    type: types.PUBLISH_ORDER_SUCCESS,
-    payload,
-  };
-};
-
-export const setPublishError = (error) => {
-  return {
-    type: types.PUBLISH_ORDER_FAIL,
-    error,
-  };
-};
-
 export const reloadOrders = (result) => {
   return {
     type: types.POST_ORDER_SUCCESS,
@@ -95,6 +74,27 @@ export const requestComplete = (uuid, requestCompleted) => {
   };
 };
 
+export const publishOrderWatcher = ({ orderID, publishedAt }) => {
+  return {
+    type: types.PUBLISH_ORDER_WATCHER,
+    payload: { orderID, publishedAt },
+  };
+};
+
+export const setPublishedOrder = (payload) => {
+  return {
+    type: types.PUBLISH_ORDER_SUCCESS,
+    payload,
+  };
+};
+
+export const setPublishError = (error) => {
+  return {
+    type: types.PUBLISH_ORDER_FAIL,
+    error,
+  };
+};
+
 export const deleteOrderWatcher = (payload) => {
   return {
     type: types.DELETE_ORDER_WATCHER,
@@ -126,6 +126,27 @@ export const setSelectedOrder = (payload) => {
 export const setGetOrderByIdError = (error) => {
   return {
     type: types.GET_ORDER_BY_ID_ERROR,
+    error,
+  };
+};
+
+export const quoteAcceptWatcher = (payload) => {
+  return {
+    type: types.QUOTE_ACCEPT_WATCHER,
+    payload,
+  };
+};
+
+export const quoteAccepted = (payload) => {
+  return {
+    type: types.QUOTE_ACCEPT_SUCCESS,
+    payload,
+  };
+};
+
+export const quoteAcceptError = (error) => {
+  return {
+    type: types.QUOTE_ACCEPT_ERROR,
     error,
   };
 };
