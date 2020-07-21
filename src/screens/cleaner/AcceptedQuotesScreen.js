@@ -7,29 +7,21 @@ import OrderItemCompleted from '../../components/order/OrderItemCompleted';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const OrdersInAreaScreen = ({ cleaner, navigation }) => {
+const AcceptedQuotesScreen = ({ cleaner, navigation }) => {
   const cleanerID = cleaner.data ? cleaner.data.id : null;
-  const filtedQuotableOrders = cleaner.quotableOrders
-    ? cleaner.quotableOrders.filter(
-        (item) => item.attributes.cleaner_id == null,
-      )
-    : null;
+  const quotedOrders = cleaner.quotedOrders ? cleaner.quotedOrders : null;
+  console.log('QUOTED', quotedOrders);
 
   return (
     <ScrollViewContainer>
       <Container>
-        {filtedQuotableOrders &&
-          filtedQuotableOrders.map((item) => (
+        {quotedOrders &&
+          quotedOrders.map((item) => (
             <ItemsContainer
               key={item.attributes.uuid}
-              onPress={() => navigation.navigate('Quotable Order Detail', item)}
+              onPress={() => navigation.navigate('Quoted Order Detail', item)}
             >
-              {cleaner.quotedStatus[item.id] !== undefined &&
-              cleaner.quotedStatus[item.id][cleanerID] == 'Requested' ? (
-                <OrderItemCompleted order={item} />
-              ) : (
-                <OrderItem order={item} />
-              )}
+              <OrderItem order={item} />
             </ItemsContainer>
           ))}
       </Container>
@@ -49,7 +41,7 @@ const ItemsContainer = styled.TouchableOpacity`
   margin: 20px 0px 0px 20px;
 `;
 
-OrdersInAreaScreen.propTypes = {
+AcceptedQuotesScreen.propTypes = {
   navigation: PropTypes.object,
   cleaner: PropTypes.object,
 };
@@ -58,4 +50,4 @@ const mapStateToProps = (state) => {
   return { cleaner: state.cleaner };
 };
 
-export default connect(mapStateToProps, actions)(OrdersInAreaScreen);
+export default connect(mapStateToProps, actions)(AcceptedQuotesScreen);

@@ -6,6 +6,7 @@ import {
   deleteCleanerService,
   loadQuotableOrdersService,
   postQuoteService,
+  loadQuotedOrdersService,
 } from '../services/cleanerService';
 import { call, put, select } from 'redux-saga/effects';
 
@@ -100,5 +101,21 @@ export function* postQuoteSaga(action) {
   } catch (error) {
     console.log('POST QUOTE ERROR:', error);
     yield put({ type: types.POST_QUOTE_ERROR, error: error.message });
+  }
+}
+
+export function* loadQuotedOrdersSaga() {
+  try {
+    const cleanerID = yield select(getCleanerID);
+    const token = yield select(getToken);
+    let response = yield call(loadQuotedOrdersService, cleanerID, token);
+    if (response.ok && response.status === 200) {
+      const data = yield response.json();
+      yield put(actions.setQuotedOrders(data.data));
+    } else {
+      throw yield response.json();
+    }
+  } catch (error) {
+    console.log('LOAD QUOTED ORDERS ERROR:', error);
   }
 }
