@@ -14,7 +14,7 @@ const OrderConfirmScreen = ({ navigation, cleaner, quoteAcceptWatcher }) => {
   const route = useRoute();
   const item = route.params;
   const cleanerID = item.attributes.cleaner_id.toString();
-  // const currentDate = new Date();
+
   console.log('CONFRIRM', item);
 
   const onSubmit = () => {

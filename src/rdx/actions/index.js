@@ -290,3 +290,17 @@ export const setQuotedOrders = (payload) => {
     payload,
   };
 };
+
+export const updateOrderWatcher = ({ orderID, payload }) => {
+  return {
+    type: types.UPDATE_ORDER_BY_CLEANER_WATCHER,
+    payload: { orderID, payload },
+  };
+};
+
+export const setUpdatedOrder = (payload) => {
+  return {
+    type: types.UPDATE_ORDER_BY_CLEANER_SUCCESS,
+    payload,
+  };
+};

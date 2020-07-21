@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Platform, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { Input, Button } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
@@ -16,17 +16,95 @@ import * as actions from '../../rdx/actions';
 
 const QuotedOrderDetailScreen = ({
   route,
-  addQuoteWatcher,
-  cleaner,
-  navigation,
+  updateOrderWatcher,
+  orderStatus,
 }) => {
   const item = route.params;
-  console.log(item);
+  const orderID = item.id;
+  const currentOrderStatus = orderStatus[orderID] ? orderStatus[orderID] : null;
+  // console.log('STATUS', currentOrderStatus);
+
+  const [shoesPickedUp, setShoesPickedUp] = useState(
+    currentOrderStatus.shoes_picked_up,
+  );
+  const [shoesCleaned, setShoesCleaned] = useState(
+    currentOrderStatus.shoes_cleaned,
+  );
+  const [shoesPolished, setShoesPolished] = useState(
+    currentOrderStatus.shoes_polished,
+  );
+  const [requestPayment, setRequestPayment] = useState(
+    currentOrderStatus.request_payment,
+  );
+  const [shoesDroppedOff, setShoesDroppedOff] = useState(
+    currentOrderStatus.shoes_dropped_off,
+  );
+
+  const onSubmit = () => {
+    updateOrderWatcher({
+      orderID: item.id,
+      payload: {
+        shoes_picked_up: shoesPickedUp,
+        shoes_cleaned: shoesCleaned,
+        shoes_polished: shoesPolished,
+        request_payment: requestPayment,
+        shoes_dropped_off: shoesDroppedOff,
+      },
+    });
+  };
 
   return (
     <ScrollViewContailner>
       {ShoePhoto(item.attributes.image_url)}
-      <InfoText>Order Id: {item.id}</InfoText>
+      <Container>
+        <InfoText>Order Id: {item.id}</InfoText>
+
+        <SwitchTextContainer>
+          <SwitchText>SHOES PICKED UP</SwitchText>
+          <SwitchText>SHOES CLEANED</SwitchText>
+          <SwitchText>SHOES POLISHED</SwitchText>
+          <SwitchText>REQUEST PAYMENT</SwitchText>
+          <SwitchText>SHOES DROPPED OFF</SwitchText>
+        </SwitchTextContainer>
+        <SwitchContainer>
+          <AddOnSwitch
+            disabled={false}
+            switchState={shoesPickedUp}
+            setSwitchState={setShoesPickedUp}
+          />
+          <AddOnSwitch
+            disabled={false}
+            switchState={shoesCleaned}
+            setSwitchState={setShoesCleaned}
+          />
+          <AddOnSwitch
+            disabled={false}
+            switchState={shoesPolished}
+            setSwitchState={setShoesPolished}
+          />
+          <AddOnSwitch
+            disabled={false}
+            switchState={requestPayment}
+            setSwitchState={setRequestPayment}
+          />
+          <AddOnSwitch
+            disabled={false}
+            switchState={shoesDroppedOff}
+            setSwitchState={setShoesDroppedOff}
+          />
+        </SwitchContainer>
+
+        <Button
+          title="SUBMIT"
+          containerStyle={{ paddingTop: 10, width: 330 }}
+          buttonStyle={{
+            backgroundColor: 'black',
+            height: 50,
+            borderRadius: 7,
+          }}
+          onPress={onSubmit}
+        />
+      </Container>
     </ScrollViewContailner>
   );
 };
@@ -42,39 +120,6 @@ const InfoText = styled.Text`
   font-size: 20px;
   margin-bottom: 20px;
   margin-left: 30px;
-`;
-
-const TitleText = styled.Text`
-  font-size: 22px;
-  font-weight: 600;
-  margin: 0px 40px 50px 40px;
-  padding: 15px;
-  text-align: center;
-  background-color: #cbb387;
-`;
-
-const ListText = styled.Text`
-  font-size: 20px;
-  color: #939393;
-  font-weight: 700;
-  margin-bottom: 20px;
-  margin-left: 12px;
-`;
-
-const DateText = styled.Text`
-  font-size: 18px;
-  color: #bababa;
-  font-weight: 700;
-  margin-bottom: 20px;
-  margin-left: 12px;
-`;
-
-const DatePickerText = styled.Text`
-  font-size: 18px;
-  color: #cbb387;
-  font-weight: 700;
-  margin-bottom: 20px;
-  margin-left: 12px;
 `;
 
 const SwitchTextContainer = styled.View`
@@ -93,51 +138,19 @@ const SwitchContainer = styled.View`
   padding-top: 10px;
 `;
 
-const PriceContianer = styled.View`
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
-
-const PriceTextContainer = styled.View`
-  margin-right: 110px;
-  justify-content: center;
-`;
-
-const PriceText = styled.Text`
-  margin-left: 20px;
-  padding-left: 10px;
-  color: black;
-  font-size: 18px;
-`;
-
-const QuoteContainer = styled.View`
-  padding: 30px 20px 50px 20px;
-`;
-
-const DatePickerContainer = styled.View`
-  border-bottom-width: 1px;
-  border-bottom-color: #939393;
-  padding-bottom: 20px;
-  margin-bottom: 25px;
-`;
-
-const StatusText = styled.Text`
-  text-align: center;
-  color: #8e1818;
-  font-size: 20px;
-  font-weight: 600;
-  margin: 20px 10px 50px 10px;
-`;
-
 QuotedOrderDetailScreen.propTypes = {
   navigation: PropTypes.object,
   orders: PropTypes.array,
   cleaner: PropTypes.object,
-  addQuoteWatcher: PropTypes.func,
+  updateOrderWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders.orders, cleaner: state.cleaner };
+  return {
+    orders: state.orders.orders,
+    cleaner: state.cleaner,
+    orderStatus: state.orders.orderStatus,
+  };
 };
 
 export default connect(mapStateToProps, actions)(QuotedOrderDetailScreen);

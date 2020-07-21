@@ -14,6 +14,7 @@ import {
   loadQuotableOrdersSaga,
   postQuoteSaga,
   loadQuotedOrdersSaga,
+  updateOrderByCleanerSaga,
 } from './cleanerSaga';
 import * as types from '../actions/types';
 
@@ -33,4 +34,8 @@ export function* watchCleanerActions() {
   yield takeLatest(types.LOAD_QUOTABLE_ORDERS_WATCHER, loadQuotableOrdersSaga);
   yield takeLatest(types.ADD_QUOTE_WATCHER, postQuoteSaga);
   yield takeLatest(types.LOAD_QUOTED_ORDERS_WATCHER, loadQuotedOrdersSaga);
+  yield takeLatest(
+    types.UPDATE_ORDER_BY_CLEANER_WATCHER,
+    updateOrderByCleanerSaga,
+  );
 }
