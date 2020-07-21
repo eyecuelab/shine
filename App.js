@@ -12,6 +12,9 @@ const App = () => {
   let [fontsLoaded] = useFonts({
     'Marison-Sans-Round': require('./assets/fonts/Marison-Sans-Round.ttf'),
     'Marison-Script-Vintage': require('./assets/fonts/Marison-Script-Vintage.ttf'),
+    'Raleway-Regular': require('./assets/fonts/Raleway-Regular.ttf'),
+    'Raleway-Medium': require('./assets/fonts/Raleway-Medium.ttf'),
+    'Raleway-Bold': require('./assets/fonts/Raleway-Bold.ttf'),
   });
 
   return fontsLoaded ? (

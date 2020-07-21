@@ -1,5 +1,9 @@
+import getEnvVars from '../../../environment';
+
+const { apiUrl } = getEnvVars();
+
 export const fetchOrders = async (token) => {
-  const response = await fetch('http://127.0.0.1:8080/orders', {
+  const response = await fetch(`${apiUrl}/orders`, {
     method: 'GET',
     headers: {
       Authorization: token,
@@ -15,7 +19,7 @@ export const fetchOrders = async (token) => {
 };
 
 export function* postOrder(order, token) {
-  const urlLink = 'http://127.0.0.1:8080/orders';
+  const urlLink = `${apiUrl}/orders`;
   const response = yield fetch(urlLink, {
     method: 'POST',
     headers: {
@@ -31,7 +35,7 @@ export function* postOrder(order, token) {
 }
 
 export const publishOrder = async (request, token) => {
-  const urlLink = `http://127.0.0.1:8080/orders/${request.orderID}`;
+  const urlLink = `${apiUrl}/orders/${request.orderID}`;
   const response = await fetch(urlLink, {
     method: 'PATCH',
     headers: {
@@ -48,7 +52,7 @@ export const publishOrder = async (request, token) => {
 };
 
 export const getOrderById = async (orderID, token) => {
-  const urlLink = `http://127.0.0.1:8080/orders/${orderID}`;
+  const urlLink = `${apiUrl}/orders/${orderID}`;
   const response = await fetch(urlLink, {
     method: 'GET',
     headers: {
@@ -64,7 +68,7 @@ export const getOrderById = async (orderID, token) => {
 };
 
 export function* deleteOrder(orderID, token) {
-  const urlLink = `http://127.0.0.1:8080/orders/${orderID}`;
+  const urlLink = `${apiUrl}/orders/${orderID}`;
   const response = yield fetch(urlLink, {
     method: 'DELETE',
     headers: {
@@ -79,7 +83,7 @@ export function* deleteOrder(orderID, token) {
 }
 
 export const quoteAccept = async (request, orderID, token) => {
-  const urlLink = `http://127.0.0.1:8080/orders/${orderID}`;
+  const urlLink = `${apiUrl}/orders/${orderID}`;
   const response = await fetch(urlLink, {
     method: 'PATCH',
     headers: {
