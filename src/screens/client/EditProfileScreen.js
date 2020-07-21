@@ -75,7 +75,7 @@ const EditProfileScreen = ({
   // console.log(user.email);
 
   const onSubmit = () => {
-    console.log('onSubmit', profilePhotoUpload);
+    // console.log('onSubmit', profilePhotoUpload);
     editProfileWatcher(
       {
         image_url: profilePhoto,
