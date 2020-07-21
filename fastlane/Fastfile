@@ -1,0 +1,31 @@
+
+default_platform(:ios)
+
+# update_fastlane
+ensure_git_status_clean
+
+platform :ios do |options|
+  EXPO_APP_INFO = get_expo_appfile
+  VERSION = EXPO_APP_INFO["expo"]["version"]
+  BUILD_NUMBER = latest_testflight_build_number + 1
+  FULL_VERSION = "v" + VERSION.to_s + "-" + BUILD_NUMBER.to_s
+  EXPO_APP_INFO["expo"]["ios"]["buildNumber"] = BUILD_NUMBER.to_s
+  set_expo_appfile
+
+  desc "Push a new beta build to TestFlight"
+  lane :beta do
+    sh('./publish_expo.sh')
+
+    CHANGELOG = "Git Commits Since last Release:\n-------------------------------\n\n" + changelog_from_git_commits(pretty: "- %s")
+    set_changelog(changelog: CHANGELOG)
+    upload_to_testflight(ipa: "build/app.ipa")
+  
+    commit_version_bump(message: "Deploy to App Store Connect: " + FULL_VERSION)
+    add_git_tag(tag: FULL_VERSION)
+    push_to_git_remote
+  end
+
+  error do |lane, exception, options|
+    reset_git_repo(force: true, skip_clean: true)
+  end
+end
