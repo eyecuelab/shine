@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
-import React from 'react';
+import * as React from 'react';
+import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
@@ -7,10 +8,32 @@ import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceTagWhite from '../../components/shared/PriceTagWhite';
 import DashedLine from '../../components/shared/Dash';
 import UnselectedSwitch from '../../components/shared/UnselectedSwitch';
+import PropTypes from 'prop-types';
+import * as actions from '../../rdx/actions';
 
 const { height: HEIGHT } = Dimensions.get('window');
 
-const OrderStatusScreen = () => {
+const OrderStatusScreen = ({ navigation, order }) => {
+  const addOns = order ? order.data.attributes.add_ons : null;
+  const cleaner = order ? order.included[order.included.length - 1] : null;
+  const cleanerID = cleaner.id;
+  const cleanerAddress =
+    cleaner.attributes.street_address +
+    ' ' +
+    cleaner.attributes.city +
+    ', ' +
+    cleaner.attributes.state +
+    ' ' +
+    cleaner.attributes.postal_code;
+
+  const quote = order
+    ? order.included.filter(
+        (item) => item.attributes.cleaner_id == cleanerID,
+      )[0]
+    : null;
+  const quotedPrice = quote.attributes.quoted_price;
+  const deliveryBy = quote.attributes.delivery_by;
+
   return (
     <ScrollViewContailner>
       {ShoePhoto()}
@@ -20,28 +43,33 @@ const OrderStatusScreen = () => {
             source={require('../../../assets/images/price-ticket-beige.png')}
           />
           <PriceContianer>
-            {PriceTagWhite(34, 99)}
-            <DueText>RETURNED BY THURSDAY</DueText>
+            {PriceTagWhite(quotedPrice)}
+            <DueText>{deliveryBy}</DueText>
           </PriceContianer>
-          <ServiceText>ADD POLISH, ADD RAIN PROTECTION</ServiceText>
         </PriceTicketContainer>
-      </TopContainer>
+        <AddOnsContainer>
+          {addOns.polish ? <AddOnsText>ADD POLISH</AddOnsText> : null}
 
+          {addOns.replaceLaces ? <AddOnsText>REPLACE LACES</AddOnsText> : null}
+          {addOns.rainProtection ? (
+            <AddOnsText>ADD RAIN PROTECTION</AddOnsText>
+          ) : null}
+        </AddOnsContainer>
+      </TopContainer>
       <BottomContainer>
         <MapArea
           source={require('../../../assets/images/default-map.png')}
         ></MapArea>
-        <TextBox>532 NW 12th Ave. Portland, OR 97209</TextBox>
-
+        <TextBox>{cleanerAddress}</TextBox>
+        <InfoContainer>
+          <InfoText>Business Name: {cleaner.attributes.business_name}</InfoText>
+          <InfoText>Email: {cleaner.attributes.email}</InfoText>
+          <InfoText>Phone: {cleaner.attributes.phone}</InfoText>
+          {cleaner.attributes.bio ? (
+            <TextBox>Bio: {cleaner.attributes.bio}</TextBox>
+          ) : null}
+        </InfoContainer>
         <DashedLine />
-
-        <TextBox>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </TextBox>
-
-        <DashedLine />
-
         <SwitchTextContainer>
           <SwitchText>SHOES PICKED UP</SwitchText>
           <SwitchText>SHOES CLEANED</SwitchText>
@@ -61,20 +89,20 @@ const OrderStatusScreen = () => {
 
         <MessageContainer>
           <TextContainer>
-            <Text>
+            <MessageText>
               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
               officia deserunt mollit anim id est laborum.
-            </Text>
+            </MessageText>
           </TextContainer>
           <Profile source={require('../../../assets/images/profile-pic.png')} />
         </MessageContainer>
 
         <MessageContainer>
           <TextContainerBlack>
-            <Text>
+            <MessageText>
               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
               officia deserunt mollit anim id est laborum.
-            </Text>
+            </MessageText>
           </TextContainerBlack>
           <Profile source={require('../../../assets/images/profile-pic.png')} />
         </MessageContainer>
@@ -91,7 +119,7 @@ const TopContainer = styled.View`
   align-items: center;
   justify-content: flex-end;
   width: 100%;
-  height: ${HEIGHT / 2.3}px;
+  height: ${HEIGHT / 2.2}px;
   margin-bottom: 50px;
   position: absolute;
 `;
@@ -99,7 +127,7 @@ const TopContainer = styled.View`
 const BottomContainer = styled.View`
   align-items: center;
   justify-content: center;
-  margin-top: 70px;
+  margin-top: 80px;
   flex-direction: row;
   flex-wrap: wrap;
   padding-bottom: 50px;
@@ -108,17 +136,16 @@ const BottomContainer = styled.View`
 const PriceTicketContainer = styled.View`
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 20px;
 `;
 
 const PriceTicket = styled.Image`
-  margin: 30px;
+  margin: 20px;
   flex-wrap: wrap;
 `;
 
 const PriceContianer = styled.View`
-  flex-wrap: wrap;
-  width: 200px;
+  width: 220px;
+  height: 130px;
   position: absolute;
   align-items: center;
   justify-content: center;
@@ -131,17 +158,39 @@ const DueText = styled.Text`
   text-align: center;
 `;
 
-const ServiceText = styled.Text`
+const AddOnsContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+`;
+
+const AddOnsText = styled.Text`
   color: #cbb387;
   font-size: 18px;
   font-family: Marison-Sans-Round;
+  padding-vertical: 5px;
+`;
+
+const InfoContainer = styled.View`
+  width: 90%;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 10px;
+  padding: 10px;
+`;
+
+const InfoText = styled.Text`
+  color: #2c2c2c;
+  font-size: 18px;
+  text-align: left;
+  padding: 8px;
 `;
 
 const TextBox = styled.Text`
   color: #2c2c2c;
   font-size: 18px;
   text-align: left;
-  padding-horizontal: 40px;
+  padding: 10px 20px 20px 20px;
 `;
 
 const MapArea = styled.Image`
@@ -191,7 +240,7 @@ const TextContainerBlack = styled.View`
   margin: 40px;
 `;
 
-const Text = styled.Text`
+const MessageText = styled.Text`
   color: white;
   font-size: 18px;
   text-align: left;
@@ -214,4 +263,14 @@ const TextInput = styled.TextInput`
   text-align: center;
 `;
 
-export default OrderStatusScreen;
+OrderStatusScreen.propTypes = {
+  navigation: PropTypes.object,
+  order: PropTypes.object,
+  quoteAcceptWatcher: PropTypes.func,
+};
+
+const mapStateToProps = (state) => {
+  return { order: state.orders.selectedOrder };
+};
+
+export default connect(mapStateToProps, actions)(OrderStatusScreen);

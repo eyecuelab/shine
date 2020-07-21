@@ -3,9 +3,10 @@ import { watchUserAuthentication, watchCleanerActions } from './watchers';
 import watchOrdersLoad, {
   watchPostOrder,
   watchOrdersReload,
-  watchPublishOrder,
-  watchGetOrderById,
-  watchDeleteOrder,
+  // watchPublishOrder,
+  // watchGetOrderById,
+  // watchDeleteOrder,
+  watchActionsForEachOrder,
 } from './ordersSaga';
 
 export default function* rootSaga() {
@@ -15,8 +16,9 @@ export default function* rootSaga() {
     watchPostOrder(),
     watchCleanerActions(),
     watchOrdersReload(),
-    watchPublishOrder(),
-    watchGetOrderById(),
-    watchDeleteOrder(),
+    // watchPublishOrder(),
+    // watchGetOrderById(),
+    // watchDeleteOrder(),
+    watchActionsForEachOrder(),
   ]);
 }

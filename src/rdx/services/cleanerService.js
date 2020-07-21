@@ -80,3 +80,19 @@ export const postQuoteService = (request, cleanerID, token) => {
     return response;
   });
 };
+
+export const loadQuotedOrdersService = (cleanerID, token) => {
+  const url = `http://127.0.0.1:8080/cleaners/${cleanerID}/orders?quoted=true`;
+  const parameters = {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+  };
+
+  return fetch(url, parameters).then((response) => {
+    return response;
+  });
+};

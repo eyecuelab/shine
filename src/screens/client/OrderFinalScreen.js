@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Modal } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+// import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
@@ -22,9 +22,9 @@ const OrderFinalScreen = ({
   // const route = useRoute();
   // const item = route.params;
   const [modalVisible, setModalVisible] = useState(false);
+  const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const currentDate = new Date();
   const orderID = order.data.id;
-  console.log(order);
 
   const handlePublish = () => {
     publishOrderWatcher({
@@ -94,14 +94,14 @@ const OrderFinalScreen = ({
             <ModalView>
               <ModalText>Would you like to publish this order?</ModalText>
               <ModalItem onPress={handlePublish}>
-                <RedText>Publish</RedText>
+                <RedText>PUBLISH</RedText>
               </ModalItem>
               <ModalItem
                 onPress={() => {
                   setModalVisible(!modalVisible);
                 }}
               >
-                <BlueText>Cancel</BlueText>
+                <BlueText>CANCEL</BlueText>
               </ModalItem>
             </ModalView>
           </ModalContainer>
@@ -109,7 +109,10 @@ const OrderFinalScreen = ({
 
         {order.included &&
           order.included.map((item) => (
-            <BidsContainer key={item.id} onPress={() => handleQuoteClick(item)}>
+            <QuoteContainer
+              key={item.id}
+              onPress={() => handleQuoteClick(item)}
+            >
               <PriceTicketContainer>
                 <PriceTicket
                   source={require('../../../assets/images/price-ticket-black.png')}
@@ -120,7 +123,7 @@ const OrderFinalScreen = ({
                 </PriceContianer>
                 <ExpireText>{item.attributes.expires_at}</ExpireText>
               </PriceTicketContainer>
-            </BidsContainer>
+            </QuoteContainer>
           ))}
 
         <Button
@@ -131,8 +134,38 @@ const OrderFinalScreen = ({
             height: 50,
             borderRadius: 7,
           }}
-          onPress={handleCancelClick}
+          onPress={() => {
+            setCancelModalVisible(!cancelModalVisible);
+          }}
         />
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          backdropOpacity={0.3}
+          visible={cancelModalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}
+        >
+          <ModalContainer>
+            <ModalView>
+              <ModalText>
+                Are you sure that you want to permanently delete this order?
+              </ModalText>
+              <ModalItem onPress={handleCancelClick}>
+                <RedText>DELETE</RedText>
+              </ModalItem>
+              <ModalItem
+                onPress={() => {
+                  setCancelModalVisible(!cancelModalVisible);
+                }}
+              >
+                <BlueText>CANCEL</BlueText>
+              </ModalItem>
+            </ModalView>
+          </ModalContainer>
+        </Modal>
       </Container>
     </ScrollViewContailner>
   );
@@ -179,9 +212,9 @@ const ModalItem = styled.TouchableOpacity`
 `;
 
 const ModalText = styled.Text`
-  font-size: 20px;
-  font-weight: 600;
-  margin: 20px;
+  font-weight: 500;
+  margin: 10px;
+  padding-bottom: 20px;
   text-align: center;
 `;
 
@@ -222,12 +255,11 @@ const SwitchContainer = styled.View`
   padding-top: 10px;
 `;
 
-const BidsContainer = styled.TouchableOpacity`
+const QuoteContainer = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
-  border: 3px red;
 `;
 
 const PriceTicketContainer = styled.View`

@@ -21,8 +21,9 @@ const QuotableOrderDetailScreen = ({
   navigation,
 }) => {
   const item = route.params;
-  const orderID = item.id;
-  const cleanerID = cleaner.data.id;
+  console.log(item);
+  const orderID = item ? item.id : null;
+  const cleanerID = cleaner.data ? cleaner.data.id : null;
 
   const estimatedPrice = item.attributes.estimated_price;
   const [quotedPrice, setQuotedPrice] = useState(estimatedPrice);

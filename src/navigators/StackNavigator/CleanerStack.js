@@ -8,11 +8,12 @@ import SignInScreen from '../../screens/shared/SignInScreen';
 import CleanerApplicationScreen from '../../screens/cleaner/CleanerApplicationScreen';
 import CleanerProfileScreen from '../../screens/cleaner/CleanerProfileScreen';
 import EditCleanerProfileScreen from '../../screens/cleaner/EditCleanerProfileScreen';
-import OrderRequestedScreen from '../../screens/cleaner/OrdersRequestedScreen';
+import AcceptedQuotesScreen from '../../screens/cleaner/AcceptedQuotesScreen';
 import OrdersInProgressScreen from '../../screens/cleaner/OrdersInProgressScreen';
 import CompletedOrdersScreen from '../../screens/cleaner/CompletedOrdersScreen';
 import OrdersInAreaScreen from '../../screens/cleaner/OrdersInAreaScreen';
 import QuotableOrderDetailScreen from '../../screens/cleaner/QuotableOrderDetailScreen';
+import QuotedOrderDetailScreen from '../../screens/cleaner/QuotedOrderDetailScreen';
 
 const CleanerStack = createStackNavigator();
 
@@ -66,14 +67,19 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
             options={{ title: 'ORDERS IN AREA' }}
           />
           <CleanerStack.Screen
-            name="Order Detail"
+            name="Quotable Order Detail"
             component={QuotableOrderDetailScreen}
             options={{ title: 'ORDER DETAIL' }}
           />
           <CleanerStack.Screen
-            name="Orders Requested"
-            component={OrderRequestedScreen}
-            options={{ title: 'ORDERS REQUESTED' }}
+            name="Accepted Quotes"
+            component={AcceptedQuotesScreen}
+            options={{ title: 'ACCEPTED QUOTES' }}
+          />
+          <CleanerStack.Screen
+            name="Quoted Order Detail"
+            component={QuotedOrderDetailScreen}
+            options={{ title: 'ORDER DETAIL' }}
           />
           <CleanerStack.Screen
             name="Orders In Progress"
