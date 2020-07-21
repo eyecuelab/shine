@@ -106,7 +106,7 @@ const SignUpScreen = ({ signupWatcher, users, confirmUser }) => {
               animationIn={'slideInUp'}
               animationOut={'slideOutDown'}
               animationInTiming={1000}
-              animationOutTiming={1000}
+              animationOutTiming={3000}
               backdropTransitionInTiming={1000}
               backdropTransitionOutTiming={1000}
               isVisible={modalVisible}
