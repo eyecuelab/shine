@@ -3,6 +3,7 @@ import {
   loginSaga,
   logoutSaga,
   signupSaga,
+  confirmUserSaga,
   editProfileSaga,
   editPasswordSaga,
 } from './authSaga';
@@ -19,6 +20,7 @@ export function* watchUserAuthentication() {
   yield takeLatest(types.LOGIN_WATCHER, loginSaga);
   yield takeLatest(types.LOGOUT_WATCHER, logoutSaga);
   yield takeLatest(types.SIGNUP_WATCHER, signupSaga);
+  yield takeLatest(types.CONFIRM_USER, confirmUserSaga);
   yield takeLatest(types.EDIT_PROFILE_WATCHER, editProfileSaga);
   yield takeLatest(types.UPDATE_PASSWORD, editPasswordSaga);
 }

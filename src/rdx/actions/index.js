@@ -180,6 +180,13 @@ export const signupWatcher = (payload) => {
   };
 };
 
+export const confirmUser = (payload) => {
+  return {
+    type: types.CONFIRM_USER,
+    payload,
+  };
+};
+
 export const editProfileWatcher = (payload) => {
   return {
     type: types.EDIT_PROFILE_WATCHER,

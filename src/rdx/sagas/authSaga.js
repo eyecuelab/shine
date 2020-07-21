@@ -5,6 +5,7 @@ import {
   logoutUserService,
   signUpUserService,
   editProfileService,
+  confirmUserService,
 } from '../services/authService';
 import { call, put, cancelled, select } from 'redux-saga/effects';
 
@@ -47,6 +48,7 @@ export function* logoutSaga() {
 export function* signupSaga(action) {
   try {
     let response = yield call(signUpUserService, action.payload);
+    console.log(response.status);
     if (response.ok && response.status === 204) {
       yield put({ type: types.SIGNUP_SUCCESS });
     } else {
@@ -58,6 +60,19 @@ export function* signupSaga(action) {
     if (yield cancelled()) {
       yield put({ type: types.SIGNUP_CANCELLED });
     }
+  }
+}
+
+export function* confirmUserSaga(action) {
+  try {
+    let response = yield call(confirmUserService, action.payload);
+    if (response.ok && response.status === 204) {
+      yield put({ type: types.CONFIRM_USER_SUCCESS });
+    } else {
+      throw yield response.json();
+    }
+  } catch (error) {
+    yield put({ type: types.CONFIRM_USER_ERROR, error: error.message });
   }
 }
 
