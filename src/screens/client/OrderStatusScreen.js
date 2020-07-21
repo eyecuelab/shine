@@ -14,25 +14,27 @@ import * as actions from '../../rdx/actions';
 const { height: HEIGHT } = Dimensions.get('window');
 
 const OrderStatusScreen = ({ navigation, order }) => {
+  console.log('ORder', order !== null);
   const addOns = order ? order.data.attributes.add_ons : null;
   const cleaner = order ? order.included[order.included.length - 1] : null;
-  const cleanerID = cleaner.id;
-  const cleanerAddress =
-    cleaner.attributes.street_address +
-    ' ' +
-    cleaner.attributes.city +
-    ', ' +
-    cleaner.attributes.state +
-    ' ' +
-    cleaner.attributes.postal_code;
+  const cleanerID = cleaner ? cleaner.id : null;
+  const cleanerAddress = cleaner
+    ? cleaner.attributes.street_address +
+      ' ' +
+      cleaner.attributes.city +
+      ', ' +
+      cleaner.attributes.state +
+      ' ' +
+      cleaner.attributes.postal_code
+    : null;
 
   const quote = order
     ? order.included.filter(
         (item) => item.attributes.cleaner_id == cleanerID,
       )[0]
     : null;
-  const quotedPrice = quote.attributes.quoted_price;
-  const deliveryBy = quote.attributes.delivery_by;
+  const quotedPrice = quote ? quote.attributes.quoted_price : null;
+  const deliveryBy = quote ? quote.attributes.delivery_by : null;
 
   return (
     <ScrollViewContailner>
@@ -43,15 +45,17 @@ const OrderStatusScreen = ({ navigation, order }) => {
             source={require('../../../assets/images/price-ticket-beige.png')}
           />
           <PriceContianer>
-            {PriceTagWhite(quotedPrice)}
+            {quotedPrice ? PriceTagWhite(quotedPrice) : null}
             <DueText>{deliveryBy}</DueText>
           </PriceContianer>
         </PriceTicketContainer>
         <AddOnsContainer>
-          {addOns.polish ? <AddOnsText>ADD POLISH</AddOnsText> : null}
+          {addOns && addOns.polish ? <AddOnsText>ADD POLISH</AddOnsText> : null}
 
-          {addOns.replaceLaces ? <AddOnsText>REPLACE LACES</AddOnsText> : null}
-          {addOns.rainProtection ? (
+          {addOns && addOns.replaceLaces ? (
+            <AddOnsText>REPLACE LACES</AddOnsText>
+          ) : null}
+          {addOns && addOns.rainProtection ? (
             <AddOnsText>ADD RAIN PROTECTION</AddOnsText>
           ) : null}
         </AddOnsContainer>
@@ -62,11 +66,17 @@ const OrderStatusScreen = ({ navigation, order }) => {
         ></MapArea>
         <TextBox>{cleanerAddress}</TextBox>
         <InfoContainer>
-          <InfoText>Business Name: {cleaner.attributes.business_name}</InfoText>
-          <InfoText>Email: {cleaner.attributes.email}</InfoText>
-          <InfoText>Phone: {cleaner.attributes.phone}</InfoText>
-          {cleaner.attributes.bio ? (
-            <TextBox>Bio: {cleaner.attributes.bio}</TextBox>
+          <InfoText>
+            Business Name: {cleaner ? cleaner.attributes.business_name : null}
+          </InfoText>
+          <InfoText>
+            Email: {cleaner ? cleaner.attributes.email : null}
+          </InfoText>
+          <InfoText>
+            Phone: {cleaner ? cleaner.attributes.phone : null}
+          </InfoText>
+          {cleaner && cleaner.attributes.bio ? (
+            <TextBox>Bio: {cleaner ? cleaner.attributes.bio : null}</TextBox>
           ) : null}
         </InfoContainer>
         <DashedLine />

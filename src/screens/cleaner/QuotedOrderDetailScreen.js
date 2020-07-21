@@ -24,7 +24,7 @@ const QuotedOrderDetailScreen = ({ route, updateOrderWatcher }) => {
       payload: {
         shoes_picked_up: true,
         shoes_cleaned: true,
-        shoes_polished: false,
+        shoes_polished: true,
         request_payment: false,
         shoes_dropped_off: false,
       },

@@ -1,10 +1,10 @@
 import * as types from '../actions/types';
-// import { REHYDRATE } from 'redux-persist/lib/constants';
+import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialOrdersState = {
   orders: [],
-  selectedOrder: {},
-  orderStatus: {},
+  selectedOrder: null,
+  orderStatus: null,
 };
 
 const orderReducer = (state = initialOrdersState, action) => {
@@ -18,7 +18,7 @@ const orderReducer = (state = initialOrdersState, action) => {
       return {
         ...state,
         orders: [],
-        selectedOrder: {},
+        selectedOrder: null,
       };
     case types.PUBLISH_ORDER_SUCCESS:
       return {

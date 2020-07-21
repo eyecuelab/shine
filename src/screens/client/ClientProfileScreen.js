@@ -31,8 +31,6 @@ const ClientProfileScreen = ({ user, navigation, logoutWatcher }) => {
     }
   };
 
-  console.log(user);
-
   return (
     <>
       <ProfileContainer>

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
 import styled from 'styled-components/native';
@@ -6,6 +7,8 @@ import OrderItem from '../../components/order/OrderItem';
 import OrderItemCompleted from '../../components/order/OrderItemCompleted';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
+
+const { height } = Dimensions.get('window');
 
 const OrdersInAreaScreen = ({ cleaner, navigation }) => {
   const cleanerID = cleaner.data ? cleaner.data.id : null;
@@ -18,23 +21,25 @@ const OrdersInAreaScreen = ({ cleaner, navigation }) => {
   return (
     <ScrollViewContainer>
       <Container>
-        {filtedQuotableOrders
-          ? filtedQuotableOrders.map((item) => (
-              <ItemsContainer
-                key={item.attributes.uuid}
-                onPress={() =>
-                  navigation.navigate('Quotable Order Detail', item)
-                }
-              >
-                {cleaner.quotedStatus[item.id] !== undefined &&
-                cleaner.quotedStatus[item.id][cleanerID] == 'Requested' ? (
-                  <OrderItemCompleted order={item} />
-                ) : (
-                  <OrderItem order={item} />
-                )}
-              </ItemsContainer>
-            ))
-          : null}
+        {filtedQuotableOrders && filtedQuotableOrders.length !== 0 ? (
+          filtedQuotableOrders.map((item) => (
+            <ItemsContainer
+              key={item.attributes.uuid}
+              onPress={() => navigation.navigate('Quotable Order Detail', item)}
+            >
+              {cleaner.quotedStatus[item.id] !== undefined &&
+              cleaner.quotedStatus[item.id][cleanerID] == 'Requested' ? (
+                <OrderItemCompleted order={item} />
+              ) : (
+                <OrderItem order={item} />
+              )}
+            </ItemsContainer>
+          ))
+        ) : (
+          <TextContainer>
+            <Text>There is no quotable orders at this time.</Text>
+          </TextContainer>
+        )}
       </Container>
     </ScrollViewContainer>
   );
@@ -50,6 +55,17 @@ const Container = styled.View`
 
 const ItemsContainer = styled.TouchableOpacity`
   margin: 20px 0px 0px 20px;
+`;
+
+const TextContainer = styled.View`
+  width: 100%;
+  height: ${height / 1.27}
+  align-items: center;
+  justify-content: center;
+`;
+const Text = styled.Text`
+  font-size: 20px;
+  font-weight: 500;
 `;
 
 OrdersInAreaScreen.propTypes = {
