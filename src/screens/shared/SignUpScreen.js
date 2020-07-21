@@ -19,7 +19,7 @@ import UniversalButton from '../../components/shared/UniversalButton';
 
 const { width } = Dimensions.get('window');
 
-const SignUpScreen = ({ signupWatcher, users }) => {
+const SignUpScreen = ({ signupWatcher, users, confirmUser }) => {
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -42,11 +42,17 @@ const SignUpScreen = ({ signupWatcher, users }) => {
   const inputEl4 = useRef(null);
 
   useEffect(() => {
-    console.log('HIT USE EFFECT');
     if (users.signupMessage === 'Sign Up Successful!') {
       setModalVisible(true);
     }
   }, [users.signupMessage]);
+
+  useEffect(() => {
+    if (users.confirmationMessage === 'Account Confirmed!') {
+      setModalVisible(false);
+      navigation.navigate('LogIn');
+    }
+  }, [users.confirmationMessage]);
 
   const onSignUp = () => {
     // if (emailError === 'Please Enter a Valid Email Address') {
@@ -79,8 +85,10 @@ const SignUpScreen = ({ signupWatcher, users }) => {
   };
 
   const onSubmit = () => {
-    setModalVisible(false);
-
+    confirmUser({
+      code: authCode,
+    });
+    // setModalVisible(false);
     // navigation.navigate('LogIn');
   };
 
@@ -112,7 +120,7 @@ const SignUpScreen = ({ signupWatcher, users }) => {
                     <HeaderText>Welcome to Shine {firstName}! </HeaderText>
                   </ModalHeader>
                   <ModalItem>
-                    <Text>An Confirmation Code has been sent to {email}</Text>
+                    <Text>A Confirmation Code has been sent to {email}</Text>
                   </ModalItem>
                   <ModalItem>
                     <CodeTextInput
@@ -122,6 +130,9 @@ const SignUpScreen = ({ signupWatcher, users }) => {
                       value={authCode}
                       onChangeText={setAuthCode}
                     />
+                  </ModalItem>
+                  <ModalItem>
+                    <ErrorText>{users.confirmationMessage}</ErrorText>
                   </ModalItem>
                   <ModalConfirm onPress={() => onSubmit()}>
                     <ConfirmText>Confirm and Continue</ConfirmText>
@@ -318,6 +329,7 @@ const ModalConfirm = styled.TouchableOpacity`
 
 SignUpScreen.propTypes = {
   signupWatcher: PropTypes.func,
+  confirmUser: PropTypes.func,
   users: PropTypes.object,
 };
 
