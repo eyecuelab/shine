@@ -59,7 +59,7 @@ const orderReducer = (state = initialOrdersState, action) => {
       return {
         ...state,
         orderStatus: {
-          ...state.inProgress,
+          ...state.orderStatus,
           [action.payload.orderID]: action.payload.status,
         },
       };

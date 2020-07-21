@@ -42,7 +42,7 @@ const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
 
   const orderID = order ? order.data.id : null;
   const currentOrderStatus = orderStatus[orderID] ? orderStatus[orderID] : null;
-  console.log('STATUS', currentOrderStatus);
+  // console.log('STATUS', currentOrderStatus);
 
   return (
     <ScrollViewContailner>
