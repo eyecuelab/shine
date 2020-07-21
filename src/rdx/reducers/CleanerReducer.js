@@ -1,12 +1,13 @@
 import * as types from '../actions/types';
-import { REHYDRATE } from 'redux-persist/lib/constants';
+// import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialCleanerState = {
   data: null,
-  quotableOrders: {},
-  quotedOrders: {},
+  quotableOrders: null,
+  quotedOrders: null,
   errorMessage: null,
   quotedStatus: {},
+  inProgress: null,
 };
 
 const cleanerReducer = (state = initialCleanerState, action) => {
@@ -20,15 +21,16 @@ const cleanerReducer = (state = initialCleanerState, action) => {
             : null,
         quotableOrders: state.quotableOrders,
         quotedOrders: state.quotedOrders,
+        inProgress: state.inProgress,
         errorMessage: null,
       };
     case types.LOGOUT_SUCCESS:
       return {
+        ...state,
         data: null,
-        quotableOrders: {},
         errorMessage: null,
-        quotedStatus: {},
-        quotedOrders: {},
+        quotedOrders: null,
+        inProgress: null,
       };
 
     case types.ADD_CLEANER_PROFILE:
@@ -88,6 +90,14 @@ const cleanerReducer = (state = initialCleanerState, action) => {
       return {
         ...state,
         quotedOrders: action.payload,
+      };
+    case types.UPDATE_ORDER_BY_CLEANER_SUCCESS:
+      return {
+        ...state,
+        inProgress: {
+          ...state.inProgress,
+          [action.payload.orderID]: action.payload.status,
+        },
       };
     default:
       return state;

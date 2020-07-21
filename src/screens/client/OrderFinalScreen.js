@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Modal } from 'react-native';
-// import { useRoute } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
@@ -19,12 +19,14 @@ const OrderFinalScreen = ({
   publishOrderWatcher,
   deleteOrderWatcher,
 }) => {
-  // const route = useRoute();
-  // const item = route.params;
+  const route = useRoute();
+  const item = route.params;
   const [modalVisible, setModalVisible] = useState(false);
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const currentDate = new Date();
-  const orderID = order.data.id;
+  const orderID = item.id;
+  const imageUrl = item.attributes.image_url;
+  console.log(imageUrl);
 
   const handlePublish = () => {
     publishOrderWatcher({
@@ -46,7 +48,7 @@ const OrderFinalScreen = ({
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto(order.data.attributes.image_url)}
+      {ShoePhoto(imageUrl)}
       <Container>
         <Text>You've recieved cleaning quotes!</Text>
         <SwitchTextContainer>
@@ -57,19 +59,19 @@ const OrderFinalScreen = ({
         <SwitchContainer>
           <AddOnSwitch
             disabled={true}
-            switchState={order.data.attributes.add_ons.polish}
+            switchState={item.attributes.add_ons.polish}
           />
           <AddOnSwitch
             disabled={true}
-            switchState={order.data.attributes.add_ons.rainProtection}
+            switchState={item.attributes.add_ons.rainProtection}
           />
           <AddOnSwitch
             disabled={true}
-            switchState={order.data.attributes.add_ons.replaceLaces}
+            switchState={item.attributes.add_ons.replaceLaces}
           />
         </SwitchContainer>
 
-        {order.data.attributes.published_at ? null : (
+        {item.attributes.published_at ? null : (
           <Button
             title="PUBLISH"
             containerStyle={{ paddingVertical: 40, width: 350 }}
@@ -107,21 +109,19 @@ const OrderFinalScreen = ({
           </ModalContainer>
         </Modal>
 
-        {order.included &&
-          order.included.map((item) => (
-            <QuoteContainer
-              key={item.id}
-              onPress={() => handleQuoteClick(item)}
-            >
+        {order &&
+          order.included &&
+          order.included.map((i) => (
+            <QuoteContainer key={i.id} onPress={() => handleQuoteClick(i)}>
               <PriceTicketContainer>
                 <PriceTicket
                   source={require('../../../assets/images/price-ticket-black.png')}
                 />
                 <PriceContianer>
-                  {PriceTagWhite(item.attributes.quoted_price)}
-                  <DueText>{item.attributes.delivery_by}</DueText>
+                  {PriceTagWhite(i.attributes.quoted_price)}
+                  <DueText>{i.attributes.delivery_by}</DueText>
                 </PriceContianer>
-                <ExpireText>{item.attributes.expires_at}</ExpireText>
+                <ExpireText>{i.attributes.expires_at}</ExpireText>
               </PriceTicketContainer>
             </QuoteContainer>
           ))}

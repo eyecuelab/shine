@@ -3,7 +3,8 @@ import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialOrdersState = {
   orders: [],
-  selectedOrder: {},
+  selectedOrder: null,
+  orderStatus: null,
 };
 
 const orderReducer = (state = initialOrdersState, action) => {
@@ -53,6 +54,14 @@ const orderReducer = (state = initialOrdersState, action) => {
           }
           return item;
         }),
+      };
+    case types.UPDATE_ORDER_BY_CLEANER_SUCCESS:
+      return {
+        ...state,
+        orderStatus: {
+          ...state.orderStatus,
+          [action.payload.orderID]: action.payload.status,
+        },
       };
     // case types.ADD_ORDER:
     //   return [
@@ -108,8 +117,6 @@ const orderReducer = (state = initialOrdersState, action) => {
           return item;
         }),
       };
-    // case types.DELETE_ORDER:
-    //   return state.filter((item) => item.uuid !== action.uuid);
     default:
       return state;
   }
