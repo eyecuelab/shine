@@ -34,13 +34,25 @@ const HomeScreen = ({ orders, users, getOrderByIdWatcher }) => {
   } else {
     return (
       <HomeContainer>
-        <ImageArea onPress={() => navigation.navigate('NewOrder')}>
+        <ImageArea>
           <Image source={require('../../../assets/images/logo-clear.png')} />
         </ImageArea>
+        <TextArea onPress={() => navigation.navigate('NewOrder')}>
+          <AddOrderText> Add Order</AddOrderText>
+        </TextArea>
       </HomeContainer>
     );
   }
 };
+
+const AddOrderText = styled.Text`
+  font-family: Marison-Sans-Round;
+  color: white;
+  font-size: 30px;
+  padding: 30px;
+`;
+
+const TextArea = styled.TouchableOpacity``;
 
 const HomeContainer = styled.View`
   width: 100%;
@@ -59,9 +71,9 @@ const ListContainer = styled.View`
   flex-wrap: wrap;
 `;
 
-const ImageArea = styled.TouchableOpacity`
-  width: 200px;
-  height: 200px;
+const ImageArea = styled.View`
+  width: 275px;
+  height: 275px;
 `;
 
 const Image = styled.Image`
