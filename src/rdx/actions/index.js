@@ -36,27 +36,6 @@ export const setPostError = (error) => {
   };
 };
 
-export const publishOrderWatcher = ({ orderID, publishedAt }) => {
-  return {
-    type: types.PUBLISH_ORDER_WATCHER,
-    payload: { orderID, publishedAt },
-  };
-};
-
-export const setPublishedOrder = (payload) => {
-  return {
-    type: types.PUBLISH_ORDER_SUCCESS,
-    payload,
-  };
-};
-
-export const setPublishError = (error) => {
-  return {
-    type: types.PUBLISH_ORDER_FAIL,
-    error,
-  };
-};
-
 export const reloadOrders = (result) => {
   return {
     type: types.POST_ORDER_SUCCESS,
@@ -95,6 +74,27 @@ export const requestComplete = (uuid, requestCompleted) => {
   };
 };
 
+export const publishOrderWatcher = ({ orderID, publishedAt }) => {
+  return {
+    type: types.PUBLISH_ORDER_WATCHER,
+    payload: { orderID, publishedAt },
+  };
+};
+
+export const setPublishedOrder = (payload) => {
+  return {
+    type: types.PUBLISH_ORDER_SUCCESS,
+    payload,
+  };
+};
+
+export const setPublishError = (error) => {
+  return {
+    type: types.PUBLISH_ORDER_FAIL,
+    error,
+  };
+};
+
 export const deleteOrderWatcher = (payload) => {
   return {
     type: types.DELETE_ORDER_WATCHER,
@@ -130,6 +130,27 @@ export const setGetOrderByIdError = (error) => {
   };
 };
 
+export const quoteAcceptWatcher = (payload) => {
+  return {
+    type: types.QUOTE_ACCEPT_WATCHER,
+    payload,
+  };
+};
+
+export const quoteAccepted = (payload) => {
+  return {
+    type: types.QUOTE_ACCEPT_SUCCESS,
+    payload,
+  };
+};
+
+export const quoteAcceptError = (error) => {
+  return {
+    type: types.QUOTE_ACCEPT_ERROR,
+    error,
+  };
+};
+
 // ====== USERS ACTION CREATORS ======= //
 
 export const loginWatcher = (payload) => {
@@ -155,6 +176,13 @@ export const logoutWatcher = () => {
 export const signupWatcher = (payload) => {
   return {
     type: types.SIGNUP_WATCHER,
+    payload,
+  };
+};
+
+export const confirmUser = (payload) => {
+  return {
+    type: types.CONFIRM_USER,
     payload,
   };
 };
@@ -246,6 +274,33 @@ export const addQuoteWatcher = ({ orderID, quote }) => {
 export const postQuote = (payload) => {
   return {
     type: types.POST_QUOTE_SUCCESS,
+    payload,
+  };
+};
+
+export const loadQuotedOrderWatcher = () => {
+  return {
+    type: types.LOAD_QUOTED_ORDERS_WATCHER,
+  };
+};
+
+export const setQuotedOrders = (payload) => {
+  return {
+    type: types.SET_QUOTED_ORDERS,
+    payload,
+  };
+};
+
+export const updateOrderWatcher = ({ orderID, payload }) => {
+  return {
+    type: types.UPDATE_ORDER_BY_CLEANER_WATCHER,
+    payload: { orderID, payload },
+  };
+};
+
+export const setUpdatedOrder = (payload) => {
+  return {
+    type: types.UPDATE_ORDER_BY_CLEANER_SUCCESS,
     payload,
   };
 };

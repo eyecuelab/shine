@@ -6,6 +6,7 @@ import {
   publishOrder,
   getOrderById,
   deleteOrder,
+  quoteAccept,
 } from '../services/ordersService';
 import {
   setOrders,
@@ -17,9 +18,12 @@ import {
   setSelectedOrder,
   setGetOrderByIdError,
   deleteOrderError,
+  quoteAccepted,
+  quoteAcceptError,
 } from '../actions';
 
 export const getToken = (state) => state.users.data.data.attributes.token;
+export const getOrderID = (state) => state.orders.selectedOrder.data.id;
 
 export function* handleOrdersLoad() {
   try {
@@ -75,6 +79,18 @@ export function* deleteOrderSaga(action) {
   }
 }
 
+export function* quoteAcceptSaga(action) {
+  try {
+    const orderID = yield select(getOrderID);
+    const token = yield select(getToken);
+    const result = yield call(quoteAccept, action.payload, orderID, token);
+    console.log('SAGA', result);
+    yield put(quoteAccepted(result));
+  } catch (error) {
+    yield put(quoteAcceptError(error.toString()));
+  }
+}
+
 export default function* watchOrdersLoad() {
   yield takeEvery(types.LOAD_ORDERS, handleOrdersLoad);
 }
@@ -87,14 +103,25 @@ export function* watchOrdersReload() {
   yield takeEvery(types.POST_ORDER_SUCCESS, handleOrdersLoad);
 }
 
-export function* watchPublishOrder() {
+// export function* watchPublishOrder() {
+//   yield takeLatest(types.PUBLISH_ORDER_WATCHER, publishOrderSaga);
+// }
+
+// export function* watchGetOrderById() {
+//   yield takeLatest(types.GET_ORDER_BY_ID_WATCHER, getOrderByIdSaga);
+// }
+
+// export function* watchDeleteOrder() {
+//   yield takeLatest(types.DELETE_ORDER_WATCHER, deleteOrderSaga);
+// }
+
+// export function* watchQuoteAccept() {
+//   yield takeLatest(types.QUOTE_ACCEPT_WATCHER, quoteAcceptSaga);
+// }
+
+export function* watchActionsForEachOrder() {
   yield takeLatest(types.PUBLISH_ORDER_WATCHER, publishOrderSaga);
-}
-
-export function* watchGetOrderById() {
   yield takeLatest(types.GET_ORDER_BY_ID_WATCHER, getOrderByIdSaga);
-}
-
-export function* watchDeleteOrder() {
   yield takeLatest(types.DELETE_ORDER_WATCHER, deleteOrderSaga);
+  yield takeLatest(types.QUOTE_ACCEPT_WATCHER, quoteAcceptSaga);
 }

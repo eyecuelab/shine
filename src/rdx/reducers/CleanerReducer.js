@@ -3,17 +3,15 @@ import * as types from '../actions/types';
 
 const initialCleanerState = {
   data: null,
-  quotableOrders: {},
+  quotableOrders: null,
+  quotedOrders: null,
   errorMessage: null,
   quotedStatus: {},
+  inProgress: null,
 };
 
 const cleanerReducer = (state = initialCleanerState, action) => {
   switch (action.type) {
-    // case REHYDRATE:
-    //   return {
-    //     ...state,
-    //   };
     case types.LOAD_CLEANER:
       return {
         ...state,
@@ -22,6 +20,8 @@ const cleanerReducer = (state = initialCleanerState, action) => {
             ? action.payload.included[1]
             : null,
         quotableOrders: state.quotableOrders,
+        quotedOrders: state.quotedOrders,
+        inProgress: state.inProgress,
         errorMessage: null,
       };
     case types.LOGOUT_SUCCESS:
@@ -29,6 +29,8 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         ...state,
         data: null,
         errorMessage: null,
+        quotedOrders: null,
+        inProgress: null,
       };
 
     case types.ADD_CLEANER_PROFILE:
@@ -83,6 +85,19 @@ const cleanerReducer = (state = initialCleanerState, action) => {
       return {
         ...state,
         errorMessage: action.error,
+      };
+    case types.SET_QUOTED_ORDERS:
+      return {
+        ...state,
+        quotedOrders: action.payload,
+      };
+    case types.UPDATE_ORDER_BY_CLEANER_SUCCESS:
+      return {
+        ...state,
+        inProgress: {
+          ...state.inProgress,
+          [action.payload.orderID]: action.payload.status,
+        },
       };
     default:
       return state;

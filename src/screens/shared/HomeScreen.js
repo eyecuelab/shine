@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 import React from 'react';
-// import { Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../rdx/actions';
 import { useNavigation } from '@react-navigation/native';
@@ -13,7 +12,7 @@ const HomeScreen = ({ orders, users, getOrderByIdWatcher }) => {
   const navigation = useNavigation();
   const handleClick = (item) => {
     getOrderByIdWatcher(item.id);
-    if (item.attributes.quote_accepted_at === null) {
+    if (item.attributes.cleaner_id === null) {
       navigation.navigate('OrderFinal', item);
     } else {
       navigation.navigate('OrderStatus', item);
@@ -35,13 +34,25 @@ const HomeScreen = ({ orders, users, getOrderByIdWatcher }) => {
   } else {
     return (
       <HomeContainer>
-        <ImageArea onPress={() => navigation.navigate('NewOrder')}>
+        <ImageArea>
           <Image source={require('../../../assets/images/logo-clear.png')} />
         </ImageArea>
+        <TextArea onPress={() => navigation.navigate('NewOrder')}>
+          <AddOrderText> Add Order</AddOrderText>
+        </TextArea>
       </HomeContainer>
     );
   }
 };
+
+const AddOrderText = styled.Text`
+  font-family: Marison-Sans-Round;
+  color: white;
+  font-size: 30px;
+  padding: 30px;
+`;
+
+const TextArea = styled.TouchableOpacity``;
 
 const HomeContainer = styled.View`
   width: 100%;
@@ -60,9 +71,9 @@ const ListContainer = styled.View`
   flex-wrap: wrap;
 `;
 
-const ImageArea = styled.TouchableOpacity`
-  width: 200px;
-  height: 200px;
+const ImageArea = styled.View`
+  width: 275px;
+  height: 275px;
 `;
 
 const Image = styled.Image`
@@ -73,24 +84,6 @@ const Image = styled.Image`
 const ItemsContainer = styled.TouchableOpacity`
   margin: 20px 0px 0px 20px;
 `;
-
-// const Header = styled.TouchableOpacity`
-//   flex-direction: row;
-//   width: 100%;
-//   height: 60px;
-//   border-bottom-width: 1px;
-//   border-bottom-color: #e3e3e3;
-//   padding-horizontal: 25px;
-//   align-items: center;
-//   justify-content: center;
-//   background-color: white;
-// `;
-
-// const Text = styled.Text`
-//   color: black;
-//   font-size: 20px;
-//   font-weight: 500;
-// `;
 
 HomeScreen.propTypes = {
   orders: PropTypes.array,

@@ -4,40 +4,30 @@ import { connect } from 'react-redux';
 import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
 import styled from 'styled-components/native';
 import OrderItem from '../../components/order/OrderItem';
-import OrderItemCompleted from '../../components/order/OrderItemCompleted';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
 const { height } = Dimensions.get('window');
 
-const OrdersInAreaScreen = ({ cleaner, navigation }) => {
+const AcceptedQuotesScreen = ({ cleaner, navigation }) => {
   const cleanerID = cleaner.data ? cleaner.data.id : null;
-  const filtedQuotableOrders = cleaner.quotableOrders
-    ? cleaner.quotableOrders.filter(
-        (item) => item.attributes.cleaner_id == null,
-      )
-    : null;
+  const quotedOrders = cleaner.quotedOrders ? cleaner.quotedOrders : null;
 
   return (
     <ScrollViewContainer>
       <Container>
-        {filtedQuotableOrders && filtedQuotableOrders.length !== 0 ? (
-          filtedQuotableOrders.map((item) => (
+        {quotedOrders && quotedOrders.length !== 0 ? (
+          quotedOrders.map((item) => (
             <ItemsContainer
               key={item.attributes.uuid}
-              onPress={() => navigation.navigate('Quotable Order Detail', item)}
+              onPress={() => navigation.navigate('Quoted Order Detail', item)}
             >
-              {cleaner.quotedStatus[item.id] !== undefined &&
-              cleaner.quotedStatus[item.id][cleanerID] == 'Requested' ? (
-                <OrderItemCompleted order={item} />
-              ) : (
-                <OrderItem order={item} />
-              )}
+              <OrderItem order={item} />
             </ItemsContainer>
           ))
         ) : (
           <TextContainer>
-            <Text>There is no quotable orders at this time.</Text>
+            <Text>There is no accepted quote yet.</Text>
           </TextContainer>
         )}
       </Container>
@@ -68,7 +58,7 @@ const Text = styled.Text`
   font-weight: 500;
 `;
 
-OrdersInAreaScreen.propTypes = {
+AcceptedQuotesScreen.propTypes = {
   navigation: PropTypes.object,
   cleaner: PropTypes.object,
 };
@@ -77,4 +67,4 @@ const mapStateToProps = (state) => {
   return { cleaner: state.cleaner };
 };
 
-export default connect(mapStateToProps, actions)(OrdersInAreaScreen);
+export default connect(mapStateToProps, actions)(AcceptedQuotesScreen);

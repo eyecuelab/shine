@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import * as React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Dimensions,
   TextInput,
@@ -8,41 +8,87 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
+import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
-// import { useNavigation } from '@react-navigation/native';
-import { Button } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
+import UniversalButton from '../../components/shared/UniversalButton';
 
 const { width } = Dimensions.get('window');
 
-const SignUpScreen = ({ signupWatcher, users }) => {
-  const [email, setEmail] = React.useState('');
-  const [firstName, setFirstName] = React.useState('');
-  const [lastName, setLastName] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [secureTextEntry, setSecureTextEntry] = React.useState(true);
+const SignUpScreen = ({ signupWatcher, users, confirmUser }) => {
+  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [password, setPassword] = useState('');
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
   const toggleSecureTextEntry = () => {
     setSecureTextEntry((previousState) => !previousState);
   };
 
-  const statusMessage = users.signupMessage;
-  // const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [authCode, setAuthCode] = useState('');
 
-  const inputEl2 = React.useRef(null);
-  const inputEl3 = React.useRef(null);
-  const inputEl4 = React.useRef(null);
+  const statusMessage = users.signupMessage;
+
+  const navigation = useNavigation();
+
+  const inputEl2 = useRef(null);
+  const inputEl3 = useRef(null);
+  const inputEl4 = useRef(null);
+
+  useEffect(() => {
+    if (users.signupMessage === 'Sign Up Successful!') {
+      setModalVisible(true);
+    }
+  }, [users.signupMessage]);
+
+  useEffect(() => {
+    if (users.confirmationMessage === 'Account Confirmed!') {
+      setModalVisible(false);
+      navigation.navigate('LogIn');
+    }
+  }, [users.confirmationMessage]);
+
+  const onSignUp = () => {
+    // if (emailError === 'Please Enter a Valid Email Address') {
+    //   setEmailError('Please Enter a Valid Email Address');
+    // }
+    if (firstName.length === 0 || lastName.length === 0) {
+      setEmailError('Please Fill Out All Required Fields');
+    }
+    if (password.length < 6 || password.length > 10) {
+      setEmailError('Password should contain 6-10 characters');
+    } else {
+      signupWatcher({
+        email: email,
+        first_name: firstName,
+        last_name: lastName,
+        password: password,
+      });
+    }
+  };
+
+  const onSetEmail = () => {
+    // eslint-disable-next-line no-useless-escape
+    // var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    // if (email.match(mailformat)) {
+    //   (inputE12) => inputE12.current.focus();
+    //   setEmailError('');
+    // } else {
+    // setEmailError('Please Enter a Valid Email Address');
+    // }
+  };
 
   const onSubmit = () => {
-    signupWatcher({
-      email: email,
-      first_name: firstName,
-      last_name: lastName,
-      password: password,
+    confirmUser({
+      code: authCode,
     });
-    // TODO: add modal to confrim signed up status and route to login page
+    // setModalVisible(false);
     // navigation.navigate('LogIn');
   };
 
@@ -54,6 +100,46 @@ const SignUpScreen = ({ signupWatcher, users }) => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Container>
+            <Modal
+              hasBackdrop={true}
+              hideModalContentWhileAnimating={true}
+              animationIn={'slideInUp'}
+              animationOut={'slideOutDown'}
+              animationInTiming={1000}
+              animationOutTiming={3000}
+              backdropTransitionInTiming={1000}
+              backdropTransitionOutTiming={1000}
+              isVisible={modalVisible}
+              onBackdropPress={() => setModalVisible(false)}
+              swipeDirection={['down']}
+              onSwipeComplete={() => setModalVisible(false)}
+            >
+              <ModalContainer>
+                <ModalView>
+                  <ModalHeader>
+                    <HeaderText>Welcome to Shine {firstName}! </HeaderText>
+                  </ModalHeader>
+                  <ModalItem>
+                    <Text>A Confirmation Code has been sent to {email}</Text>
+                  </ModalItem>
+                  <ModalItem>
+                    <CodeTextInput
+                      placeholder="Your Authorization Code"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      value={authCode}
+                      onChangeText={setAuthCode}
+                    />
+                  </ModalItem>
+                  <ModalItem>
+                    <ErrorText>{users.confirmationMessage}</ErrorText>
+                  </ModalItem>
+                  <ModalConfirm onPress={() => onSubmit()}>
+                    <ConfirmText>Confirm and Continue</ConfirmText>
+                  </ModalConfirm>
+                </ModalView>
+              </ModalContainer>
+            </Modal>
             <TextInput
               placeholder="Email"
               returnKeyType="next"
@@ -63,7 +149,7 @@ const SignUpScreen = ({ signupWatcher, users }) => {
               style={styles.input}
               value={email}
               onChangeText={setEmail}
-              onSubmitEditing={() => inputEl2.current.focus()}
+              onEndEditing={() => onSetEmail()}
             />
             <TextInput
               ref={inputEl2}
@@ -99,7 +185,7 @@ const SignUpScreen = ({ signupWatcher, users }) => {
                 value={password}
                 secureTextEntry={secureTextEntry}
                 onChangeText={setPassword}
-                onSubmitEditing={onSubmit}
+                // onSubmitEditing={onSubmit}
               />
               <SecureButton onPress={toggleSecureTextEntry}>
                 {secureTextEntry ? (
@@ -114,17 +200,12 @@ const SignUpScreen = ({ signupWatcher, users }) => {
                 <Text>{statusMessage}</Text>
               </MessageContainer>
             ) : null}
-
-            <Button
-              title="Sign up"
-              containerStyle={{ paddingTop: 20, width: 350 }}
-              buttonStyle={{
-                backgroundColor: 'black',
-                height: 50,
-                borderRadius: 7,
-              }}
-              onPress={onSubmit}
-            />
+            {emailError.length !== 0 ? (
+              <MessageContainer>
+                <ErrorText>{emailError}</ErrorText>
+              </MessageContainer>
+            ) : null}
+            <UniversalButton title={'Sign Up'} onPress={onSignUp} width={350} />
           </Container>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
@@ -172,15 +253,83 @@ const MessageContainer = styled.View`
   justify-content: center;
 `;
 
+const HeaderText = styled.Text`
+  color: black;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+`;
+
+const ConfirmText = styled.Text`
+  color: blue;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+`;
+
 const Text = styled.Text`
+  color: black;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+`;
+
+const CodeTextInput = styled.TextInput`
+  width: 80%;
+  padding: 10px;
+  border-width: 1px;
+  border-color: black;
+`;
+
+const ErrorText = styled.Text`
   color: #8e1818;
   font-size: 16px;
   font-weight: 500;
   text-align: center;
 `;
 
+const ModalContainer = styled.View`
+  justify-content: flex-end;
+  align-items: center;
+  background-color: white;
+`;
+
+const ModalView = styled.View`
+  width: 100%;
+  margin-bottom: 20px;
+
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+const ModalHeader = styled.View`
+  width: 100%;
+  height: 60px;
+  border-bottom-width: 1px;
+  border-bottom-color: #e3e3e3;
+  padding-horizontal: 25px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+`;
+
+const ModalItem = styled.View`
+  width: 100%;
+  padding-top: 20px;
+  padding-horizontal: 25px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+`;
+
+const ModalConfirm = styled.TouchableOpacity`
+  width: 100%;
+  padding-top: 20px;
+`;
+
 SignUpScreen.propTypes = {
   signupWatcher: PropTypes.func,
+  confirmUser: PropTypes.func,
   users: PropTypes.object,
 };
 

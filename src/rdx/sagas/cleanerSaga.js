@@ -6,8 +6,11 @@ import {
   deleteCleanerService,
   loadQuotableOrdersService,
   postQuoteService,
+  loadQuotedOrdersService,
+  updateOrderService,
 } from '../services/cleanerService';
 import { call, put, select } from 'redux-saga/effects';
+import { or } from 'react-native-reanimated';
 
 export const getToken = (state) => state.users.data.data.attributes.token;
 export const getCleanerID = (state) => state.cleaner.data.id;
@@ -100,5 +103,50 @@ export function* postQuoteSaga(action) {
   } catch (error) {
     console.log('POST QUOTE ERROR:', error);
     yield put({ type: types.POST_QUOTE_ERROR, error: error.message });
+  }
+}
+
+export function* loadQuotedOrdersSaga() {
+  try {
+    const cleanerID = yield select(getCleanerID);
+    const token = yield select(getToken);
+    let response = yield call(loadQuotedOrdersService, cleanerID, token);
+    if (response.ok && response.status === 200) {
+      const data = yield response.json();
+      yield put(actions.setQuotedOrders(data.data));
+    } else {
+      throw yield response.json();
+    }
+  } catch (error) {
+    console.log('LOAD QUOTED ORDERS ERROR:', error);
+  }
+}
+
+export function* updateOrderByCleanerSaga(action) {
+  try {
+    const cleanerID = yield select(getCleanerID);
+    const token = yield select(getToken);
+    let response = yield call(
+      updateOrderService,
+      action.payload,
+      cleanerID,
+      token,
+    );
+    if (response.ok && response.status === 200) {
+      const data = yield response.json();
+      const orderID = data.data.id;
+      const status = {
+        [data.meta.actions[3][0][0]]: data.meta.actions[3][0][2],
+        [data.meta.actions[3][1][0]]: data.meta.actions[3][1][2],
+        [data.meta.actions[3][2][0]]: data.meta.actions[3][2][2],
+        [data.meta.actions[3][3][0]]: data.meta.actions[3][3][2],
+        [data.meta.actions[3][4][0]]: data.meta.actions[3][4][2],
+      };
+      yield put(actions.setUpdatedOrder({ orderID, status }));
+    } else {
+      throw yield response.json();
+    }
+  } catch (error) {
+    console.log('UPDATE ORDER ERROR:', error);
   }
 }

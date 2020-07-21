@@ -21,8 +21,9 @@ const QuotableOrderDetailScreen = ({
   navigation,
 }) => {
   const item = route.params;
-  const orderID = item.id;
-  const cleanerID = cleaner.data.id;
+  console.log(item);
+  const orderID = item ? item.id : null;
+  const cleanerID = cleaner.data ? cleaner.data.id : null;
 
   const estimatedPrice = item.attributes.estimated_price;
   const [quotedPrice, setQuotedPrice] = useState(estimatedPrice);
@@ -117,7 +118,7 @@ const QuotableOrderDetailScreen = ({
           <PriceTextContainer>
             <PriceText>ROUGH EST.</PriceText>
           </PriceTextContainer>
-          {PriceTagBlack(Math.floor(estimatedPrice), 99)}
+          {PriceTagBlack(estimatedPrice)}
         </PriceContianer>
       </Container>
 
@@ -147,7 +148,6 @@ const QuotableOrderDetailScreen = ({
                   style={{ marginRight: 5 }}
                 />
               }
-              placeholder={estimatedPrice}
               value={quotedPrice}
               onChangeText={(text) => setQuotedPrice(text)}
             />
@@ -296,7 +296,7 @@ const PriceTextContainer = styled.View`
 `;
 
 const PriceText = styled.Text`
-  text-align: left;
+  margin-left: 20px;
   padding-left: 10px;
   color: black;
   font-size: 18px;

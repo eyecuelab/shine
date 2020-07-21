@@ -22,6 +22,9 @@ const ProfileStackNavigator = ({ users }) => {
           borderBottomColor: '#CBB387',
           shadowColor: '#CBB387',
         },
+        headerTitleStyle: {
+          fontFamily: 'Raleway-Bold',
+        },
         headerTintColor: '#FFFFFF',
         headerBackTitleVisible: false,
       }}
@@ -31,17 +34,17 @@ const ProfileStackNavigator = ({ users }) => {
           <ProfileStack.Screen
             name="Welcome"
             component={WelcomeScreen}
-            options={{ title: 'SHINE' }}
+            options={{ title: 'WELCOME' }}
           />
           <ProfileStack.Screen
             name="SignUp"
             component={SignUpScreen}
-            options={{ title: 'SIGN UP' }}
+            options={{ title: 'Sign Up' }}
           />
           <ProfileStack.Screen
             name="LogIn"
             component={SignInScreen}
-            options={{ title: 'LOG IN' }}
+            options={{ title: 'SIGN IN' }}
           />
         </>
       ) : (

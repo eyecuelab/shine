@@ -3,15 +3,12 @@ import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialOrdersState = {
   orders: [],
-  selectedOrder: {},
+  selectedOrder: null,
+  orderStatus: null,
 };
 
 const orderReducer = (state = initialOrdersState, action) => {
   switch (action.type) {
-    case REHYDRATE:
-      return {
-        ...state,
-      };
     case types.LOAD_ORDERS_SUCCESS:
       return {
         ...state,
@@ -43,7 +40,29 @@ const orderReducer = (state = initialOrdersState, action) => {
         ...state,
         selectedOrder: action.payload,
       };
-
+    case types.QUOTE_ACCEPT_SUCCESS:
+      return {
+        ...state,
+        orders: state.orders.map((item) => {
+          if (item.attributes.uuid === action.payload.data.attributes.uuid) {
+            return {
+              type: action.payload.data.type,
+              id: action.payload.data.id,
+              links: action.payload.links,
+              attributes: action.payload.data.attributes,
+            };
+          }
+          return item;
+        }),
+      };
+    case types.UPDATE_ORDER_BY_CLEANER_SUCCESS:
+      return {
+        ...state,
+        orderStatus: {
+          ...state.orderStatus,
+          [action.payload.orderID]: action.payload.status,
+        },
+      };
     // case types.ADD_ORDER:
     //   return [
     //     ...state,
@@ -89,7 +108,7 @@ const orderReducer = (state = initialOrdersState, action) => {
       return {
         ...state,
         orders: state.orders.map((item) => {
-          if (item.attributes.uuid === action.uuid) {
+          if (item.attributes.uuid === action.payload.data.attributes.uuid) {
             return {
               ...item,
               requestCompleted: action.payload,
@@ -98,8 +117,6 @@ const orderReducer = (state = initialOrdersState, action) => {
           return item;
         }),
       };
-    // case types.DELETE_ORDER:
-    //   return state.filter((item) => item.uuid !== action.uuid);
     default:
       return state;
   }

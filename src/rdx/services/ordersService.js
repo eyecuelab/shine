@@ -1,5 +1,9 @@
-const fetchOrders = async (token) => {
-  const response = await fetch('http://127.0.0.1:8080/orders', {
+import getEnvVars from '../../../environment';
+
+const { apiUrl } = getEnvVars();
+
+export const fetchOrders = async (token) => {
+  const response = await fetch(`${apiUrl}/orders`, {
     method: 'GET',
     headers: {
       Authorization: token,
@@ -14,8 +18,8 @@ const fetchOrders = async (token) => {
   }
 };
 
-function* postOrder(order, token) {
-  const urlLink = 'http://127.0.0.1:8080/orders';
+export function* postOrder(order, token) {
+  const urlLink = `${apiUrl}/orders`;
   const response = yield fetch(urlLink, {
     method: 'POST',
     headers: {
@@ -30,8 +34,8 @@ function* postOrder(order, token) {
   }
 }
 
-const publishOrder = async (request, token) => {
-  const urlLink = `http://127.0.0.1:8080/orders/${request.orderID}`;
+export const publishOrder = async (request, token) => {
+  const urlLink = `${apiUrl}/orders/${request.orderID}`;
   const response = await fetch(urlLink, {
     method: 'PATCH',
     headers: {
@@ -47,8 +51,8 @@ const publishOrder = async (request, token) => {
   }
 };
 
-const getOrderById = async (orderID, token) => {
-  const urlLink = `http://127.0.0.1:8080/orders/${orderID}`;
+export const getOrderById = async (orderID, token) => {
+  const urlLink = `${apiUrl}/orders/${orderID}`;
   const response = await fetch(urlLink, {
     method: 'GET',
     headers: {
@@ -63,8 +67,8 @@ const getOrderById = async (orderID, token) => {
   }
 };
 
-function* deleteOrder(orderID, token) {
-  const urlLink = `http://127.0.0.1:8080/orders/${orderID}`;
+export function* deleteOrder(orderID, token) {
+  const urlLink = `${apiUrl}/orders/${orderID}`;
   const response = yield fetch(urlLink, {
     method: 'DELETE',
     headers: {
@@ -78,4 +82,22 @@ function* deleteOrder(orderID, token) {
   }
 }
 
-export { fetchOrders, postOrder, publishOrder, getOrderById, deleteOrder };
+export const quoteAccept = async (request, orderID, token) => {
+  const urlLink = `${apiUrl}/orders/${orderID}`;
+  const response = await fetch(urlLink, {
+    method: 'PATCH',
+    headers: {
+      Authorization: token,
+    },
+    body: JSON.stringify(request),
+  });
+  const result = await response.json();
+  console.log('SERVICE', result);
+  if (response.ok && response.status === 200) {
+    return result;
+  } else {
+    throw new Error(response.json());
+  }
+};
+
+// export { fetchOrders, postOrder, publishOrder, getOrderById, deleteOrder };

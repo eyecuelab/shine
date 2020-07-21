@@ -78,11 +78,13 @@ const SignInScreen = ({ loginWatcher, users }) => {
             ) : null}
 
             <Button
-              title="Log in"
-              containerStyle={{ paddingTop: 20, width: 350 }}
+              title="Sign In"
+              containerStyle={{ paddingTop: 20, width: 300 }}
+              titleStyle={{ fontFamily: 'Raleway-Bold' }}
               buttonStyle={{
-                backgroundColor: 'black',
+                backgroundColor: '#4a4a4a',
                 height: 50,
+
                 borderRadius: 7,
               }}
               onPress={onSubmit}
