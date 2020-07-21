@@ -1,21 +1,25 @@
 /* eslint-disable no-undef */
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { useRoute } from '@react-navigation/native';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceTagWhite from '../../components/shared/PriceTagWhite';
 import DashedLine from '../../components/shared/Dash';
+import AddOnSwitch from '../../components/order/AddOnSwitch';
 import UnselectedSwitch from '../../components/shared/UnselectedSwitch';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
 const { height: HEIGHT } = Dimensions.get('window');
 
-const OrderStatusScreen = ({ navigation, order }) => {
-  console.log('ORder', order !== null);
-  const addOns = order ? order.data.attributes.add_ons : null;
+const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
+  const route = useRoute();
+  const item = route.params;
+  console.log('I', item);
+  const addOns = item.attributes.add_ons;
   const cleaner = order ? order.included[order.included.length - 1] : null;
   const cleanerID = cleaner ? cleaner.id : null;
   const cleanerAddress = cleaner
@@ -35,6 +39,9 @@ const OrderStatusScreen = ({ navigation, order }) => {
     : null;
   const quotedPrice = quote ? quote.attributes.quoted_price : null;
   const deliveryBy = quote ? quote.attributes.delivery_by : null;
+  const orderID = order ? order.data.id : null;
+  const currentOrderStatus = orderStatus[orderID] ? orderStatus[orderID] : null;
+  console.log('STATUS', currentOrderStatus);
 
   return (
     <ScrollViewContailner>
@@ -50,12 +57,10 @@ const OrderStatusScreen = ({ navigation, order }) => {
           </PriceContianer>
         </PriceTicketContainer>
         <AddOnsContainer>
-          {addOns && addOns.polish ? <AddOnsText>ADD POLISH</AddOnsText> : null}
+          {addOns.polish ? <AddOnsText>ADD POLISH</AddOnsText> : null}
 
-          {addOns && addOns.replaceLaces ? (
-            <AddOnsText>REPLACE LACES</AddOnsText>
-          ) : null}
-          {addOns && addOns.rainProtection ? (
+          {addOns.replaceLaces ? <AddOnsText>REPLACE LACES</AddOnsText> : null}
+          {addOns.rainProtection ? (
             <AddOnsText>ADD RAIN PROTECTION</AddOnsText>
           ) : null}
         </AddOnsContainer>
@@ -88,6 +93,12 @@ const OrderStatusScreen = ({ navigation, order }) => {
           <SwitchText>SHOES DROPPED OFF</SwitchText>
         </SwitchTextContainer>
         <SwitchContainer>
+          <AddOnSwitch
+            disabled={true}
+            switchState={
+              currentOrderStatus ? currentOrderStatus.shoes_picked_up : null
+            }
+          />
           <UnselectedSwitch />
           <UnselectedSwitch />
           <UnselectedSwitch />
@@ -276,11 +287,15 @@ const TextInput = styled.TextInput`
 OrderStatusScreen.propTypes = {
   navigation: PropTypes.object,
   order: PropTypes.object,
+  orderStatus: PropTypes.object,
   quoteAcceptWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
-  return { order: state.orders.selectedOrder };
+  return {
+    order: state.orders.selectedOrder,
+    orderStatus: state.orders.orderStatus,
+  };
 };
 
 export default connect(mapStateToProps, actions)(OrderStatusScreen);
