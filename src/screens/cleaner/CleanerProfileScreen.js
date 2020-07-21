@@ -52,7 +52,7 @@ const CleanerProfileScreen = ({
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>
 
-        <ListItem onPress={() => navigation.navigate('Orders Requested')}>
+        <ListItem onPress={() => navigation.navigate('Accepted Quotes')}>
           <Text>Orders with Quote Accepted</Text>
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>

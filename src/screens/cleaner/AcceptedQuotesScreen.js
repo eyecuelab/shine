@@ -7,7 +7,7 @@ import OrderItemCompleted from '../../components/order/OrderItemCompleted';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const OrdersInAreaScreen = ({ cleaner, navigation }) => {
+const AcceptedQuotesScreen = ({ cleaner, navigation }) => {
   const cleanerID = cleaner.data ? cleaner.data.id : null;
   const filtedQuotableOrders = cleaner.data
     ? cleaner.quotableOrders.filter(
@@ -18,7 +18,7 @@ const OrdersInAreaScreen = ({ cleaner, navigation }) => {
   return (
     <ScrollViewContainer>
       <Container>
-        {filtedQuotableOrders &&
+        {/* {filtedQuotableOrders &&
           filtedQuotableOrders.map((item) => (
             <ItemsContainer
               key={item.attributes.uuid}
@@ -31,7 +31,7 @@ const OrdersInAreaScreen = ({ cleaner, navigation }) => {
                 <OrderItem order={item} />
               )}
             </ItemsContainer>
-          ))}
+          ))} */}
       </Container>
     </ScrollViewContainer>
   );
@@ -49,7 +49,7 @@ const ItemsContainer = styled.TouchableOpacity`
   margin: 20px 0px 0px 20px;
 `;
 
-OrdersInAreaScreen.propTypes = {
+AcceptedQuotesScreen.propTypes = {
   navigation: PropTypes.object,
   cleaner: PropTypes.object,
 };
@@ -58,4 +58,4 @@ const mapStateToProps = (state) => {
   return { cleaner: state.cleaner };
 };
 
-export default connect(mapStateToProps, actions)(OrdersInAreaScreen);
+export default connect(mapStateToProps, actions)(AcceptedQuotesScreen);
