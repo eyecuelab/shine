@@ -18,7 +18,6 @@ const orderReducer = (state = initialOrdersState, action) => {
       return {
         ...state,
         orders: [],
-        selectedOrder: null,
       };
     case types.PUBLISH_ORDER_SUCCESS:
       return {

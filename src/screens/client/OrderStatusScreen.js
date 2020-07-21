@@ -18,8 +18,8 @@ const { height: HEIGHT } = Dimensions.get('window');
 const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
   const route = useRoute();
   const item = route.params;
-  console.log('I', item);
   const addOns = item.attributes.add_ons;
+
   const cleaner = order ? order.included[order.included.length - 1] : null;
   const cleanerID = cleaner ? cleaner.id : null;
   const cleanerAddress = cleaner
@@ -39,6 +39,7 @@ const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
     : null;
   const quotedPrice = quote ? quote.attributes.quoted_price : null;
   const deliveryBy = quote ? quote.attributes.delivery_by : null;
+
   const orderID = order ? order.data.id : null;
   const currentOrderStatus = orderStatus[orderID] ? orderStatus[orderID] : null;
   console.log('STATUS', currentOrderStatus);
@@ -99,11 +100,30 @@ const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
               currentOrderStatus ? currentOrderStatus.shoes_picked_up : null
             }
           />
-          <UnselectedSwitch />
-          <UnselectedSwitch />
-          <UnselectedSwitch />
-          <UnselectedSwitch />
-          <UnselectedSwitch />
+          <AddOnSwitch
+            disabled={true}
+            switchState={
+              currentOrderStatus ? currentOrderStatus.shoes_cleaned : null
+            }
+          />
+          <AddOnSwitch
+            disabled={true}
+            switchState={
+              currentOrderStatus ? currentOrderStatus.shoes_polished : null
+            }
+          />
+          <AddOnSwitch
+            disabled={true}
+            switchState={
+              currentOrderStatus ? currentOrderStatus.reqeust_payment : null
+            }
+          />
+          <AddOnSwitch
+            disabled={true}
+            switchState={
+              currentOrderStatus ? currentOrderStatus.shoes_dropped_off : null
+            }
+          />
         </SwitchContainer>
 
         <DashedLine />
