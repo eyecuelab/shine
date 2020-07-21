@@ -4,6 +4,7 @@ import { REHYDRATE } from 'redux-persist/lib/constants';
 const initialCleanerState = {
   data: null,
   quotableOrders: {},
+  quotedOrders: {},
   errorMessage: null,
   quotedStatus: {},
 };
@@ -18,13 +19,16 @@ const cleanerReducer = (state = initialCleanerState, action) => {
             ? action.payload.included[1]
             : null,
         quotableOrders: state.quotableOrders,
+        quotedOrders: state.quotedOrders,
         errorMessage: null,
       };
     case types.LOGOUT_SUCCESS:
       return {
-        ...state,
         data: null,
+        quotableOrders: {},
         errorMessage: null,
+        quotedStatus: {},
+        quotedOrders: {},
       };
 
     case types.ADD_CLEANER_PROFILE:
@@ -79,6 +83,11 @@ const cleanerReducer = (state = initialCleanerState, action) => {
       return {
         ...state,
         errorMessage: action.error,
+      };
+    case types.SET_QUOTED_ORDERS:
+      return {
+        ...state,
+        quotedOrders: action.payload,
       };
     default:
       return state;

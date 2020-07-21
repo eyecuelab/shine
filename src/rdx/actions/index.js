@@ -277,3 +277,16 @@ export const postQuote = (payload) => {
     payload,
   };
 };
+
+export const loadQuotedOrderWatcher = () => {
+  return {
+    type: types.LOAD_QUOTED_ORDERS_WATCHER,
+  };
+};
+
+export const setQuotedOrders = (payload) => {
+  return {
+    type: types.SET_QUOTED_ORDERS,
+    payload,
+  };
+};

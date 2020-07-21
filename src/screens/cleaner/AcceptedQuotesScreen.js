@@ -9,29 +9,21 @@ import * as actions from '../../rdx/actions';
 
 const AcceptedQuotesScreen = ({ cleaner, navigation }) => {
   const cleanerID = cleaner.data ? cleaner.data.id : null;
-  const filtedQuotableOrders = cleaner.data
-    ? cleaner.quotableOrders.filter(
-        (item) => item.attributes.cleaner_id == null,
-      )
-    : null;
+  const quotedOrders = cleaner.quotedOrders ? cleaner.quotedOrders : null;
+  console.log('QUOTED', quotedOrders);
 
   return (
     <ScrollViewContainer>
       <Container>
-        {/* {filtedQuotableOrders &&
-          filtedQuotableOrders.map((item) => (
+        {quotedOrders &&
+          quotedOrders.map((item) => (
             <ItemsContainer
               key={item.attributes.uuid}
-              onPress={() => navigation.navigate('Order Detail', item)}
+              onPress={() => navigation.navigate('Quoted Order Detail', item)}
             >
-              {cleaner.quotedStatus[item.id] !== undefined &&
-              cleaner.quotedStatus[item.id][cleanerID] == 'Requested' ? (
-                <OrderItemCompleted order={item} />
-              ) : (
-                <OrderItem order={item} />
-              )}
+              <OrderItem order={item} />
             </ItemsContainer>
-          ))} */}
+          ))}
       </Container>
     </ScrollViewContainer>
   );

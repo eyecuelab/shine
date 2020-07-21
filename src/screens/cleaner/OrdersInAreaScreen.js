@@ -9,7 +9,7 @@ import * as actions from '../../rdx/actions';
 
 const OrdersInAreaScreen = ({ cleaner, navigation }) => {
   const cleanerID = cleaner.data ? cleaner.data.id : null;
-  const filtedQuotableOrders = cleaner.data
+  const filtedQuotableOrders = cleaner.quotableOrders
     ? cleaner.quotableOrders.filter(
         (item) => item.attributes.cleaner_id == null,
       )
@@ -22,7 +22,7 @@ const OrdersInAreaScreen = ({ cleaner, navigation }) => {
           filtedQuotableOrders.map((item) => (
             <ItemsContainer
               key={item.attributes.uuid}
-              onPress={() => navigation.navigate('Order Detail', item)}
+              onPress={() => navigation.navigate('Quotable Order Detail', item)}
             >
               {cleaner.quotedStatus[item.id] !== undefined &&
               cleaner.quotedStatus[item.id][cleanerID] == 'Requested' ? (
