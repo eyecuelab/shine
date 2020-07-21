@@ -10,10 +10,6 @@ const initialCleanerState = {
 
 const cleanerReducer = (state = initialCleanerState, action) => {
   switch (action.type) {
-    case REHYDRATE:
-      return {
-        ...state,
-      };
     case types.LOAD_CLEANER:
       return {
         ...state,

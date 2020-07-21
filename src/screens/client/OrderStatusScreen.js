@@ -14,8 +14,8 @@ import * as actions from '../../rdx/actions';
 const { height: HEIGHT } = Dimensions.get('window');
 
 const OrderStatusScreen = ({ navigation, order }) => {
-  const addOns = order.data.attributes.add_ons;
-  const cleaner = order.included[order.included.length - 1];
+  const addOns = order ? order.data.attributes.add_ons : null;
+  const cleaner = order ? order.included[order.included.length - 1] : null;
   const cleanerID = cleaner.id;
   const cleanerAddress =
     cleaner.attributes.street_address +
@@ -26,9 +26,11 @@ const OrderStatusScreen = ({ navigation, order }) => {
     ' ' +
     cleaner.attributes.postal_code;
 
-  const quote = order.included.filter(
-    (item) => item.attributes.cleaner_id == cleanerID,
-  )[0];
+  const quote = order
+    ? order.included.filter(
+        (item) => item.attributes.cleaner_id == cleanerID,
+      )[0]
+    : null;
   const quotedPrice = quote.attributes.quoted_price;
   const deliveryBy = quote.attributes.delivery_by;
   console.log(cleaner);
