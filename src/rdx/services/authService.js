@@ -52,6 +52,24 @@ export const signUpUserService = (request) => {
   });
 };
 
+export const confirmUserService = (code) => {
+  // const SIGNUP_API_ENDPOINT = 'https://shoeshine.herokuapp.com/signup';
+  const CONFIRM_API_ENDPOINT = 'http://127.0.0.1:8080/signup/confirm';
+
+  const parameters = {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(code),
+  };
+
+  return fetch(CONFIRM_API_ENDPOINT, parameters).then((response) => {
+    return response;
+  });
+};
+
 export const editProfileService = (request, token) => {
   const PROFILE_API_ENDPOINT = 'http://127.0.0.1:8080/profile';
 
