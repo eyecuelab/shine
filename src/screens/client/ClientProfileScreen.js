@@ -68,10 +68,10 @@ const ClientProfileScreen = ({ user, navigation, logoutWatcher }) => {
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>
         {/* not sure if the API has this DELETE functionality */}
-        <ListItem>
+        {/* <ListItem>
           <Text>Delete Your Account</Text>
           <Feather name="chevron-right" size={24} color="#737272" />
-        </ListItem>
+        </ListItem> */}
         <Seperator />
         {/* <ListItemCenter
           onPress={() => navigation.navigate('Cleaner Application')}

@@ -11,16 +11,21 @@ const WelcomeScreen = ({ navigation }) => {
         <Image source={require('../../../assets/images/logo-outline.png')} />
       </ImageArea>
       <Button
-        title="Sign up with Email"
-        containerStyle={{ paddingTop: 20, width: 350, marginVertical: 20 }}
-        buttonStyle={{ backgroundColor: 'black', height: 50, borderRadius: 7 }}
-        onPress={() => navigation.navigate('SignUp')}
+        title="Sign In"
+        containerStyle={{ paddingTop: 20, width: 275, marginVertical: 20 }}
+        titleStyle={{ fontFamily: 'Raleway-Bold' }}
+        buttonStyle={{
+          backgroundColor: '#4a4a4a',
+          height: 50,
+          borderRadius: 7,
+        }}
+        onPress={() => navigation.navigate('LogIn')}
       />
       <Text>
-        Already have an account?{' '}
-        <TextLink onPress={() => navigation.navigate('LogIn')}>
+        DON'T HAVE AN ACCOUNT?{' '}
+        <TextLink onPress={() => navigation.navigate('SignUp')}>
           {' '}
-          Log in
+          SIGN UP
         </TextLink>
       </Text>
     </Container>
@@ -35,8 +40,8 @@ const Container = styled.View`
 `;
 
 const ImageArea = styled.View`
-  width: 200px;
-  height: 200px;
+  width: 275px;
+  height: 275px;
 `;
 
 const Image = styled.Image`
@@ -46,13 +51,14 @@ const Image = styled.Image`
 
 const Text = styled.Text`
   color: black;
-  font-size: 16px;
+  font-family: 'Raleway-Regular';
+
+  font-size: 15px;
 `;
 
 const TextLink = styled.Text`
   color: #cbb387;
-  font-size: 18px;
-  font-weight: 600;
+  font-family: 'Raleway-Bold';
 `;
 
 WelcomeScreen.propTypes = {

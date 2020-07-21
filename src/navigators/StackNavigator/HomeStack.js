@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button } from 'react-native';
+// import { Button } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
+// import { useNavigation } from '@react-navigation/native';
 // import { Feather } from '@expo/vector-icons';
 // SCREEN IMPORTS:
 import HomeScreen from '../../screens/shared/HomeScreen';
@@ -14,7 +14,7 @@ import OrderConfrimScreen from '../../screens/client/OrderConfirmScreen';
 const HomeStack = createStackNavigator();
 
 const HomeStackNavigator = () => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   return (
     <HomeStack.Navigator
       screenOptions={{
