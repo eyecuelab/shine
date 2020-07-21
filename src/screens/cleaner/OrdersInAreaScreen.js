@@ -9,12 +9,17 @@ import * as actions from '../../rdx/actions';
 
 const OrdersInAreaScreen = ({ orders, cleaner, navigation }) => {
   const cleanerID = cleaner.data ? cleaner.data.id : null;
+  const filtedQuotableOrders = cleaner.data
+    ? cleaner.quotableOrders.filter(
+        (item) => item.attributes.cleaner_id == null,
+      )
+    : null;
 
   return (
     <ScrollViewContainer>
       <Container>
-        {cleaner.quotableOrders &&
-          cleaner.quotableOrders.map((item) => (
+        {filtedQuotableOrders &&
+          filtedQuotableOrders.map((item) => (
             <ItemsContainer
               key={item.attributes.uuid}
               onPress={() => navigation.navigate('Order Detail', item)}

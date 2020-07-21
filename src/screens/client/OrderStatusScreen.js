@@ -33,7 +33,6 @@ const OrderStatusScreen = ({ navigation, order }) => {
     : null;
   const quotedPrice = quote.attributes.quoted_price;
   const deliveryBy = quote.attributes.delivery_by;
-  console.log(cleaner);
 
   return (
     <ScrollViewContailner>
