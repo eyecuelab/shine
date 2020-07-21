@@ -1,29 +1,30 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Button } from 'react-native-elements';
 import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
 import styled from 'styled-components/native';
 import OrderItem from '../../components/order/OrderItem';
-import OrderItemCompleted from '../../components/order/OrderItemCompleted';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
 const AcceptedQuotesScreen = ({ cleaner, navigation }) => {
   const cleanerID = cleaner.data ? cleaner.data.id : null;
   const quotedOrders = cleaner.quotedOrders ? cleaner.quotedOrders : null;
-  console.log('QUOTED', quotedOrders);
+  // console.log('QUOTED', quotedOrders);
 
   return (
     <ScrollViewContainer>
       <Container>
-        {quotedOrders &&
-          quotedOrders.map((item) => (
-            <ItemsContainer
-              key={item.attributes.uuid}
-              onPress={() => navigation.navigate('Quoted Order Detail', item)}
-            >
-              <OrderItem order={item} />
-            </ItemsContainer>
-          ))}
+        {quotedOrders
+          ? quotedOrders.map((item) => (
+              <ItemsContainer
+                key={item.attributes.uuid}
+                onPress={() => navigation.navigate('Quoted Order Detail', item)}
+              >
+                <OrderItem order={item} />
+              </ItemsContainer>
+            ))
+          : null}
       </Container>
     </ScrollViewContainer>
   );

@@ -96,3 +96,21 @@ export const loadQuotedOrdersService = (cleanerID, token) => {
     return response;
   });
 };
+
+export const updateOrderService = (request, cleanerID, token) => {
+  const orderID = request.orderID;
+  const url = `http://127.0.0.1:8080/cleaners/${cleanerID}/orders/${orderID}`;
+  const parameters = {
+    method: 'PATCH',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+    body: JSON.stringify(request.payload),
+  };
+
+  return fetch(url, parameters).then((response) => {
+    return response;
+  });
+};

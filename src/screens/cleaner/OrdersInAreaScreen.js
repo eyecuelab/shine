@@ -18,20 +18,23 @@ const OrdersInAreaScreen = ({ cleaner, navigation }) => {
   return (
     <ScrollViewContainer>
       <Container>
-        {filtedQuotableOrders &&
-          filtedQuotableOrders.map((item) => (
-            <ItemsContainer
-              key={item.attributes.uuid}
-              onPress={() => navigation.navigate('Quotable Order Detail', item)}
-            >
-              {cleaner.quotedStatus[item.id] !== undefined &&
-              cleaner.quotedStatus[item.id][cleanerID] == 'Requested' ? (
-                <OrderItemCompleted order={item} />
-              ) : (
-                <OrderItem order={item} />
-              )}
-            </ItemsContainer>
-          ))}
+        {filtedQuotableOrders
+          ? filtedQuotableOrders.map((item) => (
+              <ItemsContainer
+                key={item.attributes.uuid}
+                onPress={() =>
+                  navigation.navigate('Quotable Order Detail', item)
+                }
+              >
+                {cleaner.quotedStatus[item.id] !== undefined &&
+                cleaner.quotedStatus[item.id][cleanerID] == 'Requested' ? (
+                  <OrderItemCompleted order={item} />
+                ) : (
+                  <OrderItem order={item} />
+                )}
+              </ItemsContainer>
+            ))
+          : null}
       </Container>
     </ScrollViewContainer>
   );
