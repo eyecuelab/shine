@@ -5,6 +5,7 @@ const initialAuthState = {
   data: null,
   errorMessage: null,
   signupMessage: null,
+  confirmationMessage: null,
   status: 'Logged out',
 };
 
@@ -51,6 +52,20 @@ const authReducer = (state = initialAuthState, action) => {
         errorMessage: null,
         signupMessage: 'Sign Up Successful!',
         status: 'Signed up',
+      };
+    case types.CONFIRM_USER_SUCCESS:
+      return {
+        ...state,
+        data: null,
+        errorMessage: null,
+        signUpMessage: null,
+        confirmationMessage: 'Account Confirmed!',
+      };
+    case types.CONFIRM_USER_ERROR:
+      return {
+        ...state,
+        data: null,
+        confirmationMessage: 'Invalid Authorization Code, Please Try Again.',
       };
     case types.SIGNUP_ERROR:
       return {
