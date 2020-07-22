@@ -236,7 +236,7 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
           </ErrorTextContainer>
         ) : null}
 
-        <UniversalButton title={'APPLY'} onPress={handleSubmit} width={325} />
+        <UniversalButton title={'APPLY'} onPress={handleSubmit} width={340} />
       </KeyboardAwareScrollView>
     </ScrollViewContainer>
   );
