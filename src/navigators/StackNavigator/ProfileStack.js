@@ -23,7 +23,7 @@ const ProfileStackNavigator = ({ users }) => {
           shadowColor: '#CBB387',
         },
         headerTitleStyle: {
-          fontFamily: 'Raleway-Bold',
+          fontFamily: 'Marison-Sans-Round',
         },
         headerTintColor: '#FFFFFF',
         headerBackTitleVisible: false,
@@ -34,7 +34,7 @@ const ProfileStackNavigator = ({ users }) => {
           <ProfileStack.Screen
             name="Welcome"
             component={WelcomeScreen}
-            options={{ title: 'WELCOME' }}
+            options={{ title: 'PROFILE' }}
           />
           <ProfileStack.Screen
             name="SignUp"

@@ -31,6 +31,9 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
           borderBottomColor: '#CBB387',
           shadowColor: '#CBB387',
         },
+        headerTitleStyle: {
+          fontFamily: 'Marison-Sans-Round',
+        },
         headerTintColor: '#FFFFFF',
         headerBackTitleVisible: false,
       }}
@@ -40,7 +43,7 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
           <CleanerStack.Screen
             name="Cleaner Option Screen"
             component={CleanerOptionScreen}
-            options={{ title: 'SHINE' }}
+            options={{ title: 'CLEANER' }}
           />
           <CleanerStack.Screen
             name="Cleaner Application"

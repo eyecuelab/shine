@@ -205,7 +205,7 @@ const SignUpScreen = ({ signupWatcher, users, confirmUser }) => {
                 <ErrorText>{emailError}</ErrorText>
               </MessageContainer>
             ) : null}
-            <UniversalButton title={'Sign Up'} onPress={onSignUp} width={350} />
+            <UniversalButton title={'Sign Up'} onPress={onSignUp} width={320} />
           </Container>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

@@ -9,6 +9,7 @@ import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
+import UniversalButton from '../../components/shared/UniversalButton';
 
 const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
   const [cleanerProfile, setCleanerProfile] = useState({
@@ -69,14 +70,14 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
         contentContainerStyle={styles.container}
         scrollEnabled={true}
       >
-        <ImageArea>
+        {/* <ImageArea>
           <Image source={require('../../../assets/images/logo-outline.png')} />
-        </ImageArea>
+        </ImageArea> */}
         <Input
           value={cleanerProfile.business_name}
           label="Business"
           labelStyle={{ fontSize: 20 }}
-          placeholder="Title"
+          placeholder="Name Your Business"
           leftIcon={
             <MaterialIcons
               name="business"
@@ -235,16 +236,7 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
           </ErrorTextContainer>
         ) : null}
 
-        <Button
-          title="APPLY"
-          containerStyle={{ paddingTop: 20, width: 350 }}
-          buttonStyle={{
-            backgroundColor: 'black',
-            height: 50,
-            borderRadius: 7,
-          }}
-          onPress={handleSubmit}
-        />
+        <UniversalButton title={'APPLY'} onPress={handleSubmit} width={325} />
       </KeyboardAwareScrollView>
     </ScrollViewContainer>
   );
