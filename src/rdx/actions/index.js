@@ -304,3 +304,16 @@ export const setUpdatedOrder = (payload) => {
     payload,
   };
 };
+
+export const loadCompletedOrderWatcher = () => {
+  return {
+    type: types.LOAD_COMPLETED_ORDERS_WATCHER,
+  };
+};
+
+export const setCompletedOrders = (payload) => {
+  return {
+    type: types.SET_COMPLETED_ORDERS,
+    payload,
+  };
+};

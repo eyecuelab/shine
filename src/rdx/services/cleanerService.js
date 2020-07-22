@@ -118,3 +118,19 @@ export const updateOrderService = (request, cleanerID, token) => {
     return response;
   });
 };
+
+export const loadCompletedOrdersService = (cleanerID, token) => {
+  const url = `${apiUrl}/cleaners/${cleanerID}/orders?completed=true`;
+  const parameters = {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+  };
+
+  return fetch(url, parameters).then((response) => {
+    return response;
+  });
+};

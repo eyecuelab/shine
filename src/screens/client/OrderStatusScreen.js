@@ -115,7 +115,7 @@ const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
           <AddOnSwitch
             disabled={true}
             switchState={
-              currentOrderStatus ? currentOrderStatus.reqeust_payment : null
+              currentOrderStatus ? currentOrderStatus.request_payment : null
             }
           />
           <AddOnSwitch
