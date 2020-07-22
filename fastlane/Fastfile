@@ -20,7 +20,7 @@ platform :ios do |options|
     # set_changelog(changelog: CHANGELOG)
     upload_to_testflight(ipa: "build/app.ipa")
   
-    commit_version_bump(message: "Deploy to App Store Connect: " + FULL_VERSION)
+    git_commit(path: "../app.json", message: "Deploy to App Store Connect: " + FULL_VERSION)
     add_git_tag(tag: FULL_VERSION)
     push_to_git_remote
   end
