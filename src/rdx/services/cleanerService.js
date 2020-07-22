@@ -103,7 +103,7 @@ export const loadQuotedOrdersService = (cleanerID, token) => {
 
 export const updateOrderService = (request, cleanerID, token) => {
   const orderID = request.orderID;
-  const url = `http://127.0.0.1:8080/cleaners/${cleanerID}/orders/${orderID}`;
+  const url = `${apiUrl}/cleaners/${cleanerID}/orders/${orderID}`;
   const parameters = {
     method: 'PATCH',
     headers: {

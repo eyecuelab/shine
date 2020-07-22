@@ -79,7 +79,7 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
           <CleanerStack.Screen
             name="Quoted Order Detail"
             component={QuotedOrderDetailScreen}
-            options={{ title: 'ORDER DETAIL' }}
+            options={{ title: 'UPDATE ORDER STATUS' }}
           />
           <CleanerStack.Screen
             name="Orders In Progress"
