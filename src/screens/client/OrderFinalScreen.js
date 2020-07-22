@@ -9,9 +9,9 @@ import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceTagWhite from '../../components/shared/PriceTagWhite';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
-import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
+import UniversalButton from '../../components/shared/UniversalButton';
 
 const OrderFinalScreen = ({
   order,
@@ -50,7 +50,7 @@ const OrderFinalScreen = ({
     <ScrollViewContailner>
       {ShoePhoto(imageUrl)}
       <Container>
-        <Text>You've recieved cleaning quotes!</Text>
+        {/* <Text>You've recieved cleaning quotes!</Text> */}
         <SwitchTextContainer>
           <SwitchText>ADD POLISH</SwitchText>
           <SwitchText>ADD RAIN PROTECTION</SwitchText>
@@ -72,14 +72,9 @@ const OrderFinalScreen = ({
         </SwitchContainer>
 
         {item.attributes.published_at ? null : (
-          <Button
-            title="PUBLISH"
-            containerStyle={{ paddingVertical: 40, width: 350 }}
-            buttonStyle={{
-              backgroundColor: '#939393',
-              height: 50,
-              borderRadius: 7,
-            }}
+          <UniversalButton
+            title={'PUBLISH'}
+            width={275}
             onPress={() => setModalVisible(!modalVisible)}
           />
         )}
@@ -125,15 +120,9 @@ const OrderFinalScreen = ({
               </PriceTicketContainer>
             </QuoteContainer>
           ))}
-
-        <Button
-          title="CANCEL SERVICE"
-          containerStyle={{ paddingVertical: 40, width: 350 }}
-          buttonStyle={{
-            backgroundColor: '#939393',
-            height: 50,
-            borderRadius: 7,
-          }}
+        <UniversalButton
+          title={'CANCEL SERVICE'}
+          width={275}
           onPress={() => {
             setCancelModalVisible(!cancelModalVisible);
           }}
