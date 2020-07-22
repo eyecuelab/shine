@@ -103,7 +103,7 @@ export const loadQuotedOrdersService = (cleanerID, token) => {
 
 export const updateOrderService = (request, cleanerID, token) => {
   const orderID = request.orderID;
-  const url = `http://127.0.0.1:8080/cleaners/${cleanerID}/orders/${orderID}`;
+  const url = `${apiUrl}/cleaners/${cleanerID}/orders/${orderID}`;
   const parameters = {
     method: 'PATCH',
     headers: {
@@ -112,6 +112,22 @@ export const updateOrderService = (request, cleanerID, token) => {
       Authorization: token,
     },
     body: JSON.stringify(request.payload),
+  };
+
+  return fetch(url, parameters).then((response) => {
+    return response;
+  });
+};
+
+export const loadCompletedOrdersService = (cleanerID, token) => {
+  const url = `${apiUrl}/cleaners/${cleanerID}/orders?completed=true`;
+  const parameters = {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
   };
 
   return fetch(url, parameters).then((response) => {

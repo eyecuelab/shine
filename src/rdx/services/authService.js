@@ -5,7 +5,6 @@ const { apiUrl } = getEnvVars();
 export const loginUserService = (request) => {
   // const LOGIN_API_ENDPOINT = 'https://shoeshine.herokuapp.com/login';
   const LOGIN_API_ENDPOINT = `${apiUrl}/login`;
-
   const parameters = {
     method: 'POST',
     headers: {

@@ -15,6 +15,7 @@ const CleanerProfileScreen = ({
   deleteCleanerWatcher,
   loadQuotableOrdersWatcher,
   loadQuotedOrderWatcher,
+  loadCompletedOrderWatcher,
 }) => {
   const businessName = cleaner.data
     ? cleaner.data.attributes.business_name
@@ -29,7 +30,12 @@ const CleanerProfileScreen = ({
 
   const onLoadQuotedOrders = () => {
     loadQuotedOrderWatcher();
-    navigation.navigate('Accepted Quotes');
+    navigation.navigate('Orders In Progress');
+  };
+
+  const onLoadCompletedOrders = () => {
+    loadCompletedOrderWatcher();
+    navigation.navigate('Completed Orders');
   };
 
   const onDelete = () => {
@@ -59,16 +65,11 @@ const CleanerProfileScreen = ({
         </ListItem>
 
         <ListItem onPress={onLoadQuotedOrders}>
-          <Text>Orders with Quote Accepted</Text>
-          <Feather name="chevron-right" size={24} color="#737272" />
-        </ListItem>
-
-        <ListItem onPress={() => navigation.navigate('Orders In Progress')}>
           <Text>Orders In Progress</Text>
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>
 
-        <ListItem onPress={() => navigation.navigate('Completed Orders')}>
+        <ListItem onPress={onLoadCompletedOrders}>
           <Text>Orders Completed</Text>
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>
@@ -251,6 +252,7 @@ CleanerProfileScreen.propTypes = {
   deleteCleanerWatcher: PropTypes.func,
   loadQuotableOrdersWatcher: PropTypes.func,
   loadQuotedOrderWatcher: PropTypes.func,
+  loadCompletedOrderWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {

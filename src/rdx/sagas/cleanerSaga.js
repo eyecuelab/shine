@@ -8,9 +8,9 @@ import {
   postQuoteService,
   loadQuotedOrdersService,
   updateOrderService,
+  loadCompletedOrdersService,
 } from '../services/cleanerService';
 import { call, put, select } from 'redux-saga/effects';
-import { or } from 'react-native-reanimated';
 
 export const getToken = (state) => state.users.data.data.attributes.token;
 export const getCleanerID = (state) => state.cleaner.data.id;
@@ -148,5 +148,22 @@ export function* updateOrderByCleanerSaga(action) {
     }
   } catch (error) {
     console.log('UPDATE ORDER ERROR:', error);
+  }
+}
+
+export function* loadCompletedOrdersSaga() {
+  try {
+    const cleanerID = yield select(getCleanerID);
+    const token = yield select(getToken);
+    let response = yield call(loadCompletedOrdersService, cleanerID, token);
+    if (response.ok && response.status === 200) {
+      const data = yield response.json();
+      // console.log('SAGA', data);
+      yield put(actions.setCompletedOrders(data.data));
+    } else {
+      throw yield response.json();
+    }
+  } catch (error) {
+    console.log('LOAD QUOTABLE ORDERS ERROR:', error);
   }
 }
