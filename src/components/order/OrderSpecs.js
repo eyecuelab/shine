@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import ShoeTypeButton from './ShoeTypeButton';
-import { Button, Slider } from 'react-native-elements';
+import { Slider } from 'react-native-elements';
 import ScrollViewContainer from '../shared/ScrollViewContainer';
 import DashedLine from '../shared/Dash';
 import PropTypes from 'prop-types';
