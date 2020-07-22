@@ -21,6 +21,7 @@ const UniversalButton = ({ title, onPress, width }) => {
 UniversalButton.propTypes = {
   title: PropTypes.string,
   onPress: PropTypes.func,
+  width: PropTypes.number,
 };
 
 export default UniversalButton;

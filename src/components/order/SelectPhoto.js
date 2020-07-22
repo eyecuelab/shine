@@ -5,6 +5,7 @@ import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import { PickImage, TakePhoto } from '../shared/UploadPhotoFunctions';
+import UniversalButton from '../../components/shared/UniversalButton';
 
 const SelectPhoto = ({ jumpTo, image, setImage }) => {
   useEffect(() => {
@@ -22,24 +23,14 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
 
   return image === 'empty.img' ? (
     <Container>
-      <Button
-        title="UPLOAD PHOTO"
-        containerStyle={{ paddingTop: 20, width: 350 }}
-        buttonStyle={{
-          backgroundColor: '#2C2C2C',
-          height: 50,
-          borderRadius: 7,
-        }}
+      <UniversalButton
+        title={'UPLOAD PHOTO'}
+        width={350}
         onPress={() => PickImage({ setImage: setImage })}
       />
-      <Button
-        title="TAKE A PHOTO"
-        containerStyle={{ paddingTop: 20, width: 350 }}
-        buttonStyle={{
-          backgroundColor: '#2C2C2C',
-          height: 50,
-          borderRadius: 7,
-        }}
+      <UniversalButton
+        title={'TAKE A PHOTO'}
+        width={350}
         onPress={() => TakePhoto({ setImage: setImage })}
       />
     </Container>
@@ -47,24 +38,14 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
     <Container>
       <ImageArea source={{ uri: image }} />
       <Container>
-        <Button
-          title="CHANGE PHOTO"
-          containerStyle={{ paddingTop: 20, width: 350 }}
-          buttonStyle={{
-            backgroundColor: '#2C2C2C',
-            height: 50,
-            borderRadius: 7,
-          }}
+        <UniversalButton
+          title={'CHANGE PHOTO'}
+          width={350}
           onPress={() => setImage('empty.img')}
         />
-        <Button
-          title="CONTINUE"
-          containerStyle={{ paddingTop: 20, width: 350 }}
-          buttonStyle={{
-            backgroundColor: '#2C2C2C',
-            height: 50,
-            borderRadius: 7,
-          }}
+        <UniversalButton
+          title={'CONTINUE'}
+          width={350}
           onPress={() => {
             jumpTo('second');
           }}
@@ -83,8 +64,9 @@ const ImageArea = styled.Image`
 
 const Container = styled.View`
   flex: 1;
+
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 SelectPhoto.propTypes = {
