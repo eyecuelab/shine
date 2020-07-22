@@ -19,6 +19,22 @@ export const loginUserService = (request) => {
   });
 };
 
+export const getProfileService = async (token) => {
+  const response = await fetch(`${apiUrl}/profile`, {
+    method: 'GET',
+    headers: {
+      Authorization: token,
+    },
+  });
+  const result = await response.json();
+
+  if (response.status >= 400) {
+    throw new Error(result.errors);
+  } else {
+    return result.data;
+  }
+};
+
 export const logoutUserService = (request) => {
   // const LOGOUT_API_ENDPOINT = 'https://shoeshine.herokuapp.com/logout';
   const LOGOUT_API_ENDPOINT = `${apiUrl}/logout`;

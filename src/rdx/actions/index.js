@@ -167,6 +167,13 @@ export const logIn = (payload) => {
   };
 };
 
+export const setProfile = (payload) => {
+  return {
+    type: types.SET_PROFILE,
+    payload,
+  };
+};
+
 export const logoutWatcher = () => {
   return {
     type: types.LOGOUT_WATCHER,

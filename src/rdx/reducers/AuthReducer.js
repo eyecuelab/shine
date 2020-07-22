@@ -37,6 +37,7 @@ const authReducer = (state = initialAuthState, action) => {
         signupMessage: null,
         status: 'Login cancelled',
       };
+
     case types.LOGOUT_SUCCESS:
       return {
         ...state,
@@ -72,6 +73,22 @@ const authReducer = (state = initialAuthState, action) => {
         ...state,
         signupMessage: action.error,
         status: 'Signup error',
+      };
+    case types.SET_PROFILE:
+      return {
+        ...state,
+        data: {
+          links: { ...state.data.links },
+          meta: { ...state.data.meta },
+          included: {
+            ...state.data.included,
+            [0]: action.payload,
+          },
+          data: { ...state.data.data },
+        },
+        errorMessage: null,
+        signUpMessage: null,
+        status: 'Logged and Loaded',
       };
     case types.UPDATE_PROFILE:
       return {
