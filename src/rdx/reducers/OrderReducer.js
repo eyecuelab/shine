@@ -9,10 +9,6 @@ const initialOrdersState = {
 
 const orderReducer = (state = initialOrdersState, action) => {
   switch (action.type) {
-    case REHYDRATE:
-      return {
-        ...state,
-      };
     case types.LOAD_ORDERS_SUCCESS:
       return {
         ...state,

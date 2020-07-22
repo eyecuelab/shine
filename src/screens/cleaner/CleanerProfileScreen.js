@@ -29,7 +29,7 @@ const CleanerProfileScreen = ({
 
   const onLoadQuotedOrders = () => {
     loadQuotedOrderWatcher();
-    navigation.navigate('Accepted Quotes');
+    navigation.navigate('Orders In Progress');
   };
 
   const onDelete = () => {
@@ -59,11 +59,6 @@ const CleanerProfileScreen = ({
         </ListItem>
 
         <ListItem onPress={onLoadQuotedOrders}>
-          <Text>Orders with Quote Accepted</Text>
-          <Feather name="chevron-right" size={24} color="#737272" />
-        </ListItem>
-
-        <ListItem onPress={() => navigation.navigate('Orders In Progress')}>
           <Text>Orders In Progress</Text>
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>
