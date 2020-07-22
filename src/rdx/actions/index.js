@@ -208,6 +208,12 @@ export const updatePassword = (payload) => {
   };
 };
 
+export const setStatus = () => {
+  return {
+    type: types.SET_STATUS,
+  };
+};
+
 // ====== CLEANERS ACTION CREATORS ======= //
 
 export const loadCleaner = (payload) => {

@@ -23,9 +23,11 @@ import {
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 const EditProfileScreen = ({
   editProfileWatcher,
+  setStatus,
   user,
   errorMessage,
   navigation,
+  status,
 }) => {
   const [userProfile, setUserProfile] = useState({
     street_address: user.street_address,
@@ -38,12 +40,21 @@ const EditProfileScreen = ({
   const [profilePhoto, setProfilePhoto] = useState(
     user.image_url ? user.image_url : '',
   );
+  const nav = navigation;
 
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     setModalVisible(false);
   }, [profilePhoto]);
+
+  useEffect(() => {
+    if (status === 'User Profile Updated!' && errorMessage === null) {
+      console.log('HIT');
+      setStatus();
+      nav.navigate('Profile');
+    }
+  }, [status, errorMessage]);
 
   const handleProfileChange = (key, value) => {
     setUserProfile((current) => ({
@@ -88,7 +99,6 @@ const EditProfileScreen = ({
       },
       user.email,
     );
-    navigation.navigate('Profile');
   };
   const ProfilePhotoDisplay = () => {
     if (profilePhoto === '') {
@@ -368,6 +378,7 @@ EditProfileScreen.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    status: state.users.status,
     user: state.users.data.included[0].attributes,
     errorMessage: state.users.errorMessage,
   };
