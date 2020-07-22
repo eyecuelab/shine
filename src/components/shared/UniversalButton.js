@@ -7,8 +7,9 @@ const UniversalButton = ({ title, onPress, width }) => {
     <Button
       title={title}
       containerStyle={{ paddingTop: 20, width: width }}
+      titleStyle={{ fontFamily: 'Raleway-Bold' }}
       buttonStyle={{
-        backgroundColor: 'black',
+        backgroundColor: '#4a4a4a',
         height: 50,
         borderRadius: 7,
       }}
@@ -20,6 +21,7 @@ const UniversalButton = ({ title, onPress, width }) => {
 UniversalButton.propTypes = {
   title: PropTypes.string,
   onPress: PropTypes.func,
+  width: PropTypes.number,
 };
 
 export default UniversalButton;
