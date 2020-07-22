@@ -133,7 +133,7 @@ const HeaderImage = styled.Image`
   margin-bottom: 20px;
 `;
 
-const ItemsContainer = styled.View`
+const ItemsContainer = styled.TouchableOpacity`
   margin: 20px 0px 0px 20px;
 `;
 
