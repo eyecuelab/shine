@@ -7,6 +7,7 @@ import { TextInput } from 'react-native';
 import ShoePhoto from '../shared/ShoePhoto';
 import PropTypes from 'prop-types';
 import ScrollViewContainer from '../shared/ScrollViewContainer';
+import UniversalButton from '../../components/shared/UniversalButton';
 
 const OrderNotes = ({ image, jumpTo, note, setNote }) => {
   return (
@@ -30,7 +31,8 @@ const OrderNotes = ({ image, jumpTo, note, setNote }) => {
                 borderRadius: 5,
                 padding: 15,
                 paddingTop: 10,
-                fontSize: 20,
+                fontSize: 18,
+                fontFamily: 'Raleway-Regular',
               }}
               scrollEnabled={false}
               onChangeText={(text) => setNote(text)}
@@ -42,14 +44,9 @@ const OrderNotes = ({ image, jumpTo, note, setNote }) => {
               allowFontScaling={true}
             />
           </View>
-          <Button
-            title="CONTINUE"
-            containerStyle={{ paddingTop: 20, width: 350 }}
-            buttonStyle={{
-              backgroundColor: 'black',
-              height: 50,
-              borderRadius: 7,
-            }}
+          <UniversalButton
+            title={'CONTINUE'}
+            width={350}
             onPress={() => {
               jumpTo('fourth');
             }}
@@ -74,7 +71,7 @@ const Container = styled.View`
 `;
 
 const BodyText = styled.Text`
-  font-weight: bold
+  font-family: Raleway-Bold
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
