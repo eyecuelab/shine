@@ -58,7 +58,7 @@ const HomeStackNavigator = () => {
       <HomeStack.Screen
         name="OrderFinal"
         component={OrderFinalScreen}
-        options={{ title: 'QUOTES FROM CLEANERS' }}
+        options={{ title: 'DETAILS' }}
       />
       <HomeStack.Screen
         name="OrderConfrim"
