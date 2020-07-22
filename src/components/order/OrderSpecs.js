@@ -7,6 +7,7 @@ import ScrollViewContainer from '../shared/ScrollViewContainer';
 import DashedLine from '../shared/Dash';
 import PropTypes from 'prop-types';
 import ShoePhoto from '../shared/ShoePhoto';
+import UniversalButton from '../../components/shared/UniversalButton';
 
 const OrderSpecs = ({
   image,
@@ -50,7 +51,7 @@ const OrderSpecs = ({
       {ShoePhoto(image)}
       <Container>
         <TypeContainer>
-          <BodyText>What is the typical use?</BodyText>
+          <BodyText>WHAT IS THE TYPICAL USE OF THESE SHOES?</BodyText>
           <Row>
             <ShoeTypeButton
               type="INDOOR"
@@ -94,7 +95,7 @@ const OrderSpecs = ({
         </TypeContainer>
         <DashedLine />
         <SliderContainer>
-          <BodyText>How soon do you need them cleaned?</BodyText>
+          <BodyText>HOW SOON DO YOU NEED YOUR SHOES CLEANED?</BodyText>
           <SlideTextContainer>
             <SlideText>{sliderValue}</SlideText>
           </SlideTextContainer>
@@ -108,14 +109,9 @@ const OrderSpecs = ({
             onValueChange={(value) => setSliderValue(handleValueChange(value))}
           />
         </SliderContainer>
-        <Button
-          title="CONTINUE"
-          containerStyle={{ paddingVertical: 10, width: 350 }}
-          buttonStyle={{
-            backgroundColor: 'black',
-            height: 50,
-            borderRadius: 7,
-          }}
+        <UniversalButton
+          title={'CONTINUE'}
+          width={350}
           onPress={() => {
             jumpTo('third');
           }}
@@ -143,10 +139,11 @@ const Container = styled.View`
 `;
 
 const BodyText = styled.Text`
+  font-family: Raleway-Bold
   margin-bottom: 15px;
   text-align: center
-  color: black;
-  font-size: 18px;
+  color: #4a4a4a;
+  font-size: 15px;
 `;
 
 const SlideTextContainer = styled.View`
@@ -158,6 +155,7 @@ const SlideTextContainer = styled.View`
 `;
 
 const SlideText = styled.Text`
+  font-family: Raleway-Bold
   margin-bottom: 5px;
   text-align: center
   color: #E6E6E6;

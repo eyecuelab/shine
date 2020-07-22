@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import styled from 'styled-components/native';
-import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import { PickImage, TakePhoto } from '../shared/UploadPhotoFunctions';
 import UniversalButton from '../../components/shared/UniversalButton';

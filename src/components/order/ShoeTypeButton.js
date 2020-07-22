@@ -23,11 +23,13 @@ const ShoeType = styled.TouchableOpacity`
   border-radius: 20px;
   background-color: ${(props) => (props.select ? '#c8b48a' : '#e6e6e6')}
   padding: 15px;
-  width: 120px;
-  margin: 5px;
+  width: 110px;
+  margin: 3px;
 `;
 
 const TypeText = styled.Text`
+  font-family: Raleway-Bold
+  font-size: 13px
   text-align: center;
   color: ${(props) => (props.select ? 'white' : '#a8a8a8')};
 `;
