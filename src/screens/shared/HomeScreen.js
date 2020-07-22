@@ -55,8 +55,19 @@ const HomeScreen = ({ orders, users, getOrderByIdWatcher }) => {
           <Image source={require('../../../assets/images/logo-clear.png')} />
         </ImageArea>
         <TextArea onPress={() => navigation.navigate('NewOrder')}>
-          <AddOrderText> Add Order</AddOrderText>
+          <AddOrderText> START Order</AddOrderText>
         </TextArea>
+        <Text
+          style={{
+            fontFamily: 'Raleway-Regular',
+            fontSize: 12,
+            color: 'white',
+            width: 175,
+            textAlign: 'center',
+          }}
+        >
+          You will be instructed to log-in or sign-up when order is submitted
+        </Text>
       </HomeContainer>
     );
   }
@@ -84,7 +95,7 @@ const AddOrderText = styled.Text`
   font-family: Marison-Sans-Round;
   color: white;
   font-size: 30px;
-  padding: 30px;
+  padding-top: 35px;
 `;
 
 const TextArea = styled.TouchableOpacity``;
