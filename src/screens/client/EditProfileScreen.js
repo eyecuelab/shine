@@ -374,6 +374,8 @@ EditProfileScreen.propTypes = {
   user: PropTypes.object,
   errorMessage: PropTypes.any,
   navigation: PropTypes.object,
+  setStatus: PropTypes.func,
+  status: PropTypes.string,
 };
 
 const mapStateToProps = (state) => {
