@@ -43,7 +43,7 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
           <CleanerStack.Screen
             name="Cleaner Option Screen"
             component={CleanerOptionScreen}
-            options={{ title: 'SHINE' }}
+            options={{ title: 'CLEANER' }}
           />
           <CleanerStack.Screen
             name="Cleaner Application"

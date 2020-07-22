@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
+import UniversalButton from '../../components/shared/UniversalButton';
 
 const WelcomeScreen = ({ navigation }) => {
   return (
@@ -10,17 +11,12 @@ const WelcomeScreen = ({ navigation }) => {
       <ImageArea>
         <Image source={require('../../../assets/images/logo-outline.png')} />
       </ImageArea>
-      <Button
-        title="Sign In"
-        containerStyle={{ paddingTop: 20, width: 275, marginVertical: 20 }}
-        titleStyle={{ fontFamily: 'Raleway-Bold' }}
-        buttonStyle={{
-          backgroundColor: '#4a4a4a',
-          height: 50,
-          borderRadius: 7,
-        }}
+      <UniversalButton
+        title={'SIGN IN'}
+        width={275}
         onPress={() => navigation.navigate('LogIn')}
       />
+
       <Text>
         DON'T HAVE AN ACCOUNT?{' '}
         <TextLink onPress={() => navigation.navigate('SignUp')}>
@@ -52,7 +48,7 @@ const Image = styled.Image`
 const Text = styled.Text`
   color: black;
   font-family: 'Raleway-Regular';
-
+  margin-top: 20px;
   font-size: 15px;
 `;
 

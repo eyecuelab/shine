@@ -34,7 +34,7 @@ const ProfileStackNavigator = ({ users }) => {
           <ProfileStack.Screen
             name="Welcome"
             component={WelcomeScreen}
-            options={{ title: 'WELCOME' }}
+            options={{ title: 'PROFILE' }}
           />
           <ProfileStack.Screen
             name="SignUp"
