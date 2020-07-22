@@ -19,7 +19,7 @@ const ListItem = ({ order }) => {
 const ImageArea = styled.Image`
   width: ${WIDTH / 2.4}px;
   height: ${HEIGHT / 5}px;
-  border-radius: 4px;
+  border-radius: 15px;
 `;
 
 ListItem.propTypes = {

@@ -23,7 +23,7 @@ const ProfileStackNavigator = ({ users }) => {
           shadowColor: '#CBB387',
         },
         headerTitleStyle: {
-          fontFamily: 'Raleway-Bold',
+          fontFamily: 'Marison-Sans-Round',
         },
         headerTintColor: '#FFFFFF',
         headerBackTitleVisible: false,

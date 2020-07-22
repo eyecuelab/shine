@@ -16,9 +16,9 @@ const CleanerOptionScreen = ({ navigation }) => {
         </ImageArea>
         <Button
           title="APPLY TO BE A CLEANER"
-          containerStyle={{ paddingTop: 20, width: 350, marginVertical: 20 }}
+          containerStyle={{ paddingTop: 20, width: 275, marginVertical: 20 }}
           buttonStyle={{
-            backgroundColor: 'black',
+            backgroundColor: '#4a4a4a',
             height: 50,
             borderRadius: 7,
           }}
@@ -45,8 +45,8 @@ const Container = styled.View`
 `;
 
 const ImageArea = styled.View`
-  width: 200px;
-  height: 200px;
+  width: 275px;
+  height: 275px;
 `;
 
 const Image = styled.Image`
@@ -55,6 +55,8 @@ const Image = styled.Image`
 `;
 
 const Text = styled.Text`
+  text-align: center;
+  width: 250px
   color: black;
   font-size: 16px;
 `;
