@@ -3,10 +3,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../rdx/actions';
 import { useNavigation } from '@react-navigation/native';
+import { Dimensions, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import OrderItem from '../../components/order/OrderItem';
 import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
+
+const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
 const HomeScreen = ({ orders, users, getOrderByIdWatcher }) => {
   const navigation = useNavigation();
@@ -22,7 +25,21 @@ const HomeScreen = ({ orders, users, getOrderByIdWatcher }) => {
   if (orders.length !== 0) {
     return (
       <ScrollViewContainer>
+        <Header>
+          <HeaderImage
+            source={require('../../../assets/images/logo-clear.png')}
+          />
+          <HeaderTextView>
+            <HeaderText>Orders</HeaderText>
+          </HeaderTextView>
+        </Header>
         <ListContainer>
+          <AddOrderContainer onPress={() => navigation.navigate('NewOrder')}>
+            <AddOrderLogo
+              source={require('../../../assets/images/shoe_icon.png')}
+            />
+            <AddOrderBoxText>NEW ORDER</AddOrderBoxText>
+          </AddOrderContainer>
           {orders.map((item) => (
             <ItemsContainer key={item.id} onPress={() => handleClick(item)}>
               <OrderItem order={item} />
@@ -44,6 +61,24 @@ const HomeScreen = ({ orders, users, getOrderByIdWatcher }) => {
     );
   }
 };
+
+const Header = styled.View`
+  background-color: #cbb387;
+  align-items: center;
+  justify-content: center;
+`;
+const HeaderTextView = styled.View`
+  width: 150px;
+  border-bottom-width: 1px;
+  border-color: white;
+  align-items: center;
+  margin-bottom: 15px;
+`;
+const HeaderText = styled.Text`
+  font-family: 'Marison-Sans-Round';
+  color: white;
+  font-size: 25px;
+`;
 
 const AddOrderText = styled.Text`
   font-family: Marison-Sans-Round;
@@ -81,8 +116,33 @@ const Image = styled.Image`
   height: 100%;
 `;
 
-const ItemsContainer = styled.TouchableOpacity`
+const HeaderImage = styled.Image`
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+`;
+
+const ItemsContainer = styled.View`
   margin: 20px 0px 0px 20px;
+`;
+
+const AddOrderLogo = styled.Image``;
+
+const AddOrderBoxText = styled.Text`
+  margin-top: 15px;
+  font-family: 'Marison-Sans-Round'
+  font-size: 14px;
+  color: white;
+`;
+
+const AddOrderContainer = styled.TouchableOpacity`
+  width: ${WIDTH / 2.4}px;
+  height: ${HEIGHT / 5}px;
+  background-color: #bdbdbd;
+  border-radius: 15px;
+  margin: 20px 0px 0px 20px;
+  justify-content: center;
+  align-items: center;
 `;
 
 HomeScreen.propTypes = {
