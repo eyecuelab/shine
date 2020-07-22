@@ -14,31 +14,38 @@ import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const QuotedOrderDetailScreen = ({
+const InProgressOrderDetailScreen = ({
   route,
   updateOrderWatcher,
   orderStatus,
 }) => {
   const item = route.params;
   const orderID = item.id;
-  const currentOrderStatus = orderStatus[orderID] ? orderStatus[orderID] : null;
-  // console.log('STATUS', currentOrderStatus);
+  const currentOrderStatus =
+    orderStatus && orderStatus[orderID] ? orderStatus[orderID] : null;
 
-  const [shoesPickedUp, setShoesPickedUp] = useState(
-    currentOrderStatus.shoes_picked_up,
-  );
-  const [shoesCleaned, setShoesCleaned] = useState(
-    currentOrderStatus.shoes_cleaned,
-  );
-  const [shoesPolished, setShoesPolished] = useState(
-    currentOrderStatus.shoes_polished,
-  );
-  const [requestPayment, setRequestPayment] = useState(
-    currentOrderStatus.request_payment,
-  );
-  const [shoesDroppedOff, setShoesDroppedOff] = useState(
-    currentOrderStatus.shoes_dropped_off,
-  );
+  const crrShoesPickedUp = currentOrderStatus
+    ? currentOrderStatus.shoes_picked_up
+    : false;
+  const crrShoesCleaned = currentOrderStatus
+    ? currentOrderStatus.shoes_cleaned
+    : false;
+
+  const crrShoesPolished = currentOrderStatus
+    ? currentOrderStatus.shoes_polished
+    : false;
+  const crrRequestPayment = currentOrderStatus
+    ? currentOrderStatus.request_payment
+    : false;
+  const crrShoesDroppedOff = currentOrderStatus
+    ? currentOrderStatus.shoes_dropped_off
+    : false;
+
+  const [shoesPickedUp, setShoesPickedUp] = useState(crrShoesPickedUp);
+  const [shoesCleaned, setShoesCleaned] = useState(crrShoesCleaned);
+  const [shoesPolished, setShoesPolished] = useState(crrShoesPolished);
+  const [requestPayment, setRequestPayment] = useState(crrRequestPayment);
+  const [shoesDroppedOff, setShoesDroppedOff] = useState(crrShoesDroppedOff);
 
   const onSubmit = () => {
     updateOrderWatcher({
@@ -138,7 +145,7 @@ const SwitchContainer = styled.View`
   padding-top: 10px;
 `;
 
-QuotedOrderDetailScreen.propTypes = {
+InProgressOrderDetailScreen.propTypes = {
   navigation: PropTypes.object,
   orders: PropTypes.array,
   cleaner: PropTypes.object,
@@ -153,4 +160,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, actions)(QuotedOrderDetailScreen);
+export default connect(mapStateToProps, actions)(InProgressOrderDetailScreen);
