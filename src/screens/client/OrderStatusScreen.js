@@ -9,7 +9,6 @@ import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceTagWhite from '../../components/shared/PriceTagWhite';
 import DashedLine from '../../components/shared/Dash';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
-import UnselectedSwitch from '../../components/shared/UnselectedSwitch';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
@@ -32,16 +31,20 @@ const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
       cleaner.attributes.postal_code
     : null;
 
-  const quote = order
-    ? order.included.filter(
-        (item) => item.attributes.cleaner_id == cleanerID,
-      )[0]
-    : null;
+  const quote =
+    order && cleanerID
+      ? order.included.filter(
+          (item) => item.attributes.cleaner_id == cleanerID,
+        )[0]
+      : null;
   const quotedPrice = quote ? quote.attributes.quoted_price : null;
   const deliveryBy = quote ? quote.attributes.delivery_by : null;
 
   const orderID = order ? order.data.id : null;
-  const currentOrderStatus = orderStatus[orderID] ? orderStatus[orderID] : null;
+  const currentOrderStatus =
+    orderID && orderStatus && orderStatus[orderID]
+      ? orderStatus[orderID]
+      : null;
   // console.log('STATUS', currentOrderStatus);
 
   return (
@@ -57,35 +60,42 @@ const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
             <DueText>{deliveryBy}</DueText>
           </PriceContianer>
         </PriceTicketContainer>
-        <AddOnsContainer>
+        <TextBox>Cleaner's Info</TextBox>
+        {/* <AddOnsContainer>
           {addOns.polish ? <AddOnsText>ADD POLISH</AddOnsText> : null}
 
           {addOns.replaceLaces ? <AddOnsText>REPLACE LACES</AddOnsText> : null}
           {addOns.rainProtection ? (
             <AddOnsText>ADD RAIN PROTECTION</AddOnsText>
           ) : null}
-        </AddOnsContainer>
+        </AddOnsContainer> */}
       </TopContainer>
-      <BottomContainer>
+
+      <MapContainer>
         <MapArea
           source={require('../../../assets/images/default-map.png')}
         ></MapArea>
-        <TextBox>{cleanerAddress}</TextBox>
-        <InfoContainer>
-          <InfoText>
-            Business Name: {cleaner ? cleaner.attributes.business_name : null}
-          </InfoText>
-          <InfoText>
-            Email: {cleaner ? cleaner.attributes.email : null}
-          </InfoText>
-          <InfoText>
-            Phone: {cleaner ? cleaner.attributes.phone : null}
-          </InfoText>
-          {cleaner && cleaner.attributes.bio ? (
-            <TextBox>Bio: {cleaner ? cleaner.attributes.bio : null}</TextBox>
-          ) : null}
-        </InfoContainer>
-        <DashedLine />
+        <CenterText>{cleanerAddress}</CenterText>
+      </MapContainer>
+
+      <InfoContainer>
+        <TitelText>Business Name: </TitelText>
+        <InfoText>{cleaner ? cleaner.attributes.business_name : null}</InfoText>
+        <TitelText>Email: </TitelText>
+        <InfoText>{cleaner ? cleaner.attributes.email : null}</InfoText>
+        <TitelText>Phone: </TitelText>
+        <InfoText>{cleaner ? cleaner.attributes.phone : null}</InfoText>
+        {cleaner && cleaner.attributes.bio ? (
+          <>
+            <TitelText>Bio: </TitelText>
+            <InfoText>{cleaner ? cleaner.attributes.bio : null}</InfoText>
+          </>
+        ) : null}
+      </InfoContainer>
+
+      <DashedLine />
+      <TextBox>Order Status</TextBox>
+      <BottomContainer>
         <SwitchTextContainer>
           <SwitchText>SHOES PICKED UP</SwitchText>
           <SwitchText>SHOES CLEANED</SwitchText>
@@ -127,7 +137,7 @@ const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
         </SwitchContainer>
 
         <DashedLine />
-
+        <TextBox>Talk to cleaner!</TextBox>
         <MessageContainer>
           <TextContainer>
             <MessageText>
@@ -165,13 +175,21 @@ const TopContainer = styled.View`
   position: absolute;
 `;
 
-const BottomContainer = styled.View`
+const MapContainer = styled.View`
   align-items: center;
   justify-content: center;
   margin-top: 80px;
   flex-direction: row;
   flex-wrap: wrap;
-  padding-bottom: 50px;
+  padding-bottom: 10px;
+`;
+
+const BottomContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
 `;
 
 const PriceTicketContainer = styled.View`
@@ -199,39 +217,50 @@ const DueText = styled.Text`
   text-align: center;
 `;
 
-const AddOnsContainer = styled.View`
-  align-items: center;
-  justify-content: center;
-  height: 100px;
-`;
-
-const AddOnsText = styled.Text`
-  color: #cbb387;
-  font-size: 18px;
-  font-family: Marison-Sans-Round;
-  padding-vertical: 5px;
-`;
-
 const InfoContainer = styled.View`
-  width: 90%;
+  justify-content: flex-start;
   align-items: flex-start;
-  justify-content: center;
-  margin-left: 10px;
-  padding: 10px;
+  padding: 30px;
+`;
+
+const CenterText = styled.Text`
+  font-family: Raleway-Bold;
+  font-size: 16px;
+`;
+
+const TitelText = styled.Text`
+  font-family: Raleway-Bold;
+  font-size: 18px;
+  margin-vertical: 10px;
 `;
 
 const InfoText = styled.Text`
-  color: #2c2c2c;
-  font-size: 18px;
-  text-align: left;
-  padding: 8px;
+  font-family: Raleway-Medium;
+  font-size: 16px;
+  margin-bottom: 5px;
+  margin-left: 20px;
 `;
 
+// const AddOnsContainer = styled.View`
+//   align-items: center;
+//   justify-content: center;
+//   height: 100px;
+// `;
+
+// const AddOnsText = styled.Text`
+//   color: #cbb387;
+//   font-size: 18px;
+//   font-family: Marison-Sans-Round;
+//   padding-vertical: 5px;
+// `;
+
 const TextBox = styled.Text`
-  color: #2c2c2c;
-  font-size: 18px;
-  text-align: left;
-  padding: 10px 20px 20px 20px;
+  font-family: Raleway-Bold;
+  color: #8e1818;
+  font-size: 22px;
+  text-align: center;
+  height: 60px;
+  padding: 20px;
 `;
 
 const MapArea = styled.Image`
