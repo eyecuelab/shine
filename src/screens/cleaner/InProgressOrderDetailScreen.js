@@ -124,6 +124,7 @@ const Container = styled.View`
 `;
 
 const InfoText = styled.Text`
+  font-family: Raleway-Medium;
   font-size: 20px;
   margin-bottom: 20px;
   margin-left: 30px;

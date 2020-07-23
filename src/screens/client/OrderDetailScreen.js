@@ -139,6 +139,7 @@ const OrderDetailScreen = ({ navigation, postOrder, users }) => {
             style={styles.input}
             placeholder="STREET ADDRESS"
             keyboardType="ascii-capable"
+            autoCapitalize="words"
             returnKeyType="next"
             onChangeText={(text) => setStreet(text)}
             value={street}
@@ -148,6 +149,7 @@ const OrderDetailScreen = ({ navigation, postOrder, users }) => {
             ref={inputEl2}
             style={styles.input}
             placeholder="CITY"
+            autoCapitalize="words"
             returnKeyType="next"
             onChangeText={(text) => setCity(text)}
             value={city}

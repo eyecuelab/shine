@@ -10,6 +10,7 @@ import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceTagWhite from '../../components/shared/PriceTagWhite';
 import DashedLine from '../../components/shared/Dash';
 import UniversalButton from '../../components/shared/UniversalButton';
+import { formatDate, expiresIn } from '../../components/shared/FormatDate';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
@@ -26,6 +27,26 @@ const OrderFinalScreen = ({
   const currentDate = new Date();
   const orderID = item.id;
   const imageUrl = item.attributes.image_url;
+
+  // const expiresIn = (date) => {
+  //   const timeleft = (date) => {
+  //     const countDownDate = (date) => {
+  //       return new Date(date).getTime();
+  //     };
+  //     const now = new Date().getTime();
+  //     return countDownDate(date) - now;
+  //   };
+  //   const hours = Math.floor(timeleft(date) / (1000 * 60 * 60));
+  //   const minutes = Math.floor(
+  //     (timeleft(date) % (1000 * 60 * 60)) / (1000 * 60),
+  //   );
+
+  //   if (hours > 0) {
+  //     return hours + 'hr';
+  //   }
+  //   return minutes + 'min';
+  // };
+  // console.log('T', expiresIn('2020-07-24T20:19:58.000Z'));
 
   const handlePublish = () => {
     publishOrderWatcher({
@@ -135,14 +156,25 @@ const OrderFinalScreen = ({
                   {i.attributes.quoted_price
                     ? PriceTagWhite(i.attributes.quoted_price)
                     : null}
-                  <DueText>{i.attributes.delivery_by}</DueText>
+                  <DueText>
+                    Returned by{' '}
+                    {i.attributes.delivery_by
+                      ? formatDate(i.attributes.delivery_by)
+                      : null}
+                  </DueText>
                 </PriceContianer>
-                <ExpireText>{i.attributes.expires_at}</ExpireText>
+                <ExpireText>
+                  Expires in{' '}
+                  {i.attributes.expires_at
+                    ? expiresIn(i.attributes.expires_at)
+                    : null}
+                </ExpireText>
               </PriceTicketContainer>
             </QuoteContainer>
           ))}
 
         <DashedLine />
+
         <UniversalButton
           title={'CANCEL SERVICE'}
           width={350}
@@ -310,6 +342,7 @@ const DueText = styled.Text`
   font-size: 14px;
   font-weight: 700;
   text-align: center;
+  font-family: Marison-Sans-Round;
 `;
 
 const ExpireText = styled.Text`
