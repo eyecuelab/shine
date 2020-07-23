@@ -5,10 +5,10 @@ const initialCleanerState = {
   data: null,
   quotableOrders: null,
   quotedOrders: null,
-  errorMessage: null,
-  quotedStatus: {},
   inProgressOrders: null,
   completedOrders: null,
+  errorMessage: null,
+  quotedStatus: {},
 };
 
 const cleanerReducer = (state = initialCleanerState, action) => {

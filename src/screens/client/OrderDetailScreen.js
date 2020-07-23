@@ -20,7 +20,7 @@ import _ from 'lodash';
 
 const { width } = Dimensions.get('window');
 
-const OrderDetailScreen = ({ navigation, postOrder }) => {
+const OrderDetailScreen = ({ navigation, postOrder, users }) => {
   const route = useRoute();
   const item = route.params;
 
@@ -70,24 +70,30 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
   const inputEl4 = useRef(null);
   const inputEl5 = useRef(null);
 
+  console.log(users.data == null);
+
   const handleSubmit = () => {
-    postOrder({
-      image_url: item.image,
-      shoe_types: chosenShoeTypes,
-      time_frame: item.timeFrame,
-      add_ons: {
-        polish: polish,
-        replaceLaces: replaceLaces,
-        rainProtection: rainProtection,
-      },
-      estimated_price: estPrice,
-      note: item.note,
-      street_address: street,
-      city: city,
-      state: locState,
-      postal_code: postalCode,
-    });
-    navigation.navigate('Home');
+    if (users.data !== null) {
+      postOrder({
+        image_url: item.image,
+        shoe_types: chosenShoeTypes,
+        time_frame: item.timeFrame,
+        add_ons: {
+          polish: polish,
+          replaceLaces: replaceLaces,
+          rainProtection: rainProtection,
+        },
+        estimated_price: estPrice,
+        note: item.note,
+        street_address: street,
+        city: city,
+        state: locState,
+        postal_code: postalCode,
+      });
+      navigation.navigate('Home');
+    } else {
+      navigation.navigate('Welcome');
+    }
   };
 
   return (
@@ -258,7 +264,7 @@ OrderDetailScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders.orders };
+  return { orders: state.orders.orders, users: state.users };
 };
 
 export default connect(mapStateToProps, actions)(OrderDetailScreen);
