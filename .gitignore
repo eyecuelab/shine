@@ -11,6 +11,9 @@ web-build/
 web-report/
 build/
 
+# fastlane
+fastlane/report.xml
+
 # macOS
 .DS_Store
 .vscode

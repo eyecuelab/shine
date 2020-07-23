@@ -6,6 +6,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
+import UniversalButton from '../../components/shared/UniversalButton';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
 import DashedLine from '../../components/shared/Dash';
 import PriceTagBlack from '../../components/shared/PriceTagBlack';
@@ -84,59 +85,54 @@ const QuotableOrderDetailScreen = ({
   return (
     <ScrollViewContailner>
       {ShoePhoto(item.attributes.image_url)}
-      <InfoText>Order Id: {item.id}</InfoText>
-      <InfoText>Time Frame: {item.attributes.time_frame}</InfoText>
-      <InfoText>
-        Shoe Types: {item.attributes.shoe_types.map((i) => i + ' ')}
-      </InfoText>
-      <InfoText>Note: {item.attributes.note}</InfoText>
-      <InfoText>
-        Pickup Address: {item.attributes.street_address} {item.attributes.city}{' '}
-        {item.attributes.state} {', '} {item.attributes.postal_code}
-      </InfoText>
-      <Container>
-        <SwitchTextContainer>
-          <SwitchText>ADD POLISH</SwitchText>
-          <SwitchText>ADD RAIN PROTECTION</SwitchText>
-          <SwitchText>REPLACE SHOELACES</SwitchText>
-        </SwitchTextContainer>
-        <SwitchContainer>
-          <AddOnSwitch
-            disabled={true}
-            switchState={item.attributes.add_ons.polish}
-          />
-          <AddOnSwitch
-            disabled={true}
-            switchState={item.attributes.add_ons.rainProtection}
-          />
-          <AddOnSwitch
-            disabled={true}
-            switchState={item.attributes.add_ons.replaceLaces}
-          />
-        </SwitchContainer>
-        <PriceContianer>
-          <PriceTextContainer>
-            <PriceText>ROUGH EST.</PriceText>
-          </PriceTextContainer>
-          {PriceTagBlack(estimatedPrice)}
-        </PriceContianer>
-      </Container>
+      <CenterText>Client Order Details</CenterText>
+      <InfoContainer>
+        <TitelText>Time Frame: </TitelText>
+        <InfoText>{item.attributes.time_frame}</InfoText>
+        <TitelText>Shoe Types: </TitelText>
+        {item.attributes.shoe_types.map((i) => (
+          <InfoText key={i}>| {i}</InfoText>
+        ))}
+        <TitelText>Additional Services: </TitelText>
+        {item.attributes.add_ons.polish ? (
+          <InfoText>| Add Polish</InfoText>
+        ) : null}
+        {item.attributes.add_ons.replaceLaces ? (
+          <InfoText>| Replace Shoelaces</InfoText>
+        ) : null}
+        {item.attributes.add_ons.rainProtection ? (
+          <InfoText>| Add Rain Protection</InfoText>
+        ) : null}
+
+        <TitelText>Note: </TitelText>
+        <InfoText>{item.attributes.note}</InfoText>
+        <TitelText>Pickup Address: </TitelText>
+        <InfoText>
+          {item.attributes.street_address} {item.attributes.city}{' '}
+          {item.attributes.state} {', '} {item.attributes.postal_code}
+        </InfoText>
+        <TitelText>Estimated Price: </TitelText>
+        <InfoText>$ {item.attributes.estimated_price}</InfoText>
+      </InfoContainer>
 
       <DashedLine />
       {cleaner.quotedStatus[item.id] !== undefined &&
       cleaner.quotedStatus[item.id][cleanerID] == 'Requested' ? (
         <>
           <QuoteContainer>
-            <StatusText>Quote has been successfully requested.</StatusText>
-            <ListText>Quoted Price: {quotedPrice}</ListText>
-            <ListText>Quote Expired At: {formatDateTime(expireDate)}</ListText>
-            <ListText>Returned By:{formatDate(completeDate)}</ListText>
+            <CenterText>Quote has been successfully requested.</CenterText>
+            <TitelText>Quoted Price: </TitelText>
+            <InfoText>{quotedPrice}</InfoText>
+            <TitelText>Quote Expired At: </TitelText>
+            <InfoText>{formatDateTime(expireDate)}</InfoText>
+            <TitelText>Returned By:</TitelText>
+            <InfoText>{formatDate(completeDate)}</InfoText>
           </QuoteContainer>
         </>
       ) : (
         <>
           <QuoteContainer>
-            <TitleText>Create a Quote</TitleText>
+            <CenterText>Create a Quote</CenterText>
             <Input
               label="Quoted Price"
               labelStyle={{ fontSize: 20, color: '#939393' }}
@@ -206,16 +202,7 @@ const QuotableOrderDetailScreen = ({
                 />
               )}
             </DatePickerContainer>
-            <Button
-              title="SUBMIT"
-              containerStyle={{ paddingTop: 10, width: 330 }}
-              buttonStyle={{
-                backgroundColor: 'black',
-                height: 50,
-                borderRadius: 7,
-              }}
-              onPress={onSubmit}
-            />
+            <UniversalButton title={'SUBMIT'} width={330} onPress={onSubmit} />
           </QuoteContainer>
         </>
       )}
@@ -230,20 +217,41 @@ const Container = styled.View`
   flex-wrap: wrap;
 `;
 
-const InfoText = styled.Text`
-  font-size: 20px;
-  margin-bottom: 20px;
-  margin-left: 30px;
+const InfoContainer = styled.View`
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
 `;
 
-const TitleText = styled.Text`
+const CenterText = styled.Text`
+  font-family: Raleway-Bold;
   font-size: 22px;
-  font-weight: 600;
-  margin: 0px 40px 50px 40px;
-  padding: 15px;
   text-align: center;
-  background-color: #cbb387;
+  padding-bottom: 30px;
+  color: #8e1818;
 `;
+
+const TitelText = styled.Text`
+  font-family: Raleway-Bold;
+  font-size: 18px;
+  margin-vertical: 10px;
+`;
+
+const InfoText = styled.Text`
+  font-family: Raleway-Medium;
+  font-size: 16px;
+  margin-bottom: 5px;
+  margin-left: 20px;
+`;
+
+// const TitleText = styled.Text`
+//   font-size: 22px;
+//   font-weight: 600;
+//   margin: 0px 40px 50px 40px;
+//   padding: 15px;
+//   text-align: center;
+//   background-color: #cbb387;
+// `;
 
 const ListText = styled.Text`
   font-size: 20px;

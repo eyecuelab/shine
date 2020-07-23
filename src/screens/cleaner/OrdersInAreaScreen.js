@@ -37,7 +37,7 @@ const OrdersInAreaScreen = ({ cleaner, navigation }) => {
           ))
         ) : (
           <TextContainer>
-            <Text>There is no quotable orders at this time.</Text>
+            <Text>There are no quotable orders at this time.</Text>
           </TextContainer>
         )}
       </Container>
@@ -62,10 +62,12 @@ const TextContainer = styled.View`
   height: ${height / 1.27}
   align-items: center;
   justify-content: center;
+  padding: 40px;
 `;
 const Text = styled.Text`
+  font-family: Raleway-Medium
   font-size: 20px;
-  font-weight: 500;
+  text-align: center;
 `;
 
 OrdersInAreaScreen.propTypes = {
