@@ -134,7 +134,7 @@ export function* updateOrderByCleanerSaga(action) {
     );
     if (response.ok && response.status === 200) {
       const data = yield response.json();
-      console.log('SAGA', data);
+      // console.log('SAGA', data);
       const orderID = data.data.id;
       const status = {
         [data.meta.actions[1][0][0]]: data.meta.actions[1][0][2],

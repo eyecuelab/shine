@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { Platform, TouchableOpacity, Dimensions } from 'react-native';
+import { Platform, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { Input, Button } from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import UniversalButton from '../../components/shared/UniversalButton';
-import AddOnSwitch from '../../components/order/AddOnSwitch';
 import DashedLine from '../../components/shared/Dash';
-import PriceTagBlack from '../../components/shared/PriceTagBlack';
 import { formatDate, formatDateTime } from '../../components/shared/FormatDate';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
@@ -22,7 +20,7 @@ const QuotableOrderDetailScreen = ({
   navigation,
 }) => {
   const item = route.params;
-  console.log(item);
+
   const orderID = item ? item.id : null;
   const cleanerID = cleaner.data ? cleaner.data.id : null;
 
@@ -43,7 +41,7 @@ const QuotableOrderDetailScreen = ({
   };
 
   const onCompleteDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || expireDate;
+    const currentDate = selectedDate || completeDate;
     setShowComplete(Platform.OS === 'ios');
     setCompeleteDate(currentDate);
   };
@@ -75,8 +73,8 @@ const QuotableOrderDetailScreen = ({
       orderID: orderID,
       quote: {
         quoted_price: quotedPrice,
-        expires_at: formatDateTime(expireDate),
-        delivery_by: formatDate(completeDate),
+        expires_at: expireDate,
+        delivery_by: completeDate,
       },
     });
     navigation.navigate('Orders In Area');
@@ -121,12 +119,12 @@ const QuotableOrderDetailScreen = ({
         <>
           <QuoteContainer>
             <CenterText>Quote has been successfully requested.</CenterText>
-            <TitelText>Quoted Price: </TitelText>
+            {/* <TitelText>Quoted Price: </TitelText>
             <InfoText>{quotedPrice}</InfoText>
             <TitelText>Quote Expired At: </TitelText>
             <InfoText>{formatDateTime(expireDate)}</InfoText>
             <TitelText>Returned By:</TitelText>
-            <InfoText>{formatDate(completeDate)}</InfoText>
+            <InfoText>{formatDate(completeDate)}</InfoText> */}
           </QuoteContainer>
         </>
       ) : (

@@ -10,7 +10,6 @@ import * as actions from '../../rdx/actions';
 const { height } = Dimensions.get('window');
 
 const OrdersInProgressScreen = ({ cleaner, navigation }) => {
-  // const cleanerID = cleaner.data ? cleaner.data.id : null;
   const quotedOrders = cleaner.quotedOrders ? cleaner.quotedOrders : null;
 
   return (
@@ -58,7 +57,7 @@ const TextContainer = styled.View`
 `;
 const Text = styled.Text`
   font-family: Raleway-Medium
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
 `;
 

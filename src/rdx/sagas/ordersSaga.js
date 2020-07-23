@@ -84,7 +84,6 @@ export function* quoteAcceptSaga(action) {
     const orderID = yield select(getOrderID);
     const token = yield select(getToken);
     const result = yield call(quoteAccept, action.payload, orderID, token);
-    console.log('SAGA', result);
     yield put(quoteAccepted(result));
   } catch (error) {
     yield put(quoteAcceptError(error.toString()));
