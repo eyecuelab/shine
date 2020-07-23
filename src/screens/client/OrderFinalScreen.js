@@ -8,7 +8,7 @@ import styled from 'styled-components/native';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceTagWhite from '../../components/shared/PriceTagWhite';
-import AddOnSwitch from '../../components/order/AddOnSwitch';
+// import AddOnSwitch from '../../components/order/AddOnSwitch';
 import DashedLine from '../../components/shared/Dash';
 import UniversalButton from '../../components/shared/UniversalButton';
 import PropTypes from 'prop-types';
@@ -269,21 +269,21 @@ const Text = styled.Text`
   font-size: 16px;
 `;
 
-const SwitchTextContainer = styled.View`
-  margin-right: 90px;
-`;
+// const SwitchTextContainer = styled.View`
+//   margin-right: 90px;
+// `;
 
-const SwitchText = styled.Text`
-  text-align: left;
-  margin: 15px 0px 0px 20px;
-  color: black;
-  font-size: 18px;
-`;
+// const SwitchText = styled.Text`
+//   text-align: left;
+//   margin: 15px 0px 0px 20px;
+//   color: black;
+//   font-size: 18px;
+// `;
 
-const SwitchContainer = styled.View`
-  margin-top: 40px;
-  padding-top: 10px;
-`;
+// const SwitchContainer = styled.View`
+//   margin-top: 40px;
+//   padding-top: 10px;
+// `;
 
 const InfoContainer = styled.View`
   justify-content: flex-start;
