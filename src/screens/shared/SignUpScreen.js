@@ -24,6 +24,9 @@ const SignUpScreen = ({ signupWatcher, users, confirmUser }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  // const [matchError, setMatchError] = useState('');
+
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const toggleSecureTextEntry = () => {
     setSecureTextEntry((previousState) => !previousState);
@@ -37,9 +40,15 @@ const SignUpScreen = ({ signupWatcher, users, confirmUser }) => {
 
   const navigation = useNavigation();
 
+  const inputE11 = useRef(null);
   const inputEl2 = useRef(null);
   const inputEl3 = useRef(null);
   const inputEl4 = useRef(null);
+  const inputEl5 = useRef(null);
+
+  useEffect(() => {
+    setEmailError('');
+  }, [password, confirmPassword]);
 
   useEffect(() => {
     if (users.signupMessage === 'Sign Up Successful!') {
@@ -55,13 +64,11 @@ const SignUpScreen = ({ signupWatcher, users, confirmUser }) => {
   }, [users.confirmationMessage]);
 
   const onSignUp = () => {
-    // if (emailError === 'Please Enter a Valid Email Address') {
-    //   setEmailError('Please Enter a Valid Email Address');
-    // }
-    if (firstName.length === 0 || lastName.length === 0) {
+    if (password !== confirmPassword) {
+      setEmailError('Passwords Do Not Match');
+    } else if (firstName.length === 0 || lastName.length === 0) {
       setEmailError('Please Fill Out All Required Fields');
-    }
-    if (password.length < 6 || password.length > 10) {
+    } else if (password.length < 6 || password.length > 10) {
       setEmailError('Password should contain 6-10 characters');
     } else {
       signupWatcher({
@@ -141,6 +148,7 @@ const SignUpScreen = ({ signupWatcher, users, confirmUser }) => {
               </ModalContainer>
             </Modal>
             <TextInput
+              ref={inputE11}
               placeholder="Email"
               returnKeyType="next"
               keyboardType="email-address"
@@ -149,6 +157,7 @@ const SignUpScreen = ({ signupWatcher, users, confirmUser }) => {
               style={styles.input}
               value={email}
               onChangeText={setEmail}
+              onSubmitEditing={() => inputEl2.current.focus()}
               onEndEditing={() => onSetEmail()}
             />
             <TextInput
@@ -178,13 +187,35 @@ const SignUpScreen = ({ signupWatcher, users, confirmUser }) => {
                 ref={inputEl4}
                 placeholder="Password"
                 returnKeyType="done"
-                keyboardType="email-address"
+                keyboardType="default"
                 autoCapitalize="none"
                 autoCorrect={false}
                 style={styles.input}
                 value={password}
                 secureTextEntry={secureTextEntry}
                 onChangeText={setPassword}
+                onSubmitEditing={() => inputEl5.current.focus()}
+              />
+              <SecureButton onPress={toggleSecureTextEntry}>
+                {secureTextEntry ? (
+                  <Feather name="eye-off" color="grey" size={20} />
+                ) : (
+                  <Feather name="eye" color="grey" size={20} />
+                )}
+              </SecureButton>
+            </InputContainer>
+            <InputContainer>
+              <TextInput
+                ref={inputEl5}
+                placeholder="Confirm Password"
+                returnKeyType="done"
+                keyboardType="default"
+                autoCapitalize="none"
+                autoCorrect={false}
+                style={styles.input}
+                value={confirmPassword}
+                secureTextEntry={secureTextEntry}
+                onChangeText={setConfirmPassword}
                 // onSubmitEditing={onSubmit}
               />
               <SecureButton onPress={toggleSecureTextEntry}>

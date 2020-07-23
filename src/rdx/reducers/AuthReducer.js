@@ -1,5 +1,5 @@
 import * as types from '../actions/types';
-import { REHYDRATE } from 'redux-persist/lib/constants';
+// import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialAuthState = {
   data: null,
@@ -37,6 +37,7 @@ const authReducer = (state = initialAuthState, action) => {
         signupMessage: null,
         status: 'Login cancelled',
       };
+
     case types.LOGOUT_SUCCESS:
       return {
         ...state,
@@ -73,6 +74,22 @@ const authReducer = (state = initialAuthState, action) => {
         signupMessage: action.error,
         status: 'Signup error',
       };
+    case types.SET_PROFILE:
+      return {
+        ...state,
+        data: {
+          links: { ...state.data.links },
+          meta: { ...state.data.meta },
+          included: {
+            ...state.data.included,
+            [0]: action.payload,
+          },
+          data: { ...state.data.data },
+        },
+        errorMessage: null,
+        signUpMessage: null,
+        status: 'Logged and Loaded',
+      };
     case types.UPDATE_PROFILE:
       return {
         ...state,
@@ -87,7 +104,7 @@ const authReducer = (state = initialAuthState, action) => {
         },
         errorMessage: null,
         signupMessage: null,
-        status: 'User profile updated',
+        status: 'User Profile Updated!',
       };
     case types.UPDATE_PROFILE_ERROR:
       return {
@@ -95,6 +112,17 @@ const authReducer = (state = initialAuthState, action) => {
         errorMessage: action.error,
         signupMessage: null,
         status: 'User profile update error',
+      };
+    case types.SET_STATUS:
+      return {
+        ...state,
+        status: 'Logged In',
+        errorMessage: null,
+      };
+    case types.SET_WRONG_ERROR:
+      return {
+        ...state,
+        errorMessage: null,
       };
     default:
       return state;
