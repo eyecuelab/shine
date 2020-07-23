@@ -88,7 +88,7 @@ const authReducer = (state = initialAuthState, action) => {
         },
         errorMessage: null,
         signUpMessage: null,
-        status: 'Logged and Loaded',
+        status: 'Logged in',
       };
     case types.UPDATE_PROFILE:
       return {
@@ -116,7 +116,7 @@ const authReducer = (state = initialAuthState, action) => {
     case types.SET_STATUS:
       return {
         ...state,
-        status: 'Logged In',
+        status: 'Logged in',
         errorMessage: null,
       };
     case types.SET_WRONG_ERROR:
