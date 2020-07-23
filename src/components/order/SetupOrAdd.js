@@ -31,9 +31,10 @@ const Container = styled.View`
 `;
 
 const BodyText = styled.Text`
-  font-family: Raleway-Medium
+  font-family: Raleway-Bold
   text-align: center;
   margin-top: 20px;
+  margin-bottom: 10px;
   color: black;
   font-size: 16px;
 `;
