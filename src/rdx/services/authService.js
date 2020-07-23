@@ -3,8 +3,8 @@ import getEnvVars from '../../../environment';
 const { apiUrl } = getEnvVars();
 
 export const loginUserService = (request) => {
-  // const LOGIN_API_ENDPOINT = 'https://shoeshine.herokuapp.com/login';
   const LOGIN_API_ENDPOINT = `${apiUrl}/login`;
+
   const parameters = {
     method: 'POST',
     headers: {
@@ -36,7 +36,6 @@ export const getProfileService = async (token) => {
 };
 
 export const logoutUserService = (request) => {
-  // const LOGOUT_API_ENDPOINT = 'https://shoeshine.herokuapp.com/logout';
   const LOGOUT_API_ENDPOINT = `${apiUrl}/logout`;
 
   const parameters = {
@@ -54,7 +53,6 @@ export const logoutUserService = (request) => {
 };
 
 export const signUpUserService = (request) => {
-  // const SIGNUP_API_ENDPOINT = 'https://shoeshine.herokuapp.com/signup';
   const SIGNUP_API_ENDPOINT = `${apiUrl}/signup`;
 
   const parameters = {
@@ -72,7 +70,6 @@ export const signUpUserService = (request) => {
 };
 
 export const confirmUserService = (code) => {
-  // const SIGNUP_API_ENDPOINT = 'https://shoeshine.herokuapp.com/signup';
   const CONFIRM_API_ENDPOINT = `${apiUrl}/signup/confirm`;
 
   const parameters = {
@@ -90,7 +87,6 @@ export const confirmUserService = (code) => {
 };
 
 export const editProfileService = (request, token) => {
-  // const PROFILE_API_ENDPOINT = 'http://127.0.0.1:8080/profile';
   const PROFILE_API_ENDPOINT = `${apiUrl}/profile`;
 
   const parameters = {

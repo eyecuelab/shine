@@ -37,7 +37,7 @@ const OrderFinalScreen = ({
   };
 
   const handleQuoteClick = (item) => {
-    navigation.navigate('OrderConfrim', item);
+    navigation.navigate('OrderConfirm', item);
   };
 
   const handleCancelClick = () => {
@@ -66,7 +66,9 @@ const OrderFinalScreen = ({
               <InfoText>{item.attributes.time_frame}</InfoText>
               <TitelText>Shoe Types: </TitelText>
               {item.attributes.shoe_types.map((i) => (
-                <InfoText key={i}>| {i}</InfoText>
+                <InfoText key={i}>
+                  | {i.charAt(0) + i.slice(1).toLowerCase()}
+                </InfoText>
               ))}
               <TitelText>Additional Services: </TitelText>
               {item.attributes.add_ons.polish ? (

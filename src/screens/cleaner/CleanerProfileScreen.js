@@ -51,7 +51,7 @@ const CleanerProfileScreen = ({
 
         <ListItem>
           <Text>Account</Text>
-          <Text>{email}</Text>
+          <EmailText>{email}</EmailText>
         </ListItem>
 
         <ListItem onPress={() => navigation.navigate('Edit Profile')}>
@@ -181,12 +181,20 @@ const Seperator = styled.View`
 `;
 
 const Text = styled.Text`
-  color: #737272;
+  font-family: Raleway-Bold;
+  color: #4a4a4a;
+  font-size: 16px;
+`;
+
+const EmailText = styled.Text`
+  font-family: Raleway-Medium;
+  color: #4a4a4a;
   font-size: 16px;
 `;
 
 const CenterText = styled.Text`
   color: #cbb387;
+  font-family: Raleway-Bold;
   font-size: 16px;
   text-align: center;
   font-weight: 500;
