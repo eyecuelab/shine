@@ -17,7 +17,7 @@ const SetupOrAdd = ({ image, navigation, submit, orderInfo }) => {
         <BodyText>THE CLEANERS ARE READY TO WORK! </BodyText>
         <UniversalButton
           title={'SET UP JOB'}
-          width={310}
+          width={350}
           onPress={handleSubmit}
         />
       </Container>
