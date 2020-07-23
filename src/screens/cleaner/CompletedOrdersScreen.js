@@ -25,7 +25,7 @@ const CompletedOrdersScreen = ({ cleaner, navigation }) => {
           ))
         ) : (
           <TextContainer>
-            <Text>There is no completed quote yet.</Text>
+            <Text>There are no completed quote yet.</Text>
           </TextContainer>
         )}
       </Container>
@@ -50,10 +50,12 @@ const TextContainer = styled.View`
   height: ${height / 1.27}
   align-items: center;
   justify-content: center;
+  padding: 40px;
 `;
 const Text = styled.Text`
-  font-size: 20px;
-  font-weight: 500;
+  font-family: Raleway-Medium
+  font-size: 18px;
+  text-align: center;
 `;
 
 CompletedOrdersScreen.propTypes = {

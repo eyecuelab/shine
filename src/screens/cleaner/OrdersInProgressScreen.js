@@ -58,7 +58,7 @@ const TextContainer = styled.View`
 `;
 const Text = styled.Text`
   font-family: Raleway-Medium
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
 `;
 
