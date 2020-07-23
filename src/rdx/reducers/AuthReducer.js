@@ -7,6 +7,7 @@ const initialAuthState = {
   signupMessage: null,
   confirmationMessage: null,
   status: 'Logged out',
+  redirect: false,
 };
 
 const authReducer = (state = initialAuthState, action) => {
@@ -45,6 +46,7 @@ const authReducer = (state = initialAuthState, action) => {
         errorMessage: null,
         signupMessage: null,
         status: 'Logged out',
+        redirect: false,
       };
     case types.SIGNUP_SUCCESS:
       return {
@@ -128,6 +130,11 @@ const authReducer = (state = initialAuthState, action) => {
       return {
         ...state,
         confirmationMessage: null,
+      };
+    case types.SET_REDIRECT:
+      return {
+        ...state,
+        redirect: true,
       };
     default:
       return state;
