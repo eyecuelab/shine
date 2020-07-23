@@ -10,7 +10,6 @@ import * as actions from '../../rdx/actions';
 const { height } = Dimensions.get('window');
 
 const OrdersInProgressScreen = ({ cleaner, navigation }) => {
-  // const cleanerID = cleaner.data ? cleaner.data.id : null;
   const quotedOrders = cleaner.quotedOrders ? cleaner.quotedOrders : null;
 
   return (
