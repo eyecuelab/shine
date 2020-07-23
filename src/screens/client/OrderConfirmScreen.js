@@ -68,7 +68,6 @@ const InfoContainer = styled.View`
 const CenterText = styled.Text`
   font-family: Raleway-Bold;
   font-size: 22px;
-  font-weight: 900;
   color: #8e1818;
 `;
 

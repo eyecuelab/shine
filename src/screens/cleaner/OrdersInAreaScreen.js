@@ -62,10 +62,12 @@ const TextContainer = styled.View`
   height: ${height / 1.27}
   align-items: center;
   justify-content: center;
+  padding: 40px;
 `;
 const Text = styled.Text`
+  font-family: Raleway-Medium
   font-size: 20px;
-  font-weight: 500;
+  text-align: center;
 `;
 
 OrdersInAreaScreen.propTypes = {

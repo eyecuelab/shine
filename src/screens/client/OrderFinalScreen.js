@@ -242,7 +242,7 @@ const BlueText = styled.Text`
 `;
 
 const Text = styled.Text`
-  font-family: Raleway-Medium
+  font-family: Raleway-Medium;
   margin-top: 10px;
   padding-bottom: 10px;
   color: #42413c;
@@ -258,7 +258,6 @@ const InfoContainer = styled.View`
 const CenterText = styled.Text`
   font-family: Raleway-Bold;
   font-size: 22px;
-  font-weight: 900;
   color: #8e1818;
 `;
 
