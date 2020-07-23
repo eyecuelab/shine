@@ -70,8 +70,6 @@ const OrderDetailScreen = ({ navigation, postOrder, users }) => {
   const inputEl4 = useRef(null);
   const inputEl5 = useRef(null);
 
-  console.log(users.data == null);
-
   const handleSubmit = () => {
     if (users.data !== null) {
       postOrder({

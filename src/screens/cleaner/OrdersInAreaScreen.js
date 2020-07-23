@@ -37,7 +37,7 @@ const OrdersInAreaScreen = ({ cleaner, navigation }) => {
           ))
         ) : (
           <TextContainer>
-            <Text>There is no quotable orders at this time.</Text>
+            <Text>There are no quotable orders at this time.</Text>
           </TextContainer>
         )}
       </Container>

@@ -26,7 +26,7 @@ const OrderFinalScreen = ({
   const currentDate = new Date();
   const orderID = item.id;
   const imageUrl = item.attributes.image_url;
-  console.log(imageUrl);
+  console.log(item);
 
   const handlePublish = () => {
     publishOrderWatcher({
@@ -50,38 +50,47 @@ const OrderFinalScreen = ({
     <ScrollViewContailner>
       {ShoePhoto(imageUrl)}
       <Container>
-        <Text>You've recieved cleaning quotes!</Text>
-        <SwitchTextContainer>
-          <SwitchText>ADD POLISH</SwitchText>
-          <SwitchText>ADD RAIN PROTECTION</SwitchText>
-          <SwitchText>REPLACE SHOELACES</SwitchText>
-        </SwitchTextContainer>
-        <SwitchContainer>
-          <AddOnSwitch
-            disabled={true}
-            switchState={item.attributes.add_ons.polish}
-          />
-          <AddOnSwitch
-            disabled={true}
-            switchState={item.attributes.add_ons.rainProtection}
-          />
-          <AddOnSwitch
-            disabled={true}
-            switchState={item.attributes.add_ons.replaceLaces}
-          />
-        </SwitchContainer>
+        {!item.attributes.published_at ? (
+          <Text>Pulish your order to get quotes from cleaners!</Text>
+        ) : order && order.included ? (
+          <Text>You've recieved cleaning quotes!</Text>
+        ) : (
+          <Text>There are no cleaning quotes yet.</Text>
+        )}
 
         {item.attributes.published_at ? null : (
-          <Button
-            title="PUBLISH"
-            containerStyle={{ paddingVertical: 40, width: 350 }}
-            buttonStyle={{
-              backgroundColor: '#939393',
-              height: 50,
-              borderRadius: 7,
-            }}
-            onPress={() => setModalVisible(!modalVisible)}
-          />
+          <>
+            <SwitchTextContainer>
+              <SwitchText>ADD POLISH</SwitchText>
+              <SwitchText>ADD RAIN PROTECTION</SwitchText>
+              <SwitchText>REPLACE SHOELACES</SwitchText>
+            </SwitchTextContainer>
+            <SwitchContainer>
+              <AddOnSwitch
+                disabled={true}
+                switchState={item.attributes.add_ons.polish}
+              />
+              <AddOnSwitch
+                disabled={true}
+                switchState={item.attributes.add_ons.rainProtection}
+              />
+              <AddOnSwitch
+                disabled={true}
+                switchState={item.attributes.add_ons.replaceLaces}
+              />
+            </SwitchContainer>
+
+            <Button
+              title="PUBLISH"
+              containerStyle={{ paddingVertical: 40, width: 350 }}
+              buttonStyle={{
+                backgroundColor: '#939393',
+                height: 50,
+                borderRadius: 7,
+              }}
+              onPress={() => setModalVisible(!modalVisible)}
+            />
+          </>
         )}
 
         <Modal
@@ -236,7 +245,7 @@ const Text = styled.Text`
   margin-top: 10px;
   padding-bottom: 10px;
   color: #42413c;
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 const SwitchTextContainer = styled.View`

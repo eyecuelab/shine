@@ -29,7 +29,7 @@ const OrdersInProgressScreen = ({ cleaner, navigation }) => {
           ))
         ) : (
           <TextContainer>
-            <Text>There is no accepted quote yet.</Text>
+            <Text>There are no accepted quotes yet.</Text>
           </TextContainer>
         )}
       </Container>
