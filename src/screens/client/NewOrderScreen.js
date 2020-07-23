@@ -12,7 +12,7 @@ import * as actions from '../../rdx/actions';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
-const NewOrderScreen = ({ navigation }) => {
+const NewOrderScreen = ({ navigation, user, setRedirect }) => {
   // ALL HOOKS FOR ORDERFORM VALUES
   const [image, setImage] = useState('empty.img');
   const [index, setIndex] = useState(0);
@@ -55,7 +55,12 @@ const NewOrderScreen = ({ navigation }) => {
   };
 
   const onSubmit = () => {
-    navigation.navigate('OrderDetail', orderInfo);
+    if (user.status !== 'Logged in') {
+      setRedirect();
+      navigation.navigate('Welcome');
+    } else {
+      navigation.navigate('OrderDetail', orderInfo);
+    }
   };
 
   const renderScene = ({ route, jumpTo }) => {
@@ -106,7 +111,9 @@ const NewOrderScreen = ({ navigation }) => {
         <TabBar
           {...props}
           indicatorStyle={{ backgroundColor: '#2c2c2c', height: 3 }}
-          style={{ backgroundColor: '#CBB387' }}
+          style={{
+            backgroundColor: '#CBB387',
+          }}
         />
       )}
       swipeEnabled={index === 1 || image === 'empty.img' ? false : true}
@@ -119,15 +126,19 @@ const NewOrderScreen = ({ navigation }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders.orders };
+  return {
+    orders: state.orders.orders,
+    user: state.users,
+  };
 };
 
 NewOrderScreen.propTypes = {
   navigation: PropTypes.object,
   jumpTo: PropTypes.func,
   route: PropTypes.object,
-  // addOrder: PropTypes.func,
+  user: PropTypes.object,
   orders: PropTypes.array,
+  setRedirect: PropTypes.func,
 };
 
 export default connect(mapStateToProps, actions)(NewOrderScreen);

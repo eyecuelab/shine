@@ -4,12 +4,7 @@ import ShoePhoto from '../shared/ShoePhoto';
 import PropTypes from 'prop-types';
 import UniversalButton from '../../components/shared/UniversalButton';
 
-const SetupOrAdd = ({ image, navigation, submit, orderInfo }) => {
-  const handleSubmit = () => {
-    submit();
-    navigation.navigate('OrderDetail', orderInfo);
-  };
-
+const SetupOrAdd = ({ image, submit }) => {
   return (
     <>
       {ShoePhoto(image)}
@@ -17,8 +12,10 @@ const SetupOrAdd = ({ image, navigation, submit, orderInfo }) => {
         <BodyText>THE CLEANERS ARE READY TO WORK! </BodyText>
         <UniversalButton
           title={'SET UP JOB'}
-          width={310}
-          onPress={handleSubmit}
+          width={350}
+          onPress={() => {
+            submit();
+          }}
         />
       </Container>
     </>
@@ -31,12 +28,12 @@ const Container = styled.View`
 `;
 
 const BodyText = styled.Text`
-  font-family: Raleway-Medium
+  font-family: Raleway-Bold
   text-align: center;
   margin-top: 20px;
-
-  color: black;
-  font-size: 16px;
+  margin-bottom: 10px;
+  color: #4a4a4a;
+  font-size: 15px;
 `;
 
 SetupOrAdd.propTypes = {

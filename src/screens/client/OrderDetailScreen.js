@@ -13,14 +13,14 @@ import AddOnSwitch from '../../components/order/AddOnSwitch';
 import PriceTagBlack from '../../components/shared/PriceTagBlack';
 import DashedLine from '../../components/shared/Dash';
 import ShoePhoto from '../../components/shared/ShoePhoto';
-import { Button } from 'react-native-elements';
+import UniversalButton from '../../components/shared/UniversalButton';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 import _ from 'lodash';
 
 const { width } = Dimensions.get('window');
 
-const OrderDetailScreen = ({ navigation, postOrder }) => {
+const OrderDetailScreen = ({ navigation, postOrder, users }) => {
   const route = useRoute();
   const item = route.params;
 
@@ -71,23 +71,27 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
   const inputEl5 = useRef(null);
 
   const handleSubmit = () => {
-    postOrder({
-      image_url: item.image,
-      shoe_types: chosenShoeTypes,
-      time_frame: item.timeFrame,
-      add_ons: {
-        polish: polish,
-        replaceLaces: replaceLaces,
-        rainProtection: rainProtection,
-      },
-      estimated_price: estPrice,
-      note: item.note,
-      street_address: street,
-      city: city,
-      state: locState,
-      postal_code: postalCode,
-    });
-    navigation.navigate('Home');
+    if (users.data !== null) {
+      postOrder({
+        image_url: item.image,
+        shoe_types: chosenShoeTypes,
+        time_frame: item.timeFrame,
+        add_ons: {
+          polish: polish,
+          replaceLaces: replaceLaces,
+          rainProtection: rainProtection,
+        },
+        estimated_price: estPrice,
+        note: item.note,
+        street_address: street,
+        city: city,
+        state: locState,
+        postal_code: postalCode,
+      });
+      navigation.navigate('Home');
+    } else {
+      navigation.navigate('Welcome');
+    }
   };
 
   return (
@@ -135,6 +139,7 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
             style={styles.input}
             placeholder="STREET ADDRESS"
             keyboardType="ascii-capable"
+            autoCapitalize="words"
             returnKeyType="next"
             onChangeText={(text) => setStreet(text)}
             value={street}
@@ -144,6 +149,7 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
             ref={inputEl2}
             style={styles.input}
             placeholder="CITY"
+            autoCapitalize="words"
             returnKeyType="next"
             onChangeText={(text) => setCity(text)}
             value={city}
@@ -171,18 +177,10 @@ const OrderDetailScreen = ({ navigation, postOrder }) => {
           />
 
           <DashedLine />
-
-          <Button
-            title="START A CLEANING REQUEST"
-            containerStyle={{ paddingVertical: 10, width: 350 }}
-            buttonStyle={{
-              backgroundColor: 'black',
-              height: 50,
-              borderRadius: 7,
-            }}
-            onPress={() => {
-              handleSubmit();
-            }}
+          <UniversalButton
+            title={'START A CLEANING REQUEST'}
+            width={350}
+            onPress={handleSubmit}
           />
         </Container>
       </KeyboardAvoidingView>
@@ -210,10 +208,11 @@ const Container = styled.View`
 `;
 
 const Text = styled.Text`
-  margin-top: 10px;
+  font-family: Raleway-Bold;
+  margin-top: 20px;
   padding-bottom: 10px;
   color: #42413c;
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 const SwitchTextContainer = styled.View`
@@ -258,7 +257,7 @@ OrderDetailScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders.orders };
+  return { orders: state.orders.orders, users: state.users };
 };
 
 export default connect(mapStateToProps, actions)(OrderDetailScreen);

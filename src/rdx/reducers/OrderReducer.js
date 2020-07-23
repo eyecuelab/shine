@@ -1,5 +1,5 @@
 import * as types from '../actions/types';
-import { REHYDRATE } from 'redux-persist/lib/constants';
+// import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialOrdersState = {
   orders: [],
@@ -9,10 +9,11 @@ const initialOrdersState = {
 
 const orderReducer = (state = initialOrdersState, action) => {
   switch (action.type) {
-    case REHYDRATE:
-      return {
-        ...state,
-      };
+    // case REHYDRATE:
+    //   return {
+    //     ...state,
+    //     orders: [],
+    //   };
     case types.LOAD_ORDERS_SUCCESS:
       return {
         ...state,

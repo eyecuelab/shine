@@ -8,9 +8,9 @@ import {
   postQuoteService,
   loadQuotedOrdersService,
   updateOrderService,
+  loadCompletedOrdersService,
 } from '../services/cleanerService';
 import { call, put, select } from 'redux-saga/effects';
-import { or } from 'react-native-reanimated';
 
 export const getToken = (state) => state.users.data.data.attributes.token;
 export const getCleanerID = (state) => state.cleaner.data.id;
@@ -134,13 +134,14 @@ export function* updateOrderByCleanerSaga(action) {
     );
     if (response.ok && response.status === 200) {
       const data = yield response.json();
+      // console.log('SAGA', data);
       const orderID = data.data.id;
       const status = {
-        [data.meta.actions[3][0][0]]: data.meta.actions[3][0][2],
-        [data.meta.actions[3][1][0]]: data.meta.actions[3][1][2],
-        [data.meta.actions[3][2][0]]: data.meta.actions[3][2][2],
-        [data.meta.actions[3][3][0]]: data.meta.actions[3][3][2],
-        [data.meta.actions[3][4][0]]: data.meta.actions[3][4][2],
+        [data.meta.actions[1][0][0]]: data.meta.actions[1][0][2],
+        [data.meta.actions[1][1][0]]: data.meta.actions[1][1][2],
+        [data.meta.actions[1][2][0]]: data.meta.actions[1][2][2],
+        [data.meta.actions[1][3][0]]: data.meta.actions[1][3][2],
+        [data.meta.actions[1][4][0]]: data.meta.actions[1][4][2],
       };
       yield put(actions.setUpdatedOrder({ orderID, status }));
     } else {
@@ -148,5 +149,22 @@ export function* updateOrderByCleanerSaga(action) {
     }
   } catch (error) {
     console.log('UPDATE ORDER ERROR:', error);
+  }
+}
+
+export function* loadCompletedOrdersSaga() {
+  try {
+    const cleanerID = yield select(getCleanerID);
+    const token = yield select(getToken);
+    let response = yield call(loadCompletedOrdersService, cleanerID, token);
+    if (response.ok && response.status === 200) {
+      const data = yield response.json();
+      // console.log('SAGA', data);
+      yield put(actions.setCompletedOrders(data.data));
+    } else {
+      throw yield response.json();
+    }
+  } catch (error) {
+    console.log('LOAD QUOTABLE ORDERS ERROR:', error);
   }
 }

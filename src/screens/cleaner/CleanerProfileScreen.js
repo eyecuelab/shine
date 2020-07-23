@@ -15,6 +15,7 @@ const CleanerProfileScreen = ({
   deleteCleanerWatcher,
   loadQuotableOrdersWatcher,
   loadQuotedOrderWatcher,
+  loadCompletedOrderWatcher,
 }) => {
   const businessName = cleaner.data
     ? cleaner.data.attributes.business_name
@@ -29,7 +30,12 @@ const CleanerProfileScreen = ({
 
   const onLoadQuotedOrders = () => {
     loadQuotedOrderWatcher();
-    navigation.navigate('Accepted Quotes');
+    navigation.navigate('Orders In Progress');
+  };
+
+  const onLoadCompletedOrders = () => {
+    loadCompletedOrderWatcher();
+    navigation.navigate('Completed Orders');
   };
 
   const onDelete = () => {
@@ -45,7 +51,7 @@ const CleanerProfileScreen = ({
 
         <ListItem>
           <Text>Account</Text>
-          <Text>{email}</Text>
+          <EmailText>{email}</EmailText>
         </ListItem>
 
         <ListItem onPress={() => navigation.navigate('Edit Profile')}>
@@ -59,16 +65,11 @@ const CleanerProfileScreen = ({
         </ListItem>
 
         <ListItem onPress={onLoadQuotedOrders}>
-          <Text>Orders with Quote Accepted</Text>
-          <Feather name="chevron-right" size={24} color="#737272" />
-        </ListItem>
-
-        <ListItem onPress={() => navigation.navigate('Orders In Progress')}>
           <Text>Orders In Progress</Text>
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>
 
-        <ListItem onPress={() => navigation.navigate('Completed Orders')}>
+        <ListItem onPress={onLoadCompletedOrders}>
           <Text>Orders Completed</Text>
           <Feather name="chevron-right" size={24} color="#737272" />
         </ListItem>
@@ -180,12 +181,20 @@ const Seperator = styled.View`
 `;
 
 const Text = styled.Text`
-  color: #737272;
+  font-family: Raleway-Bold;
+  color: #4a4a4a;
+  font-size: 16px;
+`;
+
+const EmailText = styled.Text`
+  font-family: Raleway-Medium;
+  color: #4a4a4a;
   font-size: 16px;
 `;
 
 const CenterText = styled.Text`
   color: #cbb387;
+  font-family: Raleway-Bold;
   font-size: 16px;
   text-align: center;
   font-weight: 500;
@@ -251,6 +260,7 @@ CleanerProfileScreen.propTypes = {
   deleteCleanerWatcher: PropTypes.func,
   loadQuotableOrdersWatcher: PropTypes.func,
   loadQuotedOrderWatcher: PropTypes.func,
+  loadCompletedOrderWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {

@@ -1,11 +1,17 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
-import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
+import * as actions from '../../rdx/actions';
 import UniversalButton from '../../components/shared/UniversalButton';
 
-const WelcomeScreen = ({ navigation }) => {
+const WelcomeScreen = ({ navigation, setConfirmationStatus }) => {
+  const onSubmit = () => {
+    setConfirmationStatus();
+    navigation.navigate('SignUp');
+  };
+
   return (
     <Container>
       <ImageArea>
@@ -19,10 +25,7 @@ const WelcomeScreen = ({ navigation }) => {
 
       <Text>
         DON'T HAVE AN ACCOUNT?{' '}
-        <TextLink onPress={() => navigation.navigate('SignUp')}>
-          {' '}
-          SIGN UP
-        </TextLink>
+        <TextLink onPress={() => onSubmit()}> SIGN UP</TextLink>
       </Text>
     </Container>
   );
@@ -55,14 +58,17 @@ const Text = styled.Text`
 const TextLink = styled.Text`
   color: #cbb387;
   font-family: 'Raleway-Bold';
+  font-size: 15px;
 `;
 
 WelcomeScreen.propTypes = {
   users: PropTypes.object,
+  navigation: PropTypes.object,
+  setConfirmationStatus: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
   return { users: state.users };
 };
 
-export default connect(mapStateToProps)(WelcomeScreen);
+export default connect(mapStateToProps, actions)(WelcomeScreen);

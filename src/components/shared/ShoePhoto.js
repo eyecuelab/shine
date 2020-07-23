@@ -25,7 +25,7 @@ const ShoePhoto = (imageURI) => {
 const ImgContainer = styled.View`
   width: 100%;
   height: ${HEIGHT / 3.1}px;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   position: relative;
 `;
 

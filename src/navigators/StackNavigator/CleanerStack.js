@@ -8,20 +8,17 @@ import SignInScreen from '../../screens/shared/SignInScreen';
 import CleanerApplicationScreen from '../../screens/cleaner/CleanerApplicationScreen';
 import CleanerProfileScreen from '../../screens/cleaner/CleanerProfileScreen';
 import EditCleanerProfileScreen from '../../screens/cleaner/EditCleanerProfileScreen';
-import AcceptedQuotesScreen from '../../screens/cleaner/AcceptedQuotesScreen';
 import OrdersInProgressScreen from '../../screens/cleaner/OrdersInProgressScreen';
 import CompletedOrdersScreen from '../../screens/cleaner/CompletedOrdersScreen';
 import OrdersInAreaScreen from '../../screens/cleaner/OrdersInAreaScreen';
 import QuotableOrderDetailScreen from '../../screens/cleaner/QuotableOrderDetailScreen';
-import QuotedOrderDetailScreen from '../../screens/cleaner/QuotedOrderDetailScreen';
+import InProgressOrderDetailScreen from '../../screens/cleaner/InProgressOrderDetailScreen';
 
 const CleanerStack = createStackNavigator();
 
 const CleanerStackNavigator = ({ cleaner, users }) => {
   const authentication = users.status !== 'Logged out' ? true : false;
   const cleanerAccontExist = cleaner.data ? true : false;
-  // const cleanerAccontExist =
-  //   Object.keys(users.cleaner).length === 0 ? false : true;
 
   return (
     <CleanerStack.Navigator
@@ -75,19 +72,14 @@ const CleanerStackNavigator = ({ cleaner, users }) => {
             options={{ title: 'ORDER DETAIL' }}
           />
           <CleanerStack.Screen
-            name="Accepted Quotes"
-            component={AcceptedQuotesScreen}
-            options={{ title: 'ACCEPTED QUOTES' }}
-          />
-          <CleanerStack.Screen
-            name="Quoted Order Detail"
-            component={QuotedOrderDetailScreen}
-            options={{ title: 'ORDER DETAIL' }}
-          />
-          <CleanerStack.Screen
             name="Orders In Progress"
             component={OrdersInProgressScreen}
             options={{ title: 'ORDERS IN PROGRESS' }}
+          />
+          <CleanerStack.Screen
+            name="In Pogress Order Detail"
+            component={InProgressOrderDetailScreen}
+            options={{ title: 'UPDATE ORDER STATUS' }}
           />
           <CleanerStack.Screen
             name="Completed Orders"

@@ -43,7 +43,7 @@ const ClientProfileScreen = ({ user, navigation, logoutWatcher }) => {
 
         <ListItem>
           <Text>Account</Text>
-          <Text>{user ? user.email : null}</Text>
+          <EmailText>{user ? user.email : null}</EmailText>
         </ListItem>
 
         <ListItem onPress={() => navigation.navigate('Change Password')}>
@@ -88,14 +88,16 @@ const ClientProfileScreen = ({ user, navigation, logoutWatcher }) => {
 const ProfileContainer = styled.View`
   flex: 1;
   align-items: center;
+  justify-content: flex-start;
   background-color: white;
 `;
 
 const Container = styled.View`
   flex: 1;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: white;
+  margin-top: 20px;
 `;
 
 const ProfileBackground = styled.View`
@@ -106,16 +108,17 @@ const ProfileBackground = styled.View`
 `;
 
 const Profile = styled.Image`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
+  width: 120px;
+  height: 120px;
+  border-radius: 60px;
   border-width: 3px;
   border-color: #cbb387;
   margin-bottom: 20px;
+  margin-top: 10px;
 `;
 
 const Name = styled.Text`
-  color: #2c2c2c;
+  color: #4a4a4a;
   font-size: 20px;
   font-weight: 800;
   margin-vertical: 8px;
@@ -155,12 +158,20 @@ const Seperator = styled.View`
 `;
 
 const Text = styled.Text`
-  color: #737272;
+  font-family: Raleway-Bold;
+  color: #4a4a4a;
+  font-size: 16px;
+`;
+
+const EmailText = styled.Text`
+  font-family: Raleway-Medium;
+  color: #4a4a4a;
   font-size: 16px;
 `;
 
 const CenterText = styled.Text`
   color: #cbb387;
+  font-family: Raleway-Bold;
   font-size: 16px;
   text-align: center;
   font-weight: 500;

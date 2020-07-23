@@ -167,6 +167,13 @@ export const logIn = (payload) => {
   };
 };
 
+export const setProfile = (payload) => {
+  return {
+    type: types.SET_PROFILE,
+    payload,
+  };
+};
+
 export const logoutWatcher = () => {
   return {
     type: types.LOGOUT_WATCHER,
@@ -205,6 +212,30 @@ export const updatePassword = (payload) => {
   return {
     type: types.UPDATE_PASSWORD,
     payload,
+  };
+};
+
+export const setStatus = () => {
+  return {
+    type: types.SET_STATUS,
+  };
+};
+
+export const setWrongError = () => {
+  return {
+    type: types.SET_WRONG_ERROR,
+  };
+};
+
+export const setConfirmationStatus = () => {
+  return {
+    type: types.SET_CONFIRMATION_STATUS,
+  };
+};
+
+export const setRedirect = () => {
+  return {
+    type: types.SET_REDIRECT,
   };
 };
 
@@ -301,6 +332,19 @@ export const updateOrderWatcher = ({ orderID, payload }) => {
 export const setUpdatedOrder = (payload) => {
   return {
     type: types.UPDATE_ORDER_BY_CLEANER_SUCCESS,
+    payload,
+  };
+};
+
+export const loadCompletedOrderWatcher = () => {
+  return {
+    type: types.LOAD_COMPLETED_ORDERS_WATCHER,
+  };
+};
+
+export const setCompletedOrders = (payload) => {
+  return {
+    type: types.SET_COMPLETED_ORDERS,
     payload,
   };
 };

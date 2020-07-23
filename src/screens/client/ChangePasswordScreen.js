@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import {
   TouchableWithoutFeedback,
@@ -6,21 +6,23 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import PasswordInput from '../../components/shared/PasswordInput';
-import { Button } from 'react-native-elements';
-// import { editProfileWatcher } from '../../rdx/actions';
 import { connect } from 'react-redux';
 import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
+import UniversalButton from '../../components/shared/UniversalButton';
 
 const ChangePasswordScreen = ({
   navigation,
   updatePassword,
   errorMessage,
   user,
+  status,
+  setStatus,
 }) => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [matchError, setMatchError] = useState('');
+  const nav = navigation;
 
   const onSubmit = () => {
     if (newPassword !== confirmPassword) {
@@ -35,8 +37,22 @@ const ChangePasswordScreen = ({
       postal_code: user.postal_code,
       phone: user.phone,
     });
-    navigation.navigate('Profile');
+    // navigation.navigate('Profile');
   };
+
+  useEffect(() => {
+    return () => {
+      setStatus();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (status === 'User Profile Updated!') {
+      // actions.setStatus();
+      nav.navigation('Profile');
+    }
+  }, [status]);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -56,19 +72,18 @@ const ChangePasswordScreen = ({
               setValue={setConfirmPassword}
               placeholder="Confirm Password"
             />
-            <ErrorTextContainer>
-              <Text>{matchError}</Text>
-            </ErrorTextContainer>
-            <Button
-              title="CHANGE PASSWORD"
-              containerStyle={{ paddingTop: 20, width: 350 }}
-              buttonStyle={{
-                backgroundColor: 'black',
-                height: 50,
-                borderRadius: 7,
-              }}
+            {matchError.length !== 0 ? (
+              <ErrorTextContainer>
+                <ErrorText>{matchError}</ErrorText>
+              </ErrorTextContainer>
+            ) : null}
+
+            <UniversalButton
+              title={'CHANGE PASSWORD'}
+              width={280}
               onPress={onSubmit}
             />
+
             <ErrorTextContainer>
               <ErrorText>
                 {errorMessage !== null ? errorMessage : null}
@@ -114,12 +129,15 @@ ChangePasswordScreen.propTypes = {
   updatePassword: PropTypes.func,
   user: PropTypes.object,
   errorMessage: PropTypes.any,
+  status: PropTypes.string,
+  setStatus: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
   return {
     user: state.users.data.included[0].attributes,
     errorMessage: state.users.errorMessage,
+    status: state.users.status,
   };
 };
 

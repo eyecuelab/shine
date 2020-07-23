@@ -5,13 +5,23 @@ const initialCleanerState = {
   data: null,
   quotableOrders: null,
   quotedOrders: null,
+  inProgressOrders: null,
+  completedOrders: null,
   errorMessage: null,
   quotedStatus: {},
-  inProgress: null,
 };
 
 const cleanerReducer = (state = initialCleanerState, action) => {
   switch (action.type) {
+    // case REHYDRATE:
+    //   return {
+    //     ...state,
+    //     data: null,
+    //     errorMessage: null,
+    //     quotedOrders: null,
+    //     inProgressOrders: null,
+    //     completedOrders: null,
+    //   };
     case types.LOAD_CLEANER:
       return {
         ...state,
@@ -21,7 +31,7 @@ const cleanerReducer = (state = initialCleanerState, action) => {
             : null,
         quotableOrders: state.quotableOrders,
         quotedOrders: state.quotedOrders,
-        inProgress: state.inProgress,
+        inProgressOrders: state.inProgressOrders,
         errorMessage: null,
       };
     case types.LOGOUT_SUCCESS:
@@ -30,7 +40,8 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         data: null,
         errorMessage: null,
         quotedOrders: null,
-        inProgress: null,
+        inProgressOrders: null,
+        completedOrders: null,
       };
 
     case types.ADD_CLEANER_PROFILE:
@@ -90,14 +101,23 @@ const cleanerReducer = (state = initialCleanerState, action) => {
       return {
         ...state,
         quotedOrders: action.payload,
+        errorMessage: null,
       };
     case types.UPDATE_ORDER_BY_CLEANER_SUCCESS:
       return {
         ...state,
-        inProgress: {
-          ...state.inProgress,
+        inProgressOrders: {
+          ...state.inProgressOrders,
           [action.payload.orderID]: action.payload.status,
         },
+        errorMessage: null,
+      };
+    case types.SET_COMPLETED_ORDERS:
+      console.log('R', action.payload);
+      return {
+        ...state,
+        completedOrders: action.payload,
+        errorMessage: null,
       };
     default:
       return state;

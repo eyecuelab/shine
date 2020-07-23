@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dimensions,
   TextInput,
@@ -18,20 +18,35 @@ import PropTypes from 'prop-types';
 
 const { width } = Dimensions.get('window');
 
-const SignInScreen = ({ loginWatcher, users }) => {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [secureTextEntry, setSecureTextEntry] = React.useState(true);
+const SignInScreen = ({ loginWatcher, users, setWrongError }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
   const toggleSecureTextEntry = () => {
     setSecureTextEntry((previousState) => !previousState);
   };
   const errorMessage = users.errorMessage;
   const navigation = useNavigation();
 
+  useEffect(() => {
+    setWrongError();
+  }, [email, password]);
+
   const onSubmit = () => {
     loginWatcher({ email: email, password: password });
-    navigation.navigate('Profile');
+    // navigation.navigate('Profile');
   };
+  useEffect(() => {
+    console.log('NAVIGATION: ', navigation);
+    if (users.status === 'Logged in') {
+      if (users.redirect) {
+        navigation.navigate('NewOrder');
+      }
+      if (!users.redirect) {
+        navigation.navigate('Profile');
+      }
+    }
+  }, [users.status]);
 
   return (
     <>
@@ -146,6 +161,7 @@ const Text = styled.Text`
 SignInScreen.propTypes = {
   loginWatcher: PropTypes.func,
   users: PropTypes.object,
+  setWrongError: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {

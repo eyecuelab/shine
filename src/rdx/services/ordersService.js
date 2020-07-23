@@ -92,7 +92,7 @@ export const quoteAccept = async (request, orderID, token) => {
     body: JSON.stringify(request),
   });
   const result = await response.json();
-  console.log('SERVICE', result);
+
   if (response.ok && response.status === 200) {
     return result;
   } else {
