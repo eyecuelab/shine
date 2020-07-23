@@ -10,11 +10,11 @@ import { formatDate } from '../../components/shared/FormatDate';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
-const OrderConfirmScreen = ({ navigation, cleaner, quoteAcceptWatcher }) => {
+const OrderConfirmScreen = ({ navigation, order, quoteAcceptWatcher }) => {
   const route = useRoute();
   const item = route.params;
   const cleanerID = item.attributes.cleaner_id.toString();
-  // console.log(item);
+  const imageUrl = order.data.attributes.image_url;
 
   const onSubmit = () => {
     quoteAcceptWatcher({
@@ -29,7 +29,7 @@ const OrderConfirmScreen = ({ navigation, cleaner, quoteAcceptWatcher }) => {
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto(item.image)}
+      {ShoePhoto(imageUrl)}
       <Container>
         <InfoContainer>
           <TitelText>
@@ -91,7 +91,7 @@ OrderConfirmScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { cleaner: state.cleaner };
+  return { order: state.orders.selectedOrder };
 };
 
 export default connect(mapStateToProps, actions)(OrderConfirmScreen);

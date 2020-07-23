@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Platform, TouchableOpacity, Dimensions } from 'react-native';
+import { Platform, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { Input, Button } from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
@@ -41,7 +41,7 @@ const QuotableOrderDetailScreen = ({
   };
 
   const onCompleteDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || expireDate;
+    const currentDate = selectedDate || completeDate;
     setShowComplete(Platform.OS === 'ios');
     setCompeleteDate(currentDate);
   };
@@ -119,12 +119,12 @@ const QuotableOrderDetailScreen = ({
         <>
           <QuoteContainer>
             <CenterText>Quote has been successfully requested.</CenterText>
-            <TitelText>Quoted Price: </TitelText>
+            {/* <TitelText>Quoted Price: </TitelText>
             <InfoText>{quotedPrice}</InfoText>
             <TitelText>Quote Expired At: </TitelText>
             <InfoText>{formatDateTime(expireDate)}</InfoText>
             <TitelText>Returned By:</TitelText>
-            <InfoText>{formatDate(completeDate)}</InfoText>
+            <InfoText>{formatDate(completeDate)}</InfoText> */}
           </QuoteContainer>
         </>
       ) : (
