@@ -5,6 +5,7 @@ import {
   logoutUserService,
   signUpUserService,
   editProfileService,
+  getProfileService,
   confirmUserService,
 } from '../services/authService';
 import { call, put, cancelled, select } from 'redux-saga/effects';
@@ -17,6 +18,9 @@ export function* loginSaga(action) {
     if (response.ok && response.status === 200) {
       const data = yield response.json();
       yield put(actions.logIn(data));
+      const token = yield select(getToken);
+      let profileResponse = yield call(getProfileService, token);
+      yield put(actions.setProfile(profileResponse));
       yield put(actions.loadOrders());
       yield put(actions.loadCleaner(data));
     } else {
@@ -82,7 +86,9 @@ export function* editProfileSaga(action) {
     let response = yield call(editProfileService, action.payload, token);
     if (response.status >= 200 && response.status < 300) {
       const data = yield response.json();
+
       const userData = data.data;
+      // console.log('USER DATA: ', userData);
       yield put(actions.updateProfile(userData));
     } else {
       throw yield response.json();

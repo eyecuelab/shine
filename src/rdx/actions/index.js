@@ -167,6 +167,13 @@ export const logIn = (payload) => {
   };
 };
 
+export const setProfile = (payload) => {
+  return {
+    type: types.SET_PROFILE,
+    payload,
+  };
+};
+
 export const logoutWatcher = () => {
   return {
     type: types.LOGOUT_WATCHER,
@@ -205,6 +212,18 @@ export const updatePassword = (payload) => {
   return {
     type: types.UPDATE_PASSWORD,
     payload,
+  };
+};
+
+export const setStatus = () => {
+  return {
+    type: types.SET_STATUS,
+  };
+};
+
+export const setWrongError = () => {
+  return {
+    type: types.SET_WRONG_ERROR,
   };
 };
 
