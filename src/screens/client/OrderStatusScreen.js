@@ -19,7 +19,8 @@ const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
   const item = route.params;
   const addOns = item.attributes.add_ons;
 
-  const cleaner = order ? order.included[order.included.length - 1] : null;
+  const cleaner =
+    order && order.included ? order.included[order.included.length - 1] : null;
   const cleanerID = cleaner ? cleaner.id : null;
   const cleanerAddress = cleaner
     ? cleaner.attributes.street_address +

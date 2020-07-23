@@ -130,7 +130,9 @@ const OrderFinalScreen = ({
                   source={require('../../../assets/images/price-ticket-black.png')}
                 />
                 <PriceContianer>
-                  {PriceTagWhite(i.attributes.quoted_price)}
+                  {i.attributes.quoted_price
+                    ? PriceTagWhite(i.attributes.quoted_price)
+                    : null}
                   <DueText>{i.attributes.delivery_by}</DueText>
                 </PriceContianer>
                 <ExpireText>{i.attributes.expires_at}</ExpireText>
