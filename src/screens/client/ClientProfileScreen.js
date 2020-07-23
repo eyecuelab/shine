@@ -118,7 +118,7 @@ const Profile = styled.Image`
 `;
 
 const Name = styled.Text`
-  color: #2c2c2c;
+  color: #4a4a4a;
   font-size: 20px;
   font-weight: 800;
   margin-vertical: 8px;
@@ -159,13 +159,13 @@ const Seperator = styled.View`
 
 const Text = styled.Text`
   font-family: Raleway-Bold;
-  color: #737272;
+  color: #4a4a4a;
   font-size: 16px;
 `;
 
 const EmailText = styled.Text`
   font-family: Raleway-Medium;
-  color: #737272;
+  color: #4a4a4a;
   font-size: 16px;
 `;
 
