@@ -13,7 +13,7 @@ import AddOnSwitch from '../../components/order/AddOnSwitch';
 import PriceTagBlack from '../../components/shared/PriceTagBlack';
 import DashedLine from '../../components/shared/Dash';
 import ShoePhoto from '../../components/shared/ShoePhoto';
-import { Button } from 'react-native-elements';
+import UniversalButton from '../../components/shared/UniversalButton';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 import _ from 'lodash';
@@ -175,18 +175,10 @@ const OrderDetailScreen = ({ navigation, postOrder, users }) => {
           />
 
           <DashedLine />
-
-          <Button
-            title="START A CLEANING REQUEST"
-            containerStyle={{ paddingVertical: 10, width: 350 }}
-            buttonStyle={{
-              backgroundColor: 'black',
-              height: 50,
-              borderRadius: 7,
-            }}
-            onPress={() => {
-              handleSubmit();
-            }}
+          <UniversalButton
+            title={'START A CLEANING REQUEST'}
+            width={350}
+            onPress={handleSubmit}
           />
         </Container>
       </KeyboardAvoidingView>

@@ -34,7 +34,6 @@ const BodyText = styled.Text`
   font-family: Raleway-Medium
   text-align: center;
   margin-top: 20px;
-
   color: black;
   font-size: 16px;
 `;
