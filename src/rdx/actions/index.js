@@ -227,6 +227,12 @@ export const setWrongError = () => {
   };
 };
 
+export const setConfirmationStatus = () => {
+  return {
+    type: types.SET_CONFIRMATION_STATUS,
+  };
+};
+
 // ====== CLEANERS ACTION CREATORS ======= //
 
 export const loadCleaner = (payload) => {

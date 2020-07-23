@@ -124,6 +124,11 @@ const authReducer = (state = initialAuthState, action) => {
         ...state,
         errorMessage: null,
       };
+    case types.SET_CONFIRMATION_STATUS:
+      return {
+        ...state,
+        confirmationMessage: null,
+      };
     default:
       return state;
   }
