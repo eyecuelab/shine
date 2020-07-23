@@ -9,7 +9,6 @@ import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceTagWhite from '../../components/shared/PriceTagWhite';
 import DashedLine from '../../components/shared/Dash';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
-import UnselectedSwitch from '../../components/shared/UnselectedSwitch';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
