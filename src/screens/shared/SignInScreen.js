@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dimensions,
   TextInput,
@@ -15,18 +15,23 @@ import { Button } from 'react-native-elements';
 import { Feather } from '@expo/vector-icons';
 import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
+import { SET_WRONG_ERROR } from '../../rdx/actions/types';
 
 const { width } = Dimensions.get('window');
 
-const SignInScreen = ({ loginWatcher, users }) => {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [secureTextEntry, setSecureTextEntry] = React.useState(true);
+const SignInScreen = ({ loginWatcher, users, setWrongError }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
   const toggleSecureTextEntry = () => {
     setSecureTextEntry((previousState) => !previousState);
   };
   const errorMessage = users.errorMessage;
   const navigation = useNavigation();
+
+  useEffect(() => {
+    setWrongError();
+  }, [email, password]);
 
   const onSubmit = () => {
     loginWatcher({ email: email, password: password });
@@ -146,6 +151,7 @@ const Text = styled.Text`
 SignInScreen.propTypes = {
   loginWatcher: PropTypes.func,
   users: PropTypes.object,
+  setWrongError: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
