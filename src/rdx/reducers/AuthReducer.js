@@ -117,6 +117,7 @@ const authReducer = (state = initialAuthState, action) => {
       return {
         ...state,
         status: 'Logged In',
+        errorMessage: null,
       };
     default:
       return state;
