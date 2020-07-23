@@ -10,7 +10,13 @@ import * as actions from '../../rdx/actions';
 const { height } = Dimensions.get('window');
 
 const OrdersInProgressScreen = ({ cleaner, navigation }) => {
-  const quotedOrders = cleaner.quotedOrders ? cleaner.quotedOrders : null;
+  const cleanerID = cleaner.data.id;
+  console.log(cleanerID);
+  const quotedOrders = cleaner.quotedOrders
+    ? cleaner.quotedOrders.filter(
+        (item) => item.attributes.cleaner_id == cleanerID,
+      )
+    : null;
 
   return (
     <ScrollViewContainer>

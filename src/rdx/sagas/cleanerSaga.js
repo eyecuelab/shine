@@ -134,14 +134,14 @@ export function* updateOrderByCleanerSaga(action) {
     );
     if (response.ok && response.status === 200) {
       const data = yield response.json();
-      // console.log('SAGA', data);
+      console.log('SAGA', data);
       const orderID = data.data.id;
       const status = {
-        [data.meta.actions[1][0][0]]: data.meta.actions[1][0][2],
-        [data.meta.actions[1][1][0]]: data.meta.actions[1][1][2],
-        [data.meta.actions[1][2][0]]: data.meta.actions[1][2][2],
-        [data.meta.actions[1][3][0]]: data.meta.actions[1][3][2],
-        [data.meta.actions[1][4][0]]: data.meta.actions[1][4][2],
+        [data.meta.actions[3][0][0]]: data.meta.actions[3][0][2],
+        [data.meta.actions[3][1][0]]: data.meta.actions[3][1][2],
+        [data.meta.actions[3][2][0]]: data.meta.actions[3][2][2],
+        [data.meta.actions[3][3][0]]: data.meta.actions[3][3][2],
+        [data.meta.actions[3][4][0]]: data.meta.actions[3][4][2],
       };
       yield put(actions.setUpdatedOrder({ orderID, status }));
     } else {
