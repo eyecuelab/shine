@@ -106,7 +106,9 @@ const NewOrderScreen = ({ navigation }) => {
         <TabBar
           {...props}
           indicatorStyle={{ backgroundColor: '#2c2c2c', height: 3 }}
-          style={{ backgroundColor: '#CBB387' }}
+          style={{
+            backgroundColor: '#CBB387',
+          }}
         />
       )}
       swipeEnabled={index === 1 || image === 'empty.img' ? false : true}

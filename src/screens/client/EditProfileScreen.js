@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
 
 const Container = styled.View`
   flex: 1;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: white;
 `;
 
@@ -293,7 +293,7 @@ const PhotoContainer = styled.View`
   height: ${HEIGHT / 5}px;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 10px;
+  margin-top: 30px;
 
   position: relative;
 `;
@@ -339,6 +339,7 @@ const ModalItem = styled.TouchableOpacity`
 `;
 
 const BlueText = styled.Text`
+  font-family: Raleway-Bold
   font-size: 16px;
   font-weight: 600;
   margin-right: 10px;
