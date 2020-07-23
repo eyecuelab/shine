@@ -12,7 +12,7 @@ import * as actions from '../../rdx/actions';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
-const NewOrderScreen = ({ navigation, user }) => {
+const NewOrderScreen = ({ navigation, user, setRedirect }) => {
   // ALL HOOKS FOR ORDERFORM VALUES
   const [image, setImage] = useState('empty.img');
   const [index, setIndex] = useState(0);
@@ -56,6 +56,7 @@ const NewOrderScreen = ({ navigation, user }) => {
 
   const onSubmit = () => {
     if (user.status !== 'Logged in') {
+      setRedirect();
       navigation.navigate('Welcome');
     } else {
       navigation.navigate('OrderDetail', orderInfo);
@@ -137,6 +138,7 @@ NewOrderScreen.propTypes = {
   route: PropTypes.object,
   user: PropTypes.object,
   orders: PropTypes.array,
+  setRedirect: PropTypes.func,
 };
 
 export default connect(mapStateToProps, actions)(NewOrderScreen);

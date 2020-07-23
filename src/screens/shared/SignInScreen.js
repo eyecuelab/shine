@@ -39,7 +39,12 @@ const SignInScreen = ({ loginWatcher, users, setWrongError }) => {
   useEffect(() => {
     console.log('NAVIGATION: ', navigation);
     if (users.status === 'Logged in') {
-      navigation.navigate('NewOrder');
+      if (users.redirect) {
+        navigation.navigate('NewOrder');
+      }
+      if (!users.redirect) {
+        navigation.navigate('Profile');
+      }
     }
   }, [users.status]);
 
