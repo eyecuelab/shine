@@ -4,12 +4,7 @@ import ShoePhoto from '../shared/ShoePhoto';
 import PropTypes from 'prop-types';
 import UniversalButton from '../../components/shared/UniversalButton';
 
-const SetupOrAdd = ({ image, navigation, submit, orderInfo }) => {
-  const handleSubmit = () => {
-    submit();
-    navigation.navigate('OrderDetail', orderInfo);
-  };
-
+const SetupOrAdd = ({ image, submit }) => {
   return (
     <>
       {ShoePhoto(image)}
@@ -18,7 +13,9 @@ const SetupOrAdd = ({ image, navigation, submit, orderInfo }) => {
         <UniversalButton
           title={'SET UP JOB'}
           width={350}
-          onPress={handleSubmit}
+          onPress={() => {
+            submit();
+          }}
         />
       </Container>
     </>

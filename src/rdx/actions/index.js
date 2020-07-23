@@ -233,6 +233,12 @@ export const setConfirmationStatus = () => {
   };
 };
 
+export const setRedirect = () => {
+  return {
+    type: types.SET_REDIRECT,
+  };
+};
+
 // ====== CLEANERS ACTION CREATORS ======= //
 
 export const loadCleaner = (payload) => {

@@ -15,7 +15,6 @@ import { Button } from 'react-native-elements';
 import { Feather } from '@expo/vector-icons';
 import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
-import { SET_WRONG_ERROR } from '../../rdx/actions/types';
 
 const { width } = Dimensions.get('window');
 
@@ -35,8 +34,19 @@ const SignInScreen = ({ loginWatcher, users, setWrongError }) => {
 
   const onSubmit = () => {
     loginWatcher({ email: email, password: password });
-    navigation.navigate('Profile');
+    // navigation.navigate('Profile');
   };
+  useEffect(() => {
+    console.log('NAVIGATION: ', navigation);
+    if (users.status === 'Logged in') {
+      if (users.redirect) {
+        navigation.navigate('NewOrder');
+      }
+      if (!users.redirect) {
+        navigation.navigate('Profile');
+      }
+    }
+  }, [users.status]);
 
   return (
     <>
