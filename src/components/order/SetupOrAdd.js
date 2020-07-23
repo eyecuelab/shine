@@ -35,8 +35,8 @@ const BodyText = styled.Text`
   text-align: center;
   margin-top: 20px;
   margin-bottom: 10px;
-  color: black;
-  font-size: 16px;
+  color: #4a4a4a;
+  font-size: 15px;
 `;
 
 SetupOrAdd.propTypes = {
