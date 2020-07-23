@@ -12,20 +12,24 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
-import { Button } from 'react-native-elements';
 import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
 import {
   PickImage,
   TakePhoto,
 } from '../../components/shared/UploadPhotoFunctions';
+import UniversalButton from '../../components/shared/UniversalButton';
+// import DashedLine from '../../components/shared/Dash';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
+// TODO!! FIX KEYBOARD AVOID VIEW !!
 const EditProfileScreen = ({
   editProfileWatcher,
+  setStatus,
   user,
   errorMessage,
   navigation,
+  status,
 }) => {
   const [userProfile, setUserProfile] = useState({
     street_address: user.street_address,
@@ -38,12 +42,21 @@ const EditProfileScreen = ({
   const [profilePhoto, setProfilePhoto] = useState(
     user.image_url ? user.image_url : '',
   );
+  const nav = navigation;
 
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     setModalVisible(false);
   }, [profilePhoto]);
+
+  useEffect(() => {
+    if (status === 'User Profile Updated!' && errorMessage === null) {
+      console.log('HIT');
+      setStatus();
+      nav.navigate('Profile');
+    }
+  }, [status, errorMessage]);
 
   const handleProfileChange = (key, value) => {
     setUserProfile((current) => ({
@@ -88,7 +101,6 @@ const EditProfileScreen = ({
       },
       user.email,
     );
-    navigation.navigate('Profile');
   };
   const ProfilePhotoDisplay = () => {
     if (profilePhoto === '') {
@@ -152,7 +164,7 @@ const EditProfileScreen = ({
                 </ModalView>
               </ModalContainer>
             </Modal>
-
+            {/* <DashedLine /> */}
             <MultiLineInputs>
               <Text>Street</Text>
               <TextInput
@@ -229,23 +241,18 @@ const EditProfileScreen = ({
                 onChangeText={(text) => onTextChange(text)}
               />
             </MultiLineInputs>
-
-            <ErrorTextContainer>
-              <ErrorText>
-                {errorMessage !== null ? errorMessage : null}
-              </ErrorText>
-            </ErrorTextContainer>
-
-            <Button
-              title="SUBMIT"
-              containerStyle={{ paddingTop: 20, width: 350 }}
-              buttonStyle={{
-                backgroundColor: 'black',
-                height: 50,
-                borderRadius: 7,
-              }}
-              onPress={onSubmit}
-            />
+            <InnerContainer>
+              {errorMessage !== null ? (
+                <ErrorTextContainer>
+                  <ErrorText>{errorMessage}</ErrorText>
+                </ErrorTextContainer>
+              ) : null}
+              <UniversalButton
+                title={'SUBMIT'}
+                width={280}
+                onPress={onSubmit}
+              />
+            </InnerContainer>
           </Container>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
@@ -258,37 +265,43 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   input: {
+    fontFamily: 'Raleway-Regular',
     borderBottomColor: '#8A8F9E',
     borderBottomWidth: StyleSheet.hairlineWidth,
     height: 40,
     width: WIDTH * 0.6,
-    marginVertical: 5,
-    paddingHorizontal: 20,
-    fontSize: 15,
+    marginVertical: 10,
+    // paddingHorizontal: 20,
+    fontSize: 14,
     color: '#161F3D',
   },
 });
 
 const Container = styled.View`
   flex: 1;
-  align-items: center;
   justify-content: center;
   background-color: white;
 `;
 
+const InnerContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
 const PhotoContainer = styled.View`
   width: 100%;
-  height: ${HEIGHT / 6}px;
+  height: ${HEIGHT / 5}px;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 20px;
+  margin-top: 10px;
+
   position: relative;
 `;
 
 const Profile = styled.Image`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
+  width: 120px;
+  height: 120px;
+  border-radius: 60px;
   border-width: 3px;
   border-color: #cbb387;
   margin-bottom: 20px;
@@ -333,8 +346,8 @@ const BlueText = styled.Text`
 `;
 
 const Text = styled.Text`
+  font-family: Raleway-Medium
   font-size: 16px;
-  font-weight: 400;
   margin-right: 10px;
 `;
 
@@ -342,14 +355,16 @@ const MultiLineInputs = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  margin-left: 40px;
+  margin-right: 40px;
 `;
 
 const ErrorTextContainer = styled.View`
   margin-horizontal: 20px;
   padding: 25px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 `;
 
 const ErrorText = styled.Text`
@@ -364,10 +379,13 @@ EditProfileScreen.propTypes = {
   user: PropTypes.object,
   errorMessage: PropTypes.any,
   navigation: PropTypes.object,
+  setStatus: PropTypes.func,
+  status: PropTypes.string,
 };
 
 const mapStateToProps = (state) => {
   return {
+    status: state.users.status,
     user: state.users.data.included[0].attributes,
     errorMessage: state.users.errorMessage,
   };
