@@ -6,6 +6,7 @@ import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import DashedLine from '../../components/shared/Dash';
 import UniversalButton from '../../components/shared/UniversalButton';
+import { formatDate } from '../../components/shared/FormatDate';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
@@ -13,7 +14,7 @@ const OrderConfirmScreen = ({ navigation, cleaner, quoteAcceptWatcher }) => {
   const route = useRoute();
   const item = route.params;
   const cleanerID = item.attributes.cleaner_id.toString();
-  console.log(item);
+  // console.log(item);
 
   const onSubmit = () => {
     quoteAcceptWatcher({
@@ -31,10 +32,13 @@ const OrderConfirmScreen = ({ navigation, cleaner, quoteAcceptWatcher }) => {
       {ShoePhoto(item.image)}
       <Container>
         <InfoContainer>
-          <TitelText>Price : </TitelText>
-          <InfoText>$ {item.attributes.quoted_price}</InfoText>
-          <TitelText>Service Due: </TitelText>
-          <InfoText>{item.attributes.delivery_by}</InfoText>
+          <TitelText>
+            Final Price :<InfoText> $ {item.attributes.quoted_price}</InfoText>
+          </TitelText>
+          <TitelText>
+            Service Due:
+            <InfoText> {formatDate(item.attributes.delivery_by)}</InfoText>
+          </TitelText>
         </InfoContainer>
 
         <UniversalButton
@@ -61,15 +65,10 @@ const Container = styled.View`
 `;
 
 const InfoContainer = styled.View`
+  width: 70%;
   justify-content: flex-start;
   align-items: flex-start;
   padding: 20px;
-`;
-
-const CenterText = styled.Text`
-  font-family: Raleway-Bold;
-  font-size: 22px;
-  color: #8e1818;
 `;
 
 const TitelText = styled.Text`

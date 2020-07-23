@@ -7,9 +7,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import UniversalButton from '../../components/shared/UniversalButton';
-import AddOnSwitch from '../../components/order/AddOnSwitch';
 import DashedLine from '../../components/shared/Dash';
-import PriceTagBlack from '../../components/shared/PriceTagBlack';
 import { formatDate, formatDateTime } from '../../components/shared/FormatDate';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
@@ -22,7 +20,7 @@ const QuotableOrderDetailScreen = ({
   navigation,
 }) => {
   const item = route.params;
-  console.log(item);
+
   const orderID = item ? item.id : null;
   const cleanerID = cleaner.data ? cleaner.data.id : null;
 
@@ -75,8 +73,8 @@ const QuotableOrderDetailScreen = ({
       orderID: orderID,
       quote: {
         quoted_price: quotedPrice,
-        expires_at: formatDateTime(expireDate),
-        delivery_by: formatDate(completeDate),
+        expires_at: expireDate,
+        delivery_by: completeDate,
       },
     });
     navigation.navigate('Orders In Area');

@@ -9,6 +9,7 @@ import ShoePhoto from '../../components/shared/ShoePhoto';
 import PriceTagWhite from '../../components/shared/PriceTagWhite';
 import DashedLine from '../../components/shared/Dash';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
+import { formatDate } from '../../components/shared/FormatDate';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
 
@@ -39,7 +40,7 @@ const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
         )[0]
       : null;
   const quotedPrice = quote ? quote.attributes.quoted_price : null;
-  const deliveryBy = quote ? quote.attributes.delivery_by : null;
+  const deliveryBy = quote ? formatDate(quote.attributes.delivery_by) : null;
 
   const orderID = order ? order.data.id : null;
   const currentOrderStatus =
@@ -58,18 +59,10 @@ const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
           />
           <PriceContianer>
             {quotedPrice ? PriceTagWhite(quotedPrice) : null}
-            <DueText>{deliveryBy}</DueText>
+            <DueText>Returned by {deliveryBy}</DueText>
           </PriceContianer>
         </PriceTicketContainer>
         <TextBox>Cleaner's Info</TextBox>
-        {/* <AddOnsContainer>
-          {addOns.polish ? <AddOnsText>ADD POLISH</AddOnsText> : null}
-
-          {addOns.replaceLaces ? <AddOnsText>REPLACE LACES</AddOnsText> : null}
-          {addOns.rainProtection ? (
-            <AddOnsText>ADD RAIN PROTECTION</AddOnsText>
-          ) : null}
-        </AddOnsContainer> */}
       </TopContainer>
 
       <MapContainer>
@@ -213,9 +206,10 @@ const PriceContianer = styled.View`
 
 const DueText = styled.Text`
   color: white;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   text-align: center;
+  font-family: Marison-Sans-Round;
 `;
 
 const InfoContainer = styled.View`
@@ -241,19 +235,6 @@ const InfoText = styled.Text`
   margin-bottom: 5px;
   margin-left: 20px;
 `;
-
-// const AddOnsContainer = styled.View`
-//   align-items: center;
-//   justify-content: center;
-//   height: 100px;
-// `;
-
-// const AddOnsText = styled.Text`
-//   color: #cbb387;
-//   font-size: 18px;
-//   font-family: Marison-Sans-Round;
-//   padding-vertical: 5px;
-// `;
 
 const TextBox = styled.Text`
   font-family: Raleway-Bold;
