@@ -40,7 +40,7 @@ const HomeStackNavigator = () => {
       <HomeStack.Screen
         name="OrderDetail"
         component={OrderDetailScreen}
-        options={{ title: '' }}
+        options={{ title: 'ADD ONS' }}
       />
       <HomeStack.Screen
         name="OrderFinal"

@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Keyboard, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import styled from 'styled-components/native';
-import { Button } from 'react-native-elements';
 import { TextInput } from 'react-native';
 import ShoePhoto from '../shared/ShoePhoto';
 import PropTypes from 'prop-types';
@@ -19,12 +18,12 @@ const OrderNotes = ({ image, jumpTo, note, setNote }) => {
       >
         {ShoePhoto(image)}
         <Container>
-          <BodyText>Notes for Cleaner</BodyText>
+          <BodyText>NOTES FOR CLEANER</BodyText>
           <View>
             <TextInput
               placeholder="This step is optional. You will also have the opportunity to speak to the cleaner of choice directly after order is placed"
               style={{
-                height: 200,
+                height: 115,
                 width: 350,
                 borderColor: 'gray',
                 borderWidth: 1,
@@ -75,8 +74,8 @@ const BodyText = styled.Text`
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
-  color: black;
-  font-size: 18px;
+  color: #4a4a4a;
+  font-size: 15px;
 `;
 
 OrderNotes.propTypes = {

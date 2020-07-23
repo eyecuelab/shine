@@ -36,7 +36,7 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
   ) : (
     <Container>
       <ImageArea source={{ uri: image }} />
-      <Container>
+      <LoadedContainer>
         <UniversalButton
           title={'CHANGE PHOTO'}
           width={350}
@@ -49,7 +49,7 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
             jumpTo('second');
           }}
         />
-      </Container>
+      </LoadedContainer>
     </Container>
   );
 };
@@ -63,9 +63,13 @@ const ImageArea = styled.Image`
 
 const Container = styled.View`
   flex: 1;
-
   align-items: center;
   justify-content: center;
+`;
+const LoadedContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: flex-start;
 `;
 
 SelectPhoto.propTypes = {
