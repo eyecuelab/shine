@@ -1,18 +1,27 @@
 import * as types from '../actions/types';
-import { REHYDRATE } from 'redux-persist/lib/constants';
+// import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialCleanerState = {
   data: null,
   quotableOrders: null,
   quotedOrders: null,
-  errorMessage: null,
-  quotedStatus: {},
   inProgressOrders: null,
   completedOrders: null,
+  errorMessage: null,
+  quotedStatus: {},
 };
 
 const cleanerReducer = (state = initialCleanerState, action) => {
   switch (action.type) {
+    // case REHYDRATE:
+    //   return {
+    //     ...state,
+    //     data: null,
+    //     errorMessage: null,
+    //     quotedOrders: null,
+    //     inProgressOrders: null,
+    //     completedOrders: null,
+    //   };
     case types.LOAD_CLEANER:
       return {
         ...state,

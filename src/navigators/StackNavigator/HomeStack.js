@@ -1,8 +1,5 @@
 import React from 'react';
-// import { Button } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-// import { useNavigation } from '@react-navigation/native';
-// import { Feather } from '@expo/vector-icons';
 // SCREEN IMPORTS:
 import HomeScreen from '../../screens/shared/HomeScreen';
 import NewOrderScreen from '../../screens/client/NewOrderScreen';
@@ -10,11 +7,11 @@ import OrderDetailScreen from '../../screens/client/OrderDetailScreen';
 import OrderFinalScreen from '../../screens/client/OrderFinalScreen';
 import OrderStatusScreen from '../../screens/client/OrderStatusScreen';
 import OrderConfrimScreen from '../../screens/client/OrderConfirmScreen';
+import WelcomeScreen from '../../screens/shared/WelcomeScreen';
 
 const HomeStack = createStackNavigator();
 
 const HomeStackNavigator = () => {
-  // const navigation = useNavigation();
   return (
     <HomeStack.Navigator
       screenOptions={{
@@ -33,17 +30,7 @@ const HomeStackNavigator = () => {
       <HomeStack.Screen
         name="Home"
         component={HomeScreen}
-        options={{
-          title: '',
-          // eslint-disable-next-line react/display-name
-          // headerRight: () => (
-          //   <Button
-          //     onPress={() => navigation.navigate('NewOrder')}
-          //     title="NEW ORDER"
-          //     color="#fff"
-          //   />
-          // ),
-        }}
+        options={{ title: '' }}
       />
       <HomeStack.Screen
         name="NewOrder"
@@ -69,6 +56,11 @@ const HomeStackNavigator = () => {
         name="OrderStatus"
         component={OrderStatusScreen}
         options={{ title: 'ORDER STATUS' }}
+      />
+      <HomeStack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
+        options={{ title: 'PROFILE' }}
       />
     </HomeStack.Navigator>
   );
