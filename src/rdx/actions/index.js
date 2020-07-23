@@ -221,6 +221,12 @@ export const setStatus = () => {
   };
 };
 
+export const setWrongError = () => {
+  return {
+    type: types.SET_WRONG_ERROR,
+  };
+};
+
 // ====== CLEANERS ACTION CREATORS ======= //
 
 export const loadCleaner = (payload) => {

@@ -1,5 +1,5 @@
 import * as types from '../actions/types';
-import { REHYDRATE } from 'redux-persist/lib/constants';
+// import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialAuthState = {
   data: null,
@@ -117,6 +117,11 @@ const authReducer = (state = initialAuthState, action) => {
       return {
         ...state,
         status: 'Logged In',
+        errorMessage: null,
+      };
+    case types.SET_WRONG_ERROR:
+      return {
+        ...state,
         errorMessage: null,
       };
     default:
