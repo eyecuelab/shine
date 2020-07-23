@@ -24,7 +24,7 @@ const OrderNotes = ({ image, jumpTo, note, setNote }) => {
             <TextInput
               placeholder="This step is optional. You will also have the opportunity to speak to the cleaner of choice directly after order is placed"
               style={{
-                height: 200,
+                height: 100,
                 width: 350,
                 borderColor: 'gray',
                 borderWidth: 1,
