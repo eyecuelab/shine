@@ -302,6 +302,13 @@ export const addQuoteWatcher = ({ orderID, quote }) => {
   };
 };
 
+export const quotedOrderInfo = ({ orderID, quote }) => {
+  return {
+    type: types.SET_QUOTE_INFO,
+    payload: { orderID, quote },
+  };
+};
+
 export const postQuote = (payload) => {
   return {
     type: types.POST_QUOTE_SUCCESS,

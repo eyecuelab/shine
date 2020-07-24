@@ -59,7 +59,7 @@ const ItemsContainer = styled.TouchableOpacity`
 
 const TextContainer = styled.View`
   width: 100%;
-  height: ${height / 1.27}
+  height: ${height / 1.27}px;
   align-items: center;
   justify-content: center;
   padding: 40px;
