@@ -12,7 +12,7 @@ const SetupOrAdd = ({ image, submit }) => {
         <BodyText>THE CLEANERS ARE READY TO WORK! </BodyText>
         <UniversalButton
           title={'SET UP JOB'}
-          width={350}
+          width={275}
           onPress={() => {
             submit();
           }}

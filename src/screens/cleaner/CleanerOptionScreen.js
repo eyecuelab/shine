@@ -2,13 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
-import { Button } from 'react-native-elements';
 import * as actions from '../../rdx/actions';
 import { connect } from 'react-redux';
 import UniversalButton from '../../components/shared/UniversalButton';
 
-const CleanerOptionScreen = ({ navigation }) => {
-  // console.log('ORDERS: ', orders);
+const CleanerOptionScreen = ({ users, navigation }) => {
   return (
     <>
       <Container>
@@ -16,18 +14,19 @@ const CleanerOptionScreen = ({ navigation }) => {
           <Image source={require('../../../assets/images/logo-outline.png')} />
         </ImageArea>
         <UniversalButton
-          title={'APPLY TO BE A CLEANER'}
-          width={275}
+          title={'APPLY'}
+          width={230}
           onPress={() => navigation.navigate('Cleaner Application')}
         />
-
-        <Text>
-          ALREADY A CLEANER?{' '}
-          <TextLink onPress={() => navigation.navigate('Log in')}>
-            {' '}
-            Log in
-          </TextLink>
-        </Text>
+        {users.status !== 'Logged in' ? (
+          <>
+            <Text>ALREADY A CLEANER? </Text>
+            <TextLink onPress={() => navigation.navigate('Log in')}>
+              {' '}
+              LOG IN
+            </TextLink>
+          </>
+        ) : null}
       </Container>
     </>
   );
@@ -51,16 +50,18 @@ const Image = styled.Image`
 `;
 
 const Text = styled.Text`
-  font-family: Raleway-Regular
+  font-family: Raleway-Medium
   text-align: center;
   width: 250px
-  color: black;
+  color: #4a4a4a;
   font-size: 15px;
   margin-top: 20px;
 `;
 
 const TextLink = styled.Text`
+  margin-top: 5px;
   color: #cbb387;
+  font-size: 16px;
   font-family: 'Raleway-Bold';
 `;
 
@@ -74,6 +75,7 @@ const mapStateToProps = (state) => {
 CleanerOptionScreen.propTypes = {
   navigation: PropTypes.object,
   loadOrders: PropTypes.func,
+  users: PropTypes.object,
 };
 
 export default connect(mapStateToProps, actions)(CleanerOptionScreen);

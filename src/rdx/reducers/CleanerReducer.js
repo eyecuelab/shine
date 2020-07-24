@@ -1,5 +1,5 @@
 import * as types from '../actions/types';
-// import { REHYDRATE } from 'redux-persist/lib/constants';
+import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialCleanerState = {
   data: null,
@@ -13,15 +13,14 @@ const initialCleanerState = {
 
 const cleanerReducer = (state = initialCleanerState, action) => {
   switch (action.type) {
-    // case REHYDRATE:
-    //   return {
-    //     ...state,
-    //     data: null,
-    //     errorMessage: null,
-    //     quotedOrders: null,
-    //     inProgressOrders: null,
-    //     completedOrders: null,
-    //   };
+    case REHYDRATE:
+      return {
+        ...state,
+        data: null,
+        errorMessage: null,
+        inProgressOrders: null,
+        completedOrders: null,
+      };
     case types.LOAD_CLEANER:
       return {
         ...state,
@@ -39,7 +38,6 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         ...state,
         data: null,
         errorMessage: null,
-        quotedOrders: null,
         inProgressOrders: null,
         completedOrders: null,
       };
@@ -108,12 +106,11 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         ...state,
         inProgressOrders: {
           ...state.inProgressOrders,
-          [action.payload.orderID]: action.payload.status,
+          [action.payload.orderID]: action.payload.data,
         },
         errorMessage: null,
       };
     case types.SET_COMPLETED_ORDERS:
-      console.log('R', action.payload);
       return {
         ...state,
         completedOrders: action.payload,

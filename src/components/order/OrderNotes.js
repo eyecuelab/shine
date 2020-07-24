@@ -45,7 +45,7 @@ const OrderNotes = ({ image, jumpTo, note, setNote }) => {
           </View>
           <UniversalButton
             title={'CONTINUE'}
-            width={350}
+            width={275}
             onPress={() => {
               jumpTo('fourth');
             }}

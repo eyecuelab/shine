@@ -15,43 +15,48 @@ import * as actions from '../../rdx/actions';
 
 const { height: HEIGHT } = Dimensions.get('window');
 
-const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
+const OrderStatusScreen = ({ order, orders }) => {
   const route = useRoute();
   const item = route.params;
-  const addOns = item.attributes.add_ons;
+  const imageUrl = item.attributes ? item.attributes.image_url : null;
 
   const cleaner =
     order && order.included ? order.included[order.included.length - 1] : null;
   const cleanerID = cleaner ? cleaner.id : null;
-  const cleanerAddress = cleaner
-    ? cleaner.attributes.street_address +
-      ' ' +
-      cleaner.attributes.city +
-      ', ' +
-      cleaner.attributes.state +
-      ' ' +
-      cleaner.attributes.postal_code
-    : null;
+  const cleanerAddress =
+    cleaner && cleaner.attributes
+      ? cleaner.attributes.street_address +
+        ' ' +
+        cleaner.attributes.city +
+        ', ' +
+        cleaner.attributes.state +
+        ' ' +
+        cleaner.attributes.postal_code
+      : null;
 
   const quote =
-    order && cleanerID
-      ? order.included.filter(
-          (item) => item.attributes.cleaner_id == cleanerID,
+    order && cleanerID && order.included
+      ? order.included.filter((item) =>
+          item.attributes ? item.attributes.cleaner_id == cleanerID : null,
         )[0]
       : null;
-  const quotedPrice = quote ? quote.attributes.quoted_price : null;
-  const deliveryBy = quote ? formatDate(quote.attributes.delivery_by) : null;
+  const quotedPrice =
+    quote && quote.attributes ? quote.attributes.quoted_price : null;
+  const deliveryBy =
+    quote && quote.attributes ? formatDate(quote.attributes.delivery_by) : null;
 
   const orderID = order ? order.data.id : null;
+
+  const currentOrder = orders
+    ? orders.filter((item) => (item.attributes ? item.id == orderID : null))[0]
+    : null;
+
   const currentOrderStatus =
-    orderID && orderStatus && orderStatus[orderID]
-      ? orderStatus[orderID]
-      : null;
-  // console.log('STATUS', currentOrderStatus);
+    currentOrder && currentOrder.attributes ? currentOrder.attributes : null;
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto()}
+      {ShoePhoto(imageUrl)}
       <TopContainer>
         <PriceTicketContainer>
           <PriceTicket
@@ -74,15 +79,25 @@ const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
 
       <InfoContainer>
         <TitelText>Business Name: </TitelText>
-        <InfoText>{cleaner ? cleaner.attributes.business_name : null}</InfoText>
+        <InfoText>
+          {cleaner && cleaner.attributes
+            ? cleaner.attributes.business_name
+            : null}
+        </InfoText>
         <TitelText>Email: </TitelText>
-        <InfoText>{cleaner ? cleaner.attributes.email : null}</InfoText>
+        <InfoText>
+          {cleaner && cleaner.attributes ? cleaner.attributes.email : null}
+        </InfoText>
         <TitelText>Phone: </TitelText>
-        <InfoText>{cleaner ? cleaner.attributes.phone : null}</InfoText>
+        <InfoText>
+          {cleaner && cleaner.attributes ? cleaner.attributes.phone : null}
+        </InfoText>
         {cleaner && cleaner.attributes.bio ? (
           <>
             <TitelText>Bio: </TitelText>
-            <InfoText>{cleaner ? cleaner.attributes.bio : null}</InfoText>
+            <InfoText>
+              {cleaner && cleaner.attributes ? cleaner.attributes.bio : null}
+            </InfoText>
           </>
         ) : null}
       </InfoContainer>
@@ -242,7 +257,8 @@ const TextBox = styled.Text`
   font-size: 22px;
   text-align: center;
   height: 60px;
-  padding: 20px;
+  margin: 20px 20px 30px 20px;
+  padding-top: 10px;
 `;
 
 const MapArea = styled.Image`
@@ -324,6 +340,7 @@ OrderStatusScreen.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    orders: state.orders.orders,
     order: state.orders.selectedOrder,
     orderStatus: state.orders.orderStatus,
   };

@@ -80,7 +80,7 @@ const ChangePasswordScreen = ({
 
             <UniversalButton
               title={'CHANGE PASSWORD'}
-              width={280}
+              width={240}
               onPress={onSubmit}
             />
 
