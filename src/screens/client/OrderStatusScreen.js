@@ -53,7 +53,6 @@ const OrderStatusScreen = ({ order, orders }) => {
 
   const currentOrderStatus =
     currentOrder && currentOrder.attributes ? currentOrder.attributes : null;
-  console.log(currentOrderStatus);
 
   return (
     <ScrollViewContailner>
