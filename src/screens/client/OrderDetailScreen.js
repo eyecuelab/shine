@@ -220,15 +220,17 @@ const SwitchTextContainer = styled.View`
 `;
 
 const SwitchText = styled.Text`
+  font-family: Raleway-Medium;
   text-align: left;
   margin: 15px 0px 0px 20px;
   color: black;
-  font-size: 18px;
+  font-size: 17px;
 `;
 
 const SwitchContainer = styled.View`
   margin-top: 40px;
   padding-top: 10px;
+  margin-right: 15px;
 `;
 
 const PriceContianer = styled.View`
