@@ -104,11 +104,12 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         errorMessage: null,
       };
     case types.UPDATE_ORDER_BY_CLEANER_SUCCESS:
+      console.log('REDUCER', action.payload);
       return {
         ...state,
         inProgressOrders: {
           ...state.inProgressOrders,
-          [action.payload.orderID]: action.payload.status,
+          [action.payload.orderID]: action.payload.data,
         },
         errorMessage: null,
       };

@@ -65,7 +65,7 @@ const orderReducer = (state = initialOrdersState, action) => {
         ...state,
         orderStatus: {
           ...state.orderStatus,
-          [action.payload.orderID]: action.payload.status,
+          [action.payload.orderID]: action.payload.data,
         },
       };
     // case types.ADD_ORDER:

@@ -18,7 +18,8 @@ const { height: HEIGHT } = Dimensions.get('window');
 const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
   const route = useRoute();
   const item = route.params;
-  const addOns = item.attributes.add_ons;
+  // const addOns = item.attributes.add_ons;
+  const imageUrl = item.attributes.image_url;
 
   const cleaner =
     order && order.included ? order.included[order.included.length - 1] : null;
@@ -45,13 +46,13 @@ const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
   const orderID = order ? order.data.id : null;
   const currentOrderStatus =
     orderID && orderStatus && orderStatus[orderID]
-      ? orderStatus[orderID]
+      ? orderStatus[orderID].data.attributes
       : null;
   // console.log('STATUS', currentOrderStatus);
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto()}
+      {ShoePhoto(imageUrl)}
       <TopContainer>
         <PriceTicketContainer>
           <PriceTicket

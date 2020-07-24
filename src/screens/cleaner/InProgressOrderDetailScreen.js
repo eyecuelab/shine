@@ -22,7 +22,9 @@ const InProgressOrderDetailScreen = ({
   const item = route.params;
   const orderID = item.id;
   const currentOrderStatus =
-    orderStatus && orderStatus[orderID] ? orderStatus[orderID] : null;
+    orderStatus && orderStatus[orderID]
+      ? orderStatus[orderID].data.attributes
+      : null;
 
   const crrShoesPickedUp = currentOrderStatus
     ? currentOrderStatus.shoes_picked_up

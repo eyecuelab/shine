@@ -11,7 +11,6 @@ const { height } = Dimensions.get('window');
 
 const OrdersInProgressScreen = ({ cleaner, navigation }) => {
   const cleanerID = cleaner.data.id;
-  console.log(cleanerID);
   const quotedOrders = cleaner.quotedOrders
     ? cleaner.quotedOrders.filter(
         (item) => item.attributes.cleaner_id == cleanerID,
