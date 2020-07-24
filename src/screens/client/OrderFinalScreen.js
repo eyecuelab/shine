@@ -259,8 +259,8 @@ const BlueText = styled.Text`
 
 const Text = styled.Text`
   font-family: Raleway-Medium;
-  margin-top: 10px;
-  padding-bottom: 10px;
+  margin-top: 20px;
+  padding-top: 10px;
   color: #42413c;
   font-size: 16px;
 `;

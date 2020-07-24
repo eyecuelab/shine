@@ -15,6 +15,11 @@ const authReducer = (state = initialAuthState, action) => {
     case REHYDRATE:
       return {
         ...state,
+        data: null,
+        errorMessage: null,
+        signupMessage: null,
+        status: 'Logged out',
+        redirect: false,
       };
     case types.LOGIN_SUCCESS:
       return {

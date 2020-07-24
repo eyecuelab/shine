@@ -16,6 +16,7 @@ import * as actions from '../../rdx/actions';
 const QuotableOrderDetailScreen = ({
   route,
   addQuoteWatcher,
+  loadQuotedOrderWatcher,
   cleaner,
   navigation,
 }) => {
@@ -77,19 +78,34 @@ const QuotableOrderDetailScreen = ({
         delivery_by: completeDate,
       },
     });
+    loadQuotedOrderWatcher();
     navigation.navigate('Orders In Area');
   };
+
+  const quotedOrder = cleaner.quotedOrders
+    ? cleaner.quotedOrders.filter((item) => item.id == orderID)
+    : null;
+
+  console.log(quotedOrder);
 
   return (
     <ScrollViewContailner>
       {ShoePhoto(item.attributes.image_url)}
       <CenterText>Client Order Details</CenterText>
       <InfoContainer>
-        <TitelText>Time Frame: </TitelText>
-        <InfoText>{item.attributes.time_frame}</InfoText>
+        <TitelText>
+          Order Id: <InfoText> {orderID}</InfoText>
+        </TitelText>
+
+        <TitelText>
+          Time Frame: <InfoText> {item.attributes.time_frame}</InfoText>
+        </TitelText>
+
         <TitelText>Shoe Types: </TitelText>
         {item.attributes.shoe_types.map((i) => (
-          <InfoText key={i}>| {i}</InfoText>
+          <InfoText key={i}>
+            | {i.charAt(0) + i.slice(1).toLowerCase()}
+          </InfoText>
         ))}
         <TitelText>Additional Services: </TitelText>
         {item.attributes.add_ons.polish ? (
@@ -119,13 +135,15 @@ const QuotableOrderDetailScreen = ({
         <>
           <StatusContainer>
             <StatusText>Quote has been successfully requested.</StatusText>
-            {/* <TitelText>Quoted Price: </TitelText>
+          </StatusContainer>
+          <InfoContainer>
+            <TitelText>Quoted Price: </TitelText>
             <InfoText>{quotedPrice}</InfoText>
             <TitelText>Quote Expired At: </TitelText>
             <InfoText>{formatDateTime(expireDate)}</InfoText>
             <TitelText>Returned By:</TitelText>
-            <InfoText>{formatDate(completeDate)}</InfoText> */}
-          </StatusContainer>
+            <InfoText>{formatDate(completeDate)}</InfoText>
+          </InfoContainer>
         </>
       ) : (
         <>
@@ -200,7 +218,7 @@ const QuotableOrderDetailScreen = ({
                 />
               )}
             </DatePickerContainer>
-            <UniversalButton title={'SUBMIT'} width={330} onPress={onSubmit} />
+            <UniversalButton title={'SUBMIT'} width={275} onPress={onSubmit} />
           </QuoteContainer>
         </>
       )}
@@ -277,7 +295,6 @@ const StatusContainer = styled.View`
   justify-content: center;
   align-items: center;
   margin: 10px 10px 10px 10px;
-  border: 2px blue;
 `;
 
 const StatusText = styled.Text`
@@ -285,7 +302,7 @@ const StatusText = styled.Text`
   text-align: center;
   color: #8e1818;
   font-size: 20px;
-  margin: 20px 20px 50px 20px;
+  margin: 20px;
 `;
 
 QuotableOrderDetailScreen.propTypes = {
@@ -293,6 +310,7 @@ QuotableOrderDetailScreen.propTypes = {
   orders: PropTypes.array,
   cleaner: PropTypes.object,
   addQuoteWatcher: PropTypes.func,
+  loadQuotedOrderWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {

@@ -43,14 +43,14 @@ const OrderConfirmScreen = ({ navigation, order, quoteAcceptWatcher }) => {
 
         <UniversalButton
           title={'PLACE MY ORDER'}
-          width={350}
+          width={275}
           onPress={onSubmit}
         />
 
         <DashedLine />
         <UniversalButton
           title={'SEE OTHER QUOTES'}
-          width={350}
+          width={275}
           onPress={onCancel}
         />
       </Container>
@@ -73,13 +73,13 @@ const InfoContainer = styled.View`
 
 const TitelText = styled.Text`
   font-family: Raleway-Bold;
-  font-size: 18px;
+  font-size: 20px;
   margin-vertical: 10px;
 `;
 
 const InfoText = styled.Text`
   font-family: Raleway-Medium;
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 5px;
   margin-left: 20px;
 `;
