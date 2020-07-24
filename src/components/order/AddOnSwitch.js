@@ -13,7 +13,7 @@ const AddOnSwitch = ({ switchState, setSwitchState, disabled }) => {
         marginBottom: 5,
       }}
       trackColor={{ switchState: '#939393', true: '#E6E6E6' }}
-      thumbColor={switchState ? '#CBB387' : '#f4f3f4'}
+      thumbColor={switchState ? '#CBB387' : '#ababab'}
       ios_backgroundColor="#f4f3f4"
     />
   );
