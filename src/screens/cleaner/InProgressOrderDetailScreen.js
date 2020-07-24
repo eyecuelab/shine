@@ -12,13 +12,13 @@ const InProgressOrderDetailScreen = ({
   route,
   updateOrderWatcher,
   orderStatus,
+  orders,
 }) => {
   const item = route.params;
   const orderID = item.id;
-  const currentOrderStatus =
-    orderStatus && orderStatus[orderID]
-      ? orderStatus[orderID].data.attributes
-      : null;
+  const currentOrderStatus = orders
+    ? orders.filter((item) => item.id == orderID)[0].attributes
+    : null;
 
   const crrShoesPickedUp = currentOrderStatus
     ? currentOrderStatus.shoes_picked_up
