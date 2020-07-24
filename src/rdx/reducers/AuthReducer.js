@@ -1,5 +1,5 @@
 import * as types from '../actions/types';
-// import { REHYDRATE } from 'redux-persist/lib/constants';
+import { REHYDRATE } from 'redux-persist/lib/constants';
 
 const initialAuthState = {
   data: null,
@@ -12,10 +12,15 @@ const initialAuthState = {
 
 const authReducer = (state = initialAuthState, action) => {
   switch (action.type) {
-    // case REHYDRATE:
-    //   return {
-    //     ...state,
-    //   };
+    case REHYDRATE:
+      return {
+        ...state,
+        data: null,
+        errorMessage: null,
+        signupMessage: null,
+        status: 'Logged out',
+        redirect: false,
+      };
     case types.LOGIN_SUCCESS:
       return {
         ...state,

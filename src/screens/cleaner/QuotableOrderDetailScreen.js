@@ -16,6 +16,7 @@ import * as actions from '../../rdx/actions';
 const QuotableOrderDetailScreen = ({
   route,
   addQuoteWatcher,
+  loadQuotedOrderWatcher,
   cleaner,
   navigation,
 }) => {
@@ -77,19 +78,34 @@ const QuotableOrderDetailScreen = ({
         delivery_by: completeDate,
       },
     });
+    loadQuotedOrderWatcher();
     navigation.navigate('Orders In Area');
   };
+
+  const quotedOrder = cleaner.quotedOrders
+    ? cleaner.quotedOrders.filter((item) => item.id == orderID)
+    : null;
+
+  console.log(quotedOrder);
 
   return (
     <ScrollViewContailner>
       {ShoePhoto(item.attributes.image_url)}
       <CenterText>Client Order Details</CenterText>
       <InfoContainer>
-        <TitelText>Time Frame: </TitelText>
-        <InfoText>{item.attributes.time_frame}</InfoText>
+        <TitelText>
+          Order Id: <InfoText> {orderID}</InfoText>
+        </TitelText>
+
+        <TitelText>
+          Time Frame: <InfoText> {item.attributes.time_frame}</InfoText>
+        </TitelText>
+
         <TitelText>Shoe Types: </TitelText>
         {item.attributes.shoe_types.map((i) => (
-          <InfoText key={i}>| {i}</InfoText>
+          <InfoText key={i}>
+            | {i.charAt(0) + i.slice(1).toLowerCase()}
+          </InfoText>
         ))}
         <TitelText>Additional Services: </TitelText>
         {item.attributes.add_ons.polish ? (
@@ -117,15 +133,17 @@ const QuotableOrderDetailScreen = ({
       {cleaner.quotedStatus[item.id] !== undefined &&
       cleaner.quotedStatus[item.id][cleanerID] == 'Requested' ? (
         <>
-          <QuoteContainer>
-            <CenterText>Quote has been successfully requested.</CenterText>
-            {/* <TitelText>Quoted Price: </TitelText>
+          <StatusContainer>
+            <StatusText>Quote has been successfully requested.</StatusText>
+          </StatusContainer>
+          <InfoContainer>
+            <TitelText>Quoted Price: </TitelText>
             <InfoText>{quotedPrice}</InfoText>
             <TitelText>Quote Expired At: </TitelText>
             <InfoText>{formatDateTime(expireDate)}</InfoText>
             <TitelText>Returned By:</TitelText>
-            <InfoText>{formatDate(completeDate)}</InfoText> */}
-          </QuoteContainer>
+            <InfoText>{formatDate(completeDate)}</InfoText>
+          </InfoContainer>
         </>
       ) : (
         <>
@@ -133,7 +151,7 @@ const QuotableOrderDetailScreen = ({
             <CenterText>Create a Quote</CenterText>
             <Input
               label="Quoted Price"
-              labelStyle={{ fontSize: 20, color: '#939393' }}
+              labelStyle={{ marginTop: 20, fontSize: 20, color: '#939393' }}
               leftIcon={
                 <FontAwesome
                   name="dollar"
@@ -200,7 +218,7 @@ const QuotableOrderDetailScreen = ({
                 />
               )}
             </DatePickerContainer>
-            <UniversalButton title={'SUBMIT'} width={330} onPress={onSubmit} />
+            <UniversalButton title={'SUBMIT'} width={275} onPress={onSubmit} />
           </QuoteContainer>
         </>
       )}
@@ -208,25 +226,20 @@ const QuotableOrderDetailScreen = ({
   );
 };
 
-const Container = styled.View`
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
-
 const InfoContainer = styled.View`
   justify-content: flex-start;
   align-items: flex-start;
   padding: 20px;
+  margin-left: 20px;
 `;
 
 const CenterText = styled.Text`
   font-family: Raleway-Bold;
+  color: #8e1818;
   font-size: 22px;
   text-align: center;
-  padding-bottom: 30px;
-  color: #8e1818;
+  height: 60px;
+  padding: 20px;
 `;
 
 const TitelText = styled.Text`
@@ -241,15 +254,6 @@ const InfoText = styled.Text`
   margin-bottom: 5px;
   margin-left: 20px;
 `;
-
-// const TitleText = styled.Text`
-//   font-size: 22px;
-//   font-weight: 600;
-//   margin: 0px 40px 50px 40px;
-//   padding: 15px;
-//   text-align: center;
-//   background-color: #cbb387;
-// `;
 
 const ListText = styled.Text`
   font-size: 20px;
@@ -275,41 +279,9 @@ const DatePickerText = styled.Text`
   margin-left: 12px;
 `;
 
-const SwitchTextContainer = styled.View`
-  margin-right: 90px;
-`;
-
-const SwitchText = styled.Text`
-  text-align: left;
-  margin: 15px 0px 0px 20px;
-  color: black;
-  font-size: 18px;
-`;
-
-const SwitchContainer = styled.View`
-  margin-top: 40px;
-  padding-top: 10px;
-`;
-
-const PriceContianer = styled.View`
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
-
-const PriceTextContainer = styled.View`
-  margin-right: 110px;
-  justify-content: center;
-`;
-
-const PriceText = styled.Text`
-  margin-left: 20px;
-  padding-left: 10px;
-  color: black;
-  font-size: 18px;
-`;
-
 const QuoteContainer = styled.View`
-  padding: 30px 20px 50px 20px;
+  padding: 0px 20px 50px 20px;
+  margin: 0px 10px 10px 10px;
 `;
 
 const DatePickerContainer = styled.View`
@@ -319,12 +291,18 @@ const DatePickerContainer = styled.View`
   margin-bottom: 25px;
 `;
 
+const StatusContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  margin: 10px 10px 10px 10px;
+`;
+
 const StatusText = styled.Text`
+  font-family: Raleway-Bold;
   text-align: center;
   color: #8e1818;
   font-size: 20px;
-  font-weight: 600;
-  margin: 20px 10px 50px 10px;
+  margin: 20px;
 `;
 
 QuotableOrderDetailScreen.propTypes = {
@@ -332,6 +310,7 @@ QuotableOrderDetailScreen.propTypes = {
   orders: PropTypes.array,
   cleaner: PropTypes.object,
   addQuoteWatcher: PropTypes.func,
+  loadQuotedOrderWatcher: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
