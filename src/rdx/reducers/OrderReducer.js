@@ -23,6 +23,7 @@ const orderReducer = (state = initialOrdersState, action) => {
       return {
         ...state,
         orders: [],
+        selectedOrder: null,
       };
     case types.PUBLISH_ORDER_SUCCESS:
       return {
@@ -136,6 +137,7 @@ const orderReducer = (state = initialOrdersState, action) => {
           return item;
         }),
       };
+
     default:
       return state;
   }

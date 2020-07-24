@@ -29,7 +29,9 @@ const SignInScreen = ({ loginWatcher, users, setWrongError }) => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    setWrongError();
+    if (errorMessage !== null) {
+      setWrongError();
+    }
   }, [email, password]);
 
   const onSubmit = () => {
