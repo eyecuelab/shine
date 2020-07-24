@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Dimensions, Text, Modal } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../rdx/actions';
@@ -16,6 +16,10 @@ const HomeScreen = ({ orders, users, getOrderByIdWatcher }) => {
   const navigation = useNavigation();
 
   const [modalVisible, setModalVisible] = React.useState(false);
+
+  useEffect(() => {
+    actions.loadOrders();
+  }, []);
 
   const handleClick = (item) => {
     getOrderByIdWatcher(item.id);

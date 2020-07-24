@@ -1,11 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
+import { setStatus } from '../../rdx/actions';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
 const ListItem = ({ order }) => {
+  console.log('ORDER', order.attributes.shoes_picked_up);
+  const [status, setStatus] = useState('');
+  const info = order.attributes;
+
+  useEffect(() => {
+    getStatus();
+  }, []);
+  console.log(info);
+  const getStatus = () => {
+    if (info.dropped_off) {
+      setStatus('Complete');
+    } else if (info.request_payment) {
+      setStatus('Payment Requested');
+    } else if (info.shoes_polished) {
+      setStatus('Polished');
+    } else if (info.shoes_cleaned) {
+      setStatus('Cleaned');
+    } else if (info.shoes_picked_up) {
+      setStatus('Picked Up');
+    } else if (info.quote_accepted_at !== null) {
+      setStatus('In Progress');
+    } else {
+      setStatus('');
+    }
+  };
+
   return order.attributes.image_url === null ? (
     <Image
       // eslint-disable-next-line no-undef
@@ -16,7 +43,7 @@ const ListItem = ({ order }) => {
       source={{ uri: order.attributes.image_url }}
       imageStyle={{ borderRadius: 25 }}
     >
-      <StatusText>STATUS</StatusText>
+      <StatusText>{status}</StatusText>
     </ImageArea>
   );
 };
