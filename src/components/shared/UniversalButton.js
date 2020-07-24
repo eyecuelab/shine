@@ -7,9 +7,10 @@ const UniversalButton = ({ title, onPress, width }) => {
     <Button
       title={title}
       containerStyle={{ paddingTop: 20, width: width }}
-      titleStyle={{ fontFamily: 'Marison-Sans-Round' }}
+      titleStyle={{ fontFamily: 'Marison-Sans-Round', fontSize: 16 }}
       buttonStyle={{
         backgroundColor: '#4a4a4a',
+
         height: 40,
         paddingTop: 12,
         borderRadius: 20,

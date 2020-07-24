@@ -40,7 +40,6 @@ const Container = styled.View`
 const ImageArea = styled.View`
   width: 275px;
   height: 275px;
-  margin-bottom: 10px;
 `;
 
 const Image = styled.Image`

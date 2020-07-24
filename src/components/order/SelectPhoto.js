@@ -24,12 +24,12 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
     <Container>
       <UniversalButton
         title={'UPLOAD PHOTO'}
-        width={350}
+        width={325}
         onPress={() => PickImage({ setImage: setImage })}
       />
       <UniversalButton
         title={'TAKE A PHOTO'}
-        width={350}
+        width={325}
         onPress={() => TakePhoto({ setImage: setImage })}
       />
     </Container>
@@ -39,12 +39,12 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
       <LoadedContainer>
         <UniversalButton
           title={'CHANGE PHOTO'}
-          width={350}
+          width={275}
           onPress={() => setImage('empty.img')}
         />
         <UniversalButton
           title={'CONTINUE'}
-          width={350}
+          width={275}
           onPress={() => {
             jumpTo('second');
           }}

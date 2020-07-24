@@ -111,7 +111,7 @@ const OrderSpecs = ({
         </SliderContainer>
         <UniversalButton
           title={'CONTINUE'}
-          width={350}
+          width={275}
           onPress={() => {
             jumpTo('third');
           }}

@@ -16,18 +16,16 @@ const CleanerOptionScreen = ({ navigation }) => {
           <Image source={require('../../../assets/images/logo-outline.png')} />
         </ImageArea>
         <UniversalButton
-          title={'APPLY TO BE A CLEANER'}
-          width={275}
+          title={'APPLY'}
+          width={230}
           onPress={() => navigation.navigate('Cleaner Application')}
         />
 
-        <Text>
-          ALREADY A CLEANER?{' '}
-          <TextLink onPress={() => navigation.navigate('Log in')}>
-            {' '}
-            Log in
-          </TextLink>
-        </Text>
+        <Text>ALREADY A CLEANER? </Text>
+        <TextLink onPress={() => navigation.navigate('Log in')}>
+          {' '}
+          LOG IN
+        </TextLink>
       </Container>
     </>
   );
@@ -51,16 +49,18 @@ const Image = styled.Image`
 `;
 
 const Text = styled.Text`
-  font-family: Raleway-Regular
+  font-family: Raleway-Medium
   text-align: center;
   width: 250px
-  color: black;
+  color: #4a4a4a;
   font-size: 15px;
   margin-top: 20px;
 `;
 
 const TextLink = styled.Text`
+  margin-top: 5px;
   color: #cbb387;
+  font-size: 16px;
   font-family: 'Raleway-Bold';
 `;
 

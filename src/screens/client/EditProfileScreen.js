@@ -248,8 +248,8 @@ const EditProfileScreen = ({
                 </ErrorTextContainer>
               ) : null}
               <UniversalButton
-                title={'SUBMIT'}
-                width={280}
+                title={'UPDATE'}
+                width={175}
                 onPress={onSubmit}
               />
             </InnerContainer>
