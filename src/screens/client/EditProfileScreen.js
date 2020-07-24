@@ -141,7 +141,7 @@ const EditProfileScreen = ({
               <ModalContainer>
                 <ModalView>
                   <ModalItem>
-                    <Text>Choose a profile image using your:</Text>
+                    <Text>Choose Profile Image Source</Text>
                   </ModalItem>
 
                   <ModalItem
@@ -343,12 +343,12 @@ const BlueText = styled.Text`
   font-size: 16px;
   font-weight: 600;
   margin-right: 10px;
-  color: #3483eb;
+  color: #CBB387;
 `;
 
 const Text = styled.Text`
   font-family: Raleway-Medium
-  font-size: 16px;
+  font-size: 15px;
   margin-right: 10px;
 `;
 

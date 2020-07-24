@@ -6,12 +6,13 @@ const UniversalButton = ({ title, onPress, width }) => {
   return (
     <Button
       title={title}
-      containerStyle={{ paddingVertical: 20, width: width }}
-      titleStyle={{ fontFamily: 'Raleway-Bold' }}
+      containerStyle={{ paddingTop: 20, width: width }}
+      titleStyle={{ fontFamily: 'Marison-Sans-Round' }}
       buttonStyle={{
         backgroundColor: '#4a4a4a',
-        height: 50,
-        borderRadius: 7,
+        height: 40,
+        paddingTop: 12,
+        borderRadius: 20,
       }}
       onPress={onPress}
     />

@@ -56,6 +56,11 @@ const SignInScreen = ({ loginWatcher, users, setWrongError }) => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Container>
+            {/* <ImageArea>
+              <Image
+                source={require('../../../assets/images/logo-outline.png')}
+              />
+            </ImageArea> */}
             <TextInput
               placeholder="Email"
               returnKeyType="next"
@@ -94,13 +99,13 @@ const SignInScreen = ({ loginWatcher, users, setWrongError }) => {
 
             <Button
               title="Sign In"
-              containerStyle={{ paddingTop: 20, width: 300 }}
-              titleStyle={{ fontFamily: 'Raleway-Bold' }}
+              containerStyle={{ paddingTop: 50, width: 225 }}
+              titleStyle={{ fontFamily: 'Marison-Sans-Round' }}
               buttonStyle={{
                 backgroundColor: '#4a4a4a',
-                height: 50,
-
-                borderRadius: 7,
+                height: 40,
+                paddingTop: 12,
+                borderRadius: 20,
               }}
               onPress={onSubmit}
             />
