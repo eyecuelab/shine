@@ -25,7 +25,7 @@ const CompletedOrdersScreen = ({ cleaner, navigation }) => {
           ))
         ) : (
           <TextContainer>
-            <Text>There are no completed quote yet.</Text>
+            <Text>There are no completed orders yet.</Text>
           </TextContainer>
         )}
       </Container>

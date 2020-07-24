@@ -9,6 +9,7 @@ const initialCleanerState = {
   completedOrders: null,
   errorMessage: null,
   quotedStatus: {},
+  quoteInfo: {},
 };
 
 const cleanerReducer = (state = initialCleanerState, action) => {
@@ -90,6 +91,15 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         },
         errorMessage: null,
       };
+    case types.SET_QUOTE_INFO:
+      return {
+        ...state,
+        quoteInfo: {
+          ...state.quoteInfo,
+          [action.payload.orderID]: action.payload.quote,
+        },
+      };
+
     case types.POST_QUOTE_ERROR:
       return {
         ...state,

@@ -19,6 +19,7 @@ const QuotableOrderDetailScreen = ({
   loadQuotedOrderWatcher,
   cleaner,
   navigation,
+  quotedOrderInfo,
 }) => {
   const item = route.params;
 
@@ -70,6 +71,14 @@ const QuotableOrderDetailScreen = ({
   };
 
   const onSubmit = () => {
+    quotedOrderInfo({
+      orderID: orderID,
+      quote: {
+        quoted_price: quotedPrice,
+        expires_at: expireDate,
+        delivery_by: completeDate,
+      },
+    });
     addQuoteWatcher({
       orderID: orderID,
       quote: {
@@ -78,15 +87,11 @@ const QuotableOrderDetailScreen = ({
         delivery_by: completeDate,
       },
     });
-    loadQuotedOrderWatcher();
     navigation.navigate('Orders In Area');
   };
 
-  const quotedOrder = cleaner.quotedOrders
-    ? cleaner.quotedOrders.filter((item) => item.id == orderID)
-    : null;
-
-  console.log(quotedOrder);
+  const quoteInfo = cleaner.quoteInfo ? cleaner.quoteInfo[orderID] : null;
+  console.log(quoteInfo);
 
   return (
     <ScrollViewContailner>
@@ -138,11 +143,11 @@ const QuotableOrderDetailScreen = ({
           </StatusContainer>
           <InfoContainer>
             <TitelText>Quoted Price: </TitelText>
-            <InfoText>{quotedPrice}</InfoText>
+            <InfoText>{quoteInfo.quoted_price}</InfoText>
             <TitelText>Quote Expired At: </TitelText>
-            <InfoText>{formatDateTime(expireDate)}</InfoText>
+            <InfoText>{formatDateTime(quoteInfo.expires_at)}</InfoText>
             <TitelText>Returned By:</TitelText>
-            <InfoText>{formatDate(completeDate)}</InfoText>
+            <InfoText>{formatDate(quoteInfo.delivery_by)}</InfoText>
           </InfoContainer>
         </>
       ) : (
@@ -218,8 +223,10 @@ const QuotableOrderDetailScreen = ({
                 />
               )}
             </DatePickerContainer>
-            <UniversalButton title={'SUBMIT'} width={275} onPress={onSubmit} />
           </QuoteContainer>
+          <ButtonContainer>
+            <UniversalButton title={'SUBMIT'} width={275} onPress={onSubmit} />
+          </ButtonContainer>
         </>
       )}
     </ScrollViewContailner>
@@ -280,8 +287,8 @@ const DatePickerText = styled.Text`
 `;
 
 const QuoteContainer = styled.View`
-  padding: 0px 20px 50px 20px;
-  margin: 0px 10px 10px 10px;
+  padding: 0px 20px 0px 20px;
+  margin: 0px 10px 0px 10px;
 `;
 
 const DatePickerContainer = styled.View`
@@ -305,12 +312,19 @@ const StatusText = styled.Text`
   margin: 20px;
 `;
 
+const ButtonContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+`;
+
 QuotableOrderDetailScreen.propTypes = {
   navigation: PropTypes.object,
   orders: PropTypes.array,
   cleaner: PropTypes.object,
   addQuoteWatcher: PropTypes.func,
   loadQuotedOrderWatcher: PropTypes.func,
+  quotedOrderInfo: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-// import { Button } from 'react-native-elements';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
@@ -17,8 +16,12 @@ const InProgressOrderDetailScreen = ({
 }) => {
   const item = route.params;
   const orderId = item.id;
-  const currentOrderStatus = orders
-    ? orders.filter((item) => item.id == orderId)[0].attributes
+  const imageUrl = item.attributes ? item.attributes.image_url : null;
+  const currentOrder = orders
+    ? orders.filter((item) => item.id == orderId)[0]
+    : null;
+  const currentOrderStatus = currentOrder.attributes
+    ? currentOrder.attributes
     : null;
 
   const [shoesPickedUp, setShoesPickedUp] = useState(
@@ -74,7 +77,7 @@ const InProgressOrderDetailScreen = ({
 
   return (
     <ScrollViewContailner>
-      {ShoePhoto(item.attributes.image_url)}
+      {ShoePhoto(imageUrl)}
       <Container>
         <InfoText>Order Id: {item.id}</InfoText>
 
