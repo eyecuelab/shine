@@ -227,6 +227,18 @@ export const setWrongError = () => {
   };
 };
 
+export const setConfirmationStatus = () => {
+  return {
+    type: types.SET_CONFIRMATION_STATUS,
+  };
+};
+
+export const setRedirect = () => {
+  return {
+    type: types.SET_REDIRECT,
+  };
+};
+
 // ====== CLEANERS ACTION CREATORS ======= //
 
 export const loadCleaner = (payload) => {

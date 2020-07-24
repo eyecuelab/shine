@@ -208,10 +208,11 @@ const Container = styled.View`
 `;
 
 const Text = styled.Text`
-  margin-top: 10px;
+  font-family: Raleway-Bold;
+  margin-top: 20px;
   padding-bottom: 10px;
   color: #42413c;
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 const SwitchTextContainer = styled.View`

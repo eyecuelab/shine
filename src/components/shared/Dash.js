@@ -16,7 +16,7 @@ const DashedLine = () => {
 const Container = styled.View`
   align-items: center;
   justify-content: center;
-  padding-vertical: 30px;
+  padding-vertical: 20px;
 `;
 
 export default DashedLine;

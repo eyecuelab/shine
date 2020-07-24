@@ -8,6 +8,7 @@ import OrderFinalScreen from '../../screens/client/OrderFinalScreen';
 import OrderStatusScreen from '../../screens/client/OrderStatusScreen';
 import OrderConfrimScreen from '../../screens/client/OrderConfirmScreen';
 import WelcomeScreen from '../../screens/shared/WelcomeScreen';
+import SignInScreen from '../../screens/shared/SignInScreen';
 
 const HomeStack = createStackNavigator();
 
@@ -40,7 +41,7 @@ const HomeStackNavigator = () => {
       <HomeStack.Screen
         name="OrderDetail"
         component={OrderDetailScreen}
-        options={{ title: '' }}
+        options={{ title: 'ADD ONS' }}
       />
       <HomeStack.Screen
         name="OrderFinal"
@@ -58,10 +59,20 @@ const HomeStackNavigator = () => {
         options={{ title: 'ORDER STATUS' }}
       />
       <HomeStack.Screen
+        name="LogIn"
+        component={SignInScreen}
+        Options={{ title: 'SIGN IN' }}
+      />
+      <HomeStack.Screen
         name="Welcome"
         component={WelcomeScreen}
         options={{ title: 'PROFILE' }}
       />
+      {/* <HomeStack.Screen
+        name="Profile"
+        component={NewOrderScreen}
+        options={{ title: 'NEW ORDER' }}
+      /> */}
     </HomeStack.Navigator>
   );
 };
