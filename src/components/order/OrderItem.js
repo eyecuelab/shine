@@ -32,6 +32,7 @@ const ListItem = ({ order }) => {
       setStatus('');
     }
   };
+  console.log(status.length);
 
   return order.attributes.image_url === null ? (
     <Image
@@ -43,7 +44,7 @@ const ListItem = ({ order }) => {
       source={{ uri: order.attributes.image_url }}
       imageStyle={{ borderRadius: 25 }}
     >
-      <StatusText>{status}</StatusText>
+      {status.length !== 0 ? <StatusText>{status}</StatusText> : null}
     </ImageArea>
   );
 };
