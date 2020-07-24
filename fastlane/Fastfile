@@ -16,9 +16,8 @@ platform :ios do |options|
   lane :beta do
     sh('./publish_expo.sh')
 
-    # CHANGELOG = "Git Commits Since last Release:\n-------------------------------\n\n" + changelog_from_git_commits(pretty: "- %s")
-    # set_changelog(changelog: CHANGELOG)
-    upload_to_testflight(ipa: "build/app.ipa")
+    CHANGELOG = "Git Commits Since last Release:\n-------------------------------\n\n" + changelog_from_git_commits(pretty: "- %s")
+    upload_to_testflight(ipa: "build/app.ipa", distribute_external: true, changelog: CHANGELOG)
   
     git_commit(path: "app.json", message: "Deploy to App Store Connect: " + FULL_VERSION)
     add_git_tag(tag: FULL_VERSION)
