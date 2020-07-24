@@ -11,56 +11,38 @@ import UniversalButton from '../../components/shared/UniversalButton';
 const InProgressOrderDetailScreen = ({
   route,
   updateOrderWatcher,
-  orderStatus,
+  quoteInfo,
   orders,
+  cleaner,
 }) => {
   const item = route.params;
   const orderId = item.id;
   const imageUrl = item.attributes ? item.attributes.image_url : null;
-  const currentOrder = orders
-    ? orders.filter((item) => item.id == orderId)[0]
-    : null;
-  const currentOrderStatus = currentOrder.attributes
-    ? currentOrder.attributes
+  const currentOrderStatus = cleaner.inProgressOrders
+    ? cleaner.inProgressOrders[orderId].data.attributes
     : null;
 
-  const [shoesPickedUp, setShoesPickedUp] = useState(
-    !currentOrderStatus.shoes_picked_up
-      ? false
-      : currentOrderStatus.shoes_picked_up,
-  );
-  const [shoesCleaned, setShoesCleaned] = useState(
-    !currentOrderStatus.shoes_cleaned
-      ? false
-      : currentOrderStatus.shoes_cleaned,
-  );
-  const [shoesPolished, setShoesPolished] = useState(
-    !currentOrderStatus.shoes_polished
-      ? false
-      : currentOrderStatus.shoes_polished,
-  );
-  const [requestPayment, setRequestPayment] = useState(
-    !currentOrderStatus.request_payment
-      ? false
-      : currentOrderStatus.request_payment,
-  );
-  const [shoesDroppedOff, setShoesDroppedOff] = useState(
-    !currentOrderStatus.shoes_dropped_off
-      ? false
-      : currentOrderStatus.shoes_dropped_off,
-  );
+  const crrShoesPickedUp = currentOrderStatus
+    ? currentOrderStatus.shoes_picked_up
+    : false;
+  const crrShoesCleaned = currentOrderStatus
+    ? currentOrderStatus.shoes_cleaned
+    : false;
+  const crrShoesPolished = currentOrderStatus
+    ? currentOrderStatus.shoes_polished
+    : false;
+  const crrRequestPayment = currentOrderStatus
+    ? currentOrderStatus.request_payment
+    : false;
+  const crrShoesDroppedOff = currentOrderStatus
+    ? currentOrderStatus.shoes_dropped_off
+    : false;
 
-  // const statusMessage = shoesPickedUp
-  //   ? shoesCleaned
-  //     ? shoesPolished
-  //       ? requestPayment
-  //         ? shoesDroppedOff
-  //           ? 'Completed Order Process'
-  //           : 'Requested Payment to the client'
-  //         : 'Sent message to the client "Shoe Polished"'
-  //       : 'Sent message to the client "Shoe Cleaned"'
-  //     : 'Sent message to the client "Shoe Picked Up"'
-  //   : null;
+  const [shoesPickedUp, setShoesPickedUp] = useState(crrShoesPickedUp);
+  const [shoesCleaned, setShoesCleaned] = useState(crrShoesCleaned);
+  const [shoesPolished, setShoesPolished] = useState(crrShoesPolished);
+  const [requestPayment, setRequestPayment] = useState(crrRequestPayment);
+  const [shoesDroppedOff, setShoesDroppedOff] = useState(crrShoesDroppedOff);
 
   const onSubmit = () => {
     updateOrderWatcher({
@@ -79,7 +61,7 @@ const InProgressOrderDetailScreen = ({
     <ScrollViewContailner>
       {ShoePhoto(imageUrl)}
       <Container>
-        <InfoText>Order Id: {item.id}</InfoText>
+        <InfoText>Order Id: {orderId}</InfoText>
 
         <SwitchTextContainer>
           <SwitchText>SHOES PICKED UP</SwitchText>
@@ -172,7 +154,7 @@ const mapStateToProps = (state) => {
   return {
     orders: state.orders.orders,
     cleaner: state.cleaner,
-    orderStatus: state.orders.orderStatus,
+    quoteInfo: state.cleaner.quoteInfo,
   };
 };
 

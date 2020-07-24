@@ -19,8 +19,10 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         ...state,
         data: null,
         errorMessage: null,
-        inProgressOrders: null,
         completedOrders: null,
+        inProgressOrders: state.inProgressOrders,
+        quotedStatus: state.quotedStatus,
+        quoteInfo: state.quoteInfo,
       };
     case types.LOAD_CLEANER:
       return {
@@ -32,6 +34,8 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         quotableOrders: state.quotableOrders,
         quotedOrders: state.quotedOrders,
         inProgressOrders: state.inProgressOrders,
+        quotedStatus: state.quotedStatus,
+        quoteInfo: state.quoteInfo,
         errorMessage: null,
       };
     case types.LOGOUT_SUCCESS:
@@ -39,7 +43,6 @@ const cleanerReducer = (state = initialCleanerState, action) => {
         ...state,
         data: null,
         errorMessage: null,
-        inProgressOrders: null,
         completedOrders: null,
       };
 
