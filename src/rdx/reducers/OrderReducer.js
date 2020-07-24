@@ -4,7 +4,7 @@ import * as types from '../actions/types';
 const initialOrdersState = {
   orders: [],
   selectedOrder: null,
-  orderStatus: null,
+  // orderStatus: null,
 };
 
 const orderReducer = (state = initialOrdersState, action) => {
@@ -61,12 +61,26 @@ const orderReducer = (state = initialOrdersState, action) => {
         }),
       };
     case types.UPDATE_ORDER_BY_CLEANER_SUCCESS:
+      console.log(action.payload);
       return {
         ...state,
-        orderStatus: {
-          ...state.orderStatus,
-          [action.payload.orderID]: action.payload.status,
-        },
+        orders: state.orders.map((item) => {
+          if (
+            item.attributes.uuid === action.payload.data.data.attributes.uuid
+          ) {
+            return {
+              type: action.payload.data.data.type,
+              id: action.payload.data.data.id,
+              links: action.payload.data.links,
+              attributes: action.payload.data.data.attributes,
+            };
+          }
+          return item;
+        }),
+        // orderStatus: {
+        //   ...state.orderStatus,
+        //   [action.payload.orderID]: action.payload.data,
+        // },
       };
     // case types.ADD_ORDER:
     //   return [
