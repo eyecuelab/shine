@@ -14,7 +14,7 @@ const options = {
 
 const config = {
   keyPrefix: 's3/',
-  bucket: 'shoeshine-dev-drake',
+  bucket: 'shoeshine-dev',
   region: 'us-west-2',
   accessKey: AWSAccessKeyId,
   secretKey: AWSSecretKey,
