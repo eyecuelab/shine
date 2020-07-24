@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
-import { Platform, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
-import { FontAwesome } from '@expo/vector-icons';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import ScrollViewContailner from '../../components/shared/ScrollViewContainer';
 import ShoePhoto from '../../components/shared/ShoePhoto';
 import AddOnSwitch from '../../components/order/AddOnSwitch';
-import DashedLine from '../../components/shared/Dash';
-import PriceTagBlack from '../../components/shared/PriceTagBlack';
-import { formatDate, formatDateTime } from '../../components/shared/FormatDate';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import * as actions from '../../rdx/actions';
@@ -42,6 +36,19 @@ const InProgressOrderDetailScreen = ({
   const crrShoesDroppedOff = currentOrderStatus
     ? currentOrderStatus.shoes_dropped_off
     : false;
+
+  const statusMessage = crrShoesPickedUp
+    ? crrShoesCleaned
+      ? crrShoesPolished
+        ? crrRequestPayment
+          ? crrShoesDroppedOff
+            ? 'Completed Order Process'
+            : 'Requested Payment to the client'
+          : 'Sent message to the client "Shoe Polished"'
+        : 'Sent message to the client "Shoe Cleaned"'
+      : 'Sent message to the client "Shoe Picked Up"'
+    : null;
+  console.log(statusMessage);
 
   const [shoesPickedUp, setShoesPickedUp] = useState(crrShoesPickedUp);
   const [shoesCleaned, setShoesCleaned] = useState(crrShoesCleaned);
@@ -102,6 +109,7 @@ const InProgressOrderDetailScreen = ({
             setSwitchState={setShoesDroppedOff}
           />
         </SwitchContainer>
+        <StatusText>{statusMessage}</StatusText>
 
         <Button
           title="SUBMIT"
@@ -128,8 +136,16 @@ const Container = styled.View`
 const InfoText = styled.Text`
   font-family: Raleway-Medium;
   font-size: 20px;
-  margin-bottom: 20px;
-  margin-left: 30px;
+  text-align: center;
+`;
+
+const StatusText = styled.Text`
+  font-family: Raleway-Medium;
+  font-size: 18px;
+  margin: 30px;
+  padding-horizontal: 20px;
+  text-align: center;
+  color: #8e1818;
 `;
 
 const SwitchTextContainer = styled.View`

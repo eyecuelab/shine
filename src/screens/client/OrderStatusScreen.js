@@ -18,7 +18,6 @@ const { height: HEIGHT } = Dimensions.get('window');
 const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
   const route = useRoute();
   const item = route.params;
-  // const addOns = item.attributes.add_ons;
   const imageUrl = item.attributes.image_url;
 
   const cleaner =
