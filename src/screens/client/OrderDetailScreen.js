@@ -20,7 +20,7 @@ import _ from 'lodash';
 
 const { width } = Dimensions.get('window');
 
-const OrderDetailScreen = ({ navigation, postOrder, users }) => {
+const OrderDetailScreen = ({ navigation, postOrder, users, userInfo }) => {
   const route = useRoute();
   const item = route.params;
 
@@ -60,10 +60,10 @@ const OrderDetailScreen = ({ navigation, postOrder, users }) => {
   const [rainProtection, setRainProtection] = useState(false);
   const [replaceLaces, setReplaceLaces] = useState(false);
 
-  const [street, setStreet] = useState('');
-  const [city, setCity] = useState('');
-  const [locState, setLocState] = useState('');
-  const [postalCode, setPostalCode] = useState('');
+  const [street, setStreet] = useState(userInfo.street_address);
+  const [city, setCity] = useState(userInfo.city);
+  const [locState, setLocState] = useState(userInfo.state);
+  const [postalCode, setPostalCode] = useState(userInfo.postal_code);
 
   const inputEl2 = useRef(null);
   const inputEl3 = useRef(null);
@@ -93,6 +93,10 @@ const OrderDetailScreen = ({ navigation, postOrder, users }) => {
       navigation.navigate('Welcome');
     }
   };
+
+  const inputE12 = React.useRef(null);
+  const inputE13 = React.useRef(null);
+  const inputE14 = React.useRef(null);
 
   return (
     <ScrollViewContailner>
@@ -173,13 +177,13 @@ const OrderDetailScreen = ({ navigation, postOrder, users }) => {
             returnKeyType="done"
             onChangeText={(text) => setPostalCode(text)}
             value={postalCode}
-            onSubmitEditing={() => inputEl5.current.focus()}
+            // onSubmitEditing={() => inputE15.current.focus()}
           />
 
           <DashedLine />
           <UniversalButton
-            title={'START A CLEANING REQUEST'}
-            width={350}
+            title={'REQUEST QUOTES'}
+            width={275}
             onPress={handleSubmit}
           />
         </Container>
@@ -256,10 +260,15 @@ OrderDetailScreen.propTypes = {
   publishOrder: PropTypes.func,
   requestComplete: PropTypes.func,
   orders: PropTypes.array,
+  users: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
-  return { orders: state.orders.orders, users: state.users };
+  return {
+    orders: state.orders.orders,
+    users: state.users,
+    userInfo: state.users.data.included[0].attributes,
+  };
 };
 
 export default connect(mapStateToProps, actions)(OrderDetailScreen);
