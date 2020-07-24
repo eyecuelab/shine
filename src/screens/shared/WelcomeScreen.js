@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-undef */
 import React from 'react';
 import { connect } from 'react-redux';
@@ -19,14 +20,12 @@ const WelcomeScreen = ({ navigation, setConfirmationStatus }) => {
       </ImageArea>
       <UniversalButton
         title={'SIGN IN'}
-        width={275}
+        width={225}
         onPress={() => navigation.navigate('LogIn')}
       />
 
-      <Text>
-        DON'T HAVE AN ACCOUNT?{' '}
-        <TextLink onPress={() => onSubmit()}> SIGN UP</TextLink>
-      </Text>
+      <Text>DON'T HAVE AN ACCOUNT? </Text>
+      <TextLink onPress={() => onSubmit()}> SIGN UP</TextLink>
     </Container>
   );
 };
@@ -49,16 +48,19 @@ const Image = styled.Image`
 `;
 
 const Text = styled.Text`
-  color: black;
-  font-family: 'Raleway-Regular';
+  color: #4a4a4a;
+  font-family: 'Raleway-Medium';
+  text-align: center
+  width: 280px;
   margin-top: 20px;
-  font-size: 15px;
+  font-size: 14px;
 `;
 
 const TextLink = styled.Text`
+  margin-top: 5px;
   color: #cbb387;
   font-family: 'Raleway-Bold';
-  font-size: 15px;
+  font-size: 16px;
 `;
 
 WelcomeScreen.propTypes = {

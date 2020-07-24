@@ -4,7 +4,6 @@ import {
   Dimensions,
   TextInput,
   StyleSheet,
-  KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
@@ -19,6 +18,8 @@ import {
   TakePhoto,
 } from '../../components/shared/UploadPhotoFunctions';
 import UniversalButton from '../../components/shared/UniversalButton';
+import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 // import DashedLine from '../../components/shared/Dash';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
@@ -112,8 +113,8 @@ const EditProfileScreen = ({
     }
   };
   return (
-    <>
-      <KeyboardAvoidingView
+    <ScrollViewContainer>
+      <KeyboardAwareScrollView
         behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         style={styles.container}
       >
@@ -141,7 +142,7 @@ const EditProfileScreen = ({
               <ModalContainer>
                 <ModalView>
                   <ModalItem>
-                    <Text>Choose a profile image using your:</Text>
+                    <Text>Choose Profile Image Source</Text>
                   </ModalItem>
 
                   <ModalItem
@@ -248,15 +249,15 @@ const EditProfileScreen = ({
                 </ErrorTextContainer>
               ) : null}
               <UniversalButton
-                title={'SUBMIT'}
-                width={280}
+                title={'UPDATE'}
+                width={175}
                 onPress={onSubmit}
               />
             </InnerContainer>
           </Container>
         </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </>
+      </KeyboardAwareScrollView>
+    </ScrollViewContainer>
   );
 };
 
@@ -343,12 +344,12 @@ const BlueText = styled.Text`
   font-size: 16px;
   font-weight: 600;
   margin-right: 10px;
-  color: #3483eb;
+  color: #CBB387;
 `;
 
 const Text = styled.Text`
   font-family: Raleway-Medium
-  font-size: 16px;
+  font-size: 15px;
   margin-right: 10px;
 `;
 

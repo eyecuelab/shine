@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React, { useState, useRef } from 'react';
-import { Input, Button } from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import { StyleSheet, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
@@ -236,21 +236,15 @@ const CleanerApplicationScreen = ({ cleaner, applyCleanerWatcher }) => {
           </ErrorTextContainer>
         ) : null}
 
-        <UniversalButton title={'APPLY'} onPress={handleSubmit} width={340} />
+        <UniversalButton
+          title={'SUBMIT APPLICATION'}
+          onPress={handleSubmit}
+          width={275}
+        />
       </KeyboardAwareScrollView>
     </ScrollViewContainer>
   );
 };
-
-const ImageArea = styled.View`
-  width: 100px;
-  height: 100px;
-`;
-
-const Image = styled.Image`
-  width: 100%;
-  height: 100%;
-`;
 
 const styles = StyleSheet.create({
   container: {

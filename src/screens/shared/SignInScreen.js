@@ -11,10 +11,10 @@ import {
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
-import { Button } from 'react-native-elements';
 import { Feather } from '@expo/vector-icons';
 import * as actions from '../../rdx/actions';
 import PropTypes from 'prop-types';
+import UniversalButton from '../../components/shared/UniversalButton';
 
 const { width } = Dimensions.get('window');
 
@@ -56,6 +56,11 @@ const SignInScreen = ({ loginWatcher, users, setWrongError }) => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Container>
+            {/* <ImageArea>
+              <Image
+                source={require('../../../assets/images/logo-outline.png')}
+              />
+            </ImageArea> */}
             <TextInput
               placeholder="Email"
               returnKeyType="next"
@@ -92,18 +97,7 @@ const SignInScreen = ({ loginWatcher, users, setWrongError }) => {
               </ErrorTextContainer>
             ) : null}
 
-            <Button
-              title="Sign In"
-              containerStyle={{ paddingTop: 20, width: 300 }}
-              titleStyle={{ fontFamily: 'Raleway-Bold' }}
-              buttonStyle={{
-                backgroundColor: '#4a4a4a',
-                height: 50,
-
-                borderRadius: 7,
-              }}
-              onPress={onSubmit}
-            />
+            <UniversalButton title={'Sign In'} onPress={onSubmit} width={225} />
           </Container>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
@@ -121,8 +115,9 @@ const styles = StyleSheet.create({
     height: 40,
     width: width * 0.85,
     marginVertical: 5,
-    paddingHorizontal: 20,
-    fontSize: 15,
+    // marginBottom: 20,
+    paddingHorizontal: 10,
+    fontSize: 18,
     color: '#161F3D',
   },
 });
