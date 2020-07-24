@@ -15,38 +15,45 @@ import * as actions from '../../rdx/actions';
 
 const { height: HEIGHT } = Dimensions.get('window');
 
-const OrderStatusScreen = ({ navigation, order, orderStatus, orders }) => {
+const OrderStatusScreen = ({ order, orders }) => {
   const route = useRoute();
   const item = route.params;
-  const imageUrl = item.attributes.image_url;
+  const imageUrl = item.attributes ? item.attributes.image_url : null;
 
   const cleaner =
     order && order.included ? order.included[order.included.length - 1] : null;
   const cleanerID = cleaner ? cleaner.id : null;
-  const cleanerAddress = cleaner
-    ? cleaner.attributes.street_address +
-      ' ' +
-      cleaner.attributes.city +
-      ', ' +
-      cleaner.attributes.state +
-      ' ' +
-      cleaner.attributes.postal_code
-    : null;
+  const cleanerAddress =
+    cleaner && cleaner.attributes
+      ? cleaner.attributes.street_address +
+        ' ' +
+        cleaner.attributes.city +
+        ', ' +
+        cleaner.attributes.state +
+        ' ' +
+        cleaner.attributes.postal_code
+      : null;
 
   const quote =
-    order && cleanerID
-      ? order.included.filter(
-          (item) => item.attributes.cleaner_id == cleanerID,
+    order && cleanerID && order.included
+      ? order.included.filter((item) =>
+          item.attributes ? item.attributes.cleaner_id == cleanerID : null,
         )[0]
       : null;
-  const quotedPrice = quote ? quote.attributes.quoted_price : null;
-  const deliveryBy = quote ? formatDate(quote.attributes.delivery_by) : null;
+  const quotedPrice =
+    quote && quote.attributes ? quote.attributes.quoted_price : null;
+  const deliveryBy =
+    quote && quote.attributes ? formatDate(quote.attributes.delivery_by) : null;
 
   const orderID = order ? order.data.id : null;
 
-  const currentOrderStatus = orders
-    ? orders.filter((item) => item.id == orderID)[0].attributes
+  const currentOrder = orders
+    ? orders.filter((item) => (item.attributes ? item.id == orderID : null))[0]
     : null;
+
+  const currentOrderStatus =
+    currentOrder && currentOrder.attributes ? currentOrder.attributes : null;
+  console.log(currentOrderStatus);
 
   return (
     <ScrollViewContailner>
@@ -73,15 +80,25 @@ const OrderStatusScreen = ({ navigation, order, orderStatus, orders }) => {
 
       <InfoContainer>
         <TitelText>Business Name: </TitelText>
-        <InfoText>{cleaner ? cleaner.attributes.business_name : null}</InfoText>
+        <InfoText>
+          {cleaner && cleaner.attributes
+            ? cleaner.attributes.business_name
+            : null}
+        </InfoText>
         <TitelText>Email: </TitelText>
-        <InfoText>{cleaner ? cleaner.attributes.email : null}</InfoText>
+        <InfoText>
+          {cleaner && cleaner.attributes ? cleaner.attributes.email : null}
+        </InfoText>
         <TitelText>Phone: </TitelText>
-        <InfoText>{cleaner ? cleaner.attributes.phone : null}</InfoText>
+        <InfoText>
+          {cleaner && cleaner.attributes ? cleaner.attributes.phone : null}
+        </InfoText>
         {cleaner && cleaner.attributes.bio ? (
           <>
             <TitelText>Bio: </TitelText>
-            <InfoText>{cleaner ? cleaner.attributes.bio : null}</InfoText>
+            <InfoText>
+              {cleaner && cleaner.attributes ? cleaner.attributes.bio : null}
+            </InfoText>
           </>
         ) : null}
       </InfoContainer>
