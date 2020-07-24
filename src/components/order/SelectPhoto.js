@@ -24,12 +24,12 @@ const SelectPhoto = ({ jumpTo, image, setImage }) => {
     <Container>
       <UniversalButton
         title={'UPLOAD PHOTO'}
-        width={325}
+        width={275}
         onPress={() => PickImage({ setImage: setImage })}
       />
       <UniversalButton
         title={'TAKE A PHOTO'}
-        width={325}
+        width={275}
         onPress={() => TakePhoto({ setImage: setImage })}
       />
     </Container>

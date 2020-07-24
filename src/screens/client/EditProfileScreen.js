@@ -4,7 +4,6 @@ import {
   Dimensions,
   TextInput,
   StyleSheet,
-  KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
