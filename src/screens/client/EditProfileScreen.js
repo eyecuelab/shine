@@ -19,6 +19,8 @@ import {
   TakePhoto,
 } from '../../components/shared/UploadPhotoFunctions';
 import UniversalButton from '../../components/shared/UniversalButton';
+import ScrollViewContainer from '../../components/shared/ScrollViewContainer';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 // import DashedLine from '../../components/shared/Dash';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
@@ -112,8 +114,8 @@ const EditProfileScreen = ({
     }
   };
   return (
-    <>
-      <KeyboardAvoidingView
+    <ScrollViewContainer>
+      <KeyboardAwareScrollView
         behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         style={styles.container}
       >
@@ -255,8 +257,8 @@ const EditProfileScreen = ({
             </InnerContainer>
           </Container>
         </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </>
+      </KeyboardAwareScrollView>
+    </ScrollViewContainer>
   );
 };
 
