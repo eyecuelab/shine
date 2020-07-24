@@ -2,12 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
-import { Button } from 'react-native-elements';
 import * as actions from '../../rdx/actions';
 import { connect } from 'react-redux';
 import UniversalButton from '../../components/shared/UniversalButton';
 
-const CleanerOptionScreen = ({ navigation }) => {
+const CleanerOptionScreen = ({ users, navigation }) => {
   // console.log('ORDERS: ', orders);
   return (
     <>
@@ -20,12 +19,15 @@ const CleanerOptionScreen = ({ navigation }) => {
           width={230}
           onPress={() => navigation.navigate('Cleaner Application')}
         />
-
-        <Text>ALREADY A CLEANER? </Text>
-        <TextLink onPress={() => navigation.navigate('Log in')}>
-          {' '}
-          LOG IN
-        </TextLink>
+        {users.status !== 'Logged in' ? (
+          <>
+            <Text>ALREADY A CLEANER? </Text>
+            <TextLink onPress={() => navigation.navigate('Log in')}>
+              {' '}
+              LOG IN
+            </TextLink>
+          </>
+        ) : null}
       </Container>
     </>
   );
@@ -74,6 +76,7 @@ const mapStateToProps = (state) => {
 CleanerOptionScreen.propTypes = {
   navigation: PropTypes.object,
   loadOrders: PropTypes.func,
+  users: PropTypes.object,
 };
 
 export default connect(mapStateToProps, actions)(CleanerOptionScreen);
