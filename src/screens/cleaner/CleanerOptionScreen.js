@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import UniversalButton from '../../components/shared/UniversalButton';
 
 const CleanerOptionScreen = ({ users, navigation }) => {
-  // console.log('ORDERS: ', orders);
   return (
     <>
       <Container>
