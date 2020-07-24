@@ -94,7 +94,7 @@ const OrderFinalScreen = ({
             </InfoContainer>
             <UniversalButton
               title={'PUBLISH'}
-              width={350}
+              width={275}
               onPress={() => setModalVisible(!modalVisible)}
             />
           </>
@@ -157,7 +157,7 @@ const OrderFinalScreen = ({
 
         <UniversalButton
           title={'CANCEL SERVICE'}
-          width={350}
+          width={275}
           onPress={() => setCancelModalVisible(!cancelModalVisible)}
         />
         <Modal
@@ -269,6 +269,7 @@ const InfoContainer = styled.View`
   justify-content: flex-start;
   align-items: flex-start;
   padding: 20px;
+  width: 85%;
 `;
 
 const CenterText = styled.Text`

@@ -241,7 +241,8 @@ const TextBox = styled.Text`
   font-size: 22px;
   text-align: center;
   height: 60px;
-  padding: 20px;
+  margin: 20px 20px 30px 20px;
+  padding-top: 10px;
 `;
 
 const MapArea = styled.Image`
