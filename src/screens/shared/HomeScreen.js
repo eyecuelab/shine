@@ -22,6 +22,12 @@ const HomeScreen = ({ orders, users, getOrderByIdWatcher }) => {
     }
   };
 
+  // const quotedOrders = cleaner.quotedOrders
+  // ? cleaner.quotedOrders.filter(
+  //     (item) => item.attributes.cleaner_id == cleanerID,
+  //   )
+  // : null;
+
   if (orders.length !== 0) {
     return (
       <ScrollViewContainer>

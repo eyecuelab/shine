@@ -15,7 +15,7 @@ import * as actions from '../../rdx/actions';
 
 const { height: HEIGHT } = Dimensions.get('window');
 
-const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
+const OrderStatusScreen = ({ navigation, order, orderStatus, orders }) => {
   const route = useRoute();
   const item = route.params;
   const imageUrl = item.attributes.image_url;
@@ -43,11 +43,10 @@ const OrderStatusScreen = ({ navigation, order, orderStatus }) => {
   const deliveryBy = quote ? formatDate(quote.attributes.delivery_by) : null;
 
   const orderID = order ? order.data.id : null;
-  const currentOrderStatus =
-    orderID && orderStatus && orderStatus[orderID]
-      ? orderStatus[orderID].data.attributes
-      : null;
-  // console.log('STATUS', currentOrderStatus);
+
+  const currentOrderStatus = orders
+    ? orders.filter((item) => item.id == orderID)[0].attributes
+    : null;
 
   return (
     <ScrollViewContailner>
@@ -324,6 +323,7 @@ OrderStatusScreen.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    orders: state.orders.orders,
     order: state.orders.selectedOrder,
     orderStatus: state.orders.orderStatus,
   };
