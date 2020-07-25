@@ -2,7 +2,9 @@
   "expo": {
     "name": "Shine",
     "slug": "shine",
-    "platforms": ["ios"],
+    "platforms": [
+      "ios"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -14,10 +16,12 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "bundleIdentifier": "com.eyecuelab.shine",
-      "buildNumber": "11"
+      "buildNumber": "13"
     },
     "description": "Shine is the 21st century solution to the 1st century problem of dirty shoes.  Shoe Shiners used to be commonplace in America’s cities but while times have changed and technology has advanced the tools available for professional shoe care have been left in the past.\n\nShine was developed by Jieun Kang and Drake Wilcox in partnership with EyeCue Lab as a part of the 2020 EyeCue Lab Summer Internship.",
     "githubUrl": "https://github.com/eyecuelab/shine"
